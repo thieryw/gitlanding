@@ -1,8 +1,9 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["src/index.ts"],
+    "include": ["src/index.tsx"],
     "compilerOptions": {
         "module": "es2015",
-        "outDir": "dist/zz_esm/"
+        "outDir": "dist/zz_esm/",
+        "moduleResolution": "Node"
     }
 }

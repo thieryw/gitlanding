@@ -4,7 +4,7 @@ import * as child_process from "child_process";
 import * as path from "path";
 import { Deferred } from "evt/tools/Deferred";
 
-const names = ["myFunction", "myObject", "getProjectRoot"];
+const names = ["getProjectRoot"];
 
 (async () => {
     if (!!process.env.FORK) {
