@@ -1,20 +1,6 @@
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
-</p>
-<p align="center">
-    <i>A module that generates a homepage for your projects</i>
-    <br>
-    <br>
-    <img src="https://github.com/garronej/homepage-template/workflows/ci/badge.svg?branch=main">
-    <img src="https://img.shields.io/bundlephobia/minzip/homepage-template">
-    <img src="https://img.shields.io/npm/dw/homepage-template">
-    <img src="https://img.shields.io/npm/l/homepage-template">
-</p>
-<p align="center">
-  <a href="https://github.com/thieryw/homepage-template">Home</a>
-  -
-  <a href="https://github.com/thieryw/homepage-template">Documentation</a>
-</p>
+# Homepage Template
+
+## A module that generates a homepage for your projects
 
 # Install / Import
 
@@ -23,36 +9,148 @@ $ npm install --save homepage-template
 ```
 
 ```typescript
-import { myFunction, myObject } from "homepage-template";
+import { HomepageTemplate } from "homepage-template";
+import type { TemplateData } from "homepage-template";
 ```
 
 Specific imports:
 
 ```typescript
-import { myFunction } from "homepage-template/myFunction";
-import { myObject } from "homepage-template/myObject";
+import { Header } from "homepage-template/src/components/App/Header";
+import type { Props } from "homepage-template/src/components/App/Header";
 ```
 
-## Import from HTML, with CDN
+# Basic usage
 
-Import it via a bundle that creates a global ( wider browser support ):
+### This module is to be used in a React project.
 
-```html
-<script src="//unpkg.com/homepage-template/bundle.min.js"></script>
-<script>
-    const { myFunction, myObject } = homepage_template;
-</script>
+here is a very basic way to use it:
+
+```typescript
+import React from "react";
+import ReactDOM from "react-dom";
+import { HomepageTemplate } from "homepage-template";
+import type { TemplateData } from "homepage-template";
+
+const data: TemplateData = {};
+
+ReactDOM.render(
+    <React.StrictMode>
+        <div>
+            <HomepageTemplate {...data} />
+        </div>
+    </React.StrictMode>,
+    document.getElementById("root"),
+);
 ```
 
-Or import it as an ES module:
+Here is an example of how your data and assets can be fed to the module:
 
-```html
-<script type="module">
-    import { myFunction, myObject } from "//unpkg.com/homepage-template/zz_esm/index.js";
-</script>
+```typescript
+const data: TemplateData = {
+
+    "headerData": {
+        "background": {
+            "colorOrUrlDark": "black",
+            "colorOrUrlLight": "unset",
+            "type": "color"
+        },
+        "buttons": [
+            {
+                "url": "",
+                "name": "learn more"
+            },
+            {
+                "url": "",
+                "name": "try it"
+            }
+        ],
+
+        "headerImageUrl": headerImg,
+        "headerParagraphMd": `
+			your paragraph; You can use Markdown
+        `,
+        "title": "Main Title",
+        "subTitle": "Sub Title",
+        "topBarProps": {
+            "logo": {
+                LogoSvg,
+                "logoFill": {
+                    "dark": "white",
+                    "light": "black"
+                }
+            },
+            "githubRepoUrl": "",
+            "menu": {
+                "items": [
+                    {
+                        "name": "documentation",
+                        "url": ""
+
+                    },
+                    {
+                        "name": "github",
+                        "url": ""
+                    }
+                ],
+                "smallDeviceBreakPointPx": 530
+            }
+        }
+    },
+    "mainSectionData": [
+        {
+            "imageHasFrame": false,
+            "imageUrl": mainSectionImage,
+            "text": {
+                "title": "Lorem Ipsum",
+                "paragraphMd": ``
+            }
+        },
+    ],
+
+    "reviewSliderData": [
+        {
+            "Logo": SliderLogo1,
+            "description": "A review",
+            "signature": "Lorem Ipsum"
+    ],
+
+    "footerData": {
+        "leftItems": [
+            {
+                "name": "Documentation",
+                "url": ""
+            },
+            {
+                "name": "Github",
+                "url": ""
+            }
+        ],
+        "rightItems": [
+            {
+                "logoSvgComponent": TwitterSvg,
+                "name": "Twitter",
+                "url": ""
+            },
+            {
+                "logoSvgComponent": RedditSvg,
+                "name": "Reddit",
+                "url": ""
+            },
+            {
+                "logoSvgComponent": YouTubeSvg,
+                "name": "Youtube",
+                "url": ""
+
+            }
+        ],
+        "licence": "M I T Licence",
+
+    }
+
+
+}
 ```
-
-_You can specify the version you wish to import:_ [unpkg.com](https://unpkg.com)
 
 ## Contribute
 
