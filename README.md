@@ -49,7 +49,7 @@ Here is an example of how your data and assets can be fed to the module:
 ```typescript
 const data: TemplateData = {
 
-    "headerData": {
+    "header": {
         "background": {
             "colorOrUrlDark": "black",
             "colorOrUrlLight": "unset",
@@ -67,7 +67,7 @@ const data: TemplateData = {
         ],
 
         "headerImageUrl": headerImg,
-        "headerParagraphMd": `
+        "paragraph": `
 			your paragraph; You can use Markdown
         `,
         "title": "Main Title",
@@ -97,7 +97,7 @@ const data: TemplateData = {
             }
         }
     },
-    "mainSectionData": [
+    "mainSection": [
         {
             "imageHasFrame": false,
             "imageUrl": mainSectionImage,
