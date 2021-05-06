@@ -52,7 +52,7 @@ plus exemplis generalibus nocitura quam delictis.
                   "light": "black"
               }
           },
-          "githubRepoUrl": "",
+          "githubRepoUrl": "https://github.com/thieryw/homepage-template",
           "menu": {
               "items": [
                   {
