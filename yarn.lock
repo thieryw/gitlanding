@@ -1157,7 +1157,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.14.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
   integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
@@ -5057,14 +5057,6 @@ evt@2.0.0-beta.15:
     minimal-polyfills "^2.1.5"
     run-exclusive "^2.2.14"
 
-evt@^1.8.11:
-  version "1.9.13"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-1.9.13.tgz#674f8678975494c7e2c58f694c74d8c84fe7a896"
-  integrity sha512-nn99KJO2FHU/340q7/GXkRz7V6sPaXYgKJcN50DVQAJNvMuJyKJfdu5cYwJ0kUAwXxOJ/Cu9x4iTc/XFeDtBXg==
-  dependencies:
-    minimal-polyfills "^2.1.5"
-    run-exclusive "^2.2.14"
-
 exec-sh@^0.3.2:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.6.tgz#ff264f9e325519a60cb5e273692943483cca63bc"
@@ -5619,14 +5611,6 @@ gh-pages@^3.1.0:
     fs-extra "^8.1.0"
     globby "^6.1.0"
 
-github-pages-plugin-for-type-route@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/github-pages-plugin-for-type-route/-/github-pages-plugin-for-type-route-0.0.7.tgz#82fb3e851b6aa39567d75b631db4921527b16c87"
-  integrity sha512-W4TaBKOIOz3E7SezW2mdpSaI2ZnP18VedYIzaof6TfGt9IfjfINHV8DWPlSyOwrlWfgIjuJnq7HrwjgtZpm/4w==
-  dependencies:
-    evt "^1.8.11"
-    scripting-tools "^0.19.13"
-
 glob-parent@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
@@ -5849,13 +5833,6 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
-
-history@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/history/-/history-5.0.0.tgz#0cabbb6c4bbf835addb874f8259f6d25101efd08"
-  integrity sha512-3NyRMKIiFSJmIPdq7FxkNMJkQ7ZEtVblOQ38VtKaA0zZMW1Eo6Q6W8oDKEflr1kNNTItSnk4JMCO1deeSgbLLg==
-  dependencies:
-    "@babel/runtime" "^7.7.6"
 
 hmac-drbg@^1.0.1:
   version "1.0.1"
@@ -10403,11 +10380,6 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scripting-tools@^0.19.13:
-  version "0.19.13"
-  resolved "https://registry.yarnpkg.com/scripting-tools/-/scripting-tools-0.19.13.tgz#836df7d9c2ec99aea91984d1d5b2bd110670afec"
-  integrity sha512-d09H8vzSVa8p4XUTJqHZDbjKDyl5TG3SyPfNPUUkfyOwjwykStmfK8AXyWq7VRWjcgzTpkTiJ9uMk1NytMQY7w==
-
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -11490,13 +11462,6 @@ type-is@~1.6.17, type-is@~1.6.18:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
-
-type-route@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/type-route/-/type-route-0.6.0.tgz#0762fde72c592f7fc9eea3451f7c538811b7439e"
-  integrity sha512-uh5bxHxHOKNDNTetGwBgtSP5ba3SUtnKcdj3d5AjbIALVbYBwaix4wwfpyxqrE9ia31LknXUc+359FChcC01jw==
-  dependencies:
-    history "^5.0.0"
 
 type@^1.0.1:
   version "1.2.0"
