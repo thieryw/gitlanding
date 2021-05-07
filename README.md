@@ -12,7 +12,7 @@
 <p align="center">
   <a href="https://github.com/thieryw/homepage-template">Home</a>
   -
-  <a href="https://github.com/garronej/homepage-template">Documentation</a>
+  <a href="https://github.com/thieryw/homepage-template">Documentation</a>
 </p>
 
 # Homepage Template
