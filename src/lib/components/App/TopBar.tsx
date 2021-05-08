@@ -8,46 +8,34 @@ import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
-//import { useRef/*, useEffect, useMemo, useState*/ } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 
-/*function getSmallDeviceBreakPoint(params: {
+function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
     logoRef: React.RefObject<SVGSVGElement>;
     darkModSwitchAndGithubRef: React.RefObject<HTMLDivElement>;
 }) {
-
     const { darkModSwitchAndGithubRef, logoRef, menuRef } = params;
     const [x, setX] = useState(0);
 
-
     useEffect(() => {
-
         setX(1);
     }, []);
 
     const out = useMemo(() => {
+        const logoWidth = !logoRef.current ? 0 : logoRef.current.getBoundingClientRect().width;
 
-        const logoWidth = !logoRef.current ?
-            0 :
-            logoRef.current.getBoundingClientRect().width;
+        const menuWidth = !menuRef.current ? 0 : menuRef.current.getBoundingClientRect().width;
 
-        const menuWidth = !menuRef.current ?
-            0 :
-            menuRef.current.getBoundingClientRect().width;
+        const darkModSwitchAndGithubWidth = !darkModSwitchAndGithubRef.current
+            ? 0
+            : darkModSwitchAndGithubRef.current.getBoundingClientRect().width;
 
-        const darkModSwitchAndGithubWidth = !darkModSwitchAndGithubRef.current ?
-            0 :
-            darkModSwitchAndGithubRef.current.getBoundingClientRect().width;
-
-        
         return logoWidth + menuWidth + darkModSwitchAndGithubWidth + 130;
-
-    }, [x])
-
+    }, [x]);
 
     return out;
-}*/
-
+}
 
 export type Props = {
     logo?: {
@@ -152,22 +140,18 @@ const { useClassNames } = createUseClassNames<{
     },
 }));
 
-
 export const TopBar = (props: Props) => {
-
     const { extraMenuItems, logo, githubRepoUrl, documentationUrl } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
 
     const { rootRef } = useClickAway(() => setMobileMenuHeight(0));
 
-    /*const menuRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const logoRef = useRef<SVGSVGElement>(null);
 
-    const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);*/
-
-
+    const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
 
     const toggleMobileMenu = useConstCallback(() => {
         if (mobileMenuHeight !== 0) {
@@ -177,82 +161,63 @@ export const TopBar = (props: Props) => {
 
         const menuItems = document.getElementsByClassName("menu-item");
 
-
-
-        const newHeight = (
-            parseInt(getComputedStyle(menuItems[0]).marginTop.replace("px", ""))
-            +
-            parseInt(getComputedStyle(menuItems[0]).marginBottom.replace("px", ""))
-            +
-            menuItems[0].clientHeight
-        ) *
-            menuItems.length
+        const newHeight =
+            (parseInt(getComputedStyle(menuItems[0]).marginTop.replace("px", "")) +
+                parseInt(getComputedStyle(menuItems[0]).marginBottom.replace("px", "")) +
+                menuItems[0].clientHeight) *
+            menuItems.length;
 
         setMobileMenuHeight(newHeight);
     });
 
-
-    /*const smallDeviceBreakPointPx = getSmallDeviceBreakPoint({
+    const smallDeviceBreakPointPx = getSmallDeviceBreakPoint({
         menuRef,
         darkModSwitchAndGithubRef,
-        logoRef
-    });*/
+        logoRef,
+    });
 
     const { classNames } = useClassNames({
         mobileMenuHeight,
         "logoFill": logo?.logoFill,
-        //smallDeviceBreakPointPx
-        "smallDeviceBreakPointPx": 530
+        smallDeviceBreakPointPx,
     });
 
     return (
         <List className={classNames.root} component="nav">
-            {logo !== undefined && <logo.LogoSvg /*ref={logoRef}*/ className={classNames.logo} />}
-            <div /*ref={menuRef}*/ className={classNames.itemWrapper}>
+            {logo !== undefined && <logo.LogoSvg ref={logoRef} className={classNames.logo} />}
+            <div ref={menuRef} className={classNames.itemWrapper}>
+                {extraMenuItems !== undefined &&
+                    extraMenuItems.items.map(item => (
+                        <Link
+                            className={cx(classNames.link, "menu-item")}
+                            href={item.url}
+                            key={JSON.stringify(item.name + item.url)}
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
 
-                {
-
-                    extraMenuItems !== undefined &&
-                        extraMenuItems.items.map(item => (
-                            <Link
-                                className={cx(classNames.link, "menu-item")}
-                                href={item.url}
-                                key={JSON.stringify(item.name + item.url)}
-                            >
-                                {item.name}
-                            </Link>
-                        ))
-                }
-
-                {
-                    githubRepoUrl !== undefined && <Link
-                        className={cx(classNames.link, "menu-item")}
-                        href={githubRepoUrl}
-                    >
+                {githubRepoUrl !== undefined && (
+                    <Link className={cx(classNames.link, "menu-item")} href={githubRepoUrl}>
                         github
                     </Link>
-                }
+                )}
 
-                {
-                    documentationUrl !== undefined && <Link
-                        className={cx(classNames.link, "menu-item")}
-                        href={documentationUrl}
-                    >
+                {documentationUrl !== undefined && (
+                    <Link className={cx(classNames.link, "menu-item")} href={documentationUrl}>
                         documentation
                     </Link>
-                }
+                )}
             </div>
 
             <div ref={rootRef} className={classNames.unfold}>
                 <UnfoldIcon onClick={toggleMobileMenu} />
             </div>
 
-            <div /*ref={darkModSwitchAndGithubRef}*/ className={classNames.githubAndDarkModeSwitch}>
+            <div ref={darkModSwitchAndGithubRef} className={classNames.githubAndDarkModeSwitch}>
                 {githubRepoUrl !== undefined && <GithubStarCount repoUrl={githubRepoUrl} size="large" />}
                 <DarkModeSwitch />
             </div>
         </List>
     );
 };
-
-
