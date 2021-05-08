@@ -8,9 +8,9 @@ import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
-import { useRef, useEffect, useMemo, useState } from "react";
+//import { useRef/*, useEffect, useMemo, useState*/ } from "react";
 
-function getSmallDeviceBreakPoint(params: {
+/*function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
     logoRef: React.RefObject<SVGSVGElement>;
     darkModSwitchAndGithubRef: React.RefObject<HTMLDivElement>;
@@ -46,7 +46,7 @@ function getSmallDeviceBreakPoint(params: {
 
 
     return out;
-}
+}*/
 
 
 export type Props = {
@@ -161,11 +161,11 @@ export const TopBar = (props: Props) => {
 
     const { rootRef } = useClickAway(() => setMobileMenuHeight(0));
 
-    const menuRef = useRef<HTMLDivElement>(null);
+    /*const menuRef = useRef<HTMLDivElement>(null);
 
     const logoRef = useRef<SVGSVGElement>(null);
 
-    const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
+    const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);*/
 
 
 
@@ -192,22 +192,23 @@ export const TopBar = (props: Props) => {
     });
 
 
-    const smallDeviceBreakPointPx = getSmallDeviceBreakPoint({
+    /*const smallDeviceBreakPointPx = getSmallDeviceBreakPoint({
         menuRef,
         darkModSwitchAndGithubRef,
         logoRef
-    });
+    });*/
 
     const { classNames } = useClassNames({
         mobileMenuHeight,
         "logoFill": logo?.logoFill,
-        smallDeviceBreakPointPx
+        //smallDeviceBreakPointPx
+        "smallDeviceBreakPointPx": 530
     });
 
     return (
         <List className={classNames.root} component="nav">
-            {logo !== undefined && <logo.LogoSvg ref={logoRef} className={classNames.logo} />}
-            <div ref={menuRef} className={classNames.itemWrapper}>
+            {logo !== undefined && <logo.LogoSvg /*ref={logoRef}*/ className={classNames.logo} />}
+            <div /*ref={menuRef}*/ className={classNames.itemWrapper}>
 
                 {
 
@@ -246,7 +247,7 @@ export const TopBar = (props: Props) => {
                 <UnfoldIcon onClick={toggleMobileMenu} />
             </div>
 
-            <div ref={darkModSwitchAndGithubRef} className={classNames.githubAndDarkModeSwitch}>
+            <div /*ref={darkModSwitchAndGithubRef}*/ className={classNames.githubAndDarkModeSwitch}>
                 {githubRepoUrl !== undefined && <GithubStarCount repoUrl={githubRepoUrl} size="large" />}
                 <DarkModeSwitch />
             </div>
