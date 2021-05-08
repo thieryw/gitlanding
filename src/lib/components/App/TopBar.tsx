@@ -12,7 +12,7 @@ import { useRef, useEffect, useMemo, useState } from "react";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
-    logoRef: React.RefObject<any>;
+    logoRef: React.RefObject<SVGSVGElement>;
     darkModSwitchAndGithubRef: React.RefObject<HTMLDivElement>;
 }) {
 
@@ -162,7 +162,7 @@ export const TopBar = (props: Props) => {
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const logoRef = useRef<any>(null);
+    const logoRef = useRef<SVGSVGElement>(null);
 
     const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
 
