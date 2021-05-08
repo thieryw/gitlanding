@@ -154,6 +154,7 @@ const { useClassNames } = createUseClassNames<{
 
 
 export const TopBar = (props: Props) => {
+
     const { extraMenuItems, logo, githubRepoUrl, documentationUrl } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
@@ -210,7 +211,7 @@ export const TopBar = (props: Props) => {
 
                 {
 
-                    extraMenuItems !== undefined ?
+                    extraMenuItems !== undefined &&
                         extraMenuItems.items.map(item => (
                             <Link
                                 className={cx(classNames.link, "menu-item")}
@@ -219,7 +220,7 @@ export const TopBar = (props: Props) => {
                             >
                                 {item.name}
                             </Link>
-                        )) : []
+                        ))
                 }
 
                 {
