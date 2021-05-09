@@ -1,2 +1,2 @@
-# Initial page
+# What is homepage-tempate?
 
