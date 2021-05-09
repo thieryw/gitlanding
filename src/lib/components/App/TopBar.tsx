@@ -24,7 +24,6 @@ function getSmallDeviceBreakPoint(params: {
 
     const out = useMemo(() => {
         const logoWidth = !logoRef.current ? 0 : logoRef.current.getBoundingClientRect().width;
-
         const menuWidth = !menuRef.current ? 0 : menuRef.current.getBoundingClientRect().width;
 
         const darkModSwitchAndGithubWidth = !darkModSwitchAndGithubRef.current
