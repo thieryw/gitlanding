@@ -37,7 +37,6 @@ import { Header } from "homepage-template/src/components/App/Header";
 import type { Props } from "homepage-template/src/components/App/Header";
 ```
 
-
 ## Contribute
 
 ```bash
