@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/npm/l/homepage-template">
 </p>
 <p align="center">
-  <a href="https://github.com/thieryw/homepage-template">Home</a>
+  <a href="https://www.homepage-template.ovh">Homepage</a>
   -
   <a href="https://docs.homepage-template.ovh">Documentation</a>
 </p>
