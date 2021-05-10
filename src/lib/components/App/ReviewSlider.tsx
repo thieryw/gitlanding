@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
 
-const { useClassNames } = createUseClassNames()(theme => ({
+const { useClassNames } = createUseClassNames()(() => ({
     "root": {
         "position": "relative",
         "width": 1200,
@@ -73,18 +73,14 @@ const { useClassNames } = createUseClassNames()(theme => ({
                 "paddingRight": 0,
             },
         },
+    },
 
-        "& svg": {
-            "height": 150,
-            "width": 150,
-            "marginLeft": 40,
-            "fill": theme.palette.type === "dark" ? "white" : "unset",
-            "@media (max-width: 1000px)": {
-                "width": 70,
-                "height": 70,
-                "marginLeft": 0,
-                "marginTop": 40,
-            },
+    "logo": {
+        "width": 70,
+        "marginLeft": 40,
+        "@media (max-width: 1000px)": {
+            "marginLeft": 0,
+            "marginTop": 40,
         },
     },
 
@@ -100,11 +96,7 @@ export type Props = {
     reviews: {
         description: string;
         signature: string;
-        Logo?: React.FunctionComponent<
-            React.SVGProps<SVGSVGElement> & {
-                title?: string | undefined;
-            }
-        >;
+        logoUrl?: string;
     }[];
 };
 
@@ -126,7 +118,9 @@ export const ReviewSlider = (props: Props) => {
                     {reviews.map((review, index) => (
                         <div key={JSON.stringify(review.signature + index)} className={classNames.slide}>
                             <Paper className={classNames.paper}>
-                                {review.Logo !== undefined ? <review.Logo /> : ""}
+                                {review.logoUrl !== undefined && (
+                                    <img className={classNames.logo} src={review.logoUrl} alt="logo" />
+                                )}
                                 <div>
                                     <ReactMarkdown>{review.description}</ReactMarkdown>
                                     <Typography>{review.signature}</Typography>

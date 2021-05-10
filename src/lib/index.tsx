@@ -3,9 +3,9 @@ import type { Props } from "./components/App/App";
 import { ThemeProvider } from "./theme/ThemeProvider";
 import { useEffect } from "react";
 
-export type Data = Props;
+export type HomepageProps = Props;
 
-export const HomepageTemplate = (props: Data) => {
+export const HomepageTemplate = (props: HomepageProps) => {
     useEffect(() => {
         const script = document.createElement("script");
 

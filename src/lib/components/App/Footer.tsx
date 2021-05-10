@@ -7,12 +7,7 @@ import Typography from "@material-ui/core/Typography";
 type Item = {
     name: string;
     url: string;
-    /**
-     * The svg must not have fill color or the dark mode won't distinguish
-     * Import your svg like that: import { ReactComponent as RedditSvg } from "assets/svg/reddit.svg";
-     * and pass RedditSvg as logoSvgComponent.
-     * */
-    logoSvgComponent?: (props: {}) => ReturnType<React.FC>;
+    logoUrl?: string;
 };
 
 export type Props = {
@@ -62,14 +57,19 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
             })(),
             "marginTop": 80,
         },
+        "logo": {
+            "marginRight": 20,
+            "width": 40,
+        },
+        "logoSvg": {
+            "marginRight": 20,
+            "height": 40,
+            "width": 40,
+            "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
+        },
         "column": {
             "margin": 40,
-            "& svg": {
-                "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
-                "marginRight": 20,
-                "height": 40,
-                "width": 40,
-            },
+
             "& a": {
                 "display": "flex",
                 "alignItems": "center",
@@ -98,9 +98,14 @@ export const Footer = (props: Props) => {
             <div className={classNames.wrapper}>
                 {([leftItems, rightItems] as const).map((items, i) => (
                     <div className={classNames.column} key={i}>
-                        {items.map(({ url, name, logoSvgComponent: LogoSvg }) => (
+                        {items.map(({ url, name, logoUrl }) => (
                             <Link href={url} key={url + name}>
-                                {LogoSvg && <LogoSvg />}
+                                {logoUrl &&
+                                    (logoUrl.includes(".svg") ? (
+                                        <svg href={logoUrl} className={classNames.logoSvg} />
+                                    ) : (
+                                        <img className={classNames.logo} src={logoUrl} alt={name} />
+                                    ))}
                                 <Typography>{name}</Typography>
                             </Link>
                         ))}

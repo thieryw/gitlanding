@@ -12,7 +12,7 @@ import { useRef, useEffect, useMemo, useState } from "react";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
-    logoRef: React.RefObject<SVGSVGElement>;
+    logoRef: React.RefObject<HTMLImageElement>;
     darkModSwitchAndGithubRef: React.RefObject<HTMLDivElement>;
 }) {
     const { darkModSwitchAndGithubRef, logoRef, menuRef } = params;
@@ -37,18 +37,7 @@ function getSmallDeviceBreakPoint(params: {
 }
 
 export type Props = {
-    logo?: {
-        LogoSvg: React.FunctionComponent<
-            React.SVGProps<SVGSVGElement> & {
-                title?: string | undefined;
-            }
-        >;
-
-        logoFill?: {
-            dark: string;
-            light: string;
-        };
-    };
+    logoUrl?: string;
 
     extraMenuItems?: {
         items: {
@@ -64,13 +53,8 @@ export type Props = {
 
 const { useClassNames } = createUseClassNames<{
     mobileMenuHeight: number;
-    logoFill?: {
-        dark: string;
-        light: string;
-    };
-
     smallDeviceBreakPointPx: number;
-}>()((theme, { mobileMenuHeight, logoFill, smallDeviceBreakPointPx }) => ({
+}>()((theme, { mobileMenuHeight, smallDeviceBreakPointPx }) => ({
     "root": {
         "display": "flex",
         "justifyContent": "flex-end",
@@ -83,19 +67,8 @@ const { useClassNames } = createUseClassNames<{
         },
     },
     "logo": {
-        "width": 50,
         "height": 50,
         "marginRight": "auto",
-        "fill": (() => {
-            if (logoFill === undefined) {
-                return "unset";
-            }
-
-            if (theme.palette.type === "dark") {
-                return logoFill.dark;
-            }
-            return logoFill.light;
-        })(),
     },
     "itemWrapper": {
         [`@media (max-width: ${smallDeviceBreakPointPx}px)`]: {
@@ -140,7 +113,7 @@ const { useClassNames } = createUseClassNames<{
 }));
 
 export const TopBar = (props: Props) => {
-    const { extraMenuItems, logo, githubRepoUrl, documentationUrl } = props;
+    const { extraMenuItems, logoUrl, githubRepoUrl, documentationUrl } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
 
@@ -148,7 +121,7 @@ export const TopBar = (props: Props) => {
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const logoRef = useRef<SVGSVGElement>(null);
+    const logoRef = useRef<HTMLImageElement>(null);
 
     const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
 
@@ -177,13 +150,12 @@ export const TopBar = (props: Props) => {
 
     const { classNames } = useClassNames({
         mobileMenuHeight,
-        "logoFill": logo?.logoFill,
         smallDeviceBreakPointPx,
     });
 
     return (
         <List className={classNames.root} component="nav">
-            {logo !== undefined && <logo.LogoSvg ref={logoRef} className={classNames.logo} />}
+            {logoUrl !== undefined && <img src={logoUrl} ref={logoRef} className={classNames.logo} />}
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {extraMenuItems !== undefined &&
                     extraMenuItems.items.map(item => (

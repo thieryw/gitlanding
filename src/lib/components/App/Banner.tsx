@@ -32,7 +32,7 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
-            "& img": {
+            "& >img": {
                 "width": 600,
                 "marginBottom": 50,
                 "@media (max-width: 650px)": {
@@ -97,7 +97,7 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
     }),
 );
 
-export const Header = (props: Props) => {
+export const Banner = (props: Props) => {
     const {
         imageUrl: headerImageUrl,
         title,

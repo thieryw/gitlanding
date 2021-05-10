@@ -45,7 +45,7 @@ const { useClassNames } = createUseClassNames()(theme => ({
         "position": "relative",
         "width": 550,
         "margin": "0 40px 0 40px",
-        "boxShadow": theme.palette.type === "dark" ? "" : "0px 1px 58px 17px rgba(0,0,0,0.75)",
+        "boxShadow": theme.palette.type === "dark" ? "" : "-2px 0px 10px 0px rgba(0,0,0,0.75)",
         "@media (max-width: 1215px)": {
             "width": "45%",
         },
