@@ -3,10 +3,16 @@
 import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "../../theme/useClassesNames";
 import Typography from "@material-ui/core/Typography";
+import { Logo } from "../design-system/Logo";
 
 type Item = {
     name: string;
     url: string;
+    /**
+     * If you use an svg image that does not have a fill,
+     * the fill will be set to the current font color,
+     * depending on the dark mode being active.
+     */
     logoUrl?: string;
 };
 
@@ -57,6 +63,13 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
             })(),
             "marginTop": 80,
         },
+        "logoSvg": {
+            "marginRight": 20,
+            "& svg": {
+                "width": 40,
+                "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
+            },
+        },
         "logo": {
             "marginRight": 20,
             "width": 40,
@@ -95,7 +108,7 @@ export const Footer = (props: Props) => {
                         {items.map(({ url, name, logoUrl }) => (
                             <Link href={url} key={url + name}>
                                 {logoUrl !== undefined && (
-                                    <img src={logoUrl} className={classNames.logo} alt={name} />
+                                    <Logo logoUrl={logoUrl} classNameSvg={classNames.logoSvg} />
                                 )}
                                 <Typography>{name}</Typography>
                             </Link>

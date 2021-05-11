@@ -6,8 +6,9 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
+import { Logo } from "../design-system/Logo";
 
-const { useClassNames } = createUseClassNames()(() => ({
+const { useClassNames } = createUseClassNames()(theme => ({
     "root": {
         "position": "relative",
         "width": 1200,
@@ -78,6 +79,11 @@ const { useClassNames } = createUseClassNames()(() => ({
     "logo": {
         "width": 70,
         "marginLeft": 40,
+        "fill": theme.palette.type === "dark" ? "white" : "black",
+        "& svg": {
+            "width": 70,
+            "height": 70,
+        },
         "@media (max-width: 1000px)": {
             "marginLeft": 0,
             "marginTop": 40,
@@ -99,6 +105,11 @@ export type Props = {
          */
         descriptionMd: string;
         signature: string;
+        /**
+         * If you use an svg image that does not have a fill,
+         * the fill will be set to the current font color,
+         * depending on the dark mode being active.
+         */
         logoUrl?: string;
     }[];
 };
@@ -122,7 +133,11 @@ export const ReviewSlider = (props: Props) => {
                         <div key={JSON.stringify(review.signature + index)} className={classNames.slide}>
                             <Paper className={classNames.paper}>
                                 {review.logoUrl !== undefined && (
-                                    <img className={classNames.logo} src={review.logoUrl} alt="logo" />
+                                    <Logo
+                                        logoUrl={review.logoUrl}
+                                        classNameSvg={classNames.logo}
+                                        classNameImg={classNames.logo}
+                                    />
                                 )}
                                 <div>
                                     <ReactMarkdown>{review.descriptionMd}</ReactMarkdown>

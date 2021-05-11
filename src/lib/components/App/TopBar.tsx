@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "../../theme/useClassesNames";
@@ -9,13 +10,13 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, useEffect, useMemo, useState } from "react";
+import { Logo } from "../design-system/Logo";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
-    logoRef: React.RefObject<HTMLImageElement>;
     darkModSwitchAndGithubRef: React.RefObject<HTMLDivElement>;
 }) {
-    const { darkModSwitchAndGithubRef, logoRef, menuRef } = params;
+    const { darkModSwitchAndGithubRef, menuRef } = params;
     const [x, setX] = useState(0);
 
     useEffect(() => {
@@ -23,22 +24,25 @@ function getSmallDeviceBreakPoint(params: {
     }, []);
 
     const out = useMemo(() => {
-        const logoWidth = !logoRef.current ? 0 : logoRef.current.getBoundingClientRect().width;
         const menuWidth = !menuRef.current ? 0 : menuRef.current.getBoundingClientRect().width;
 
         const darkModSwitchAndGithubWidth = !darkModSwitchAndGithubRef.current
             ? 0
             : darkModSwitchAndGithubRef.current.getBoundingClientRect().width;
 
-        return logoWidth + menuWidth + darkModSwitchAndGithubWidth + 130;
+        return menuWidth + darkModSwitchAndGithubWidth + 100 + 50;
     }, [x]);
 
     return out;
 }
 
 export type Props = {
+    /**
+     * If you use an svg image that does not have a fill,
+     * the fill will be set to the current font color,
+     * depending on the dark mode being active.
+     */
     logoUrl?: string;
-
     extraMenuItems?: {
         items: {
             name: string;
@@ -68,6 +72,14 @@ const { useClassNames } = createUseClassNames<{
     "logo": {
         "height": 50,
         "marginRight": "auto",
+    },
+    "logoSvg": {
+        "marginRight": "auto",
+        "& svg": {
+            "fill": theme.palette.type === "dark" ? "white" : "black",
+            "height": 50,
+            "width": 50,
+        },
     },
     "itemWrapper": {
         [`@media (max-width: ${smallDeviceBreakPointPx}px)`]: {
@@ -120,8 +132,6 @@ export const TopBar = (props: Props) => {
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const logoRef = useRef<HTMLImageElement>(null);
-
     const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
 
     const toggleMobileMenu = useConstCallback(() => {
@@ -144,7 +154,6 @@ export const TopBar = (props: Props) => {
     const smallDeviceBreakPointPx = getSmallDeviceBreakPoint({
         menuRef,
         darkModSwitchAndGithubRef,
-        logoRef,
     });
 
     const { classNames } = useClassNames({
@@ -154,7 +163,13 @@ export const TopBar = (props: Props) => {
 
     return (
         <List className={classNames.root} component="nav">
-            {logoUrl !== undefined && <img src={logoUrl} ref={logoRef} className={classNames.logo} />}
+            {logoUrl !== undefined && (
+                <Logo
+                    logoUrl={logoUrl}
+                    classNameImg={classNames.logo}
+                    classNameSvg={classNames.logoSvg}
+                />
+            )}
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {extraMenuItems !== undefined &&
                     extraMenuItems.items.map(item => (
