@@ -47,7 +47,6 @@ export type Props = {
     };
 
     documentationUrl?: string;
-
     githubRepoUrl?: string;
 };
 

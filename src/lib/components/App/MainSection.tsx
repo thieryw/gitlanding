@@ -11,7 +11,10 @@ export type Props = {
         imageHasFrame: boolean;
         article: {
             title: string;
-            paragraph: string;
+            /**
+             * you can use markdown between back ticks.
+             */
+            paragraphMd: string;
         };
     }[];
 };
@@ -83,7 +86,7 @@ export const MainSection = (props: Props) => {
                     <div>
                         <Typography variant="h5">{dataBlock.article.title}</Typography>
 
-                        <ReactMarkdown>{dataBlock.article.paragraph}</ReactMarkdown>
+                        <ReactMarkdown>{dataBlock.article.paragraphMd}</ReactMarkdown>
                     </div>
                     <div
                         className={cx(

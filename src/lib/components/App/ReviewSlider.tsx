@@ -94,7 +94,10 @@ const { useClassNames } = createUseClassNames()(() => ({
 
 export type Props = {
     reviews: {
-        description: string;
+        /**
+         * you can use markdown between back ticks.
+         */
+        descriptionMd: string;
         signature: string;
         logoUrl?: string;
     }[];
@@ -122,7 +125,7 @@ export const ReviewSlider = (props: Props) => {
                                     <img className={classNames.logo} src={review.logoUrl} alt="logo" />
                                 )}
                                 <div>
-                                    <ReactMarkdown>{review.description}</ReactMarkdown>
+                                    <ReactMarkdown>{review.descriptionMd}</ReactMarkdown>
                                     <Typography>{review.signature}</Typography>
                                 </div>
                             </Paper>

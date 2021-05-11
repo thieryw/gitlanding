@@ -9,7 +9,45 @@ import type { Props as ReviewSliderProps } from "./ReviewSlider";
 
 export type Props = {
     banner?: BannerProps;
+    /**
+     * enter the assets in an array.
+     * example:
+     * "mainSection": [
+     *  {
+     *      "imageHasFrame": false,
+     *      "imageUrl": yourImage
+     *      "article": {
+     *          "title": "your title",
+     *          "paragraphMd": "your paragraph"
+     *      }
+     *  },
+     *  {
+     *      "imageHasFrame": false,
+     *      "imageUrl": yourImage
+     *      "article": {
+     *          "title": "your title",
+     *          "paragraphMd": "your paragraph"
+     *      }
+     *  },
+     * ]
+     */
     mainSection?: MainSectionProps["dataBlocks"];
+    /**
+     * enter the assets in an array.
+     * example:
+     * "reviewSlider": [
+     *  {
+     *      "logoUrl": sliderLogo1,
+     *      "descriptionMd": "your text"
+     *      "signature": "reviewers signature"
+     *  },
+     *  {
+     *      "logoUrl": sliderLogo2,
+     *      "descriptionMd": "your text"
+     *      "signature": "reviewers signature"
+     *  }
+     * ]
+     */
     reviewSlider?: ReviewSliderProps["reviews"];
     footer?: FooterProps;
 };

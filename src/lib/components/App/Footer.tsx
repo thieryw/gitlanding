@@ -61,12 +61,6 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
             "marginRight": 20,
             "width": 40,
         },
-        "logoSvg": {
-            "marginRight": 20,
-            "height": 40,
-            "width": 40,
-            "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
-        },
         "column": {
             "margin": 40,
 
@@ -100,12 +94,9 @@ export const Footer = (props: Props) => {
                     <div className={classNames.column} key={i}>
                         {items.map(({ url, name, logoUrl }) => (
                             <Link href={url} key={url + name}>
-                                {logoUrl &&
-                                    (logoUrl.includes(".svg") ? (
-                                        <svg href={logoUrl} className={classNames.logoSvg} />
-                                    ) : (
-                                        <img className={classNames.logo} src={logoUrl} alt={name} />
-                                    ))}
+                                {logoUrl !== undefined && (
+                                    <img src={logoUrl} className={classNames.logo} alt={name} />
+                                )}
                                 <Typography>{name}</Typography>
                             </Link>
                         ))}

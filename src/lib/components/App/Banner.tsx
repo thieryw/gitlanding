@@ -10,7 +10,11 @@ export type Props = {
     title: string;
     subTitle: string;
     imageUrl?: string;
-    paragraph?: string;
+
+    /**
+     * you can use markdown between back ticks.
+     */
+    paragraphMd?: string;
     background?: {
         type: "color" | "image";
         colorOrUrlDark: string;
@@ -105,7 +109,7 @@ export const Banner = (props: Props) => {
         buttons,
         background,
         topBarProps,
-        paragraph: headerParagraphMd,
+        paragraphMd,
     } = props;
 
     const { classNames } = useClassNames({ background });
@@ -138,9 +142,9 @@ export const Banner = (props: Props) => {
 
             {headerImageUrl !== undefined && <img src={headerImageUrl} alt="" />}
 
-            {headerParagraphMd !== undefined && (
+            {paragraphMd !== undefined && (
                 <div className={classNames.paragraph}>
-                    <ReactMarkdown>{headerParagraphMd}</ReactMarkdown>
+                    <ReactMarkdown>{paragraphMd}</ReactMarkdown>
                 </div>
             )}
         </header>
