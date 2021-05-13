@@ -1,6 +1,6 @@
 {
     "name": "homepage-template",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "A module that generates a homepage for your projects",
     "repository": {
         "type": "git",

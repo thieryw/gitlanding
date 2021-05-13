@@ -57,6 +57,9 @@ export function createTheme(params: { isDarkModeEnabled: boolean }): { theme: Th
     const theme = createMuiTheme({
         "typography": {
             "fontFamily": '"Work Sans"',
+            "body2": {
+                "fontSize": "1.1em"
+            }
         },
         "palette": {
             "type": isDarkModeEnabled ? "dark" : "light",

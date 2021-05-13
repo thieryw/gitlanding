@@ -88,7 +88,8 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
             "margin": 15,
         },
         "buttonWrapper": {
-            "marginBottom": 50,
+            "marginTop": 30,
+            "marginBottom": 30,
             "maxWidth": 650,
         },
         "paragraph": {
@@ -139,14 +140,15 @@ export const Banner = (props: Props) => {
                     ))}
                 </div>
             )}
-
-            {headerImageUrl !== undefined && <img src={headerImageUrl} alt="" />}
-
             {paragraphMd !== undefined && (
                 <div className={classNames.paragraph}>
                     <ReactMarkdown>{paragraphMd}</ReactMarkdown>
                 </div>
             )}
+
+            {headerImageUrl !== undefined && <img src={headerImageUrl} alt="" />}
+
+            
         </header>
     );
 };
