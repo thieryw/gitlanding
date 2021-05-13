@@ -1,6 +1,6 @@
 {
     "name": "homepage-template",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "A module that generates a homepage for your projects",
     "repository": {
         "type": "git",
@@ -54,7 +54,8 @@
         "powerhooks": "^0.0.37",
         "react-markdown": "^5.0.3",
         "tss-react": "^0.0.8",
-        "typeface-work-sans": "^1.1.13"
+        "typeface-work-sans": "^1.1.13",
+        "react-svg": "^13.0.4"
     },
     "devDependencies": {
         "@types/node": "^15.0.2",
