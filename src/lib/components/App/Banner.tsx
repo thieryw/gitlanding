@@ -65,9 +65,10 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
                 }
 
                 return `
-                    url("${theme.palette.type === "dark"
-                        ? background.colorOrUrlDark
-                        : background.colorOrUrlLight
+                    url("${
+                        theme.palette.type === "dark"
+                            ? background.colorOrUrlDark
+                            : background.colorOrUrlLight
                     }")
                 `;
             })(),
@@ -146,8 +147,6 @@ export const Banner = (props: Props) => {
             )}
 
             {headerImageUrl !== undefined && <img src={headerImageUrl} alt="" />}
-
-
         </header>
     );
 };

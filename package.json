@@ -53,9 +53,9 @@
         "embla-carousel": "^4.1.5",
         "powerhooks": "^0.0.37",
         "react-markdown": "^5.0.3",
+        "react-svg": "^13.0.4",
         "tss-react": "^0.0.8",
-        "typeface-work-sans": "^1.1.13",
-        "react-svg": "^13.0.4"
+        "typeface-work-sans": "^1.1.13"
     },
     "devDependencies": {
         "@types/node": "^15.0.2",
@@ -64,12 +64,12 @@
         "@typescript-eslint/parser": "^4.15.1",
         "eslint": "^7.20.0",
         "eslint-config-prettier": "^7.2.0",
-        "evt": "beta",
+        "evt": "^2.0.0-beta.18",
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
         "prettier": "^2.2.1",
         "react": "^16.14.0",
-        "typescript": "^4.1.5",
-        "react-svg": "^13.0.4"
+        "react-svg": "^13.0.4",
+        "typescript": "^4.1.5"
     }
 }
