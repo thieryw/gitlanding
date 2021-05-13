@@ -45,8 +45,12 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
                 "borderRadius": "5px",
             },
             "textAlign": "center",
-            "& h3": {
-                "marginTop": 50,
+            "& h4": {
+                "marginBottom": 30,
+                "marginTop": 30,
+            },
+            "& h4, h5": {
+                "max-width": "90%",
             },
             "color": theme.palette.type === "dark" ? "white" : "black",
         },
