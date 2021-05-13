@@ -1,3 +1,9 @@
+### **0.0.6** (2021-05-13)  
+  
+- update  
+- update  
+- corrected body font size and margin issues    
+  
 ### **0.0.5** (2021-05-13)  
   
 - update    
