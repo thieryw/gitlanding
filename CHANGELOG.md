@@ -1,3 +1,8 @@
+### **0.0.4** (2021-05-13)  
+  
+- update version  
+- svg without fill have fill set at the default font color    
+  
 ### **0.0.3** (2021-05-11)  
   
 - update to version 0.0.3  
