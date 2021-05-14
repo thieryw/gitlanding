@@ -1,15 +1,14 @@
 import Typography from "@material-ui/core/Typography";
 import { createUseClassNames } from "../../theme/useClassesNames";
-import { css, cx } from "tss-react";
 import ReactMarkdown from "react-markdown";
-import RoundedIcon from "@material-ui/icons/Brightness1Rounded";
+import { Image } from "../design-system/Image";
 import { memo } from "react";
-import { useTheme } from "@material-ui/core/styles";
+import type { Props as ImageProps } from "../design-system/Image";
+
 export type Props = {
     dataBlocks: {
-        imageUrl: string;
-        imageHasFrame: boolean;
-        article: {
+        image?: Pick<ImageProps, "url" | "hasVsCodeFrame">;
+        article?: {
             title: string;
             /**
              * you can use markdown between back ticks.
@@ -19,48 +18,9 @@ export type Props = {
     }[];
 };
 
-const { useClassNames } = createUseClassNames()(theme => ({
+const { useClassNames } = createUseClassNames()(() => ({
     "root": {
         "padding": "40px 0 40px 0",
-        "& >article": {
-            "display": "flex",
-            "justifyContent": "center",
-            "alignItems": "center",
-            "padding": "40px 0 40px 0",
-            "@media (max-width: 895px)": {
-                "padding": 0,
-            },
-
-            "& >div": {
-                "width": 500,
-                "margin": "0 40px 0 40px",
-                "& h4": {
-                    "marginBottom": 20,
-                },
-                "@media (max-width: 895px)": {
-                    "marginBottom": 40,
-                    "width": "80%",
-                },
-            },
-        },
-    },
-    "imageWrapper": {
-        "position": "relative",
-        "width": 550,
-        "margin": "0 40px 0 40px",
-        "boxShadow": theme.palette.type === "dark" ? "" : "-2px 0px 10px 0px rgba(0,0,0,0.75)",
-        "@media (max-width: 1215px)": {
-            "width": "45%",
-        },
-        "@media (max-width: 895px)": {
-            "width": "80%",
-        },
-        "& >img": {
-            "width": "100%",
-            "height": "100%",
-            "objectFit": "cover",
-            "verticalAlign": "middle",
-        },
     },
 }));
 
@@ -69,77 +29,94 @@ export const MainSection = (props: Props) => {
 
     const { classNames } = useClassNames({});
 
-    const theme = useTheme();
-
     return (
         <section className={classNames.root}>
             {dataBlocks.map((dataBlock, index) => (
-                <article
-                    key={JSON.stringify(dataBlock.article.title + index)}
-                    className={css({
-                        "flexDirection": index % 2 !== 0 ? "row-reverse" : "row",
-                        "@media (max-width: 895px)": {
-                            "flexDirection": "column",
-                        },
-                    })}
-                >
-                    <div>
-                        <Typography variant="h5">{dataBlock.article.title}</Typography>
-
-                        <ReactMarkdown>{dataBlock.article.paragraphMd}</ReactMarkdown>
-                    </div>
-                    <div
-                        className={cx(
-                            classNames.imageWrapper,
-                            css({
-                                "borderRadius": dataBlock.imageHasFrame ? 5 : "",
-                                "border": dataBlock.imageHasFrame
-                                    ? `solid ${theme.custom.color.palette.visualStudioCodeColor} 20px`
-                                    : "",
-                            }),
-                        )}
-                    >
-                        {dataBlock.imageHasFrame && <VsCodeButtons />}
-
-                        <img src={dataBlock.imageUrl} alt="source code" />
-                    </div>
-                </article>
+                <Article index={index} article={dataBlock.article} image={dataBlock.image} />
             ))}
         </section>
     );
 };
 
-const { VsCodeButtons } = (() => {
-    const { useClassNames } = createUseClassNames()(() => ({
-        "roundedIcons": {
-            "position": "absolute",
-            "top": -20,
-            "left": -15,
+const { Article } = (() => {
+    const { useClassNames } = createUseClassNames<{
+        index: number;
+        hasArticle: boolean;
+        hasImage: boolean;
+    }>()((...[, { index, hasArticle, hasImage }]) => ({
+        "root": {
             "display": "flex",
-            "& >svg": {
-                "width": 15,
-                "margin": "0 2px 0 2px",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "padding": "40px 0 40px 0",
+            "flexDirection": index % 2 !== 0 ? "row-reverse" : "row",
+            "@media (max-width: 895px)": {
+                "flexDirection": "column",
+                "padding": 0,
+                "margin": "80px 0 80px 0",
+            },
+        },
+
+        "article": {
+            "width": hasImage ? 500 : 600,
+            "textAlign": hasImage ? "unset" : "center",
+            "margin": "0 40px 0 40px",
+            "& h4": {
+                "marginBottom": 20,
+            },
+            "@media (max-width: 895px)": {
+                "marginBottom": hasImage ? 40 : 0,
+                "width": "80%",
+            },
+        },
+
+        "imageWrapper": {
+            "width": hasArticle ? 550 : 600,
+            "margin": "0 40px 0 40px",
+            "@media (max-width: 1215px)": {
+                "width": hasArticle ? "45%" : "50%",
+            },
+            "@media (max-width: 895px)": {
+                "width": "80%",
             },
         },
     }));
 
-    const VsCodeButtons = memo(() => {
-        const { classNames } = useClassNames({});
-        const { vsCodeTopLeftButtonColors } = useTheme().custom.color.useCases;
+    const Article = memo(
+        (props: {
+            image: Props["dataBlocks"][number]["image"];
+            article: Props["dataBlocks"][number]["article"];
+            index: number;
+        }) => {
+            const { article, image, index } = props;
 
-        return (
-            <div className={classNames.roundedIcons}>
-                {Object.values(vsCodeTopLeftButtonColors).map(color => (
-                    <RoundedIcon
-                        key={color}
-                        className={css({
-                            "fill": color,
-                        })}
-                    />
-                ))}
-            </div>
-        );
-    });
+            const { classNames } = useClassNames({
+                index,
+                "hasArticle": article !== undefined,
+                "hasImage": image !== undefined,
+            });
 
-    return { VsCodeButtons };
+            return (
+                <article className={classNames.root}>
+                    {article && (
+                        <div className={classNames.article}>
+                            <Typography variant="h5">{article.title}</Typography>
+                            <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
+                        </div>
+                    )}
+
+                    {image && (
+                        <Image
+                            url={image.url}
+                            alt="source code"
+                            className={classNames.imageWrapper}
+                            hasVsCodeFrame={image.hasVsCodeFrame}
+                        />
+                    )}
+                </article>
+            );
+        },
+    );
+
+    return { Article };
 })();

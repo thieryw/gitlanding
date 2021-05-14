@@ -5,12 +5,13 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import type { Props as TopBarProps } from "./TopBar";
 import ReactMarkdown from "react-markdown";
+import { Image } from "../design-system/Image";
+import type { Props as ImageProps } from "../design-system/Image";
 
 export type Props = {
     title: string;
     subTitle: string;
-    imageUrl?: string;
-
+    image?: Pick<ImageProps, "url" | "hasVsCodeFrame">;
     /**
      * you can use markdown between back ticks.
      */
@@ -36,23 +37,24 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
-            "& >img": {
-                "width": 600,
-                "marginBottom": 50,
-                "@media (max-width: 650px)": {
-                    "width": "90%",
-                },
-                "borderRadius": "5px",
-            },
+            "& >img": {},
             "textAlign": "center",
             "& h4": {
                 "marginBottom": 30,
                 "marginTop": 30,
             },
             "& h4, h5": {
-                "max-width": "90%",
+                "maxWidth": "90%",
             },
             "color": theme.palette.type === "dark" ? "white" : "black",
+        },
+        "image": {
+            "width": 600,
+            "marginBottom": 50,
+            "@media (max-width: 650px)": {
+                "width": "90%",
+            },
+            "borderRadius": "5px",
         },
         "backgroundDiv": {
             "background": (() => {
@@ -107,15 +109,7 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
 );
 
 export const Banner = (props: Props) => {
-    const {
-        imageUrl: headerImageUrl,
-        title,
-        subTitle,
-        buttons,
-        background,
-        topBarProps,
-        paragraphMd,
-    } = props;
+    const { image, title, subTitle, buttons, background, topBarProps, paragraphMd } = props;
 
     const { classNames } = useClassNames({ background });
 
@@ -150,7 +144,14 @@ export const Banner = (props: Props) => {
                 </div>
             )}
 
-            {headerImageUrl !== undefined && <img src={headerImageUrl} alt="" />}
+            {image !== undefined && (
+                <Image
+                    className={classNames.image}
+                    url={image.url}
+                    alt="banner image"
+                    hasVsCodeFrame={image.hasVsCodeFrame}
+                />
+            )}
         </header>
     );
 };
