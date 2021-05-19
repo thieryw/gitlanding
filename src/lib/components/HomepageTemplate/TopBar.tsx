@@ -52,6 +52,7 @@ export type Props = {
 
     documentationUrl?: string;
     githubRepoUrl?: string;
+    className?: string;
 };
 
 const { useClassNames } = createUseClassNames<{
@@ -71,9 +72,6 @@ const { useClassNames } = createUseClassNames<{
     },
     "logo": {
         "height": 50,
-        "marginRight": "auto",
-    },
-    "logoSvg": {
         "marginRight": "auto",
         "& svg": {
             "fill": theme.palette.type === "dark" ? "white" : "black",
@@ -123,8 +121,8 @@ const { useClassNames } = createUseClassNames<{
     },
 }));
 
-export const TopBar = (props: Props) => {
-    const { extraMenuItems, logoUrl, githubRepoUrl, documentationUrl } = props;
+export function TopBar(props: Props) {
+    const { extraMenuItems, logoUrl, githubRepoUrl, documentationUrl, className } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
 
@@ -162,14 +160,8 @@ export const TopBar = (props: Props) => {
     });
 
     return (
-        <List className={cx(classNames.root, "top-bar")} component="nav">
-            {logoUrl !== undefined && (
-                <Logo
-                    logoUrl={logoUrl}
-                    classNameImg={classNames.logo}
-                    classNameSvg={classNames.logoSvg}
-                />
-            )}
+        <List className={cx(classNames.root, className)} component="nav">
+            {logoUrl !== undefined && <Logo logoUrl={logoUrl} className={classNames.logo} />}
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {extraMenuItems !== undefined &&
                     extraMenuItems.items.map(item => (
@@ -205,4 +197,4 @@ export const TopBar = (props: Props) => {
             </div>
         </List>
     );
-};
+}

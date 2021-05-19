@@ -1,17 +1,17 @@
 import { ReactSVG } from "react-svg";
+import { memo } from "react";
 
 type Props = {
     logoUrl: string;
-    classNameSvg?: string;
-    classNameImg?: string;
+    className?: string;
 };
 
-export const Logo = (props: Props) => {
-    const { classNameSvg, logoUrl, classNameImg } = props;
+export const Logo = memo((props: Props) => {
+    const { className, logoUrl } = props;
 
     return logoUrl.endsWith(".svg") ? (
-        <ReactSVG src={logoUrl} className={classNameSvg} />
+        <ReactSVG src={logoUrl} className={className} />
     ) : (
-        <img src={logoUrl} className={classNameImg} alt="logo" />
+        <img src={logoUrl} className={className} alt="logo" />
     );
-};
+});

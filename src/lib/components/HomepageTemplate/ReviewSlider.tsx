@@ -100,6 +100,22 @@ const { useClassNames } = createUseClassNames()(theme => ({
 }));
 
 export type Props = {
+    /**
+     * enter the assets in an array.
+     * example:
+     * "reviewSlider": [
+     *  {
+     *      "logoUrl": sliderLogo1,
+     *      "descriptionMd": "your text"
+     *      "signature": "reviewers signature"
+     *  },
+     *  {
+     *      "logoUrl": sliderLogo2,
+     *      "descriptionMd": "your text"
+     *      "signature": "reviewers signature"
+     *  }
+     * ]
+     */
     reviews: {
         /**
          * you can use markdown between back ticks.
@@ -112,11 +128,13 @@ export type Props = {
          * depending on the dark mode being active.
          */
         logoUrl?: string;
+        className?: string;
     }[];
+    className?: string;
 };
 
-export const ReviewSlider = (props: Props) => {
-    const { reviews } = props;
+export function ReviewSlider(props: Props) {
+    const { reviews, className } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
 
@@ -126,20 +144,19 @@ export const ReviewSlider = (props: Props) => {
     const { classNames } = useClassNames({});
 
     return (
-        <div className={cx(classNames.root, "review-slider")}>
+        <div className={cx(classNames.root, className)}>
             <ArrowBackIosIcon className={classNames.arrows} onClick={onClickPrev} />
 
             <div className={classNames.viewport} ref={emblaRef}>
                 <div className={classNames.container}>
                     {reviews.map((review, index) => (
-                        <div key={JSON.stringify(review.signature + index)} className={classNames.slide}>
+                        <div
+                            key={JSON.stringify(review.signature + index)}
+                            className={cx(classNames.slide, review.className)}
+                        >
                             <Paper className={classNames.paper}>
                                 {review.logoUrl !== undefined && (
-                                    <Logo
-                                        logoUrl={review.logoUrl}
-                                        classNameSvg={classNames.logo}
-                                        classNameImg={classNames.logo}
-                                    />
+                                    <Logo logoUrl={review.logoUrl} className={classNames.logo} />
                                 )}
                                 <div>
                                     <ReactMarkdown>{review.descriptionMd}</ReactMarkdown>
@@ -154,4 +171,4 @@ export const ReviewSlider = (props: Props) => {
             <ArrowForwardIosIcon className={classNames.arrows} onClick={onClickNext} />
         </div>
     );
-};
+}

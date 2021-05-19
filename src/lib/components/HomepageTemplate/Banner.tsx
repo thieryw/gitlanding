@@ -12,6 +12,7 @@ import { cx } from "tss-react";
 export type Props = {
     title: string;
     subTitle: string;
+    className?: string;
     image?: Pick<ImageProps, "url" | "hasVsCodeFrame">;
     /**
      * you can use markdown between back ticks.
@@ -109,13 +110,13 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
     }),
 );
 
-export const Banner = (props: Props) => {
-    const { image, title, subTitle, buttons, background, topBarProps, paragraphMd } = props;
+export function Banner(props: Props) {
+    const { image, title, subTitle, buttons, background, topBarProps, paragraphMd, className } = props;
 
     const { classNames } = useClassNames({ background });
 
     return (
-        <header className={cx(classNames.root, "banner")}>
+        <header className={cx(classNames.root, className)}>
             <div className={classNames.backgroundDiv}></div>
             {topBarProps !== undefined && <TopBar {...topBarProps} />}
 
@@ -155,4 +156,4 @@ export const Banner = (props: Props) => {
             )}
         </header>
     );
-};
+}

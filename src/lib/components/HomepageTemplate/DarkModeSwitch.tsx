@@ -5,13 +5,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Brightness4 from "@material-ui/icons/Brightness4";
 import Brightness7 from "@material-ui/icons/Brightness7";
 
-export const DarkModeSwitch = memo(() => {
+export const DarkModeSwitch = memo((props: { className?: string }) => {
+    const { className } = props;
     const { isDarkModeEnabled, setIsDarkModeEnabled } = useIsDarkModeEnabled();
 
     return (
         <div
-            className="dark-mode-switch"
             onClick={useConstCallback(() => setIsDarkModeEnabled(!isDarkModeEnabled))}
+            className={className}
         >
             <IconButton>{isDarkModeEnabled ? <Brightness7 /> : <Brightness4 />}</IconButton>
         </div>

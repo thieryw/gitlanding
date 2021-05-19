@@ -3,15 +3,16 @@ import { css, cx } from "tss-react";
 type Props = {
     size: "normal" | "large";
     repoUrl: string;
+    className?: string;
 };
 
-export const GithubStarCount = (props: Props) => {
-    const { size, repoUrl } = props;
+export function GithubStarCount(props: Props) {
+    const { size, repoUrl, className } = props;
 
     return (
         <div
             className={cx(
-                "github-star-count",
+                className,
                 css({
                     "& span": {
                         "display": "flex",
@@ -37,4 +38,4 @@ export const GithubStarCount = (props: Props) => {
             </a>
         </div>
     );
-};
+}

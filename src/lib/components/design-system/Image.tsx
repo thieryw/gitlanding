@@ -1,6 +1,7 @@
 import { VsCodeButtons } from "./VsCodeButtons";
 import { createUseClassNames } from "../../theme/useClassesNames";
 import { cx } from "tss-react";
+import { memo } from "react";
 
 export type Props = {
     url: string;
@@ -31,9 +32,8 @@ const { useClassNames } = createUseClassNames<{ hasVsCodeFrame?: boolean }>()(
     }),
 );
 
-export const Image = (props: Props) => {
+export const Image = memo((props: Props) => {
     const { className, url, hasVsCodeFrame, alt } = props;
-
     const { classNames } = useClassNames({ hasVsCodeFrame });
 
     return (
@@ -42,4 +42,4 @@ export const Image = (props: Props) => {
             <img src={url} alt={alt} />
         </div>
     );
-};
+});

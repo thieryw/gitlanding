@@ -11,51 +11,16 @@ import { ThemeProvider } from "../../theme/ThemeProvider";
 
 export type HomepageTemplate = {
     banner?: BannerProps;
-    /**
-     * enter the assets in an array.
-     * example:
-     * "mainSection": [
-     *  {
-     *      "imageHasFrame": false,
-     *      "imageUrl": yourImage
-     *      "article": {
-     *          "title": "your title",
-     *          "paragraphMd": "your paragraph"
-     *      }
-     *  },
-     *  {
-     *      "imageHasFrame": false,
-     *      "imageUrl": yourImage
-     *      "article": {
-     *          "title": "your title",
-     *          "paragraphMd": "your paragraph"
-     *      }
-     *  },
-     * ]
-     */
-    mainSection?: MainSectionProps["dataBlocks"];
-    /**
-     * enter the assets in an array.
-     * example:
-     * "reviewSlider": [
-     *  {
-     *      "logoUrl": sliderLogo1,
-     *      "descriptionMd": "your text"
-     *      "signature": "reviewers signature"
-     *  },
-     *  {
-     *      "logoUrl": sliderLogo2,
-     *      "descriptionMd": "your text"
-     *      "signature": "reviewers signature"
-     *  }
-     * ]
-     */
-    reviewSlider?: ReviewSliderProps["reviews"];
+
+    mainSection?: MainSectionProps;
+
+    reviewSlider?: ReviewSliderProps;
     footer?: FooterProps;
+    className?: string;
 };
 
-export const HomepageTemplate = (props: HomepageTemplate) => {
-    const { footer, banner, mainSection, reviewSlider } = props;
+export function HomepageTemplate(props: HomepageTemplate) {
+    const { footer, banner, mainSection, reviewSlider, className } = props;
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -72,15 +37,19 @@ export const HomepageTemplate = (props: HomepageTemplate) => {
 
     return (
         <ThemeProvider>
-            <div className="homepage-template">
+            <div className={className}>
                 {banner !== undefined && <Banner {...banner} />}
 
-                {mainSection !== undefined && <MainSection dataBlocks={mainSection} />}
+                {mainSection !== undefined && (
+                    <MainSection className={mainSection.className} dataBlocks={mainSection.dataBlocks} />
+                )}
 
-                {reviewSlider !== undefined && <ReviewSlider reviews={reviewSlider} />}
+                {reviewSlider !== undefined && (
+                    <ReviewSlider className={reviewSlider.className} reviews={reviewSlider.reviews} />
+                )}
 
                 {footer !== undefined && <Footer {...footer} />}
             </div>
         </ThemeProvider>
     );
-};
+}

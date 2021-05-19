@@ -26,6 +26,7 @@ export type Props = {
         colorOrUrlDark: string;
         colorOrUrlLight: string;
     };
+    className?: string;
 };
 
 const { useClassNames } = createUseClassNames<{ background?: Props["background"] }>()(
@@ -99,20 +100,20 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
     }),
 );
 
-export const Footer = (props: Props) => {
-    const { licence, leftItems, rightItems, background } = props;
+export function Footer(props: Props) {
+    const { licence, leftItems, rightItems, background, className } = props;
 
     const { classNames } = useClassNames({ background });
 
     return (
-        <footer className={cx(classNames.root, "footer")}>
+        <footer className={cx(classNames.root, className)}>
             <div className={classNames.wrapper}>
                 {([leftItems, rightItems] as const).map((items, i) => (
                     <div className={classNames.column} key={i}>
                         {items.map(({ url, name, logoUrl }) => (
                             <Link href={url} key={url + name}>
                                 {logoUrl !== undefined && (
-                                    <Logo logoUrl={logoUrl} classNameSvg={classNames.logoSvg} />
+                                    <Logo logoUrl={logoUrl} className={classNames.logoSvg} />
                                 )}
                                 <Typography>{name}</Typography>
                             </Link>
@@ -124,4 +125,4 @@ export const Footer = (props: Props) => {
             <p className={classNames.licence}>{licence}</p>
         </footer>
     );
-};
+}
