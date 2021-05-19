@@ -9,7 +9,10 @@ export const DarkModeSwitch = memo(() => {
     const { isDarkModeEnabled, setIsDarkModeEnabled } = useIsDarkModeEnabled();
 
     return (
-        <div onClick={useConstCallback(() => setIsDarkModeEnabled(!isDarkModeEnabled))}>
+        <div
+            className="dark-mode-switch"
+            onClick={useConstCallback(() => setIsDarkModeEnabled(!isDarkModeEnabled))}
+        >
             <IconButton>{isDarkModeEnabled ? <Brightness7 /> : <Brightness4 />}</IconButton>
         </div>
     );

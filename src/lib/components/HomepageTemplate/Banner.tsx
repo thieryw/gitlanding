@@ -7,6 +7,7 @@ import type { Props as TopBarProps } from "./TopBar";
 import ReactMarkdown from "react-markdown";
 import { Image } from "../design-system/Image";
 import type { Props as ImageProps } from "../design-system/Image";
+import { cx } from "tss-react";
 
 export type Props = {
     title: string;
@@ -114,7 +115,7 @@ export const Banner = (props: Props) => {
     const { classNames } = useClassNames({ background });
 
     return (
-        <header className={classNames.root}>
+        <header className={cx(classNames.root, "banner")}>
             <div className={classNames.backgroundDiv}></div>
             {topBarProps !== undefined && <TopBar {...topBarProps} />}
 

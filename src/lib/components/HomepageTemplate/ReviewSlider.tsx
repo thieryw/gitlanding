@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
 import { Logo } from "../design-system/Logo";
+import { cx } from "tss-react";
 
 const { useClassNames } = createUseClassNames()(theme => ({
     "root": {
@@ -125,8 +126,9 @@ export const ReviewSlider = (props: Props) => {
     const { classNames } = useClassNames({});
 
     return (
-        <div className={classNames.root}>
+        <div className={cx(classNames.root, "review-slider")}>
             <ArrowBackIosIcon className={classNames.arrows} onClick={onClickPrev} />
+
             <div className={classNames.viewport} ref={emblaRef}>
                 <div className={classNames.container}>
                     {reviews.map((review, index) => (

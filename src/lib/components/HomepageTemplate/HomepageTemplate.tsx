@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Banner } from "./Banner";
 import { MainSection } from "./MainSection";
 import { ReviewSlider } from "./ReviewSlider";
@@ -6,8 +7,9 @@ import type { Props as BannerProps } from "./Banner";
 import type { Props as MainSectionProps } from "./MainSection";
 import type { Props as FooterProps } from "./Footer";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
+import { ThemeProvider } from "../../theme/ThemeProvider";
 
-export type Props = {
+export type HomepageTemplate = {
     banner?: BannerProps;
     /**
      * enter the assets in an array.
@@ -52,18 +54,33 @@ export type Props = {
     footer?: FooterProps;
 };
 
-export const App = (props: Props) => {
+export const HomepageTemplate = (props: HomepageTemplate) => {
     const { footer, banner, mainSection, reviewSlider } = props;
 
+    useEffect(() => {
+        const script = document.createElement("script");
+
+        script.src = "https://buttons.github.io/buttons.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
+
     return (
-        <>
-            {banner !== undefined && <Banner {...banner} />}
+        <ThemeProvider>
+            <div className="homepage-template">
+                {banner !== undefined && <Banner {...banner} />}
 
-            {mainSection !== undefined && <MainSection dataBlocks={mainSection} />}
+                {mainSection !== undefined && <MainSection dataBlocks={mainSection} />}
 
-            {reviewSlider !== undefined && <ReviewSlider reviews={reviewSlider} />}
+                {reviewSlider !== undefined && <ReviewSlider reviews={reviewSlider} />}
 
-            {footer !== undefined && <Footer {...footer} />}
-        </>
+                {footer !== undefined && <Footer {...footer} />}
+            </div>
+        </ThemeProvider>
     );
 };

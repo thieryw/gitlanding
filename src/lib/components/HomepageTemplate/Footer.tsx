@@ -4,6 +4,7 @@ import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "../../theme/useClassesNames";
 import Typography from "@material-ui/core/Typography";
 import { Logo } from "../design-system/Logo";
+import { cx } from "tss-react";
 
 type Item = {
     name: string;
@@ -65,14 +66,17 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
         },
         "logoSvg": {
             "marginRight": 20,
+            "display": "flex",
             "& svg": {
                 "width": 40,
+                "height": 40,
                 "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
             },
         },
         "logo": {
             "marginRight": 20,
             "width": 40,
+            "height": 40,
         },
         "column": {
             "margin": 40,
@@ -101,7 +105,7 @@ export const Footer = (props: Props) => {
     const { classNames } = useClassNames({ background });
 
     return (
-        <footer className={classNames.root}>
+        <footer className={cx(classNames.root, "footer")}>
             <div className={classNames.wrapper}>
                 {([leftItems, rightItems] as const).map((items, i) => (
                     <div className={classNames.column} key={i}>

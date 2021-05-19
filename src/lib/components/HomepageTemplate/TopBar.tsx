@@ -2,8 +2,8 @@
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "../../theme/useClassesNames";
-import { DarkModeSwitch } from "../design-system/DarkModeSwitch";
-import { GithubStarCount } from "../design-system/GithubStarCount";
+import { DarkModeSwitch } from "./DarkModeSwitch";
+import { GithubStarCount } from "./GithubStarCount";
 import UnfoldIcon from "@material-ui/icons/Dehaze";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
@@ -162,7 +162,7 @@ export const TopBar = (props: Props) => {
     });
 
     return (
-        <List className={classNames.root} component="nav">
+        <List className={cx(classNames.root, "top-bar")} component="nav">
             {logoUrl !== undefined && (
                 <Logo
                     logoUrl={logoUrl}

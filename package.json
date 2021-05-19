@@ -1,6 +1,6 @@
 {
     "name": "homepage-template",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "A module that generates a homepage for your projects",
     "repository": {
         "type": "git",
@@ -10,7 +10,8 @@
     "types": "dist/lib/index.d.ts",
     "scripts": {
         "test": "node dist/test/",
-        "build": "tsc",
+        "build": "tsc && yarn copyfiles",
+        "copyfiles": "copyfiles -u 1 src/**/*.svg dist/",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "npm run lint:check -- --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
@@ -70,6 +71,7 @@
         "prettier": "^2.2.1",
         "react": "^16.14.0",
         "react-svg": "^13.0.4",
-        "typescript": "^4.1.5"
+        "typescript": "^4.1.5",
+        "copyfiles": "^2.4.1"
     }
 }

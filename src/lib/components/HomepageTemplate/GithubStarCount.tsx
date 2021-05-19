@@ -1,4 +1,4 @@
-import { css } from "tss-react";
+import { css, cx } from "tss-react";
 
 type Props = {
     size: "normal" | "large";
@@ -10,12 +10,15 @@ export const GithubStarCount = (props: Props) => {
 
     return (
         <div
-            className={css({
-                "& span": {
-                    "display": "flex",
-                    "alignItems": "center",
-                },
-            })}
+            className={cx(
+                "github-star-count",
+                css({
+                    "& span": {
+                        "display": "flex",
+                        "alignItems": "center",
+                    },
+                }),
+            )}
         >
             <a
                 className="github-button"

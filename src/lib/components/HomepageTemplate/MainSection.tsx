@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { Image } from "../design-system/Image";
 import { memo } from "react";
 import type { Props as ImageProps } from "../design-system/Image";
+import { cx } from "tss-react";
 
 export type Props = {
     dataBlocks: {
@@ -97,7 +98,7 @@ const { Article } = (() => {
             });
 
             return (
-                <article className={classNames.root}>
+                <article className={cx(classNames.root, "main-section")}>
                     {article && (
                         <div className={classNames.article}>
                             <Typography variant="h5">{article.title}</Typography>
