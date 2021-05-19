@@ -1,3 +1,8 @@
+### **0.0.8** (2021-05-19)  
+  
+- refactor plus svg assets and image and margin modifications  
+- update main section and header plus images with vscode frame    
+  
 ### **0.0.7** (2021-05-13)  
   
 - update  
