@@ -1,3 +1,7 @@
+### **0.0.10** (2021-05-21)  
+  
+- image frame options and className prop    
+  
 ### **0.0.9** (2021-05-19)  
   
 - refactor and classNames    
