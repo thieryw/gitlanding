@@ -1,3 +1,7 @@
+### **0.0.11** (2021-05-21)  
+  
+- wrapped components with memo and tested render count of each component    
+  
 ### **0.0.10** (2021-05-21)  
   
 - image frame options and className prop    
