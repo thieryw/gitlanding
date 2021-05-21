@@ -13,7 +13,7 @@ export type Props = {
     title: string;
     subTitle: string;
     className?: string;
-    image?: Pick<ImageProps, "url" | "hasVsCodeFrame">;
+    image?: ImageProps;
     /**
      * you can use markdown between back ticks.
      */
@@ -148,10 +148,10 @@ export function Banner(props: Props) {
 
             {image !== undefined && (
                 <Image
-                    className={classNames.image}
+                    className={cx(classNames.image, image.className)}
                     url={image.url}
-                    alt="banner image"
-                    hasVsCodeFrame={image.hasVsCodeFrame}
+                    alt={image.alt}
+                    frame={image.frame}
                 />
             )}
         </header>

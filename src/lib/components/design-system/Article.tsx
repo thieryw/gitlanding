@@ -51,7 +51,7 @@ const { useClassNames } = createUseClassNames<{
 }));
 
 export type Props = {
-    image?: Pick<ImageProps, "url" | "hasVsCodeFrame">;
+    image?: ImageProps;
     article?: {
         title: string;
         /**
@@ -84,9 +84,9 @@ export const Article = memo((props: Props) => {
             {image && (
                 <Image
                     url={image.url}
-                    alt="source code"
-                    className={classNames.imageWrapper}
-                    hasVsCodeFrame={image.hasVsCodeFrame}
+                    alt={image.alt}
+                    className={cx(classNames.imageWrapper, image.className)}
+                    frame={image.frame}
                 />
             )}
         </article>
