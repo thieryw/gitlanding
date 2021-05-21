@@ -8,18 +8,17 @@ import type { Props as MainSectionProps } from "./MainSection";
 import type { Props as FooterProps } from "./Footer";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
 import { ThemeProvider } from "../../theme/ThemeProvider";
+import { memo } from "react";
 
 export type HomepageTemplate = {
     banner?: BannerProps;
-
     mainSection?: MainSectionProps;
-
     reviewSlider?: ReviewSliderProps;
     footer?: FooterProps;
     className?: string;
 };
 
-export function HomepageTemplate(props: HomepageTemplate) {
+export const HomepageTemplate = memo((props: HomepageTemplate) => {
     const { footer, banner, mainSection, reviewSlider, className } = props;
 
     useEffect(() => {
@@ -52,4 +51,4 @@ export function HomepageTemplate(props: HomepageTemplate) {
             </div>
         </ThemeProvider>
     );
-}
+});

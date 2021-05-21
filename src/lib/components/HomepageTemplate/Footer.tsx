@@ -5,6 +5,7 @@ import { createUseClassNames } from "../../theme/useClassesNames";
 import Typography from "@material-ui/core/Typography";
 import { Logo } from "../design-system/Logo";
 import { cx } from "tss-react";
+import { memo } from "react";
 
 type Item = {
     name: string;
@@ -100,7 +101,7 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
     }),
 );
 
-export function Footer(props: Props) {
+export const Footer = memo((props: Props) => {
     const { licence, leftItems, rightItems, background, className } = props;
 
     const { classNames } = useClassNames({ background });
@@ -125,4 +126,4 @@ export function Footer(props: Props) {
             <p className={classNames.licence}>{licence}</p>
         </footer>
     );
-}
+});

@@ -2,6 +2,7 @@ import { createUseClassNames } from "../../theme/useClassesNames";
 import { cx } from "tss-react";
 import type { Props as ArticleProps } from "../design-system/Article";
 import { Article } from "../design-system/Article";
+import { memo } from "react";
 
 export type Props = {
     /**
@@ -40,7 +41,7 @@ const { useClassNames } = createUseClassNames()(() => ({
     },
 }));
 
-export function MainSection(props: Props) {
+export const MainSection = memo((props: Props) => {
     const { dataBlocks, className } = props;
 
     const { classNames } = useClassNames({});
@@ -58,4 +59,4 @@ export function MainSection(props: Props) {
             ))}
         </section>
     );
-}
+});

@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { Image } from "../design-system/Image";
 import type { Props as ImageProps } from "../design-system/Image";
 import { cx } from "tss-react";
+import { memo } from "react";
 
 export type Props = {
     title: string;
@@ -110,7 +111,7 @@ const { useClassNames } = createUseClassNames<{ background: Props["background"] 
     }),
 );
 
-export function Banner(props: Props) {
+export const Banner = memo((props: Props) => {
     const { image, title, subTitle, buttons, background, topBarProps, paragraphMd, className } = props;
 
     const { classNames } = useClassNames({ background });
@@ -156,4 +157,4 @@ export function Banner(props: Props) {
             )}
         </header>
     );
-}
+});

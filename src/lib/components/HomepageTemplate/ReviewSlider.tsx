@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
 import { Logo } from "../design-system/Logo";
 import { cx } from "tss-react";
+import { memo } from "react";
 
 const { useClassNames } = createUseClassNames()(theme => ({
     "root": {
@@ -133,7 +134,7 @@ export type Props = {
     className?: string;
 };
 
-export function ReviewSlider(props: Props) {
+export const ReviewSlider = memo((props: Props) => {
     const { reviews, className } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
@@ -171,4 +172,4 @@ export function ReviewSlider(props: Props) {
             <ArrowForwardIosIcon className={classNames.arrows} onClick={onClickNext} />
         </div>
     );
-}
+});
