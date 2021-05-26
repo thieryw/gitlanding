@@ -4,7 +4,7 @@ import { cx } from "tss-react";
 import { memo } from "react";
 
 export type Props = {
-    url: string;
+    url?: string;
     frame?: {
         isActive: boolean;
         customColor?: string;

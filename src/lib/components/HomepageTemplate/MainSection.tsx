@@ -28,7 +28,7 @@ export type Props = {
      * ]
      */
     dataBlocks: {
-        image?: ArticleProps["image"];
+        illustration?: ArticleProps["illustration"];
         article?: ArticleProps["article"];
         className?: string;
     }[];
@@ -53,7 +53,7 @@ export const MainSection = memo((props: Props) => {
                     className={dataBlock.className}
                     isRowReverse={index % 2 === 1 ? true : false}
                     article={dataBlock.article}
-                    image={dataBlock.image}
+                    illustration={dataBlock.illustration}
                     key={index}
                 />
             ))}

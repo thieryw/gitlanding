@@ -1,17 +1,19 @@
 import Typography from "@material-ui/core/Typography";
 import { createUseClassNames } from "../../theme/useClassesNames";
 import ReactMarkdown from "react-markdown";
-import { Image } from "../design-system/Image";
+import { Image } from "./Image";
 import { memo } from "react";
 import type { Props as ImageProps } from "./Image";
 import { cx } from "tss-react";
+import { Code } from "./Code";
+import type { Props as CodeProps } from "./Code";
 
 const { useClassNames } = createUseClassNames<{
     isRowReverse: boolean;
     hasArticle: boolean;
-    hasImage: boolean;
+    hasIllustration: boolean;
     className?: string;
-}>()((...[, { isRowReverse, hasArticle, hasImage }]) => ({
+}>()((...[, { isRowReverse, hasArticle, hasIllustration }]) => ({
     "root": {
         "display": "flex",
         "justifyContent": "center",
@@ -26,19 +28,19 @@ const { useClassNames } = createUseClassNames<{
     },
 
     "article": {
-        "width": hasImage ? 500 : 600,
-        "textAlign": hasImage ? "unset" : "center",
+        "width": hasIllustration ? 500 : 600,
+        "textAlign": hasIllustration ? "unset" : "center",
         "margin": "0 40px 0 40px",
         "& h4": {
             "marginBottom": 20,
         },
         "@media (max-width: 895px)": {
-            "marginBottom": hasImage ? 40 : 0,
+            "marginBottom": hasIllustration ? 40 : 0,
             "width": "80%",
         },
     },
 
-    "imageWrapper": {
+    "illustration": {
         "width": hasArticle ? 550 : 600,
         "margin": "0 40px 0 40px",
         "@media (max-width: 1215px)": {
@@ -51,7 +53,11 @@ const { useClassNames } = createUseClassNames<{
 }));
 
 export type Props = {
-    image?: ImageProps;
+    illustration?: {
+        type: "code" | "image";
+        imageProps?: ImageProps;
+        codeProps?: CodeProps;
+    };
     article?: {
         title: string;
         /**
@@ -64,12 +70,12 @@ export type Props = {
 };
 
 export const Article = memo((props: Props) => {
-    const { article, image, isRowReverse, className } = props;
+    const { article, illustration, isRowReverse, className } = props;
 
     const { classNames } = useClassNames({
         isRowReverse,
         "hasArticle": article !== undefined,
-        "hasImage": image !== undefined,
+        "hasIllustration": illustration !== undefined,
     });
 
     return (
@@ -81,14 +87,22 @@ export const Article = memo((props: Props) => {
                 </div>
             )}
 
-            {image && (
-                <Image
-                    url={image.url}
-                    alt={image.alt}
-                    className={cx(classNames.imageWrapper, image.className)}
-                    frame={image.frame}
-                />
-            )}
+            {illustration &&
+                (illustration.type === "image" ? (
+                    <Image
+                        url={illustration.imageProps?.url}
+                        alt={illustration.imageProps?.alt}
+                        className={cx(classNames.illustration, illustration.imageProps?.className)}
+                        frame={illustration.imageProps?.frame}
+                    />
+                ) : (
+                    <Code
+                        text={illustration.codeProps?.text}
+                        language={illustration.codeProps?.language}
+                        showLineNumbers={illustration.codeProps?.showLineNumbers}
+                        className={cx(classNames.illustration, illustration.imageProps?.className)}
+                    />
+                ))}
         </article>
     );
 });
