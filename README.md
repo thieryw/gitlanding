@@ -10,12 +10,12 @@
     <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a href="https://www.gitlanding.org">Homepage</a>
+  <a href="https://www.gitlanding.org">Landing page</a>
   -
   <a href="https://docs.gitlanding.org">Documentation</a>
 </p>
 
-# Homepage Template
+# gitlanding
 
 ## A module that generates a homepage for your projects
 
