@@ -1,3 +1,13 @@
+### **0.0.12** (2021-05-27)  
+  
+- update  
+- update  
+- Update index.ts  
+- update  
+- update  
+- name change  
+- introduce code blocks for mainSection    
+  
 ### **0.0.11** (2021-05-21)  
   
 - wrapped components with memo and tested render count of each component    
