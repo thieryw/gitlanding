@@ -5,14 +5,14 @@
     <i>Leverage the more advanced features of TypeScript</i>
     <br>
     <br>
-    <img src="https://github.com/thieryw/homepage-template/workflows/ci/badge.svg?branch=main">
-    <img src="https://img.shields.io/npm/dw/homepage-template">
-    <img src="https://img.shields.io/npm/l/homepage-template">
+    <img src="https://github.com/thieryw/gitlanding/workflows/ci/badge.svg?branch=main">
+    <img src="https://img.shields.io/npm/dw/gitlanding">
+    <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a href="https://www.homepage-template.ovh">Homepage</a>
+  <a href="https://www.gitlanding.org">Homepage</a>
   -
-  <a href="https://docs.homepage-template.ovh">Documentation</a>
+  <a href="https://docs.gitlanding.org">Documentation</a>
 </p>
 
 # Homepage Template
@@ -22,19 +22,19 @@
 # Install / Import
 
 ```bash
-$ npm install --save homepage-template
+$ npm install --save gitlanding
 ```
 
 ```typescript
-import { HomepageTemplate } from "homepage-template";
-import type { TemplateData } from "homepage-template";
+import { Gitlanding } from "gitlanding";
+import type { GitlandingProps } from "gitlanding";
 ```
 
 Specific imports:
 
 ```typescript
-import { Header } from "homepage-template/src/components/App/Header";
-import type { Props } from "homepage-template/src/components/App/Header";
+import { Header } from "gitlanding/src/components/App/Header";
+import type { Props } from "gitlanding/src/components/App/Header";
 ```
 
 ## Contribute

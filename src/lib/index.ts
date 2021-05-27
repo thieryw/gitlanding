@@ -1,4 +1,4 @@
-export * from "./components/HomepageTemplate";
+export * from "./components/Gitlanding";
 import twitterLogoUrl from "./assets/svg/twitter.svg";
 import youtubeLogoUrl from "./assets/svg/youtube.svg";
 import redditLogoUrl from "./assets/svg/reddit.svg";

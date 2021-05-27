@@ -10,7 +10,7 @@ import type { Props as ReviewSliderProps } from "./ReviewSlider";
 import { ThemeProvider } from "../../theme/ThemeProvider";
 import { memo } from "react";
 
-export type HomepageTemplate = {
+export type GitlandingProps = {
     banner?: BannerProps;
     mainSection?: MainSectionProps;
     reviewSlider?: ReviewSliderProps;
@@ -18,7 +18,7 @@ export type HomepageTemplate = {
     className?: string;
 };
 
-export const HomepageTemplate = memo((props: HomepageTemplate) => {
+export const Gitlanding = memo((props: GitlandingProps) => {
     const { footer, banner, mainSection, reviewSlider, className } = props;
 
     useEffect(() => {

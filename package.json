@@ -1,10 +1,10 @@
 {
-    "name": "homepage-template",
-    "version": "0.0.11",
-    "description": "A module that generates a homepage for your projects",
+    "name": "gitlanding",
+    "version": "0.0.1",
+    "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
-        "url": "git://github.com/thieryw/homepage-template.git"
+        "url": "git://github.com/thieryw/gitlanding.git"
     },
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
@@ -41,7 +41,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "keywords": [],
-    "homepage": "https://github.com/thieryw/homepage-template",
+    "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
         "react": "*"
     },
