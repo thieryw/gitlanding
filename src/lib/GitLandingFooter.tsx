@@ -18,7 +18,7 @@ type Item = {
     logoUrl?: string;
 };
 
-export type Props = {
+export type GitLandingFooterProps = {
     leftItems: Item[];
     rightItems: Item[];
     licence: string;
@@ -30,7 +30,7 @@ export type Props = {
     className?: string;
 };
 
-const { useClassNames } = createUseClassNames<{ background?: Props["background"] }>()(
+const { useClassNames } = createUseClassNames<{ background?: GitLandingFooterProps["background"] }>()(
     (theme, { background }) => ({
         "root": {
             "display": "flex",
@@ -101,7 +101,7 @@ const { useClassNames } = createUseClassNames<{ background?: Props["background"]
     }),
 );
 
-export const Footer = memo((props: Props) => {
+export const GitLandingFooter = memo((props: GitLandingFooterProps) => {
     const { licence, leftItems, rightItems, background, className } = props;
 
     const { classNames } = useClassNames({ background });

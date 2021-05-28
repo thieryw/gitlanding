@@ -4,7 +4,7 @@ import type { Props as ArticleProps } from "./theme/design-system/Article";
 import { Article } from "./theme/design-system/Article";
 import { memo } from "react";
 
-export type Props = {
+export type GitLandingSectionProps = {
     /**
      * enter the assets in an array.
      * example:
@@ -41,7 +41,7 @@ const { useClassNames } = createUseClassNames()(() => ({
     },
 }));
 
-export const MainSection = memo((props: Props) => {
+export const GitLandingSection = memo((props: GitLandingSectionProps) => {
     const { dataBlocks, className } = props;
 
     const { classNames } = useClassNames({});
