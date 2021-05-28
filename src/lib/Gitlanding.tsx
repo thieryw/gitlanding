@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { Banner } from "./Banner";
+import { GitLandingHeader } from "./GitLandingHeader";
 import { MainSection } from "./MainSection";
 import { ReviewSlider } from "./ReviewSlider";
 import { Footer } from "./Footer";
-import type { Props as BannerProps } from "./Banner";
+import type { GitLandingHeaderProps } from "./GitLandingHeader";
 import type { Props as MainSectionProps } from "./MainSection";
 import type { Props as FooterProps } from "./Footer";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
-import { ThemeProvider } from "../../theme/ThemeProvider";
+import { ThemeProvider } from "./theme/ThemeProvider";
 import { memo } from "react";
 
 export type GitlandingProps = {
-    banner?: BannerProps;
+    header?: GitLandingHeaderProps;
     mainSection?: MainSectionProps;
     reviewSlider?: ReviewSliderProps;
     footer?: FooterProps;
@@ -19,7 +19,7 @@ export type GitlandingProps = {
 };
 
 export const Gitlanding = memo((props: GitlandingProps) => {
-    const { footer, banner, mainSection, reviewSlider, className } = props;
+    const { footer, header, mainSection, reviewSlider, className } = props;
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -37,7 +37,7 @@ export const Gitlanding = memo((props: GitlandingProps) => {
     return (
         <ThemeProvider>
             <div className={className}>
-                {banner !== undefined && <Banner {...banner} />}
+                {header !== undefined && <GitLandingHeader {...header} />}
 
                 {mainSection !== undefined && (
                     <MainSection className={mainSection.className} dataBlocks={mainSection.dataBlocks} />

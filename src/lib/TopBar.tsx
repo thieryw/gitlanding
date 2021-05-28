@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "../../theme/useClassesNames";
+import { createUseClassNames } from "./theme/useClassesNames";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { GithubStarCount } from "./GithubStarCount";
 import UnfoldIcon from "@material-ui/icons/Dehaze";
@@ -10,7 +10,7 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, useEffect, useMemo, useState } from "react";
-import { Logo } from "../design-system/Logo";
+import { Logo } from "./theme/design-system/Logo";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;

@@ -1,4 +1,4 @@
-import { createUseClassNames } from "../../theme/useClassesNames";
+import { createUseClassNames } from "../useClassesNames";
 import RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import { useTheme } from "@material-ui/core/styles";
 import { css } from "tss-react";

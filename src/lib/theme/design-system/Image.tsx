@@ -1,5 +1,5 @@
 import { VsCodeButtons } from "./VsCodeButtons";
-import { createUseClassNames } from "../../theme/useClassesNames";
+import { createUseClassNames } from "../useClassesNames";
 import { cx } from "tss-react";
 import { memo } from "react";
 

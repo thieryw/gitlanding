@@ -1,5 +1,5 @@
 import Typography from "@material-ui/core/Typography";
-import { createUseClassNames } from "../../theme/useClassesNames";
+import { createUseClassNames } from "../useClassesNames";
 import ReactMarkdown from "react-markdown";
 import { Image } from "./Image";
 import { memo } from "react";

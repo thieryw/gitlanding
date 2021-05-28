@@ -33,8 +33,9 @@ import type { GitlandingProps } from "gitlanding";
 Specific imports:
 
 ```typescript
-import { Header } from "gitlanding/src/components/App/Header";
-import type { Props } from "gitlanding/src/components/App/Header";
+import { Header } from "gitlanding/lib/Banner";
+import type { Props } from "gitlanding/lib/Header";
+import twitterLogoUrl from "gitlanding/assets/twitter.svg";
 ```
 
 ## Contribute

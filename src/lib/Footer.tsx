@@ -1,9 +1,9 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "../../theme/useClassesNames";
+import { createUseClassNames } from "./theme/useClassesNames";
 import Typography from "@material-ui/core/Typography";
-import { Logo } from "../design-system/Logo";
+import { Logo } from "./theme/design-system/Logo";
 import { cx } from "tss-react";
 import { memo } from "react";
 
