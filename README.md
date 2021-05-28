@@ -1,2 +1,2 @@
-# What is homepage-tempate?
+# What is gitlanding?
 
