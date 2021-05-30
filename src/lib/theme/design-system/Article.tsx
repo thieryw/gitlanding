@@ -93,7 +93,9 @@ export const Article = memo((props: Props) => {
                         url={illustration.imageProps?.url}
                         alt={illustration.imageProps?.alt}
                         className={cx(classNames.illustration, illustration.imageProps?.className)}
-                        frame={illustration.imageProps?.frame}
+                        hasFrame={illustration.imageProps?.hasFrame}
+                        customFrameColor={illustration.imageProps?.customFrameColor}
+                        hasFrameButtons={illustration.imageProps?.hasFrameButtons}
                     />
                 ) : (
                     <Code

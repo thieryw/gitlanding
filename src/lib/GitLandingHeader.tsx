@@ -157,7 +157,9 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                     className={cx(classNames.image, image.className)}
                     url={image.url}
                     alt={image.alt}
-                    frame={image.frame}
+                    hasFrame={image.hasFrame}
+                    customFrameColor={image.customFrameColor}
+                    hasFrameButtons={image.hasFrameButtons}
                 />
             )}
         </header>
