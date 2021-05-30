@@ -1,3 +1,8 @@
+### **0.0.14** (2021-05-28)  
+  
+- rename footer and section  
+- correct readme    
+  
 ### **0.0.13** (2021-05-28)  
   
 - update version  
