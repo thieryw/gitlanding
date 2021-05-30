@@ -1,3 +1,7 @@
+### **0.0.15** (2021-05-30)  
+  
+- update image props for a less dum organisation for the image frame    
+  
 ### **0.0.14** (2021-05-28)  
   
 - rename footer and section  
