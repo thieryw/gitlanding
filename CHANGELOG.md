@@ -1,3 +1,7 @@
+### **0.0.16** (2021-06-02)  
+  
+- update with onyxia-ui theme provider    
+  
 ### **0.0.15** (2021-05-30)  
   
 - update image props for a less dum organisation for the image frame    
