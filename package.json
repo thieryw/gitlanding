@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -55,9 +55,13 @@
         "powerhooks": "^0.0.37",
         "react-markdown": "^5.0.3",
         "react-svg": "^13.0.4",
-        "tss-react": "^0.0.8",
+        "tss-react": "^0.0.12",
         "typeface-work-sans": "^1.1.13",
-        "react-code-blocks": "^0.0.8"
+        "react-code-blocks": "^0.0.8",
+        "onyxia-ui": "^0.0.2"
+    },
+    "resolutions": {
+        "@types/react": "^17.0.4"
     },
     "devDependencies": {
         "@types/node": "^15.0.2",

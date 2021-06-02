@@ -1,5 +1,5 @@
 import { VsCodeButtons } from "./VsCodeButtons";
-import { createUseClassNames } from "../useClassesNames";
+import { createUseClassNames } from "../ThemeProvider";
 import { cx } from "tss-react";
 import { memo } from "react";
 
@@ -21,7 +21,7 @@ const { useClassNames } = createUseClassNames<{
 }>()((theme, { frame }) => ({
     "root": {
         "position": "relative",
-        "boxShadow": theme.palette.type === "dark" ? undefined : "-2px 0px 10px 0px rgba(0,0,0,0.75)",
+        "boxShadow": theme.isDarkModeEnabled ? undefined : "-2px 0px 10px 0px rgba(0,0,0,0.75)",
         "& > img": {
             "width": "100%",
             "height": "100%",
@@ -31,11 +31,7 @@ const { useClassNames } = createUseClassNames<{
         "borderRadius": frame.isActive ? 5 : undefined,
         "border": !frame.isActive
             ? undefined
-            : [
-                  "solid",
-                  frame.customColor ?? theme.custom.color.palette.visualStudioCodeColor,
-                  "24px",
-              ].join(" "),
+            : ["solid", frame.customColor ?? theme.colors.palette.VsCodeBackground, "24px"].join(" "),
     },
 }));
 

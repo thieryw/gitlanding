@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "./theme/useClassesNames";
+import { createUseClassNames } from "./theme/ThemeProvider";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { GithubStarCount } from "./GithubStarCount";
 import UnfoldIcon from "@material-ui/icons/Dehaze";
@@ -74,7 +74,7 @@ const { useClassNames } = createUseClassNames<{
         "height": 50,
         "marginRight": "auto",
         "& svg": {
-            "fill": theme.palette.type === "dark" ? "white" : "black",
+            "fill": theme.isDarkModeEnabled ? "white" : "black",
             "height": 50,
             "width": 50,
         },
@@ -93,7 +93,7 @@ const { useClassNames } = createUseClassNames<{
         },
     },
     "link": {
-        "color": theme.palette.type === "dark" ? "white" : "black",
+        "color": theme.isDarkModeEnabled ? "white" : "black",
         "textTransform": "uppercase",
         "margin": "0 15px 0 15px",
         [`@media (max-width: ${smallDeviceBreakPointPx}px)`]: {

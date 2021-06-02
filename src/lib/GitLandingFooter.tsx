@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "./theme/useClassesNames";
+import { createUseClassNames } from "./theme/ThemeProvider";
 import Typography from "@material-ui/core/Typography";
 import { Logo } from "./theme/design-system/Logo";
 import { cx } from "tss-react";
@@ -36,25 +36,19 @@ const { useClassNames } = createUseClassNames<{ background?: GitLandingFooterPro
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
-            "color": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
-            "& a": {
-                "color": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
-            },
             "background": (() => {
                 if (background === undefined) {
-                    return theme.custom.color.useCases.surface;
+                    return theme.colors.useCases.surfaces.background;
                 }
 
                 if (background.type === "color") {
-                    return theme.palette.type === "dark"
+                    return theme.isDarkModeEnabled
                         ? background.colorOrUrlDark
                         : background.colorOrUrlLight;
                 }
 
                 return `center no-repeat url(${
-                    theme.palette.type === "dark"
-                        ? background.colorOrUrlDark
-                        : background.colorOrUrlLight
+                    theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight
                 })`;
             })(),
             "backgroundSize": (() => {
@@ -72,7 +66,7 @@ const { useClassNames } = createUseClassNames<{ background?: GitLandingFooterPro
             "& svg": {
                 "width": 40,
                 "height": 40,
-                "fill": theme.palette.type === "dark" ? theme.custom.color.palette.silverGray : "black",
+                "fill": theme.isDarkModeEnabled ? "white" : "black",
             },
         },
         "logo": {

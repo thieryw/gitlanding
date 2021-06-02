@@ -7,7 +7,7 @@ import type { GitLandingHeaderProps } from "./GitLandingHeader";
 import type { GitLandingSectionProps } from "./GitLandingSection";
 import type { GitLandingFooterProps } from "./GitLandingFooter";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
-import { ThemeProvider } from "./theme/ThemeProvider";
+import { OnyxiaThemeProvider } from "./theme/ThemeProvider";
 import { memo } from "react";
 
 export type GitlandingProps = {
@@ -35,7 +35,7 @@ export const Gitlanding = memo((props: GitlandingProps) => {
     }, []);
 
     return (
-        <ThemeProvider>
+        <OnyxiaThemeProvider>
             <div className={className}>
                 {header !== undefined && <GitLandingHeader {...header} />}
 
@@ -52,6 +52,6 @@ export const Gitlanding = memo((props: GitlandingProps) => {
 
                 {footer !== undefined && <GitLandingFooter {...footer} />}
             </div>
-        </ThemeProvider>
+        </OnyxiaThemeProvider>
     );
 });

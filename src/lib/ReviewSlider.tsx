@@ -1,5 +1,5 @@
 import { useEmblaCarousel } from "embla-carousel/react";
-import { createUseClassNames } from "./theme/useClassesNames";
+import { createUseClassNames } from "./theme/ThemeProvider";
 import { useConstCallback } from "powerhooks";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -81,7 +81,7 @@ const { useClassNames } = createUseClassNames()(theme => ({
     "logo": {
         "width": 70,
         "marginLeft": 40,
-        "fill": theme.palette.type === "dark" ? "white" : "black",
+        "fill": theme.isDarkModeEnabled ? "white" : "black",
         "& svg": {
             "width": 70,
             "height": 70,

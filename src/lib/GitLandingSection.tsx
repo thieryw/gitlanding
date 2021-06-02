@@ -1,4 +1,4 @@
-import { createUseClassNames } from "./theme/useClassesNames";
+import { createUseClassNames } from "./theme/ThemeProvider";
 import { cx } from "tss-react";
 import type { Props as ArticleProps } from "./theme/design-system/Article";
 import { Article } from "./theme/design-system/Article";

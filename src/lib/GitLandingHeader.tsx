@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { TopBar } from "./TopBar";
-import { createUseClassNames } from "./theme/useClassesNames";
+import { createUseClassNames } from "./theme/ThemeProvider";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import type { Props as TopBarProps } from "./TopBar";
@@ -50,14 +50,6 @@ const { useClassNames } = createUseClassNames<{
         "& h4, h5": {
             "maxWidth": "90%",
         },
-        "color": (() => {
-            switch (theme.palette.type) {
-                case "dark":
-                    return "white";
-                case "light":
-                    return "black";
-            }
-        })(),
     },
     "image": {
         "width": 600,
@@ -70,22 +62,16 @@ const { useClassNames } = createUseClassNames<{
     "backgroundDiv": {
         "background": (() => {
             if (background === undefined) {
-                return theme.palette.type === "dark"
-                    ? "#05052b"
-                    : theme.custom.color.palette.typeScriptBlue;
+                return theme.isDarkModeEnabled ? "#05052b" : "darkblue";
             }
 
             if (background.type === "color") {
-                return theme.palette.type === "dark"
-                    ? background.colorOrUrlDark
-                    : background.colorOrUrlLight;
+                return theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight;
             }
 
             return `
                     url("${
-                        theme.palette.type === "dark"
-                            ? background.colorOrUrlDark
-                            : background.colorOrUrlLight
+                        theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight
                     }")
                 `;
         })(),
@@ -98,10 +84,10 @@ const { useClassNames } = createUseClassNames<{
         "top": 0,
         "left": 0,
         "zIndex": -1,
-        "filter": theme.palette.type === "dark" ? "brightness(0.8)" : undefined,
+        "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
     },
     "button": {
-        "color": theme.palette.type === "dark" ? "white" : "black",
+        "color": theme.isDarkModeEnabled ? "white" : "black",
         "margin": 15,
     },
     "buttonWrapper": {
