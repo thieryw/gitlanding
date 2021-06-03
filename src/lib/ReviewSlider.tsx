@@ -1,12 +1,12 @@
 import { useEmblaCarousel } from "embla-carousel/react";
-import { createUseClassNames } from "./theme/ThemeProvider";
+import { createUseClassNames } from "./theme";
 import { useConstCallback } from "powerhooks";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
-import { Logo } from "./theme/design-system/Logo";
+import { Logo } from "./components/Logo";
 import { cx } from "tss-react";
 import { memo } from "react";
 

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { GitLandingHeader } from "./GitLandingHeader";
 import { GitLandingSection } from "./GitLandingSection";
 import { ReviewSlider } from "./ReviewSlider";
@@ -7,7 +6,7 @@ import type { GitLandingHeaderProps } from "./GitLandingHeader";
 import type { GitLandingSectionProps } from "./GitLandingSection";
 import type { GitLandingFooterProps } from "./GitLandingFooter";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
-import { OnyxiaThemeProvider } from "./theme/ThemeProvider";
+import { ThemeProvider } from "./theme";
 import { memo } from "react";
 
 export type GitlandingProps = {
@@ -21,21 +20,8 @@ export type GitlandingProps = {
 export const Gitlanding = memo((props: GitlandingProps) => {
     const { footer, header, mainSection, reviewSlider, className } = props;
 
-    useEffect(() => {
-        const script = document.createElement("script");
-
-        script.src = "https://buttons.github.io/buttons.js";
-        script.async = true;
-
-        document.body.appendChild(script);
-
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
-
     return (
-        <OnyxiaThemeProvider>
+        <ThemeProvider>
             <div className={className}>
                 {header !== undefined && <GitLandingHeader {...header} />}
 
@@ -52,6 +38,6 @@ export const Gitlanding = memo((props: GitlandingProps) => {
 
                 {footer !== undefined && <GitLandingFooter {...footer} />}
             </div>
-        </OnyxiaThemeProvider>
+        </ThemeProvider>
     );
 });

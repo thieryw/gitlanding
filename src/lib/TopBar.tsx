@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "./theme/ThemeProvider";
-import { DarkModeSwitch } from "./DarkModeSwitch";
-import { GithubStarCount } from "./GithubStarCount";
+import { createUseClassNames } from "./theme";
 import UnfoldIcon from "@material-ui/icons/Dehaze";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, useEffect, useMemo, useState } from "react";
-import { Logo } from "./theme/design-system/Logo";
+import { Logo } from "./components/Logo";
+import ReactMarkDown from "react-markdown";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
@@ -42,17 +41,41 @@ export type Props = {
      * the fill will be set to the current font color,
      * depending on the dark mode being active.
      */
-    logoUrl?: string;
-    extraMenuItems?: {
-        items: {
-            name: string;
-            url: string;
-        }[];
+    title?: {
+        type: "logo" | "markdown";
+        logoUrl?: string;
+        markdown?: string;
     };
-
-    documentationUrl?: string;
-    githubRepoUrl?: string;
+    menuItems?: {
+        name: string;
+        url: string;
+    }[];
     className?: string;
+};
+
+export const topBarDefaultProps: Props = {
+    "title": {
+        "type": "markdown",
+        "markdown": `Espace documentaire du **SSP Cloud**`,
+    },
+    "menuItems": [
+        {
+            "name": "Documentation",
+            "url": "",
+        },
+        {
+            "name": "Le datalab",
+            "url": "",
+        },
+        {
+            "name": "Contribuer",
+            "url": "",
+        },
+        {
+            "name": "Actualités et projets",
+            "url": "",
+        },
+    ],
 };
 
 const { useClassNames } = createUseClassNames<{
@@ -64,15 +87,17 @@ const { useClassNames } = createUseClassNames<{
         "justifyContent": "flex-end",
         "flexWrap": "wrap",
         "alignItems": "center",
-        "padding": 20,
-        "width": 1200,
-        "@media (max-width: 1200px)": {
-            "width": "100%",
-        },
+        "width": "100%",
+        "padding": "0px 100px 0px 100px",
     },
     "logo": {
-        "height": 50,
+        "display": "flex",
+        "alignItems": "center",
         "marginRight": "auto",
+        "& p": {
+            "fontSize": "28px",
+            "lineHeight": "32px",
+        },
         "& svg": {
             "fill": theme.isDarkModeEnabled ? "white" : "black",
             "height": 50,
@@ -94,8 +119,9 @@ const { useClassNames } = createUseClassNames<{
     },
     "link": {
         "color": theme.isDarkModeEnabled ? "white" : "black",
-        "textTransform": "uppercase",
-        "margin": "0 15px 0 15px",
+        "fontSize": "22px",
+        "lineHeight": "32px",
+        "marginLeft": theme.spacing(8),
         [`@media (max-width: ${smallDeviceBreakPointPx}px)`]: {
             "margin": "5px 0 5px 0",
         },
@@ -122,7 +148,7 @@ const { useClassNames } = createUseClassNames<{
 }));
 
 export function TopBar(props: Props) {
-    const { extraMenuItems, logoUrl, githubRepoUrl, documentationUrl, className } = props;
+    const { menuItems, title, className } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
 
@@ -131,6 +157,19 @@ export function TopBar(props: Props) {
     const menuRef = useRef<HTMLDivElement>(null);
 
     const darkModSwitchAndGithubRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const script = document.createElement("script");
+
+        script.src = "https://buttons.github.io/buttons.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
 
     const toggleMobileMenu = useConstCallback(() => {
         if (mobileMenuHeight !== 0) {
@@ -161,10 +200,28 @@ export function TopBar(props: Props) {
 
     return (
         <List className={cx(classNames.root, className)} component="nav">
-            {logoUrl !== undefined && <Logo logoUrl={logoUrl} className={classNames.logo} />}
+            {(() => {
+                if (title === undefined) {
+                    return;
+                }
+
+                if (title.type === "logo") {
+                    return (
+                        title.logoUrl !== undefined && (
+                            <Logo logoUrl={title.logoUrl} className={classNames.logo} />
+                        )
+                    );
+                }
+
+                return (
+                    title.markdown !== undefined && (
+                        <ReactMarkDown className={classNames.logo}>{title.markdown}</ReactMarkDown>
+                    )
+                );
+            })()}
             <div ref={menuRef} className={classNames.itemWrapper}>
-                {extraMenuItems !== undefined &&
-                    extraMenuItems.items.map(item => (
+                {menuItems !== undefined &&
+                    menuItems.map(item => (
                         <Link
                             className={cx(classNames.link, "menu-item")}
                             href={item.url}
@@ -173,27 +230,10 @@ export function TopBar(props: Props) {
                             {item.name}
                         </Link>
                     ))}
-
-                {githubRepoUrl !== undefined && (
-                    <Link className={cx(classNames.link, "menu-item")} href={githubRepoUrl}>
-                        github
-                    </Link>
-                )}
-
-                {documentationUrl !== undefined && (
-                    <Link className={cx(classNames.link, "menu-item")} href={documentationUrl}>
-                        documentation
-                    </Link>
-                )}
             </div>
 
             <div ref={rootRef} className={classNames.unfold}>
                 <UnfoldIcon onClick={toggleMobileMenu} />
-            </div>
-
-            <div ref={darkModSwitchAndGithubRef} className={classNames.githubAndDarkModeSwitch}>
-                {githubRepoUrl !== undefined && <GithubStarCount repoUrl={githubRepoUrl} size="large" />}
-                <DarkModeSwitch />
             </div>
         </List>
     );

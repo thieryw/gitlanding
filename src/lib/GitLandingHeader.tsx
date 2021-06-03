@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { TopBar } from "./TopBar";
-import { createUseClassNames } from "./theme/ThemeProvider";
+import { createUseClassNames } from "./theme";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import type { Props as TopBarProps } from "./TopBar";
 import ReactMarkdown from "react-markdown";
-import { Image } from "./theme/design-system/Image";
-import type { Props as ImageProps } from "./theme/design-system/Image";
+import { Image } from "./components/Image";
+import type { Props as ImageProps } from "./components/Image";
 import { cx } from "tss-react";
 import { memo } from "react";
 

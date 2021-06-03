@@ -1,7 +1,7 @@
-import { createUseClassNames } from "./theme/ThemeProvider";
+import { createUseClassNames } from "./theme";
 import { cx } from "tss-react";
-import type { Props as ArticleProps } from "./theme/design-system/Article";
-import { Article } from "./theme/design-system/Article";
+import type { Props as ArticleProps } from "./components/Article";
+import { Article } from "./components/Article";
 import { memo } from "react";
 
 export type GitLandingSectionProps = {
