@@ -49,9 +49,13 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
-      run: yarn build
+      run: |
+        yarn install --frozen-lockfile                                                                                                                                                                                        
+        yarn build
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
-      run: npm run build                                                                                                                                                                                        
+      run: |
+        npm ci                                                                                                                                                                                        
+        npm run build
 
   deploy_storybook:
     runs-on: ubuntu-latest
