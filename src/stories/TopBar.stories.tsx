@@ -1,7 +1,8 @@
 import { TopBar } from "../lib/TopBar";
+import type { Props } from "../lib/TopBar";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { topBarDefaultProps } from "../lib/TopBar";
+import { css } from "tss-react";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
@@ -10,6 +11,34 @@ const { getStory, meta } = getStoryFactory({
 
 export default meta;
 
-export const Vue = getStory({
-    ...topBarDefaultProps,
+const props: Props = {
+    "title": {
+        "type": "markdown",
+        "markdown": `Espace documentaire du **SSP Cloud**`,
+    },
+    "menuItems": [
+        {
+            "name": "Documentation",
+            "url": "",
+        },
+        {
+            "name": "Le datalab",
+            "url": "",
+        },
+        {
+            "name": "Contribuer",
+            "url": "",
+        },
+        {
+            "name": "Actualités et projets",
+            "url": "",
+        },
+    ],
+};
+
+export const largeScreen = getStory({
+    ...props,
+    "className": css({
+        "width": 1600,
+    }),
 });
