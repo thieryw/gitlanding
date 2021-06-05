@@ -10,9 +10,11 @@
     <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a href="https://sb.gitlanding.org">Landing page</a>
+  <a href="https://www.gitlanding.dev">Landing page</a>
   -
-  <a href="https://docs.gitlanding.org">Documentation</a>
+  <a href="https://docs.gitlanding.dev">Documentation</a>
+  -
+  <a href="https://sb.gitlanding.dev">Storybook</a>
 </p>
 
 # gitlanding
