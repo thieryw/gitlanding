@@ -1,3 +1,15 @@
+### **0.0.17** (2021-06-05)  
+  
+- new header  
+- update  
+- update  
+- update top bar but shitty result  
+- update  
+- update  
+- delete test  
+- delete test  
+- install storybook and onyxia top bar    
+  
 ### **0.0.16** (2021-06-02)  
   
 - update with onyxia-ui theme provider    
