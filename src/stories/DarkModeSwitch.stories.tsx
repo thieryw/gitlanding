@@ -1,9 +1,9 @@
 import { DarkModeSwitch } from "../lib/DarkModeSwitch";
-import { sectionName } from "./sectionName";
+import { designSystem } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 
 const { getStory, meta } = getStoryFactory({
-    sectionName,
+    "sectionName": designSystem,
     "wrappedComponent": { DarkModeSwitch },
 });
 

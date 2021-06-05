@@ -1,1 +1,2 @@
-export const sectionName = "designSystem";
+export const designSystem = "designSystem";
+export const component = "components";

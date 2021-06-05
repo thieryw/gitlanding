@@ -1,11 +1,11 @@
 import { TopBar } from "../lib/TopBar";
 import type { Props } from "../lib/TopBar";
-import { sectionName } from "./sectionName";
+import { designSystem } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { css } from "tss-react";
 
 const { getStory, meta } = getStoryFactory({
-    sectionName,
+    "sectionName": designSystem,
     "wrappedComponent": { TopBar },
 });
 

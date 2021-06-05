@@ -1,33 +1,36 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import { TopBar } from "./TopBar";
 import { createUseClassNames } from "./theme";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { Typography } from "onyxia-ui/Typography";
 import type { Props as TopBarProps } from "./TopBar";
-import ReactMarkdown from "react-markdown";
 import { Image } from "./components/Image";
-import type { Props as ImageProps } from "./components/Image";
+import type { ImageProps } from "./components/Image";
 import { cx } from "tss-react";
 import { memo } from "react";
+import ReactMarkdown from "react-markdown";
+
+declare namespace BackgroundProps {
+    export type Color = {
+        type: "color";
+        backgroundColor: string;
+    };
+
+    export type ImageUrl = {
+        type: "image";
+        imageUrl: string;
+    };
+}
 
 export type GitLandingHeaderProps = {
-    title: string;
-    subTitle: string;
+    titleMd: string;
+    subTitleMd: string;
     className?: string;
     image?: ImageProps;
     /**
      * you can use markdown between back ticks.
      */
-    paragraphMd?: string;
-    background?: {
-        type: "color" | "image";
-        colorOrUrlDark: string;
-        colorOrUrlLight: string;
-    };
-    buttons?: {
-        name: string;
-        url: string;
-    }[];
+    background?: BackgroundProps.Color | BackgroundProps.ImageUrl;
     topBarProps?: TopBarProps;
 };
 
@@ -41,38 +44,54 @@ const { useClassNames } = createUseClassNames<{
         "display": "flex",
         "flexDirection": "column",
         "alignItems": "center",
-        "& >img": {},
-        "textAlign": "center",
-        "& h4": {
-            "marginBottom": 30,
-            "marginTop": 30,
+        "& p": {
+            "margin": 0,
         },
-        "& h4, h5": {
-            "maxWidth": "90%",
+    },
+    "presentation": {
+        "display": "flex",
+        "width": "100%",
+        "boxSizing": "border-box",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "paddingTop": 100,
+    },
+
+    "presentationText": {
+        "position": "relative",
+        "left": 135,
+        "bottom": 70,
+        "textAlign": "left",
+        "width": 994,
+        "zIndex": 1,
+        "& h1": {
+            "fontSize": "86px",
+            "marginBottom": 32,
+        },
+        "& h3": {
+            "width": 848,
+            "fontWeight": 400,
+            "lineHeight": "40px",
         },
     },
     "image": {
-        "width": 600,
-        "marginBottom": 50,
-        "@media (max-width: 650px)": {
-            "width": "90%",
-        },
+        "position": "relative",
+        "right": 100,
         "borderRadius": "5px",
+        "width": 1000,
     },
     "backgroundDiv": {
         "background": (() => {
             if (background === undefined) {
-                return theme.isDarkModeEnabled ? "#05052b" : "darkblue";
+                return undefined;
             }
 
             if (background.type === "color") {
-                return theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight;
+                return theme.isDarkModeEnabled ? background.backgroundColor : background.backgroundColor;
             }
 
             return `
-                    url("${
-                        theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight
-                    }")
+                    url("${theme.isDarkModeEnabled ? background.imageUrl : background.imageUrl}")
                 `;
         })(),
         "backgroundRepeat": "no-repeat",
@@ -95,17 +114,10 @@ const { useClassNames } = createUseClassNames<{
         "marginBottom": 30,
         "maxWidth": 650,
     },
-    "paragraph": {
-        "width": 600,
-        "marginBottom": 50,
-        "@media (max-width: 650px)": {
-            "width": "90%",
-        },
-    },
 }));
 
 export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
-    const { image, title, subTitle, buttons, background, topBarProps, paragraphMd, className } = props;
+    const { image, titleMd, subTitleMd, background, topBarProps, className } = props;
 
     const { classNames } = useClassNames({ background });
 
@@ -113,41 +125,25 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
         <header className={cx(classNames.root, className)}>
             <div className={classNames.backgroundDiv}></div>
             {topBarProps !== undefined && <TopBar {...topBarProps} />}
-
-            <Typography variant="h4">{title}</Typography>
-
-            <Typography variant="h5">{subTitle}</Typography>
-
-            {buttons !== undefined && (
-                <div className={classNames.buttonWrapper}>
-                    {buttons.map(button => (
-                        <Button
-                            variant="outlined"
-                            href={button.url}
-                            className={classNames.button}
-                            key={button.name}
-                        >
-                            {button.name}
-                        </Button>
-                    ))}
+            <div className={classNames.presentation}>
+                <div className={classNames.presentationText}>
+                    <Typography variant="h1">
+                        <ReactMarkdown>{titleMd}</ReactMarkdown>
+                    </Typography>
+                    <Typography variant="h3">
+                        <ReactMarkdown>{subTitleMd}</ReactMarkdown>
+                    </Typography>
                 </div>
-            )}
-            {paragraphMd !== undefined && (
-                <div className={classNames.paragraph}>
-                    <ReactMarkdown>{paragraphMd}</ReactMarkdown>
-                </div>
-            )}
 
-            {image !== undefined && (
-                <Image
-                    className={cx(classNames.image, image.className)}
-                    url={image.url}
-                    alt={image.alt}
-                    hasFrame={image.hasFrame}
-                    customFrameColor={image.customFrameColor}
-                    hasFrameButtons={image.hasFrameButtons}
-                />
-            )}
+                {image !== undefined && (
+                    <Image
+                        className={cx(classNames.image, image.className)}
+                        url={image.url}
+                        alt={image.alt}
+                        frame={image.frame}
+                    />
+                )}
+            </div>
         </header>
     );
 });

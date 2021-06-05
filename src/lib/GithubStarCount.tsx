@@ -1,4 +1,5 @@
 import { css, cx } from "tss-react";
+import { memo, useEffect } from "react";
 
 type Props = {
     size: "normal" | "large";
@@ -6,8 +7,21 @@ type Props = {
     className?: string;
 };
 
-export function GithubStarCount(props: Props) {
+export const GithubStarCount = memo((props: Props) => {
     const { size, repoUrl, className } = props;
+
+    useEffect(() => {
+        const script = document.createElement("script");
+
+        script.src = "https://buttons.github.io/buttons.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
 
     return (
         <div
@@ -38,4 +52,4 @@ export function GithubStarCount(props: Props) {
             </a>
         </div>
     );
-}
+});

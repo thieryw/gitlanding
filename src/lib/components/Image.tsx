@@ -1,23 +1,21 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import { VsCodeButtons } from "./VsCodeButtons";
 import { createUseClassNames } from "../theme";
 import { cx } from "tss-react";
 import { memo } from "react";
 
-export type Props = {
-    url?: string;
-    hasFrame?: boolean;
-    customFrameColor?: string;
-    hasFrameButtons?: boolean;
+export type ImageProps = {
+    url: string;
+    frame?: {
+        hasFrameButtons?: boolean;
+        customFrameColor?: string;
+    };
     className?: string;
     alt?: string;
 };
 
 const { useClassNames } = createUseClassNames<{
-    frame: {
-        isActive?: boolean;
-        customColor?: string;
-        hasMokButtons?: boolean;
-    };
+    frame?: ImageProps["frame"];
 }>()((theme, { frame }) => ({
     "root": {
         "position": "relative",
@@ -27,27 +25,32 @@ const { useClassNames } = createUseClassNames<{
             "height": "100%",
             "objectFit": "cover",
             "verticalAlign": "middle",
+            "borderRadius": 5,
         },
-        "borderRadius": frame.isActive ? 5 : undefined,
-        "border": !frame.isActive
-            ? undefined
-            : ["solid", frame.customColor ?? theme.colors.palette.VsCodeBackground, "24px"].join(" "),
+        "borderRadius": frame !== undefined ? 5 : undefined,
+        "border": (() => {
+            if (frame === undefined) {
+                return undefined;
+            }
+
+            return [
+                "solid",
+                frame.customFrameColor ?? theme.colors.palette.VsCodeBackground,
+                "24px",
+            ].join(" ");
+        })(),
     },
 }));
 
-export const Image = memo((props: Props) => {
-    const { className, url, hasFrame, customFrameColor, hasFrameButtons, alt } = props;
+export const Image = memo((props: ImageProps) => {
+    const { className, url, frame, alt } = props;
     const { classNames } = useClassNames({
-        "frame": {
-            "customColor": customFrameColor,
-            "hasMokButtons": hasFrameButtons,
-            "isActive": hasFrame,
-        },
+        frame,
     });
 
     return (
         <div className={cx(classNames.root, className)}>
-            {hasFrame && hasFrameButtons && <VsCodeButtons />}
+            {frame && frame.hasFrameButtons && <VsCodeButtons />}
 
             <img src={url} alt={alt} />
         </div>

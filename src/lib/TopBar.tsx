@@ -26,9 +26,6 @@ function getSmallDeviceBreakPoint(params: {
 
         const titleWidth = !titleRef.current ? 0 : titleRef.current.clientWidth;
 
-        console.log(menuWidth);
-        console.log(titleWidth);
-
         return menuWidth + titleWidth + 200;
     };
 
@@ -71,7 +68,7 @@ const { useClassNames } = createUseClassNames<{
         "flexWrap": "wrap",
         "alignItems": "center",
         "width": "100%",
-        "padding": "0px 100px 0px 100px",
+        "padding": "36px 100px 36px 100px",
     },
     "title": {
         "display": "flex",
@@ -131,19 +128,6 @@ export function TopBar(props: Props) {
         "smallDeviceBreakPoint",
         getSmallDeviceBreakPoint({ titleRef, menuRef }),
     );
-
-    useEffect(() => {
-        const script = document.createElement("script");
-
-        script.src = "https://buttons.github.io/buttons.js";
-        script.async = true;
-
-        document.body.appendChild(script);
-
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
 
     const toggleMobileMenu = useConstCallback(() => {
         if (mobileMenuHeight !== 0) {

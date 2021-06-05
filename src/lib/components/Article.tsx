@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import Typography from "@material-ui/core/Typography";
 import { createUseClassNames } from "../theme";
 import ReactMarkdown from "react-markdown";
 import { Image } from "./Image";
 import { memo } from "react";
-import type { Props as ImageProps } from "./Image";
+import type { ImageProps } from "./Image";
 import { cx } from "tss-react";
 import { Code } from "./Code";
 import type { Props as CodeProps } from "./Code";
@@ -52,12 +53,20 @@ const { useClassNames } = createUseClassNames<{
     },
 }));
 
-export type Props = {
-    illustration?: {
-        type: "code" | "image";
-        imageProps?: ImageProps;
-        codeProps?: CodeProps;
+declare namespace IllustrationProps {
+    export type Code = {
+        type: "code";
+        codeProps: CodeProps;
     };
+
+    export type Image = {
+        type: "image";
+        imageProps: ImageProps;
+    };
+}
+
+export type ArticleProps = {
+    illustration?: IllustrationProps.Code | IllustrationProps.Image;
     article?: {
         title: string;
         /**
@@ -69,7 +78,7 @@ export type Props = {
     className?: string;
 };
 
-export const Article = memo((props: Props) => {
+export const Article = memo((props: ArticleProps) => {
     const { article, illustration, isRowReverse, className } = props;
 
     const { classNames } = useClassNames({
@@ -93,16 +102,17 @@ export const Article = memo((props: Props) => {
                         url={illustration.imageProps?.url}
                         alt={illustration.imageProps?.alt}
                         className={cx(classNames.illustration, illustration.imageProps?.className)}
-                        hasFrame={illustration.imageProps?.hasFrame}
-                        customFrameColor={illustration.imageProps?.customFrameColor}
-                        hasFrameButtons={illustration.imageProps?.hasFrameButtons}
+                        frame={{
+                            "customFrameColor": illustration.imageProps?.frame?.customFrameColor,
+                            "hasFrameButtons": illustration.imageProps?.frame?.hasFrameButtons,
+                        }}
                     />
                 ) : (
                     <Code
                         text={illustration.codeProps?.text}
                         language={illustration.codeProps?.language}
                         showLineNumbers={illustration.codeProps?.showLineNumbers}
-                        className={cx(classNames.illustration, illustration.imageProps?.className)}
+                        className={cx(classNames.illustration, illustration.codeProps?.className)}
                     />
                 ))}
         </article>
