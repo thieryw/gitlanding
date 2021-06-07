@@ -3,7 +3,6 @@
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "./theme";
-import UnfoldIcon from "@material-ui/icons/Dehaze";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";

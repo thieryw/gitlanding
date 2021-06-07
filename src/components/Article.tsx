@@ -8,7 +8,7 @@ import type { ImageProps } from "./Image";
 import { cx, css } from "tss-react";
 import { Code } from "./Code";
 import type { Props as CodeProps } from "./Code";
-import { Button } from "../components/Button";
+import { Button } from "./Button";
 import type { ThumbNailProps } from "./ThumbNails";
 import { ThumbNails } from "./ThumbNails";
 

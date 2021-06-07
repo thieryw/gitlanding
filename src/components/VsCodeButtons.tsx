@@ -1,5 +1,4 @@
 import { createUseClassNames } from "../theme";
-import RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import { css } from "tss-react";
 import { memo } from "react";
 

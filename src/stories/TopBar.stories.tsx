@@ -1,5 +1,5 @@
-import { TopBar } from "../lib/TopBar";
-import type { Props } from "../lib/TopBar";
+import { TopBar } from "../TopBar";
+import type { Props } from "../TopBar";
 import { designSystem } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { css } from "tss-react";
