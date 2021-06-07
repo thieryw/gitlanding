@@ -1,3 +1,7 @@
+### **0.0.18** (2021-06-07)  
+  
+- section with thumbnails    
+  
 ### **0.0.17** (2021-06-05)  
   
 - new header  
