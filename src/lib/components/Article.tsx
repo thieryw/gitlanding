@@ -22,7 +22,7 @@ const { useClassNames } = createUseClassNames<{
     },
     "articleAndImageWrapper": {
         "display": "flex",
-        "justifyContent": "space-between",
+        "justifyContent": "center",
         "alignItems": "center",
     },
     "article": {
@@ -30,7 +30,7 @@ const { useClassNames } = createUseClassNames<{
         "flexDirection": "column",
         "width": hasIllustration ? 412 : 600,
         "textAlign": hasIllustration ? "unset" : "center",
-        "marginLeft": 201,
+        "marginRight": 130,
         "& h2": {
             "marginBottom": 14,
         },
@@ -44,7 +44,7 @@ const { useClassNames } = createUseClassNames<{
 
     "illustration": {
         "width": 900,
-        "marginRight": 200,
+        "marginLeft": 130,
     },
     "button": {
         "color": "unset !important",
