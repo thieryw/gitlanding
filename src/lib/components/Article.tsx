@@ -1,55 +1,56 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import Typography from "@material-ui/core/Typography";
+import { Typography } from "onyxia-ui/Typography";
 import { createUseClassNames } from "../theme";
 import ReactMarkdown from "react-markdown";
 import { Image } from "./Image";
 import { memo } from "react";
 import type { ImageProps } from "./Image";
-import { cx } from "tss-react";
+import { cx, css } from "tss-react";
 import { Code } from "./Code";
 import type { Props as CodeProps } from "./Code";
+import { Button } from "../components/Button";
+import type { ThumbNailProps } from "./ThumbNails";
+import { ThumbNails } from "./ThumbNails";
 
 const { useClassNames } = createUseClassNames<{
     isRowReverse: boolean;
-    hasArticle: boolean;
     hasIllustration: boolean;
-    className?: string;
-}>()((...[, { isRowReverse, hasArticle, hasIllustration }]) => ({
+}>()((theme, { hasIllustration, isRowReverse }) => ({
     "root": {
-        "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "padding": "40px 0 40px 0",
+        "position": "relative",
         "flexDirection": isRowReverse ? "row-reverse" : "row",
-        "@media (max-width: 895px)": {
-            "flexDirection": "column",
-            "padding": 0,
-            "margin": "80px 0 80px 0",
-        },
     },
-
+    "articleAndImageWrapper": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+    },
     "article": {
-        "width": hasIllustration ? 500 : 600,
+        "display": "flex",
+        "flexDirection": "column",
+        "width": hasIllustration ? 412 : 600,
         "textAlign": hasIllustration ? "unset" : "center",
-        "margin": "0 40px 0 40px",
-        "& h4": {
-            "marginBottom": 20,
+        "marginLeft": 201,
+        "& h2": {
+            "marginBottom": 14,
         },
-        "@media (max-width: 895px)": {
-            "marginBottom": hasIllustration ? 40 : 0,
-            "width": "80%",
+        "& p": {
+            "fontSize": theme.typography.body1.fontSize,
+            "lineHeight": "24px",
+            "marginTop": 14,
+            "marginBottom": 14,
         },
     },
 
     "illustration": {
-        "width": hasArticle ? 550 : 600,
-        "margin": "0 40px 0 40px",
-        "@media (max-width: 1215px)": {
-            "width": hasArticle ? "45%" : "50%",
-        },
-        "@media (max-width: 895px)": {
-            "width": "80%",
-        },
+        "width": 900,
+        "marginRight": 200,
+    },
+    "button": {
+        "color": "unset !important",
+        "backgroundColor": "unset !important",
+        "borderColor": "unset !important",
+        "alignSelf": "right",
     },
 }));
 
@@ -66,6 +67,7 @@ declare namespace IllustrationProps {
 }
 
 export type ArticleProps = {
+    thumbNails?: ThumbNailProps;
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     article?: {
         title: string;
@@ -73,48 +75,72 @@ export type ArticleProps = {
          * you can use markdown between back ticks.
          */
         paragraphMd: string;
+        button?: {
+            className?: string;
+            title: string;
+            href: string;
+        };
     };
     isRowReverse: boolean;
     className?: string;
 };
 
 export const Article = memo((props: ArticleProps) => {
-    const { article, illustration, isRowReverse, className } = props;
+    const { article, illustration, isRowReverse, className, thumbNails } = props;
 
     const { classNames } = useClassNames({
         isRowReverse,
-        "hasArticle": article !== undefined,
         "hasIllustration": illustration !== undefined,
     });
 
     return (
         <article className={cx(classNames.root, className)}>
-            {article && (
-                <div className={classNames.article}>
-                    <Typography variant="h5">{article.title}</Typography>
-                    <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
-                </div>
-            )}
+            {thumbNails && <ThumbNails {...thumbNails} />}
+            <div className={classNames.articleAndImageWrapper}>
+                {article && (
+                    <div className={classNames.article}>
+                        <Typography variant="h2">{article.title}</Typography>
+                        <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
+                        {article.button && (
+                            <div
+                                className={cx(
+                                    css({
+                                        "display": "flex",
+                                        "justifyContent": "flex-end",
+                                        "marginTop": 14,
+                                    }),
+                                    article.button.className,
+                                )}
+                            >
+                                <Button
+                                    className={classNames.button}
+                                    type="submit"
+                                    href={article.button.href}
+                                >
+                                    {article.button.title}
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                )}
 
-            {illustration &&
-                (illustration.type === "image" ? (
-                    <Image
-                        url={illustration.imageProps?.url}
-                        alt={illustration.imageProps?.alt}
-                        className={cx(classNames.illustration, illustration.imageProps?.className)}
-                        frame={{
-                            "customFrameColor": illustration.imageProps?.frame?.customFrameColor,
-                            "hasFrameButtons": illustration.imageProps?.frame?.hasFrameButtons,
-                        }}
-                    />
-                ) : (
-                    <Code
-                        text={illustration.codeProps?.text}
-                        language={illustration.codeProps?.language}
-                        showLineNumbers={illustration.codeProps?.showLineNumbers}
-                        className={cx(classNames.illustration, illustration.codeProps?.className)}
-                    />
-                ))}
+                {illustration &&
+                    (illustration.type === "image" ? (
+                        <Image
+                            url={illustration.imageProps?.url}
+                            alt={illustration.imageProps?.alt}
+                            className={cx(classNames.illustration, illustration.imageProps?.className)}
+                            frame={illustration.imageProps.frame}
+                        />
+                    ) : (
+                        <Code
+                            text={illustration.codeProps?.text}
+                            language={illustration.codeProps?.language}
+                            showLineNumbers={illustration.codeProps?.showLineNumbers}
+                            className={cx(classNames.illustration, illustration.codeProps?.className)}
+                        />
+                    ))}
+            </div>
         </article>
     );
 });

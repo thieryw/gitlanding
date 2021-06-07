@@ -1,5 +1,3 @@
-import { createUseClassNames } from "./theme";
-import { cx } from "tss-react";
 import type { ArticleProps } from "./components/Article";
 import { Article } from "./components/Article";
 import { memo } from "react";
@@ -30,24 +28,17 @@ export type GitLandingSectionProps = {
     dataBlocks: {
         illustration?: ArticleProps["illustration"];
         article?: ArticleProps["article"];
+        thumbNails?: ArticleProps["thumbNails"];
         className?: string;
     }[];
     className?: string;
 };
 
-const { useClassNames } = createUseClassNames()(() => ({
-    "root": {
-        "padding": "40px 0 40px 0",
-    },
-}));
-
 export const GitLandingSection = memo((props: GitLandingSectionProps) => {
     const { dataBlocks, className } = props;
 
-    const { classNames } = useClassNames({});
-
     return (
-        <section className={cx(classNames.root, className)}>
+        <section className={className}>
             {dataBlocks.map((dataBlock, index) => (
                 <Article
                     className={dataBlock.className}
@@ -55,6 +46,7 @@ export const GitLandingSection = memo((props: GitLandingSectionProps) => {
                     article={dataBlock.article}
                     illustration={dataBlock.illustration}
                     key={index}
+                    thumbNails={dataBlock.thumbNails}
                 />
             ))}
         </section>

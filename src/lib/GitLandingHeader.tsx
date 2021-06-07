@@ -9,7 +9,8 @@ import type { ImageProps } from "./components/Image";
 import { cx } from "tss-react";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
-
+import { DownArrow } from "./components/DownArrow";
+import Link from "@material-ui/core/Link";
 declare namespace BackgroundProps {
     export type Color = {
         type: "color";
@@ -23,8 +24,8 @@ declare namespace BackgroundProps {
 }
 
 export type GitLandingHeaderProps = {
-    titleMd: string;
-    subTitleMd: string;
+    titleMd?: string;
+    subTitleMd?: string;
     className?: string;
     image?: ImageProps;
     /**
@@ -32,6 +33,10 @@ export type GitLandingHeaderProps = {
      */
     background?: BackgroundProps.Color | BackgroundProps.ImageUrl;
     topBarProps?: TopBarProps;
+    linkToNextSection?: {
+        href?: string;
+        title: string;
+    };
 };
 
 const { useClassNames } = createUseClassNames<{
@@ -59,7 +64,7 @@ const { useClassNames } = createUseClassNames<{
 
     "presentationText": {
         "position": "relative",
-        "left": 135,
+        "left": 160,
         "bottom": 70,
         "textAlign": "left",
         "width": 994,
@@ -78,7 +83,7 @@ const { useClassNames } = createUseClassNames<{
         "position": "relative",
         "right": 100,
         "borderRadius": "5px",
-        "width": 1000,
+        "width": 900,
     },
     "backgroundDiv": {
         "background": (() => {
@@ -114,10 +119,21 @@ const { useClassNames } = createUseClassNames<{
         "marginBottom": 30,
         "maxWidth": 650,
     },
+    "linkToNextSection": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "marginTop": 138,
+        "marginBottom": 138,
+        "& h3": {
+            "fontWeight": 400,
+            "marginBottom": 21,
+        },
+    },
 }));
 
 export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
-    const { image, titleMd, subTitleMd, background, topBarProps, className } = props;
+    const { image, titleMd, subTitleMd, background, topBarProps, className, linkToNextSection } = props;
 
     const { classNames } = useClassNames({ background });
 
@@ -127,12 +143,16 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
             {topBarProps !== undefined && <TopBar {...topBarProps} />}
             <div className={classNames.presentation}>
                 <div className={classNames.presentationText}>
-                    <Typography variant="h1">
-                        <ReactMarkdown>{titleMd}</ReactMarkdown>
-                    </Typography>
-                    <Typography variant="h3">
-                        <ReactMarkdown>{subTitleMd}</ReactMarkdown>
-                    </Typography>
+                    {titleMd && (
+                        <Typography variant="h1">
+                            <ReactMarkdown>{titleMd}</ReactMarkdown>
+                        </Typography>
+                    )}
+                    {subTitleMd && (
+                        <Typography variant="h3">
+                            <ReactMarkdown>{subTitleMd}</ReactMarkdown>
+                        </Typography>
+                    )}
                 </div>
 
                 {image !== undefined && (
@@ -144,6 +164,17 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                     />
                 )}
             </div>
+
+            {linkToNextSection && (
+                <div className={classNames.linkToNextSection}>
+                    <Typography variant="h3">
+                        <ReactMarkdown>{linkToNextSection.title}</ReactMarkdown>
+                    </Typography>
+                    <Link href={linkToNextSection.href}>
+                        <DownArrow />
+                    </Link>
+                </div>
+            )}
         </header>
     );
 });

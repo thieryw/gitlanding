@@ -1744,7 +1744,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@material-ui/core@^4.11.3", "@material-ui/core@^4.11.4":
+"@material-ui/core@^4.11.3":
   version "4.11.4"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.4.tgz#4fb9fe5dec5dcf780b687e3a40cff78b2b9640a4"
   integrity sha512-oqb+lJ2Dl9HXI9orc6/aN8ZIAMkeThufA5iZELf2LQeBn2NtjVilF5D2w7e9RpntAzDb4jK5DsVhkfOvFY/8fg==
@@ -10416,22 +10416,22 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.1.2.tgz#df844b2c705669932b20235d40fbd08ae7754569"
-  integrity sha512-PPprrudjC1jSjnRaygqxT8WYTLMndclPfCdSV4/EsPu9PpBNL4ZhsIFGkgaA6onY2i8X9moRwnfvn39Gc/tyvw==
+onyxia-ui@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.3.0.tgz#6888ee5c1323483cc28fdf1c8c00973aaa5be2a7"
+  integrity sha512-VNuU934OpZUVlUUHOJS0TFG9eWoNEfySlvq6zyuIrVhc2oEMeFUIJu9dRi4LI/kiTUT8DPkEApS6kI8ua4/MKw==
   dependencies:
-    "@material-ui/core" "^4.11.4"
     "@material-ui/icons" "^4.11.2"
-    "@material-ui/lab" "^4.0.0-alpha.58"
     color "3.1.3"
     evt beta
     memoizee "^0.4.15"
-    powerhooks "^0.0.39"
+    powerhooks "^0.0.42"
+    ts-toolbelt "^9.6.0"
     tsafe "^0.4.0"
-    tss-react "^0.0.12"
   optionalDependencies:
+    "@material-ui/lab" "^4.0.0-alpha.58"
     "@types/react" "^17.0.0"
+    tss-react "^0.0.12"
 
 open@^7.0.2, open@^7.0.3:
   version "7.4.2"
@@ -11616,13 +11616,14 @@ powerhooks@^0.0.37:
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
 
-powerhooks@^0.0.39:
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.0.39.tgz#9c51e119bb64aa4a62092318359b9a35747a5392"
-  integrity sha512-D64i3OpXdkFvyarw4kvcPuYwCvv05Oyu/7kvdCHSGgIMzqe8ZpUpUX17S7b7oHfW2H6BBg0CDT3/lOdgYPV93g==
+powerhooks@^0.0.42:
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.0.42.tgz#767a928236119959bcd20d28c14250b60503dab3"
+  integrity sha512-M9aL5kOPXVJckOm03X9ZbIGd3SYXkBGONhqWuA5BKFWwAHPCyVuRX6532rw1cL0AxMWEKULVmDiV4hRPy/T0lg==
   dependencies:
     evt "2.0.0-beta.15"
     memoizee "^0.4.15"
+    minimal-polyfills "^2.2.1"
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.1.0"
 
@@ -14080,6 +14081,11 @@ ts-pnp@1.2.0, ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+ts-toolbelt@^9.6.0:
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-9.6.0.tgz#50a25426cfed500d4a09bd1b3afb6f28879edfd5"
+  integrity sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==
 
 tsafe@^0.1.0:
   version "0.1.15"
