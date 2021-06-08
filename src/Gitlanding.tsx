@@ -10,11 +10,11 @@ import { ThemeProvider } from "./theme";
 import { memo } from "react";
 
 export type GitlandingProps = {
+    className?: string;
     header?: GitLandingHeaderProps;
     mainSection?: GitLandingSectionProps;
     reviewSlider?: ReviewSliderProps;
     footer?: GitLandingFooterProps;
-    className?: string;
 };
 
 export const Gitlanding = memo((props: GitlandingProps) => {

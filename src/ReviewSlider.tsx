@@ -1,14 +1,13 @@
 import { useEmblaCarousel } from "embla-carousel/react";
 import { createUseClassNames } from "./theme";
 import { useConstCallback } from "powerhooks";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
 import { Logo } from "./components/Logo";
 import { cx } from "tss-react";
 import { memo } from "react";
+import { Icon } from "./theme";
 
 const { useClassNames } = createUseClassNames()(theme => ({
     "root": {
@@ -146,7 +145,7 @@ export const ReviewSlider = memo((props: Props) => {
 
     return (
         <div className={cx(classNames.root, className)}>
-            <ArrowBackIosIcon className={classNames.arrows} onClick={onClickPrev} />
+            <Icon id="arrowBackIos" className={classNames.arrows} onClick={onClickPrev} />
 
             <div className={classNames.viewport} ref={emblaRef}>
                 <div className={classNames.container}>
@@ -169,7 +168,7 @@ export const ReviewSlider = memo((props: Props) => {
                 </div>
             </div>
 
-            <ArrowForwardIosIcon className={classNames.arrows} onClick={onClickNext} />
+            <Icon id="arrowForwardIos" className={classNames.arrows} onClick={onClickNext} />
         </div>
     );
 });

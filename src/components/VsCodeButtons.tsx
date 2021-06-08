@@ -1,7 +1,7 @@
 import { createUseClassNames } from "../theme";
-import RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import { css } from "tss-react";
 import { memo } from "react";
+import { Icon } from "../theme";
 
 const { useClassNames } = createUseClassNames()(() => ({
     "roundedIcons": {
@@ -23,7 +23,8 @@ export const VsCodeButtons = memo(() => {
     return (
         <div className={classNames.roundedIcons}>
             {colors.map(color => (
-                <RoundedIcon
+                <Icon
+                    id="brightness1Rounded"
                     key={color}
                     className={css({
                         "fill": color,

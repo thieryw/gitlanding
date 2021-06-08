@@ -1,4 +1,4 @@
-import { DarkModeSwitch } from "../lib/DarkModeSwitch";
+import { DarkModeSwitch } from "../DarkModeSwitch";
 import { designSystem } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 

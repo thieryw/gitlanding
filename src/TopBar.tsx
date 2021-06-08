@@ -3,7 +3,6 @@
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
 import { createUseClassNames } from "./theme";
-import UnfoldIcon from "@material-ui/icons/Dehaze";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
@@ -14,6 +13,7 @@ import ReactMarkDown from "react-markdown";
 import { Typography } from "onyxia-ui/Typography";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
+import { Icon } from "./theme";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
@@ -195,7 +195,7 @@ export function TopBar(props: Props) {
             </div>
 
             <div ref={rootRef} className={classNames.unfold}>
-                <UnfoldIcon onClick={toggleMobileMenu} />
+                <Icon id="dehaze" onClick={toggleMobileMenu} />
             </div>
         </List>
     );
