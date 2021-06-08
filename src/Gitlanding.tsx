@@ -1,9 +1,9 @@
 import { GitLandingHeader } from "./GitLandingHeader";
-import { GitLandingSection } from "./GitLandingSection";
+import { GitLandingSection } from "./GitLandingSections";
 import { ReviewSlider } from "./ReviewSlider";
 import { GitLandingFooter } from "./GitLandingFooter";
 import type { GitLandingHeaderProps } from "./GitLandingHeader";
-import type { GitLandingSectionProps } from "./GitLandingSection";
+import type { GitLandingSectionProps } from "./GitLandingSections";
 import type { GitLandingFooterProps } from "./GitLandingFooter";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
 import { ThemeProvider } from "./theme";
@@ -28,7 +28,7 @@ export const Gitlanding = memo((props: GitlandingProps) => {
                 {mainSection !== undefined && (
                     <GitLandingSection
                         className={mainSection.className}
-                        dataBlocks={mainSection.dataBlocks}
+                        sections={mainSection.sections}
                     />
                 )}
 

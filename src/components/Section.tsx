@@ -18,10 +18,16 @@ const { useClassNames } = createUseClassNames<{
 }>()((theme, { hasIllustration, isRowReverse }) => ({
     "root": {
         "position": "relative",
-        "flexDirection": isRowReverse ? "row-reverse" : "row",
+        "marginTop": theme.spacing(17),
+    },
+    "title": {
+        "fontSize": "40px",
+        "textAlign": "center",
+        "marginBottom": theme.spacing(7.5),
     },
     "articleAndImageWrapper": {
         "display": "flex",
+        "flexDirection": isRowReverse ? "row-reverse" : "row",
         "justifyContent": "center",
         "alignItems": "center",
     },
@@ -30,7 +36,7 @@ const { useClassNames } = createUseClassNames<{
         "flexDirection": "column",
         "width": hasIllustration ? 412 : 600,
         "textAlign": hasIllustration ? "unset" : "center",
-        "marginRight": 130,
+        [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
         "& h2": {
             "marginBottom": 14,
         },
@@ -44,7 +50,7 @@ const { useClassNames } = createUseClassNames<{
 
     "illustration": {
         "width": 900,
-        "marginLeft": 130,
+        [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
     },
     "button": {
         "color": "unset !important",
@@ -66,9 +72,11 @@ declare namespace IllustrationProps {
     };
 }
 
-export type ArticleProps = {
+export type SectionProps = {
+    className?: string;
     thumbNails?: ThumbNailProps;
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
+    title?: string;
     article?: {
         title: string;
         /**
@@ -82,11 +90,10 @@ export type ArticleProps = {
         };
     };
     isRowReverse: boolean;
-    className?: string;
 };
 
-export const Article = memo((props: ArticleProps) => {
-    const { article, illustration, isRowReverse, className, thumbNails } = props;
+export const Section = memo((props: SectionProps) => {
+    const { article, illustration, isRowReverse, className, thumbNails, title } = props;
 
     const { classNames } = useClassNames({
         isRowReverse,
@@ -94,7 +101,12 @@ export const Article = memo((props: ArticleProps) => {
     });
 
     return (
-        <article className={cx(classNames.root, className)}>
+        <section className={cx(classNames.root, className)}>
+            {title && (
+                <Typography className={classNames.title} variant="h2">
+                    {title}
+                </Typography>
+            )}
             {thumbNails && <ThumbNails {...thumbNails} />}
             <div className={classNames.articleAndImageWrapper}>
                 {article && (
@@ -130,7 +142,6 @@ export const Article = memo((props: ArticleProps) => {
                             url={illustration.imageProps?.url}
                             alt={illustration.imageProps?.alt}
                             className={cx(classNames.illustration, illustration.imageProps?.className)}
-                            frame={illustration.imageProps.frame}
                         />
                     ) : (
                         <Code
@@ -141,6 +152,6 @@ export const Article = memo((props: ArticleProps) => {
                         />
                     ))}
             </div>
-        </article>
+        </section>
     );
 });

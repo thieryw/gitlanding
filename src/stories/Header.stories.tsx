@@ -1,5 +1,5 @@
-import { GitLandingHeader } from "../lib/GitLandingHeader";
-import type { GitLandingHeaderProps } from "../lib/GitLandingHeader";
+import { GitLandingHeader } from "../GitLandingHeader";
+import type { GitLandingHeaderProps } from "../GitLandingHeader";
 import { component } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { css } from "tss-react";
@@ -45,6 +45,10 @@ sur le traitement statistique et la datascience.
                 "url": "",
             },
         ],
+    },
+
+    "linkToNextSection": {
+        "title": "Ce dont vous avez besoin :",
     },
 };
 

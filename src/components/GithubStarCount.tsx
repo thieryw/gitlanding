@@ -1,6 +1,6 @@
 import { cx } from "tss-react";
 import { memo, useEffect } from "react";
-import { createUseClassNames } from "./theme";
+import { createUseClassNames } from "../theme";
 import { useIsDarkModeEnabled } from "onyxia-ui";
 
 type Props = {

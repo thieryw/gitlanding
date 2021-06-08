@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
-import { TopBar } from "./TopBar";
+import { TopBar } from "./components/TopBar";
 import { createUseClassNames } from "./theme";
 import { Typography } from "onyxia-ui/Typography";
-import type { Props as TopBarProps } from "./TopBar";
+import type { Props as TopBarProps } from "./components/TopBar";
 import { Image } from "./components/Image";
 import type { ImageProps } from "./components/Image";
 import { cx } from "tss-react";
@@ -123,8 +123,7 @@ const { useClassNames } = createUseClassNames<{
         "display": "flex",
         "flexDirection": "column",
         "alignItems": "center",
-        "marginTop": 138,
-        "marginBottom": 138,
+        "marginTop": theme.spacing(17),
         "& h3": {
             "fontWeight": 400,
             "marginBottom": 21,
@@ -160,7 +159,6 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                         className={cx(classNames.image, image.className)}
                         url={image.url}
                         alt={image.alt}
-                        frame={image.frame}
                     />
                 )}
             </div>

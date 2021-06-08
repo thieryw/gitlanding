@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useConstCallback } from "powerhooks";
 import { useIsDarkModeEnabled } from "onyxia-ui";
-import { IconButton } from "./theme";
+import { IconButton } from "../theme";
 
 export type DarkModeSwitchProps = {
     className?: string;

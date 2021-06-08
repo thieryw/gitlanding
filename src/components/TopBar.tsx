@@ -2,18 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "./theme";
+import { createUseClassNames } from "../theme";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, useEffect } from "react";
-import { Logo } from "./components/Logo";
+import { Logo } from "./Logo";
 import ReactMarkDown from "react-markdown";
 import { Typography } from "onyxia-ui/Typography";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
-import { Icon } from "./theme";
+import { Icon } from "../theme";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
