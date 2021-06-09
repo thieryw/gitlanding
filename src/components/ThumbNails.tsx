@@ -18,20 +18,28 @@ const { useClassNames } = createUseClassNames<{ width?: number | string; height?
     (...[theme, { height, width }]) => ({
         "root": {
             "display": "flex",
+            "flexDirection": "row",
             "justifyContent": "center",
             "marginBottom": 138,
 
             "& div": {
+                "position": "relative",
                 "height": height !== undefined ? height : 280,
                 "width": width !== undefined ? width : 557,
-                "display": "flex",
-                "justifyContent": "center",
-                "alignItems": "center",
                 "borderRadius": 16,
                 "backgroundColor": theme.isDarkModeEnabled
                     ? theme.colors.palette.dark.greyVariant1
                     : theme.colors.palette.light.greyVariant1,
-                "margin": "0 12px 0 12px",
+                "marginLeft": theme.spacing(1.5),
+                "marginRight": theme.spacing(1.5),
+                "& a": {
+                    "width": "100%",
+                    "height": "100%",
+                    "display": "flex",
+                    "justifyContent": "center",
+                    "alignItems": "center",
+                },
+                "cursor": "pointer",
             },
         },
     }),
@@ -43,12 +51,14 @@ export const ThumbNails = memo((props: ThumbNailProps) => {
     const { classNames } = useClassNames({});
     return (
         <div className={cx(className, classNames.root)}>
-            {thumbNails.map(thumbNail => (
-                <Link key={thumbNail.title} href={thumbNail.href}>
-                    <div>
-                        {thumbNail.title && <Typography variant="h5">{thumbNail.title}</Typography>}
-                    </div>
-                </Link>
+            {thumbNails.map((thumbNail, index) => (
+                <div key={index}>
+                    {thumbNail.title && (
+                        <Link href={thumbNail.href}>
+                            <Typography variant="h5">{thumbNail.title}</Typography>
+                        </Link>
+                    )}
+                </div>
             ))}
         </div>
     );
