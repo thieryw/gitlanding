@@ -9,8 +9,8 @@ import { cx, css } from "tss-react";
 import { Code } from "./Code";
 import type { Props as CodeProps } from "./Code";
 import { Button } from "./Button";
-import { SmallThumbNail } from "./SmallThumbNail";
-import type { SmallThumbNailProps } from "./SmallThumbNail";
+import { ThumbNail } from "./ThumbNail";
+import type { ThumbNailProps } from "./ThumbNail";
 
 const { useClassNames } = createUseClassNames<{
     isRowReverse: boolean;
@@ -25,7 +25,7 @@ const { useClassNames } = createUseClassNames<{
         "flexDirection": "row",
         "justifyContent": "center",
         "marginBottom": theme.spacing(17.25),
-        "& div": {
+        "& >div": {
             "marginLeft": theme.spacing(1.5),
             "marginRight": theme.spacing(1.5),
         },
@@ -84,7 +84,7 @@ declare namespace IllustrationProps {
 
 export type SectionProps = {
     className?: string;
-    smallThumbNails?: SmallThumbNailProps[];
+    smallThumbNails?: ThumbNailProps[];
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     title?: string;
     article?: {
@@ -121,7 +121,7 @@ export const Section = memo((props: SectionProps) => {
                 <section className={classNames.smallThumbNails}>
                     {smallThumbNails &&
                         smallThumbNails.map((smallThumbNail, index) => (
-                            <SmallThumbNail key={index} {...smallThumbNail} />
+                            <ThumbNail key={index} {...smallThumbNail} />
                         ))}
                 </section>
             }
