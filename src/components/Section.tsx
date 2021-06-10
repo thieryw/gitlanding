@@ -9,8 +9,8 @@ import { cx, css } from "tss-react";
 import { Code } from "./Code";
 import type { Props as CodeProps } from "./Code";
 import { Button } from "./Button";
-import type { ThumbNailProps } from "./ThumbNails";
-import { ThumbNails } from "./ThumbNails";
+import { SmallThumbNail } from "./SmallThumbNail";
+import type { SmallThumbNailProps } from "./SmallThumbNail";
 
 const { useClassNames } = createUseClassNames<{
     isRowReverse: boolean;
@@ -18,7 +18,17 @@ const { useClassNames } = createUseClassNames<{
 }>()((theme, { hasIllustration, isRowReverse }) => ({
     "root": {
         "position": "relative",
-        "marginTop": theme.spacing(17),
+        "marginTop": theme.spacing(17.25),
+    },
+    "smallThumbNails": {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginBottom": theme.spacing(17.25),
+        "& div": {
+            "marginLeft": theme.spacing(1.5),
+            "marginRight": theme.spacing(1.5),
+        },
     },
     "title": {
         "fontSize": "40px",
@@ -74,7 +84,7 @@ declare namespace IllustrationProps {
 
 export type SectionProps = {
     className?: string;
-    thumbNails?: ThumbNailProps;
+    smallThumbNails?: SmallThumbNailProps[];
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     title?: string;
     article?: {
@@ -93,7 +103,7 @@ export type SectionProps = {
 };
 
 export const Section = memo((props: SectionProps) => {
-    const { article, illustration, isRowReverse, className, thumbNails, title } = props;
+    const { article, illustration, isRowReverse, className, smallThumbNails, title } = props;
 
     const { classNames } = useClassNames({
         isRowReverse,
@@ -107,8 +117,15 @@ export const Section = memo((props: SectionProps) => {
                     {title}
                 </Typography>
             )}
-            {thumbNails && <ThumbNails {...thumbNails} />}
-            <div className={classNames.articleAndImageWrapper}>
+            {
+                <section className={classNames.smallThumbNails}>
+                    {smallThumbNails &&
+                        smallThumbNails.map((smallThumbNail, index) => (
+                            <SmallThumbNail key={index} {...smallThumbNail} />
+                        ))}
+                </section>
+            }
+            <article className={classNames.articleAndImageWrapper}>
                 {article && (
                     <div className={classNames.article}>
                         <Typography variant="h2">{article.title}</Typography>
@@ -151,7 +168,7 @@ export const Section = memo((props: SectionProps) => {
                             className={cx(classNames.illustration, illustration.codeProps?.className)}
                         />
                     ))}
-            </div>
+            </article>
         </section>
     );
 });
