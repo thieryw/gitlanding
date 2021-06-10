@@ -1,3 +1,7 @@
+### **0.0.23** (2021-06-10)  
+  
+- added background property to smallThumbNail    
+  
 ### **0.0.22** (2021-06-10)  
   
 - created SmallThumbNail component    
