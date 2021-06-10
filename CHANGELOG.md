@@ -1,3 +1,7 @@
+### **0.0.22** (2021-06-10)  
+  
+- created SmallThumbNail component    
+  
 ### **0.0.21** (2021-06-09)  
   
 - corrections on thumbnail flexbox issues, horizontal scroll bar apearing unintentionaly    
