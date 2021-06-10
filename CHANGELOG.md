@@ -1,3 +1,7 @@
+### **0.0.21** (2021-06-09)  
+  
+- corrections on thumbnail flexbox issues, horizontal scroll bar apearing unintentionaly    
+  
 ### **0.0.20** (2021-06-08)  
   
 - refactor and section update  
