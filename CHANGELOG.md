@@ -1,3 +1,8 @@
+### **0.0.24** (2021-06-11)  
+  
+- thumbNail update and thumbNail section added  
+- small and large thumbNail option    
+  
 ### **0.0.23** (2021-06-10)  
   
 - added background property to smallThumbNail    
