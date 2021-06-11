@@ -22,12 +22,12 @@ const { useClassNames } = createUseClassNames<{
     },
     "smallThumbNails": {
         "display": "flex",
+        "flexWrap": "wrap",
         "flexDirection": "row",
         "justifyContent": "center",
         "marginBottom": theme.spacing(17.25),
         "& >div": {
-            "marginLeft": theme.spacing(1.5),
-            "marginRight": theme.spacing(1.5),
+            "margin": theme.spacing(1.5),
         },
     },
     "title": {
@@ -84,7 +84,7 @@ declare namespace IllustrationProps {
 
 export type SectionProps = {
     className?: string;
-    smallThumbNails?: ThumbNailProps[];
+    thumbNails?: ThumbNailProps[];
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     title?: string;
     article?: {
@@ -103,7 +103,7 @@ export type SectionProps = {
 };
 
 export const Section = memo((props: SectionProps) => {
-    const { article, illustration, isRowReverse, className, smallThumbNails, title } = props;
+    const { article, illustration, isRowReverse, className, thumbNails, title } = props;
 
     const { classNames } = useClassNames({
         isRowReverse,
@@ -119,10 +119,8 @@ export const Section = memo((props: SectionProps) => {
             )}
             {
                 <section className={classNames.smallThumbNails}>
-                    {smallThumbNails &&
-                        smallThumbNails.map((smallThumbNail, index) => (
-                            <ThumbNail key={index} {...smallThumbNail} />
-                        ))}
+                    {thumbNails &&
+                        thumbNails.map((thumbNail, index) => <ThumbNail key={index} {...thumbNail} />)}
                 </section>
             }
             <article className={classNames.articleAndImageWrapper}>

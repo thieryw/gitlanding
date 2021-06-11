@@ -42,6 +42,8 @@ declare namespace ThumbNail {
         button?: {
             title: string;
             href: string;
+            color?: string;
+            backgroundColor?: string;
         };
     };
 }
@@ -49,12 +51,16 @@ declare namespace ThumbNail {
 export type ThumbNailProps = ThumbNail.Large | ThumbNail.Small;
 
 const { useClassNames } = createUseClassNames<{
-    thumbNail: Pick<ThumbNail.Small, "background" | "width" | "height"> & { type: "small" | "large" };
-    largeThumbNail: Pick<ThumbNail.Large, "footer">;
-}>()((theme, { largeThumbNail, thumbNail }) => ({
+    thumbNail: Pick<ThumbNail.Small, "background" | "width" | "height"> & {
+        type: "small" | "large";
+        footerHeight?: string | number;
+        buttonColor?: string;
+        buttonBackgroundColor?: string;
+    };
+}>()((theme, { thumbNail }) => ({
     "root": {
         "borderRadius": 16,
-        "cursor": "pointer",
+        "cursor": thumbNail.type === "small" ? "pointer" : undefined,
         "height": (() => {
             if (thumbNail.height !== undefined) {
                 return thumbNail.height;
@@ -81,8 +87,8 @@ const { useClassNames } = createUseClassNames<{
                     }
 
                     return theme.isDarkModeEnabled
-                        ? theme.colors.palette.light.greyVariant1
-                        : theme.colors.palette.dark.greyVariant4;
+                        ? theme.colors.palette.dark.greyVariant3
+                        : theme.colors.palette.light.greyVariant3;
                 })();
             }
 
@@ -113,15 +119,11 @@ const { useClassNames } = createUseClassNames<{
 
     "largeThumbNailFooter": {
         "height": (() => {
-            if (largeThumbNail.footer === undefined) {
-                return 0;
+            if (thumbNail.footerHeight === undefined) {
+                return 161;
             }
 
-            if (largeThumbNail.footer.height !== undefined) {
-                return largeThumbNail.footer.height;
-            }
-
-            return 161;
+            return thumbNail.footerHeight;
         })(),
 
         "backgroundColor": theme.isDarkModeEnabled ? theme.colors.palette.dark.greyVariant1 : undefined,
@@ -144,6 +146,16 @@ const { useClassNames } = createUseClassNames<{
         "justifyContent": "flex-end",
         "& button": {
             "alignSelf": "right",
+            "color":
+                thumbNail.buttonColor === undefined
+                    ? "unset !important"
+                    : `${thumbNail.buttonColor} !important`,
+            "borderColor": "unset !important",
+            "backgroundColor":
+                thumbNail.buttonBackgroundColor === undefined
+                    ? "unset !important"
+                    : `${thumbNail.buttonBackgroundColor} !important`,
+            "border": thumbNail.buttonBackgroundColor === undefined ? undefined : "unset !important",
         },
         "paddingTop": theme.spacing(2),
         "paddingRight": theme.spacing(2),
@@ -159,9 +171,9 @@ export const ThumbNail = memo((props: ThumbNailProps) => {
             height,
             width,
             type,
-        },
-        "largeThumbNail": {
-            "footer": props.type === "large" ? props.footer : undefined,
+            "footerHeight": props.type === "large" ? props.footer?.height : undefined,
+            "buttonBackgroundColor": props.type === "large" ? props.button?.backgroundColor : undefined,
+            "buttonColor": props.type === "large" ? props.button?.color : undefined,
         },
     });
 
