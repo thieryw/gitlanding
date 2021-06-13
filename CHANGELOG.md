@@ -1,3 +1,7 @@
+### **0.0.27** (2021-06-13)  
+  
+- reactivate dark mode    
+  
 ### **0.0.26** (2021-06-13)  
   
 - responsive for medium screen width    
