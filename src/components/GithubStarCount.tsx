@@ -1,7 +1,8 @@
 import { cx } from "tss-react";
 import { memo, useEffect } from "react";
-import { createUseClassNames } from "../theme";
 import { useIsDarkModeEnabled } from "onyxia-ui";
+import { getThemeApi } from "../theme";
+import { useGuaranteedMemo } from "powerhooks";
 
 type Props = {
     className?: string;
@@ -9,14 +10,20 @@ type Props = {
     repoUrl: string;
 };
 
-const { useClassNames } = createUseClassNames()(() => ({
-    "root": {
-        "& span": {
-            "display": "flex",
-            "alignItems": "center",
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
+
+    const { useClassNames } = createUseClassNames()(() => ({
+        "root": {
+            "& span": {
+                "display": "flex",
+                "alignItems": "center",
+            },
         },
-    },
-}));
+    }));
+
+    return { useClassNames };
+};
 
 export const GithubStarCount = memo((props: Props) => {
     const { size, repoUrl, className } = props;
@@ -34,6 +41,7 @@ export const GithubStarCount = memo((props: Props) => {
         };
     }, []);
 
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
     const { classNames } = useClassNames({});
 
     return (

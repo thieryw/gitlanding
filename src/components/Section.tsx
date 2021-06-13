@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Typography } from "onyxia-ui/Typography";
-import { createUseClassNames } from "../theme";
 import ReactMarkdown from "react-markdown";
 import { Image } from "./Image";
 import { memo } from "react";
@@ -11,64 +10,72 @@ import type { Props as CodeProps } from "./Code";
 import { Button } from "./Button";
 import { ThumbNail } from "./ThumbNail";
 import type { ThumbNailProps } from "./ThumbNail";
+import { getThemeApi } from "../theme";
+import { useGuaranteedMemo } from "powerhooks";
 
-const { useClassNames } = createUseClassNames<{
-    isRowReverse: boolean;
-    hasIllustration: boolean;
-}>()((theme, { hasIllustration, isRowReverse }) => ({
-    "root": {
-        "position": "relative",
-        "marginTop": theme.spacing(17.25),
-    },
-    "smallThumbNails": {
-        "display": "flex",
-        "flexWrap": "wrap",
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginBottom": theme.spacing(17.25),
-        "& >div": {
-            "margin": theme.spacing(1.5),
-        },
-    },
-    "title": {
-        "fontSize": "40px",
-        "textAlign": "center",
-        "marginBottom": theme.spacing(7.5),
-    },
-    "articleAndImageWrapper": {
-        "display": "flex",
-        "flexDirection": isRowReverse ? "row-reverse" : "row",
-        "justifyContent": "center",
-        "alignItems": "center",
-    },
-    "article": {
-        "display": "flex",
-        "flexDirection": "column",
-        "width": hasIllustration ? 412 : 600,
-        "textAlign": hasIllustration ? "unset" : "center",
-        [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
-        "& h2": {
-            "marginBottom": 14,
-        },
-        "& p": {
-            "fontSize": theme.typography.body1.fontSize,
-            "lineHeight": "24px",
-            "marginTop": 14,
-            "marginBottom": 14,
-        },
-    },
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
 
-    "illustration": {
-        "width": 900,
-        [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
-    },
-    "button": {
-        "color": "unset !important",
-        "backgroundColor": "unset !important",
-        "borderColor": "unset !important",
-        "alignSelf": "right",
-    },
-}));
+    const { useClassNames } = createUseClassNames<{
+        isRowReverse: boolean;
+        hasIllustration: boolean;
+    }>()((theme, { hasIllustration, isRowReverse }) => ({
+        "root": {
+            "position": "relative",
+            "marginTop": theme.spacing(17.25),
+        },
+        "smallThumbNails": {
+            "display": "flex",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginBottom": theme.spacing(17.25),
+            "& >div": {
+                "margin": theme.spacing(1.5),
+            },
+        },
+        "title": {
+            "fontSize": "40px",
+            "textAlign": "center",
+            "marginBottom": theme.spacing(7.5),
+        },
+        "articleAndImageWrapper": {
+            "display": "flex",
+            "flexDirection": isRowReverse ? "row-reverse" : "row",
+            "justifyContent": "center",
+            "alignItems": "center",
+        },
+        "article": {
+            "display": "flex",
+            "flexDirection": "column",
+            "width": hasIllustration ? 412 : 600,
+            "textAlign": hasIllustration ? "unset" : "center",
+            [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
+            "& h2": {
+                "marginBottom": 14,
+            },
+            "& p": {
+                "fontSize": theme.typography.body1.fontSize,
+                "lineHeight": "24px",
+                "marginTop": 14,
+                "marginBottom": 14,
+            },
+        },
+
+        "illustration": {
+            "width": 900,
+            [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
+        },
+        "button": {
+            "color": "unset !important",
+            "backgroundColor": "unset !important",
+            "borderColor": "unset !important",
+            "alignSelf": "right",
+        },
+    }));
+
+    return { useClassNames };
+};
 
 declare namespace IllustrationProps {
     export type Code = {
@@ -104,6 +111,8 @@ export type SectionProps = {
 
 export const Section = memo((props: SectionProps) => {
     const { article, illustration, isRowReverse, className, thumbNails, title } = props;
+
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         isRowReverse,

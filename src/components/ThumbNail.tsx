@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
-import { createUseClassNames } from "../theme";
 import Link from "@material-ui/core/Link";
 import { Typography } from "onyxia-ui/Typography";
 import { cx } from "tss-react";
 import { Button } from "./Button";
+import { getThemeApi } from "../theme";
+import { useGuaranteedMemo } from "powerhooks";
 
 declare namespace BackgroundProps {
     export type Image = {
@@ -50,120 +51,130 @@ declare namespace ThumbNail {
 
 export type ThumbNailProps = ThumbNail.Large | ThumbNail.Small;
 
-const { useClassNames } = createUseClassNames<{
-    thumbNail: Pick<ThumbNail.Small, "background" | "width" | "height"> & {
-        type: "small" | "large";
-        footerHeight?: string | number;
-        buttonColor?: string;
-        buttonBackgroundColor?: string;
-    };
-}>()((theme, { thumbNail }) => ({
-    "root": {
-        "borderRadius": 16,
-        "cursor": thumbNail.type === "small" ? "pointer" : undefined,
-        "height": (() => {
-            if (thumbNail.height !== undefined) {
-                return thumbNail.height;
-            }
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
 
-            return thumbNail.type === "small" ? 280 : 563;
-        })(),
-        "width": (() => {
-            if (thumbNail.width !== undefined) {
-                return thumbNail.width;
-            }
+    const { useClassNames } = createUseClassNames<{
+        thumbNail: Pick<ThumbNail.Small, "background" | "width" | "height"> & {
+            type: "small" | "large";
+            footerHeight?: string | number;
+            buttonColor?: string;
+            buttonBackgroundColor?: string;
+        };
+    }>()((theme, { thumbNail }) => ({
+        "root": {
+            "borderRadius": 16,
+            "cursor": thumbNail.type === "small" ? "pointer" : undefined,
+            "height": (() => {
+                if (thumbNail.height !== undefined) {
+                    return thumbNail.height;
+                }
 
-            return thumbNail.type === "small" ? 557 : 412;
-        })(),
-    },
-    "tagWithBackground": {
-        "background": (() => {
-            if (thumbNail.background === undefined) {
-                return (() => {
-                    if (thumbNail.type === "small") {
+                return thumbNail.type === "small" ? 280 : 563;
+            })(),
+            "width": (() => {
+                if (thumbNail.width !== undefined) {
+                    return thumbNail.width;
+                }
+
+                return thumbNail.type === "small" ? 557 : 412;
+            })(),
+        },
+        "tagWithBackground": {
+            "background": (() => {
+                if (thumbNail.background === undefined) {
+                    return (() => {
+                        if (thumbNail.type === "small") {
+                            return theme.isDarkModeEnabled
+                                ? theme.colors.palette.dark.greyVariant1
+                                : theme.colors.palette.light.greyVariant1;
+                        }
+
                         return theme.isDarkModeEnabled
-                            ? theme.colors.palette.dark.greyVariant1
-                            : theme.colors.palette.light.greyVariant1;
-                    }
+                            ? theme.colors.palette.dark.greyVariant3
+                            : theme.colors.palette.light.greyVariant3;
+                    })();
+                }
 
-                    return theme.isDarkModeEnabled
-                        ? theme.colors.palette.dark.greyVariant3
-                        : theme.colors.palette.light.greyVariant3;
-                })();
-            }
+                if (thumbNail.background.type === "color") {
+                    return thumbNail.background.color;
+                }
 
-            if (thumbNail.background.type === "color") {
-                return thumbNail.background.color;
-            }
+                return `url(${thumbNail.background.url}) no-repeat center`;
+            })(),
+        },
+        "small": {
+            "& a": {
+                "width": "100%",
+                "height": "100%",
+                "display": "flex",
+                "justifyContent": "center",
+                "alignItems": "center",
+            },
+            "backgroundSize": thumbNail.background?.type === "image" ? "cover" : undefined,
+        },
 
-            return `url(${thumbNail.background.url}) no-repeat center`;
-        })(),
-    },
-    "small": {
-        "& a": {
-            "width": "100%",
-            "height": "100%",
+        "large": {
             "display": "flex",
-            "justifyContent": "center",
-            "alignItems": "center",
+            "flexDirection": "column",
+            "justifyContent": "space-between",
+            "overflow": "hidden",
         },
-        "backgroundSize": thumbNail.background?.type === "image" ? "cover" : undefined,
-    },
 
-    "large": {
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "space-between",
-        "overflow": "hidden",
-    },
+        "largeThumbNailFooter": {
+            "height": (() => {
+                if (thumbNail.footerHeight === undefined) {
+                    return 161;
+                }
 
-    "largeThumbNailFooter": {
-        "height": (() => {
-            if (thumbNail.footerHeight === undefined) {
-                return 161;
-            }
+                return thumbNail.footerHeight;
+            })(),
 
-            return thumbNail.footerHeight;
-        })(),
+            "backgroundColor": theme.isDarkModeEnabled
+                ? theme.colors.palette.dark.greyVariant1
+                : undefined,
 
-        "backgroundColor": theme.isDarkModeEnabled ? theme.colors.palette.dark.greyVariant1 : undefined,
+            "paddingLeft": theme.spacing(3),
+            "paddingRight": theme.spacing(3),
 
-        "paddingLeft": theme.spacing(3),
-        "paddingRight": theme.spacing(3),
-
-        "& h5": {
-            "marginTop": theme.spacing(2),
-            "marginBottom": theme.spacing(1.25),
+            "& h5": {
+                "marginTop": theme.spacing(2),
+                "marginBottom": theme.spacing(1.25),
+            },
         },
-    },
-    "largeThumbNailHeader": {
-        "flex": 1,
-        "width": "100%",
-        "margin": 0,
-    },
-    "largeThumbNailButtonWrapper": {
-        "display": "flex",
-        "justifyContent": "flex-end",
-        "& button": {
-            "alignSelf": "right",
-            "color":
-                thumbNail.buttonColor === undefined
-                    ? "unset !important"
-                    : `${thumbNail.buttonColor} !important`,
-            "borderColor": "unset !important",
-            "backgroundColor":
-                thumbNail.buttonBackgroundColor === undefined
-                    ? "unset !important"
-                    : `${thumbNail.buttonBackgroundColor} !important`,
-            "border": thumbNail.buttonBackgroundColor === undefined ? undefined : "unset !important",
+        "largeThumbNailHeader": {
+            "flex": 1,
+            "width": "100%",
+            "margin": 0,
         },
-        "paddingTop": theme.spacing(2),
-        "paddingRight": theme.spacing(2),
-    },
-}));
+        "largeThumbNailButtonWrapper": {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "& button": {
+                "alignSelf": "right",
+                "color":
+                    thumbNail.buttonColor === undefined
+                        ? "unset !important"
+                        : `${thumbNail.buttonColor} !important`,
+                "borderColor": "unset !important",
+                "backgroundColor":
+                    thumbNail.buttonBackgroundColor === undefined
+                        ? "unset !important"
+                        : `${thumbNail.buttonBackgroundColor} !important`,
+                "border": thumbNail.buttonBackgroundColor === undefined ? undefined : "unset !important",
+            },
+            "paddingTop": theme.spacing(2),
+            "paddingRight": theme.spacing(2),
+        },
+    }));
+
+    return { useClassNames };
+};
 
 export const ThumbNail = memo((props: ThumbNailProps) => {
     const { className, height, width, background, type } = props;
+
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         "thumbNail": {

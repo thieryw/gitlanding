@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "../theme";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
@@ -14,6 +13,8 @@ import { Typography } from "onyxia-ui/Typography";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
 import { Icon } from "../theme";
+import { getThemeApi } from "../theme";
+import { useGuaranteedMemo } from "powerhooks";
 
 function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
@@ -58,61 +59,67 @@ export type Props = {
     className?: string;
 };
 
-const { useClassNames } = createUseClassNames<{
-    mobileMenuHeight: number;
-    smallDeviceBreakPoint: number;
-}>()((theme, { mobileMenuHeight, smallDeviceBreakPoint }) => ({
-    "root": {
-        "display": "flex",
-        "justifyContent": "flex-end",
-        "flexWrap": "wrap",
-        "alignItems": "center",
-        "width": "100%",
-        "padding": "36px 100px 36px 100px",
-    },
-    "title": {
-        "display": "flex",
-        "alignItems": "center",
-        "marginRight": "auto",
-        "& svg": {
-            "height": 50,
-            "width": 50,
-        },
-    },
-    "itemWrapper": {
-        [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
-            "transition": "height 400ms",
-            "order": 3,
-            "flex": "1 0 100%",
-            "textAlign": "left",
-            "marginTop": 20,
-            "height": mobileMenuHeight,
-            "overflow": "hidden",
-            "display": "flex",
-            "flexDirection": "column",
-        },
-    },
-    "link": {
-        "color": theme.isDarkModeEnabled ? "white" : "black",
-        "fontSize": "22px",
-        "lineHeight": "32px",
-        "marginLeft": theme.spacing(8),
-        [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
-            "margin": "5px 0 5px 0",
-        },
-    },
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
 
-    "unfold": {
-        "order": 2,
-        "marginLeft": 10,
-        "display": "none",
-        "cursor": "pointer",
-        [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+    const { useClassNames } = createUseClassNames<{
+        mobileMenuHeight: number;
+        smallDeviceBreakPoint: number;
+    }>()((theme, { mobileMenuHeight, smallDeviceBreakPoint }) => ({
+        "root": {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "flexWrap": "wrap",
+            "alignItems": "center",
+            "width": "100%",
+            "padding": "36px 100px 36px 100px",
+        },
+        "title": {
             "display": "flex",
             "alignItems": "center",
+            "marginRight": "auto",
+            "& svg": {
+                "height": 50,
+                "width": 50,
+            },
         },
-    },
-}));
+        "itemWrapper": {
+            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+                "transition": "height 400ms",
+                "order": 3,
+                "flex": "1 0 100%",
+                "textAlign": "left",
+                "marginTop": 20,
+                "height": mobileMenuHeight,
+                "overflow": "hidden",
+                "display": "flex",
+                "flexDirection": "column",
+            },
+        },
+        "link": {
+            "color": theme.isDarkModeEnabled ? "white" : "black",
+            "fontSize": "22px",
+            "lineHeight": "32px",
+            "marginLeft": theme.spacing(8),
+            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+                "margin": "5px 0 5px 0",
+            },
+        },
+
+        "unfold": {
+            "order": 2,
+            "marginLeft": 10,
+            "display": "none",
+            "cursor": "pointer",
+            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+                "display": "flex",
+                "alignItems": "center",
+            },
+        },
+    }));
+
+    return { useClassNames };
+};
 
 export function TopBar(props: Props) {
     const { menuItems, title, className } = props;
@@ -157,6 +164,8 @@ export function TopBar(props: Props) {
     useEffect(() => {
         setSmallDeviceBreakPoint(getSmallDeviceBreakPoint({ menuRef, titleRef }));
     }, []);
+
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         mobileMenuHeight,
