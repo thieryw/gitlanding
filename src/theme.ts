@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 
-import { createThemeProvider, defaultPalette, defaultTypography } from "onyxia-ui";
+import { createThemeProvider, defaultTypography } from "onyxia-ui";
 import "onyxia-ui/assets/fonts/work-sans.css";
 import { createUseClassNamesFactory } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
@@ -14,23 +14,29 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import Brightness1RoundedIcon from "@material-ui/icons/Brightness1Rounded";
+import type { ThemeProviderProps, Theme } from "onyxia-ui";
 
-const { ThemeProvider, useTheme } = createThemeProvider({
+let { ThemeProvider, useTheme } = createThemeProvider({
     "typography": {
         ...defaultTypography,
         "fontFamily": '"Work Sans", sans-serif',
     },
-    "palette": {
-        ...defaultPalette,
-        "vsCodeBackground": "#1e1e1e",
-    },
 });
 
-export { ThemeProvider };
+let { createUseClassNames } = createUseClassNamesFactory({ useTheme });
 
-export const { createUseClassNames } = createUseClassNamesFactory({
-    "useTheme": useTheme,
-});
+export function overwriteTheme(params: {
+    ThemeProvider(props: ThemeProviderProps): JSX.Element;
+    useTheme(): Theme;
+}): void {
+    ThemeProvider = params.ThemeProvider;
+    useTheme = params.useTheme;
+    createUseClassNames = createUseClassNamesFactory({ useTheme }).createUseClassNames;
+}
+
+export function getThemeApi() {
+    return { ThemeProvider, useTheme, createUseClassNames };
+}
 
 export const { Icon } = createIcon({
     "iconButton": IconButtonIcon,

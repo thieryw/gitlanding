@@ -8,7 +8,8 @@ import type { GitLandingSectionProps } from "./GitLandingSections";
 import type { GitLandingFooterProps } from "./GitLandingFooter";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
 import type { ThumbNailSectionProps } from "./ThumbNailSection";
-import { ThemeProvider } from "./theme";
+import { getThemeApi } from "./theme";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { memo } from "react";
 
 export type GitlandingProps = {
@@ -22,6 +23,8 @@ export type GitlandingProps = {
 
 export const Gitlanding = memo((props: GitlandingProps) => {
     const { thumbNailSection, footer, header, mainSection, reviewSlider, className } = props;
+
+    const { ThemeProvider } = useGuaranteedMemo(() => getThemeApi(), []);
 
     return (
         <ThemeProvider>

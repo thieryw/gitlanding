@@ -1,27 +1,34 @@
 import { memo } from "react";
-import { createUseClassNames } from "./theme";
 import { cx } from "tss-react";
 import { ThumbNail } from "./components/ThumbNail";
 import type { ThumbNailProps } from "./components/ThumbNail";
 import { Typography } from "onyxia-ui";
+import { getThemeApi } from "./theme";
+import { useGuaranteedMemo } from "powerhooks";
 
-const { useClassNames } = createUseClassNames()(theme => ({
-    "root": {
-        "marginTop": theme.spacing(32.5),
-    },
-    "title": {
-        "textAlign": "center",
-        "marginBottom": theme.spacing(7.5),
-    },
-    "thumbNails": {
-        "display": "flex",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-    },
-    "thumbNail": {
-        "margin": theme.spacing(1.5),
-    },
-}));
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
+
+    const { useClassNames } = createUseClassNames()(theme => ({
+        "root": {
+            "marginTop": theme.spacing(32.5),
+        },
+        "title": {
+            "textAlign": "center",
+            "marginBottom": theme.spacing(7.5),
+        },
+        "thumbNails": {
+            "display": "flex",
+            "flexWrap": "wrap",
+            "justifyContent": "center",
+        },
+        "thumbNail": {
+            "margin": theme.spacing(1.5),
+        },
+    }));
+
+    return { useClassNames };
+};
 
 export type ThumbNailSectionProps = {
     className?: string;
@@ -31,6 +38,8 @@ export type ThumbNailSectionProps = {
 
 export const ThumbNailSection = memo((props: ThumbNailSectionProps) => {
     const { title, thumbNails, className } = props;
+
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({});
 

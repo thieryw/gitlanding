@@ -1,11 +1,12 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import Link from "@material-ui/core/Link";
-import { createUseClassNames } from "./theme";
 import Typography from "@material-ui/core/Typography";
 import { Logo } from "./components/Logo";
 import { cx } from "tss-react";
 import { memo } from "react";
+import { getThemeApi } from "./theme";
+import { useGuaranteedMemo } from "powerhooks";
 
 type Item = {
     name: string;
@@ -30,8 +31,12 @@ export type GitLandingFooterProps = {
     className?: string;
 };
 
-const { useClassNames } = createUseClassNames<{ background?: GitLandingFooterProps["background"] }>()(
-    (theme, { background }) => ({
+const getUseClassNames = () => {
+    const { createUseClassNames } = getThemeApi();
+
+    const { useClassNames } = createUseClassNames<{
+        background?: GitLandingFooterProps["background"];
+    }>()((theme, { background }) => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -92,11 +97,15 @@ const { useClassNames } = createUseClassNames<{ background?: GitLandingFooterPro
         "wrapper": {
             "display": "flex",
         },
-    }),
-);
+    }));
+
+    return { useClassNames };
+};
 
 export const GitLandingFooter = memo((props: GitLandingFooterProps) => {
     const { licence, leftItems, rightItems, background, className } = props;
+
+    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({ background });
 
