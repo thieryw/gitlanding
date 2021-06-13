@@ -1,3 +1,7 @@
+### **0.0.26** (2021-06-13)  
+  
+- responsive for medium screen width    
+  
 ### **0.0.25** (2021-06-13)  
   
 - bump version  
