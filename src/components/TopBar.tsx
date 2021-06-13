@@ -6,17 +6,15 @@ import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Logo } from "./Logo";
 import ReactMarkDown from "react-markdown";
 import { Typography } from "onyxia-ui/Typography";
-import { Evt } from "evt";
-import { useEvt } from "evt/hooks";
 import { Icon } from "../theme";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-function getSmallDeviceBreakPoint(params: {
+/*function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
     titleRef: React.RefObject<HTMLDivElement>;
 }) {
@@ -31,7 +29,7 @@ function getSmallDeviceBreakPoint(params: {
     };
 
     return out();
-}
+}*/
 
 declare namespace Title {
     export type Logo = {
@@ -64,15 +62,17 @@ const getUseClassNames = () => {
 
     const { useClassNames } = createUseClassNames<{
         mobileMenuHeight: number;
-        smallDeviceBreakPoint: number;
-    }>()((theme, { mobileMenuHeight, smallDeviceBreakPoint }) => ({
+    }>()((theme, { mobileMenuHeight }) => ({
         "root": {
             "display": "flex",
             "justifyContent": "flex-end",
             "flexWrap": "wrap",
             "alignItems": "center",
             "width": "100%",
-            "padding": "36px 100px 36px 100px",
+            "padding": [4.5, 12.5, 4.5, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+            [theme.breakpoints.down("md")]: {
+                "padding": [2, 4.5, 2, 4.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+            },
         },
         "title": {
             "display": "flex",
@@ -84,12 +84,11 @@ const getUseClassNames = () => {
             },
         },
         "itemWrapper": {
-            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+            [theme.breakpoints.down("md")]: {
                 "transition": "height 400ms",
                 "order": 3,
                 "flex": "1 0 100%",
                 "textAlign": "left",
-                "marginTop": 20,
                 "height": mobileMenuHeight,
                 "overflow": "hidden",
                 "display": "flex",
@@ -101,7 +100,7 @@ const getUseClassNames = () => {
             "fontSize": "22px",
             "lineHeight": "32px",
             "marginLeft": theme.spacing(8),
-            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+            [theme.breakpoints.down("md")]: {
                 "margin": "5px 0 5px 0",
             },
         },
@@ -111,7 +110,7 @@ const getUseClassNames = () => {
             "marginLeft": 10,
             "display": "none",
             "cursor": "pointer",
-            [`@media (max-width: ${smallDeviceBreakPoint}px)`]: {
+            [theme.breakpoints.down("md")]: {
                 "display": "flex",
                 "alignItems": "center",
             },
@@ -131,11 +130,6 @@ export function TopBar(props: Props) {
     const titleRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const { setSmallDeviceBreakPoint, smallDeviceBreakPoint } = useNamedState(
-        "smallDeviceBreakPoint",
-        getSmallDeviceBreakPoint({ titleRef, menuRef }),
-    );
-
     const toggleMobileMenu = useConstCallback(() => {
         if (mobileMenuHeight !== 0) {
             setMobileMenuHeight(0);
@@ -153,23 +147,10 @@ export function TopBar(props: Props) {
         setMobileMenuHeight(newHeight);
     });
 
-    useEvt(
-        ctx =>
-            Evt.from(ctx, window, "resize").attach(() =>
-                setSmallDeviceBreakPoint(getSmallDeviceBreakPoint({ menuRef, titleRef })),
-            ),
-        [],
-    );
-
-    useEffect(() => {
-        setSmallDeviceBreakPoint(getSmallDeviceBreakPoint({ menuRef, titleRef }));
-    }, []);
-
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         mobileMenuHeight,
-        smallDeviceBreakPoint,
     });
 
     return (

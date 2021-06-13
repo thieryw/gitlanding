@@ -19,11 +19,9 @@ declare namespace BackgroundProps {
     };
 }
 
-declare namespace ThumbNail {
+declare namespace ThumbNailProps {
     export type Common = {
         background?: BackgroundProps.Color | BackgroundProps.Image;
-        width?: string | number;
-        height?: string | number;
         className?: string;
     };
 
@@ -49,13 +47,13 @@ declare namespace ThumbNail {
     };
 }
 
-export type ThumbNailProps = ThumbNail.Large | ThumbNail.Small;
+export type ThumbNailProps = ThumbNailProps.Large | ThumbNailProps.Small;
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        thumbNail: Pick<ThumbNail.Small, "background" | "width" | "height"> & {
+        thumbNail: Pick<ThumbNailProps.Small, "background"> & {
             type: "small" | "large";
             footerHeight?: string | number;
             buttonColor?: string;
@@ -65,20 +63,13 @@ const getUseClassNames = () => {
         "root": {
             "borderRadius": 16,
             "cursor": thumbNail.type === "small" ? "pointer" : undefined,
-            "height": (() => {
-                if (thumbNail.height !== undefined) {
-                    return thumbNail.height;
-                }
+            "height": thumbNail.type === "small" ? 280 : 563,
+            "width": thumbNail.type === "small" ? 557 : 412,
 
-                return thumbNail.type === "small" ? 280 : 563;
-            })(),
-            "width": (() => {
-                if (thumbNail.width !== undefined) {
-                    return thumbNail.width;
-                }
-
-                return thumbNail.type === "small" ? 557 : 412;
-            })(),
+            [theme.breakpoints.down("md")]: {
+                "width": thumbNail.type === "small" ? 300 : 464,
+                "height": thumbNail.type === "small" ? "unset" : 352,
+            },
         },
         "tagWithBackground": {
             "background": (() => {
@@ -87,7 +78,7 @@ const getUseClassNames = () => {
                         if (thumbNail.type === "small") {
                             return theme.isDarkModeEnabled
                                 ? theme.colors.palette.dark.greyVariant1
-                                : theme.colors.palette.light.greyVariant1;
+                                : theme.colors.palette.light.light;
                         }
 
                         return theme.isDarkModeEnabled
@@ -110,6 +101,10 @@ const getUseClassNames = () => {
                 "display": "flex",
                 "justifyContent": "center",
                 "alignItems": "center",
+                "textAlign": "center",
+                [theme.breakpoints.down("md")]: {
+                    "padding": theme.spacing(3),
+                },
             },
             "backgroundSize": thumbNail.background?.type === "image" ? "cover" : undefined,
         },
@@ -132,7 +127,7 @@ const getUseClassNames = () => {
 
             "backgroundColor": theme.isDarkModeEnabled
                 ? theme.colors.palette.dark.greyVariant1
-                : undefined,
+                : theme.colors.palette.light.light,
 
             "paddingLeft": theme.spacing(3),
             "paddingRight": theme.spacing(3),
@@ -172,15 +167,13 @@ const getUseClassNames = () => {
 };
 
 export const ThumbNail = memo((props: ThumbNailProps) => {
-    const { className, height, width, background, type } = props;
+    const { className, background, type } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         "thumbNail": {
             background,
-            height,
-            width,
             type,
             "footerHeight": props.type === "large" ? props.footer?.height : undefined,
             "buttonBackgroundColor": props.type === "large" ? props.button?.backgroundColor : undefined,

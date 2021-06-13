@@ -1,5 +1,5 @@
-import type { SectionProps } from "./components/Section";
-import { Section } from "./components/Section";
+import type { SectionProps } from "./Section";
+import { Section } from "./Section";
 import { memo } from "react";
 
 export type GitLandingSectionProps = {
@@ -33,7 +33,7 @@ export const GitLandingSection = memo((props: GitLandingSectionProps) => {
     const { sections, className } = props;
 
     return (
-        <section className={className}>
+        <section id="main-section" className={className}>
             {sections.map((section, index) => (
                 <Section key={index} isRowReverse={index % 2 === 1 ? true : false} {...section} />
             ))}

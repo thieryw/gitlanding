@@ -47,7 +47,7 @@ sur le traitement statistique et la datascience.
         ],
     },
 
-    "linkToNextSection": {
+    "linkToMainSection": {
         "title": "Ce dont vous avez besoin :",
     },
 };

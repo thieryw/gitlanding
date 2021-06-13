@@ -13,18 +13,15 @@ export type ImageProps = {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useClassNames } = createUseClassNames()(() => ({
         "root": {
             "position": "relative",
-            "boxShadow": theme.isDarkModeEnabled ? undefined : "-2px 0px 10px 0px rgba(0,0,0,0.75)",
             "& > img": {
                 "width": "100%",
                 "height": "100%",
                 "objectFit": "cover",
                 "verticalAlign": "middle",
-                "borderRadius": 5,
             },
-            "borderRadius": 5,
         },
     }));
 

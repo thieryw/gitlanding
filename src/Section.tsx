@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Typography } from "onyxia-ui/Typography";
 import ReactMarkdown from "react-markdown";
-import { Image } from "./Image";
+import { Image } from "./components/Image";
 import { memo } from "react";
-import type { ImageProps } from "./Image";
+import type { ImageProps } from "./components/Image";
 import { cx, css } from "tss-react";
-import { Code } from "./Code";
-import type { Props as CodeProps } from "./Code";
-import { Button } from "./Button";
-import { ThumbNail } from "./ThumbNail";
-import type { ThumbNailProps } from "./ThumbNail";
-import { getThemeApi } from "../theme";
+import { Code } from "./components/Code";
+import type { Props as CodeProps } from "./components/Code";
+import { Button } from "./components/Button";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
+import { ThumbNailSection } from "./ThumbNailSection";
+import type { ThumbNailSectionProps } from "./ThumbNailSection";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
         isRowReverse: boolean;
-        hasIllustration: boolean;
-    }>()((theme, { hasIllustration, isRowReverse }) => ({
+    }>()((theme, { isRowReverse }) => ({
         "root": {
             "position": "relative",
             "marginTop": theme.spacing(17.25),
@@ -38,18 +37,31 @@ const getUseClassNames = () => {
             "fontSize": "40px",
             "textAlign": "center",
             "marginBottom": theme.spacing(7.5),
+            [theme.breakpoints.down("md")]: {
+                "textAlign": "left",
+                "paddingLeft": theme.spacing(4.5),
+                "paddingRight": theme.spacing(4.5),
+            },
         },
         "articleAndImageWrapper": {
             "display": "flex",
             "flexDirection": isRowReverse ? "row-reverse" : "row",
             "justifyContent": "center",
             "alignItems": "center",
+            "marginTop": theme.spacing(17.25),
+            "paddingLeft": theme.spacing(6),
+            "paddingRight": theme.spacing(6),
+            [theme.breakpoints.down("md")]: {
+                "flexDirection": "column-reverse",
+                "paddingLeft": theme.spacing(4.5),
+                "paddingRight": theme.spacing(4.5),
+            },
         },
         "article": {
             "display": "flex",
             "flexDirection": "column",
-            "width": hasIllustration ? 412 : 600,
-            "textAlign": hasIllustration ? "unset" : "center",
+            "width": 412,
+            "textAlign": "left",
             [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
             "& h2": {
                 "marginBottom": 14,
@@ -60,11 +72,20 @@ const getUseClassNames = () => {
                 "marginTop": 14,
                 "marginBottom": 14,
             },
+            [theme.breakpoints.down("md")]: {
+                "width": "100%",
+                "margin": "unset",
+                "marginTop": theme.spacing(4),
+            },
         },
 
         "illustration": {
             "width": 900,
             [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
+            [theme.breakpoints.down("md")]: {
+                "margin": "unset",
+                "width": "100%",
+            },
         },
         "button": {
             "color": "unset !important",
@@ -91,7 +112,7 @@ declare namespace IllustrationProps {
 
 export type SectionProps = {
     className?: string;
-    thumbNails?: ThumbNailProps[];
+    thumbNailSection?: ThumbNailSectionProps;
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     title?: string;
     article?: {
@@ -110,13 +131,12 @@ export type SectionProps = {
 };
 
 export const Section = memo((props: SectionProps) => {
-    const { article, illustration, isRowReverse, className, thumbNails, title } = props;
+    const { article, illustration, isRowReverse, className, thumbNailSection, title } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
         isRowReverse,
-        "hasIllustration": illustration !== undefined,
     });
 
     return (
@@ -126,12 +146,7 @@ export const Section = memo((props: SectionProps) => {
                     {title}
                 </Typography>
             )}
-            {
-                <section className={classNames.smallThumbNails}>
-                    {thumbNails &&
-                        thumbNails.map((thumbNail, index) => <ThumbNail key={index} {...thumbNail} />)}
-                </section>
-            }
+            {<ThumbNailSection {...thumbNailSection} />}
             <article className={classNames.articleAndImageWrapper}>
                 {article && (
                     <div className={classNames.article}>

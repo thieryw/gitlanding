@@ -34,8 +34,7 @@ export type GitLandingHeaderProps = {
      */
     background?: BackgroundProps.Color | BackgroundProps.ImageUrl;
     topBarProps?: TopBarProps;
-    linkToNextSection?: {
-        href?: string;
+    linkToMainSection?: {
         title: string;
     };
 };
@@ -63,7 +62,13 @@ const getUseClassNames = () => {
             "boxSizing": "border-box",
             "alignItems": "center",
             "justifyContent": "center",
-            "paddingTop": 100,
+            "marginTop": theme.spacing(13),
+            [theme.breakpoints.down("md")]: {
+                "flexDirection": "column-reverse",
+                "marginTop": 0,
+                "paddingLeft": theme.spacing(4.5),
+                "paddingRight": theme.spacing(4.5),
+            },
         },
 
         "presentationText": {
@@ -73,21 +78,41 @@ const getUseClassNames = () => {
             "textAlign": "left",
             "width": 994,
             "zIndex": 1,
-            "& h1": {
+            "& h2": {
                 "fontSize": "86px",
-                "marginBottom": 32,
+                "marginBottom": theme.spacing(4),
+                "width": 800,
             },
             "& h3": {
-                "width": 848,
+                "width": 650,
                 "fontWeight": 400,
                 "lineHeight": "40px",
+            },
+            [theme.breakpoints.down("md")]: {
+                "left": 0,
+                "bottom": 0,
+                "width": "100%",
+
+                "& h2": {
+                    "fontSize": "36px",
+                    "marginBottom": theme.spacing(9),
+                    "marginTop": theme.spacing(8),
+                    "width": "unset",
+                },
+                "& h3": {
+                    "width": "unset",
+                    "lineHeight": "40px",
+                },
             },
         },
         "image": {
             "position": "relative",
             "right": 100,
-            "borderRadius": "5px",
             "width": 900,
+            [theme.breakpoints.down("md")]: {
+                "right": "unset",
+                "width": "100%",
+            },
         },
         "backgroundDiv": {
             "background": (() => {
@@ -125,7 +150,7 @@ const getUseClassNames = () => {
             "marginBottom": 30,
             "maxWidth": 650,
         },
-        "linkToNextSection": {
+        "linkToMainSection": {
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
@@ -141,7 +166,7 @@ const getUseClassNames = () => {
 };
 
 export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
-    const { image, titleMd, subTitleMd, background, topBarProps, className, linkToNextSection } = props;
+    const { image, titleMd, subTitleMd, background, topBarProps, className, linkToMainSection } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -154,7 +179,7 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
             <div className={classNames.presentation}>
                 <div className={classNames.presentationText}>
                     {titleMd && (
-                        <Typography variant="h1">
+                        <Typography variant="h2">
                             <ReactMarkdown>{titleMd}</ReactMarkdown>
                         </Typography>
                     )}
@@ -174,12 +199,12 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                 )}
             </div>
 
-            {linkToNextSection && (
-                <div className={classNames.linkToNextSection}>
+            {linkToMainSection && (
+                <div className={classNames.linkToMainSection}>
                     <Typography variant="h3">
-                        <ReactMarkdown>{linkToNextSection.title}</ReactMarkdown>
+                        <ReactMarkdown>{linkToMainSection.title}</ReactMarkdown>
                     </Typography>
-                    <Link href={linkToNextSection.href}>
+                    <Link href="#main-section">
                         <DownArrow />
                     </Link>
                 </div>
