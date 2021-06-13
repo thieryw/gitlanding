@@ -11,7 +11,6 @@ import type { ThumbNailSectionProps } from "./ThumbNailSection";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { memo } from "react";
-import { useIsDarkModeEnabled } from "onyxia-ui/lib/useIsDarkModeEnabled";
 import { useEffect } from "react";
 
 export type GitlandingProps = {
@@ -28,10 +27,7 @@ export const Gitlanding = memo((props: GitlandingProps) => {
 
     const { ThemeProvider } = useGuaranteedMemo(() => getThemeApi(), []);
 
-    const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
-
     useEffect(() => {
-        setIsDarkModeEnabled(false);
         document.documentElement.style.scrollBehavior = "smooth";
     }, []);
 
