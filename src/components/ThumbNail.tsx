@@ -19,9 +19,11 @@ declare namespace BackgroundProps {
     };
 }
 
+type BackgroundProps = BackgroundProps.Color | BackgroundProps.Image;
+
 declare namespace ThumbNailProps {
     export type Common = {
-        background?: BackgroundProps.Color | BackgroundProps.Image;
+        background?: BackgroundProps;
         className?: string;
     };
 
@@ -68,7 +70,7 @@ const getUseClassNames = () => {
 
             [theme.breakpoints.down("md")]: {
                 "width": thumbNail.type === "small" ? 300 : 464,
-                "height": thumbNail.type === "small" ? "unset" : 352,
+                "height": thumbNail.type === "small" ? 175 : 352,
             },
         },
         "tagWithBackground": {
@@ -107,6 +109,14 @@ const getUseClassNames = () => {
                 },
             },
             "backgroundSize": thumbNail.background?.type === "image" ? "cover" : undefined,
+            "boxShadow": theme.shadows[4],
+            "transition": "box-shadow 300ms",
+            ":hover": {
+                "& a": {
+                    "textDecoration": "none",
+                },
+                "boxShadow": theme.shadows[2],
+            },
         },
 
         "large": {

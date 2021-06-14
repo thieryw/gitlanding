@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.0.27",
+    "version": "0.0.28",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -52,7 +52,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.4",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.3.12",
+        "onyxia-ui": "^0.5.4",
         "powerhooks": "^0.0.37",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",

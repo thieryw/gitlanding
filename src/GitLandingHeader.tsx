@@ -63,7 +63,7 @@ const getUseClassNames = () => {
             "alignItems": "center",
             "justifyContent": "center",
             "marginTop": theme.spacing(13),
-            [theme.breakpoints.down("md")]: {
+            [theme.breakpoints.down("sm")]: {
                 "flexDirection": "column-reverse",
                 "marginTop": 0,
                 "paddingLeft": theme.spacing(4.5),
@@ -89,19 +89,29 @@ const getUseClassNames = () => {
                 "lineHeight": "40px",
             },
             [theme.breakpoints.down("md")]: {
+                "width": 544,
+                "left": 100,
+                "& h2": {
+                    "fontSize": "36px",
+                    "width": "unset",
+                },
+                "& h3": {
+                    "lineHeight": "20px",
+                    "fontSize": "16px",
+                    "width": 370,
+                },
+            },
+            [theme.breakpoints.down("sm")]: {
                 "left": 0,
                 "bottom": 0,
                 "width": "100%",
 
                 "& h2": {
-                    "fontSize": "36px",
                     "marginBottom": theme.spacing(9),
                     "marginTop": theme.spacing(8),
-                    "width": "unset",
                 },
                 "& h3": {
                     "width": "unset",
-                    "lineHeight": "40px",
                 },
             },
         },
@@ -110,6 +120,10 @@ const getUseClassNames = () => {
             "right": 100,
             "width": 900,
             [theme.breakpoints.down("md")]: {
+                "width": 464,
+                "right": theme.spacing(4.5),
+            },
+            [theme.breakpoints.down("sm")]: {
                 "right": "unset",
                 "width": "100%",
             },

@@ -25,7 +25,7 @@ export type GitLandingSectionProps = {
      *  },
      * ]
      */
-    sections: Omit<SectionProps, "isRowReverse">[];
+    sections: SectionProps[];
     className?: string;
 };
 
@@ -35,7 +35,7 @@ export const GitLandingSection = memo((props: GitLandingSectionProps) => {
     return (
         <section id="main-section" className={className}>
             {sections.map((section, index) => (
-                <Section key={index} isRowReverse={index % 2 === 1 ? true : false} {...section} />
+                <Section key={index} {...section} />
             ))}
         </section>
     );

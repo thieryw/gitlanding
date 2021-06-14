@@ -17,7 +17,7 @@ const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        isRowReverse: boolean;
+        isRowReverse: boolean | undefined;
     }>()((theme, { isRowReverse }) => ({
         "root": {
             "position": "relative",
@@ -37,7 +37,7 @@ const getUseClassNames = () => {
             "fontSize": "40px",
             "textAlign": "center",
             "marginBottom": theme.spacing(7.5),
-            [theme.breakpoints.down("md")]: {
+            [theme.breakpoints.down("sm")]: {
                 "textAlign": "left",
                 "paddingLeft": theme.spacing(4.5),
                 "paddingRight": theme.spacing(4.5),
@@ -51,7 +51,7 @@ const getUseClassNames = () => {
             "marginTop": theme.spacing(17.25),
             "paddingLeft": theme.spacing(6),
             "paddingRight": theme.spacing(6),
-            [theme.breakpoints.down("md")]: {
+            [theme.breakpoints.down("sm")]: {
                 "flexDirection": "column-reverse",
                 "paddingLeft": theme.spacing(4.5),
                 "paddingRight": theme.spacing(4.5),
@@ -63,6 +63,10 @@ const getUseClassNames = () => {
             "width": 412,
             "textAlign": "left",
             [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
+            [theme.breakpoints.down("md")]: {
+                [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(1.5),
+                "width": 302,
+            },
             "& h2": {
                 "marginBottom": 14,
             },
@@ -72,7 +76,7 @@ const getUseClassNames = () => {
                 "marginTop": 14,
                 "marginBottom": 14,
             },
-            [theme.breakpoints.down("md")]: {
+            [theme.breakpoints.down("sm")]: {
                 "width": "100%",
                 "margin": "unset",
                 "marginTop": theme.spacing(4),
@@ -83,6 +87,10 @@ const getUseClassNames = () => {
             "width": 900,
             [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
             [theme.breakpoints.down("md")]: {
+                [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(1.5),
+                "width": 464,
+            },
+            [theme.breakpoints.down("sm")]: {
                 "margin": "unset",
                 "width": "100%",
             },
@@ -127,7 +135,7 @@ export type SectionProps = {
             href: string;
         };
     };
-    isRowReverse: boolean;
+    isRowReverse?: boolean;
 };
 
 export const Section = memo((props: SectionProps) => {

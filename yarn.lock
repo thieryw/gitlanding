@@ -10418,10 +10418,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.3.12.tgz#289b8d95f51244b0efa800ddc3eed2b1281eb509"
-  integrity sha512-ED68KSpBqf/NHFFPw5vG+syfFVyfrp+hZcgtPzHyF1hnlhrATSlR5DVefMxNbpEMWQ9NYLgUVc9UZb6rKqcKyQ==
+onyxia-ui@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.5.4.tgz#a8a408daa5974f4a72195bda3bbad7601eb9b3a8"
+  integrity sha512-UEoUlH9WI2yLPyaEEk2CSRskh6ckGKESOG9s99KHAtYvOmYYAFknQ9nQuPHBFO6WTiRCr0WOQLqjnSrkTSIuAQ==
   dependencies:
     "@material-ui/icons" "^4.11.2"
     color "3.1.3"
