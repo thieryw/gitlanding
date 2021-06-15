@@ -1,5 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 
+import type { ReactNode } from "react";
 import { createThemeProvider, defaultTypography } from "onyxia-ui";
 import "onyxia-ui/assets/fonts/work-sans.css";
 import { createUseClassNamesFactory } from "tss-react";
@@ -16,6 +17,8 @@ import DehazeIcon from "@material-ui/icons/Dehaze";
 import Brightness1RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import type { ThemeProviderProps, Theme } from "onyxia-ui";
 
+let isThemeOverwritten = false;
+
 let { ThemeProvider, useTheme } = createThemeProvider({
     "typography": {
         ...defaultTypography,
@@ -29,14 +32,26 @@ export function overwriteTheme(params: {
     ThemeProvider(props: ThemeProviderProps): JSX.Element;
     useTheme(): Theme;
 }): void {
+    isThemeOverwritten = true;
+
     ThemeProvider = params.ThemeProvider;
     useTheme = params.useTheme;
     createUseClassNames = createUseClassNamesFactory({ useTheme }).createUseClassNames;
 }
 
-export function getThemeApi() {
-    return { ThemeProvider, useTheme, createUseClassNames };
-}
+export const { getThemeApi } = (() => {
+    const Id = (props: { children: ReactNode }) => <>{props.children}</>;
+
+    function getThemeApi() {
+        return {
+            "ThemeProvider": isThemeOverwritten ? Id : ThemeProvider,
+            useTheme,
+            createUseClassNames,
+        };
+    }
+
+    return { getThemeApi };
+})();
 
 export const { Icon } = createIcon({
     "iconButton": IconButtonIcon,
