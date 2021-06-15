@@ -1,3 +1,7 @@
+### **0.0.31** (2021-06-15)  
+  
+- corrected stupid mistakes    
+  
 ### **0.0.30** (2021-06-15)  
   
 - started Xl screen and correct cards  
