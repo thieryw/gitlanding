@@ -10,8 +10,8 @@ import type { Props as CodeProps } from "./components/Code";
 import { Button } from "./components/Button";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { ThumbNailSection } from "./ThumbNailSection";
-import type { ThumbNailSectionProps } from "./ThumbNailSection";
+import { CardSection } from "./CardSection";
+import type { CardSectionProps } from "./CardSection";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -120,7 +120,7 @@ declare namespace IllustrationProps {
 
 export type SectionProps = {
     className?: string;
-    thumbNailSection?: ThumbNailSectionProps;
+    cardSection?: CardSectionProps;
     illustration?: IllustrationProps.Code | IllustrationProps.Image;
     title?: string;
     article?: {
@@ -139,7 +139,7 @@ export type SectionProps = {
 };
 
 export const Section = memo((props: SectionProps) => {
-    const { article, illustration, isRowReverse, className, thumbNailSection, title } = props;
+    const { article, illustration, isRowReverse, className, cardSection, title } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -154,7 +154,7 @@ export const Section = memo((props: SectionProps) => {
                     {title}
                 </Typography>
             )}
-            {<ThumbNailSection {...thumbNailSection} />}
+            {<CardSection {...cardSection} />}
             <article className={classNames.articleAndImageWrapper}>
                 {article && (
                     <div className={classNames.article}>

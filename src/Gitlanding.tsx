@@ -2,12 +2,12 @@ import { GitLandingHeader } from "./GitLandingHeader";
 import { GitLandingSection } from "./GitLandingSections";
 import { ReviewSlider } from "./ReviewSlider";
 import { GitLandingFooter } from "./GitLandingFooter";
-import { ThumbNailSection } from "./ThumbNailSection";
+import { CardSection } from "./CardSection";
 import type { GitLandingHeaderProps } from "./GitLandingHeader";
 import type { GitLandingSectionProps } from "./GitLandingSections";
 import type { GitLandingFooterProps } from "./GitLandingFooter";
 import type { Props as ReviewSliderProps } from "./ReviewSlider";
-import type { ThumbNailSectionProps } from "./ThumbNailSection";
+import type { CardSectionProps } from "./CardSection";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { memo } from "react";
@@ -17,13 +17,13 @@ export type GitlandingProps = {
     className?: string;
     header?: GitLandingHeaderProps;
     mainSection?: GitLandingSectionProps;
-    thumbNailSection?: ThumbNailSectionProps;
+    cardSection?: CardSectionProps;
     reviewSlider?: ReviewSliderProps;
     footer?: GitLandingFooterProps;
 };
 
 export const Gitlanding = memo((props: GitlandingProps) => {
-    const { thumbNailSection, footer, header, mainSection, reviewSlider, className } = props;
+    const { cardSection, footer, header, mainSection, reviewSlider, className } = props;
 
     const { ThemeProvider } = useGuaranteedMemo(() => getThemeApi(), []);
 
@@ -43,7 +43,7 @@ export const Gitlanding = memo((props: GitlandingProps) => {
                     />
                 )}
 
-                {thumbNailSection && <ThumbNailSection {...thumbNailSection} />}
+                {cardSection && <CardSection {...cardSection} />}
 
                 {reviewSlider && (
                     <ReviewSlider className={reviewSlider.className} reviews={reviewSlider.reviews} />

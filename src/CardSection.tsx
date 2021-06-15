@@ -1,14 +1,31 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useRef } from "react";
-import { ThumbNail } from "./components/ThumbNail";
-import type { ThumbNailProps } from "./components/ThumbNail";
+import { CardVariant } from "./components/CardVariant";
+import type { CardVariantProps } from "./components/CardVariant";
+import { Card } from "./components/Card";
+import type { CardProps as CardNormalProps } from "./components/Card";
 import { Typography } from "onyxia-ui";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
 
-export type ThumbNailSectionProps = {
+declare namespace CardProps {
+    export type Normal = {
+        type: "normal";
+        cardProps: CardNormalProps;
+    };
+
+    export type Variant = {
+        type: "variant";
+        cardProps: CardVariantProps;
+    };
+}
+
+type CardProps = CardProps.Normal | CardProps.Variant;
+
+export type CardSectionProps = {
     className?: string;
     title?: string;
-    thumbNails?: ThumbNailProps[];
+    cards?: CardProps[];
     /**
      * specify the maximum screen width in witch the thumbnails
      * are displayed as columns.
@@ -21,7 +38,7 @@ const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<
-        Pick<ThumbNailSectionProps, "breakpointForColumnDisplay" | "title">
+        Pick<CardSectionProps, "breakpointForColumnDisplay" | "title">
     >()((theme, { breakpointForColumnDisplay, title }) => ({
         "title": {
             "marginBottom": theme.spacing(7.5),
@@ -36,7 +53,7 @@ const getUseClassNames = () => {
             },
         },
 
-        "thumbNails": {
+        "cards": {
             "display": "flex",
             "flexWrap": "wrap",
             "justifyContent": "center",
@@ -49,7 +66,7 @@ const getUseClassNames = () => {
                 "paddingRight": theme.spacing(4.5),
             },
         },
-        "thumbNail": {
+        "card": {
             "margin": theme.spacing(1.5),
             [theme.breakpoints.down(
                 breakpointForColumnDisplay !== undefined ? breakpointForColumnDisplay : "sm",
@@ -62,8 +79,8 @@ const getUseClassNames = () => {
 
     return { useClassNames };
 };
-export const ThumbNailSection = memo((props: ThumbNailSectionProps) => {
-    const { title, thumbNails, className, breakpointForColumnDisplay, showMoreMessage } = props;
+export const CardSection = memo((props: CardSectionProps) => {
+    const { title, cards, className, breakpointForColumnDisplay, showMoreMessage } = props;
 
     const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -71,6 +88,11 @@ export const ThumbNailSection = memo((props: ThumbNailSectionProps) => {
         "areExtraThumbNailsExposed",
         false,
     );
+
+    if (cards !== undefined) {
+        console.log(cards[0].type);
+        console.log(cards[0].cardProps);
+    }
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -96,23 +118,32 @@ export const ThumbNailSection = memo((props: ThumbNailSectionProps) => {
             <div className={classNames.title}>
                 {title && <Typography variant="h2">{title}</Typography>}
 
-                {thumbNails && thumbNails.length > 4 && (
+                {cards && cards.length > 4 && (
                     <Typography onClick={exposeHiddenThumbNails} variant="h3">
-                        {showMoreMessage ? showMoreMessage : "Show More"} ({thumbNails.length})
+                        {showMoreMessage ? showMoreMessage : "Show More"} ({cards.length})
                     </Typography>
                 )}
             </div>
 
-            {thumbNails && (
-                <div className={classNames.thumbNails}>
-                    {thumbNails
-                        .slice(
-                            0,
-                            thumbNails.length < 4 || areExtraThumbNailsExposed ? thumbNails.length : 4,
-                        )
-                        .map((thumbNail, index) => (
-                            <ThumbNail className={classNames.thumbNail} key={index} {...thumbNail} />
-                        ))}
+            {cards && (
+                <div className={classNames.cards}>
+                    {cards
+                        .slice(0, cards.length < 4 || areExtraThumbNailsExposed ? cards.length : 4)
+                        .map((card, index) => {
+                            if (card.type === "normal") {
+                                return (
+                                    <Card className={classNames.card} key={index} {...card.cardProps} />
+                                );
+                            }
+
+                            return (
+                                <CardVariant
+                                    className={classNames.card}
+                                    key={index}
+                                    {...card.cardProps}
+                                />
+                            );
+                        })}
                 </div>
             )}
         </section>
