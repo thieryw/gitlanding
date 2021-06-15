@@ -1,3 +1,7 @@
+### **0.0.29** (2021-06-15)  
+  
+- redone cards    
+  
 ### **0.0.28** (2021-06-14)  
   
 - integrated hidden thumbnails with reveal function    
