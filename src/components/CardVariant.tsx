@@ -43,6 +43,8 @@ const getUseClassNames = () => {
         (theme, { background, button }) => ({
             "root": {
                 "borderRadius": 16,
+                "minHeight": 591,
+                "width": 412,
                 [theme.breakpoints.down(1440)]: {
                     "minHeight": 412,
                     "width": 310,
