@@ -1,3 +1,8 @@
+### **0.0.30** (2021-06-15)  
+  
+- started Xl screen and correct cards  
+- Do not use theme provider if overwritten    
+  
 ### **0.0.29** (2021-06-15)  
   
 - redone cards    
