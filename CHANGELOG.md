@@ -1,3 +1,7 @@
+### **0.0.28** (2021-06-14)  
+  
+- integrated hidden thumbnails with reveal function    
+  
 ### **0.0.27** (2021-06-13)  
   
 - reactivate dark mode    
