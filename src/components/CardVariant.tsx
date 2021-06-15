@@ -26,7 +26,7 @@ export type CardVariantProps = {
     footer?: {
         title?: string;
         subTitle?: string;
-        height?: string | number;
+        date?: string;
     };
     button?: {
         title: string;
@@ -39,15 +39,16 @@ export type CardVariantProps = {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<Omit<CardVariantProps, "className">>()(
-        (theme, { background, footer, button }) => ({
+    const { useClassNames } = createUseClassNames<Omit<CardVariantProps, "className" | "footer">>()(
+        (theme, { background, button }) => ({
             "root": {
                 "borderRadius": 16,
-                "height": 563,
-                "width": 412,
+                [theme.breakpoints.down(1440)]: {
+                    "minHeight": 412,
+                    "width": 310,
+                },
                 "display": "flex",
                 "flexDirection": "column",
-                "justifyContent": "space-between",
                 "overflow": "hidden",
             },
             "tagWithBackground": {
@@ -64,27 +65,25 @@ const getUseClassNames = () => {
 
                     return `url(${background.url}) no-repeat center`;
                 })(),
+                "backgroundSize": "cover",
             },
 
             "footer": {
-                "height": (() => {
-                    if (footer === undefined) {
-                        return 161;
-                    }
-
-                    return footer.height;
-                })(),
-
                 "backgroundColor": theme.isDarkModeEnabled
                     ? theme.colors.palette.dark.greyVariant1
                     : theme.colors.palette.light.light,
 
                 "paddingLeft": theme.spacing(3),
                 "paddingRight": theme.spacing(3),
+                "paddingTop": theme.spacing(2),
+                "paddingBottom": theme.spacing(2),
 
                 "& h5": {
-                    "marginTop": theme.spacing(2),
                     "marginBottom": theme.spacing(1.25),
+                },
+
+                "& h6:nth-child(2)": {
+                    "marginBottom": 10,
                 },
             },
             "header": {
@@ -123,7 +122,6 @@ export const CardVariant = memo((props: CardVariantProps) => {
     const { classNames } = useClassNames({
         background,
         button,
-        footer,
     });
 
     return (
@@ -138,6 +136,7 @@ export const CardVariant = memo((props: CardVariantProps) => {
                 <div className={classNames.footer}>
                     {footer.title && <Typography variant="h5">{footer.title}</Typography>}
                     {footer.subTitle && <Typography variant="subtitle1">{footer.subTitle}</Typography>}
+                    {footer.date && <Typography variant="subtitle1">{footer.date}</Typography>}
                 </div>
             )}
         </div>

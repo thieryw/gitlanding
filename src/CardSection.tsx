@@ -89,11 +89,6 @@ export const CardSection = memo((props: CardSectionProps) => {
         false,
     );
 
-    if (cards !== undefined) {
-        console.log(cards[0].type);
-        console.log(cards[0].cardProps);
-    }
-
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({ breakpointForColumnDisplay, title });
@@ -115,15 +110,17 @@ export const CardSection = memo((props: CardSectionProps) => {
 
     return (
         <section ref={sectionRef} className={className}>
-            <div className={classNames.title}>
-                {title && <Typography variant="h2">{title}</Typography>}
+            {title && (
+                <div className={classNames.title}>
+                    <Typography variant="h2">{title}</Typography>
 
-                {cards && cards.length > 4 && (
-                    <Typography onClick={exposeHiddenThumbNails} variant="h3">
-                        {showMoreMessage ? showMoreMessage : "Show More"} ({cards.length})
-                    </Typography>
-                )}
-            </div>
+                    {cards && cards.length > 4 && (
+                        <Typography onClick={exposeHiddenThumbNails} variant="h3">
+                            {showMoreMessage ? showMoreMessage : "Show More"} ({cards.length})
+                        </Typography>
+                    )}
+                </div>
+            )}
 
             {cards && (
                 <div className={classNames.cards}>

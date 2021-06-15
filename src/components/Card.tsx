@@ -30,8 +30,8 @@ export type CardProps = {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{ numberOfIcons: number }>()(
-        (theme, { numberOfIcons }) => ({
+    const { useClassNames } = createUseClassNames<{ numberOfIcons: number; isLink: boolean }>()(
+        (theme, { numberOfIcons, isLink }) => ({
             "root": {
                 "position": "relative",
                 "& a": {
@@ -51,12 +51,17 @@ const getUseClassNames = () => {
 
                 "width": 562,
                 "minHeight": 246,
+                [theme.breakpoints.down(1440)]: {
+                    "width": 421,
+                    "minHeight": 216,
+                },
                 "padding": theme.spacing(3),
                 "borderRadius": 16,
                 "boxShadow": theme.shadows[1],
                 "transition": "box-shadow 200ms",
                 ":hover": {
                     "boxShadow": theme.shadows[2],
+                    "cursor": isLink ? "pointer" : undefined,
                 },
             },
             "subHeading": {
@@ -115,6 +120,7 @@ export const Card = memo((props: CardProps) => {
     const { classNames } = useClassNames({
         "numberOfIcons":
             heading !== undefined && heading.iconUrls !== undefined ? heading.iconUrls.length : 0,
+        "isLink": href !== undefined,
     });
 
     return (

@@ -70,8 +70,8 @@ const getUseClassNames = () => {
             "alignItems": "center",
             "width": "100%",
             "padding": [4.5, 12.5, 4.5, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            [theme.breakpoints.down("md")]: {
-                "padding": [2, 4.5, 2, 4.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+            [theme.breakpoints.down(1440)]: {
+                "padding": [2, 8, 2, 8].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
             },
         },
         "title": {
@@ -100,8 +100,8 @@ const getUseClassNames = () => {
             "fontSize": "22px",
             "lineHeight": "32px",
             "marginLeft": theme.spacing(8),
-            [theme.breakpoints.down("md")]: {
-                "margin": "5px 0 5px 0",
+            [theme.breakpoints.down(1440)]: {
+                "marginLeft": theme.spacing(3),
             },
         },
 

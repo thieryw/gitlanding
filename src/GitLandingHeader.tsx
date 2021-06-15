@@ -47,8 +47,7 @@ const getUseClassNames = () => {
     }>()((theme, { background }) => ({
         "root": {
             "position": "relative",
-            "width": "100vw",
-
+            "width": "100%",
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
@@ -60,58 +59,37 @@ const getUseClassNames = () => {
             "display": "flex",
             "width": "100%",
             "boxSizing": "border-box",
-            "alignItems": "center",
             "justifyContent": "center",
-            "marginTop": theme.spacing(13),
-            [theme.breakpoints.down("sm")]: {
-                "flexDirection": "column-reverse",
-                "marginTop": 0,
-                "paddingLeft": theme.spacing(4.5),
-                "paddingRight": theme.spacing(4.5),
-            },
+            "marginTop": theme.spacing(5),
         },
 
         "presentationText": {
             "position": "relative",
-            "left": 160,
-            "bottom": 70,
+            "left": 100,
             "textAlign": "left",
             "width": 994,
             "zIndex": 1,
             "& h2": {
                 "fontSize": "86px",
                 "marginBottom": theme.spacing(4),
-                "width": 800,
+                "width": 1000,
             },
             "& h3": {
                 "width": 650,
                 "fontWeight": 400,
                 "lineHeight": "40px",
             },
-            [theme.breakpoints.down("md")]: {
-                "width": 544,
+            [theme.breakpoints.down(1440)]: {
+                "width": 650,
                 "left": 100,
                 "& h2": {
-                    "fontSize": "36px",
+                    "fontSize": "52px",
                     "width": "unset",
                 },
                 "& h3": {
                     "lineHeight": "20px",
-                    "fontSize": "16px",
-                    "width": 370,
-                },
-            },
-            [theme.breakpoints.down("sm")]: {
-                "left": 0,
-                "bottom": 0,
-                "width": "100%",
-
-                "& h2": {
-                    "marginBottom": theme.spacing(9),
-                    "marginTop": theme.spacing(8),
-                },
-                "& h3": {
-                    "width": "unset",
+                    "fontSize": "18px",
+                    "width": 450,
                 },
             },
         },
@@ -119,13 +97,9 @@ const getUseClassNames = () => {
             "position": "relative",
             "right": 100,
             "width": 900,
-            [theme.breakpoints.down("md")]: {
-                "width": 464,
+            [theme.breakpoints.down(1440)]: {
+                "width": 755,
                 "right": theme.spacing(4.5),
-            },
-            [theme.breakpoints.down("sm")]: {
-                "right": "unset",
-                "width": "100%",
             },
         },
         "backgroundDiv": {
@@ -168,7 +142,7 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
-            "marginTop": theme.spacing(17),
+            "marginTop": theme.spacing(10),
             "& h3": {
                 "fontWeight": 400,
                 "marginBottom": 21,
