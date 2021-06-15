@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { createThemeProvider, defaultTypography } from "onyxia-ui";
-import "onyxia-ui/assets/fonts/work-sans.css";
 import { createUseClassNamesFactory } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
