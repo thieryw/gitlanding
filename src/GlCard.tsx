@@ -22,7 +22,10 @@ export type GlCardProps = {
     button?: {
         className?: string;
         title: string;
-        href: string;
+        link: {
+            href: string;
+            onClick?(): void;
+        };
     };
     href?: string;
 };
@@ -164,7 +167,7 @@ export const GlCard = memo((props: GlCardProps) => {
                 )}
 
                 {button && (
-                    <GlButton href={button.href} className={cx(classNames.button, button.className)}>
+                    <GlButton {...button.link} className={cx(classNames.button, button.className)}>
                         {button.title}
                     </GlButton>
                 )}

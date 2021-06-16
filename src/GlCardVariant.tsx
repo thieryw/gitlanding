@@ -16,7 +16,10 @@ export type GlCardVariantProps = {
     };
     button?: {
         title: string;
-        href: string;
+        link: {
+            href: string;
+            onClick?(): void;
+        };
         color?: string;
         backgroundColor?: string;
     };
@@ -139,7 +142,7 @@ export const GlCardVariant = memo((props: GlCardVariantProps) => {
             <div className={cx(classNames.tagWithBackground, classNames.header)}>
                 <div className={classNames.buttonWrapper}>
                     {button !== undefined && (
-                        <GlButton href={button.href} className={classNames.button}>
+                        <GlButton {...button.link} className={classNames.button}>
                             {button.title}
                         </GlButton>
                     )}

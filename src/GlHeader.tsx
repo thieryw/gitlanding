@@ -40,7 +40,10 @@ export type GlHeaderProps = {
     title?: GlHeaderProps.Title;
     menuItems?: {
         name: string;
-        url: string;
+        link: {
+            href: string;
+            onClick?(): void;
+        };
     }[];
     className?: string;
 };
@@ -185,13 +188,9 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             )}
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {menuItems !== undefined &&
-                    menuItems.map(item => (
-                        <Link
-                            className={cx(classNames.link, "menu-item")}
-                            href={item.url}
-                            key={JSON.stringify(item.name + item.url)}
-                        >
-                            {item.name}
+                    menuItems.map(({ name, link }) => (
+                        <Link className={cx(classNames.link, "menu-item")} key={name} {...link}>
+                            {name}
                         </Link>
                     ))}
             </div>

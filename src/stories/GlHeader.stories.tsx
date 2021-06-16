@@ -18,19 +18,19 @@ const props: GlHeaderProps = {
     "menuItems": [
         {
             "name": "Documentation",
-            "url": "",
+            "link": { "href": "#" },
         },
         {
             "name": "Le datalab",
-            "url": "",
+            "link": { "href": "#" },
         },
         {
             "name": "Contribuer",
-            "url": "",
+            "link": { "href": "#" },
         },
         {
             "name": "Actualités et projets",
-            "url": "",
+            "link": { "href": "#" },
         },
     ],
 };
