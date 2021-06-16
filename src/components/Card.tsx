@@ -49,14 +49,6 @@ const getUseClassNames = () => {
                     ? theme.colors.palette.dark.greyVariant1
                     : theme.colors.palette.light.light,
 
-                "width": 562,
-                "minHeight": 246,
-                ...(theme.responsive.down(1440)
-                    ? {
-                          "width": 421,
-                          "minHeight": 216,
-                      }
-                    : {}),
                 "padding": theme.spacing(3),
                 "borderRadius": 16,
                 "boxShadow": theme.shadows[1],
@@ -68,6 +60,8 @@ const getUseClassNames = () => {
             },
             "subHeading": {
                 "fontWeight": "normal",
+                "marginTop": theme.spacing(3),
+                "marginBottom": theme.spacing(3),
             },
 
             "button": {
@@ -104,8 +98,11 @@ const getUseClassNames = () => {
 
             "description": {
                 "textAlign": "center",
+                "& h4": {
+                    "marginTop": theme.spacing(3),
+                },
                 "& p": {
-                    "marginTop": theme.spacing(2),
+                    "marginTop": theme.spacing(3),
                 },
             },
         }),

@@ -8,6 +8,7 @@ import { Typography } from "onyxia-ui";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
 import { breakpointsValues } from "onyxia-ui";
+import { cx } from "tss-react";
 
 type CardProps = CardProps.Normal | CardProps.Variant;
 declare namespace CardProps {
@@ -40,20 +41,23 @@ const getUseClassNames = () => {
     const { useClassNames } = createUseClassNames<{
         hasTitle: boolean;
         breakpointForColumnDisplay: number;
-    }>()((theme, { breakpointForColumnDisplay, hasTitle }) => ({
-        "title": {
-            "marginBottom": theme.spacing(7.5),
-            "marginTop": theme.spacing(17.25),
-            "display": "flex",
-            "justifyContent": hasTitle ? "space-between" : "flex-end",
+        numberOfCards: number;
+    }>()((theme, { breakpointForColumnDisplay, hasTitle, numberOfCards }) => ({
+        "root": {
             ...(() => {
-                const value = theme.spacing(13);
+                const value = theme.spacing(12.5);
 
                 return {
                     "paddingLeft": value,
                     "paddingRight": value,
                 };
             })(),
+        },
+        "title": {
+            "marginBottom": theme.spacing(7.5),
+            "marginTop": theme.spacing(17.25),
+            "display": "flex",
+            "justifyContent": hasTitle ? "space-between" : "flex-end",
             "& h3": {
                 "color": theme.colors.palette.orangeWarning.main,
                 "cursor": "pointer",
@@ -63,7 +67,11 @@ const getUseClassNames = () => {
         "cards": {
             "display": "flex",
             "flexWrap": "wrap",
-            "justifyContent": "center",
+            "& > *": {
+                "flex": `1 1 ${numberOfCards <= 4 ? 100 / (numberOfCards + 1) : 100 / 5}%`,
+            },
+
+            "gap": theme.spacing(3),
             ...(theme.responsive.down(breakpointForColumnDisplay)
                 ? {
                       "flexDirection": "column",
@@ -74,7 +82,6 @@ const getUseClassNames = () => {
                 : {}),
         },
         "card": {
-            "margin": theme.spacing(1.5),
             ...(theme.responsive.down(breakpointForColumnDisplay)
                 ? {
                       "width": "100%",
@@ -107,6 +114,7 @@ export const CardSection = memo((props: CardSectionProps) => {
     const { classNames } = useClassNames({
         breakpointForColumnDisplay,
         "hasTitle": title !== undefined,
+        "numberOfCards": cards !== undefined ? cards.length : 0,
     });
 
     const exposeHiddenThumbNails = useConstCallback(async () => {
@@ -125,7 +133,7 @@ export const CardSection = memo((props: CardSectionProps) => {
     });
 
     return (
-        <section ref={sectionRef} className={className}>
+        <section ref={sectionRef} className={cx(classNames.root, className)}>
             {title && (
                 <div className={classNames.title}>
                     <Typography variant="h2">{title}</Typography>
