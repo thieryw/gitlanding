@@ -1,49 +1,52 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
-import { TopBar } from "./components/TopBar";
 import { Typography } from "onyxia-ui/Typography";
-import type { Props as TopBarProps } from "./components/TopBar";
-import { Image } from "./components/Image";
-import type { ImageProps } from "./components/Image";
+import { GlImage } from "./GlImage";
+import type { GlImageProps } from "./GlImage";
 import { cx } from "tss-react";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
-import { DownArrow } from "./components/DownArrow";
+import { GlDownArrow } from "./GlDownArrow";
 import Link from "@material-ui/core/Link";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-declare namespace BackgroundProps {
-    export type Color = {
-        type: "color";
-        backgroundColor: string;
-    };
+import { glSectionId } from "./GlSections";
 
-    export type ImageUrl = {
-        type: "image";
-        imageUrl: string;
-    };
-}
-
-export type GitLandingHeaderProps = {
+export type GlHeroProps = {
     titleMd?: string;
     subTitleMd?: string;
     className?: string;
-    image?: ImageProps;
+    image?: GlImageProps;
     /**
      * you can use markdown between back ticks.
      */
-    background?: BackgroundProps.Color | BackgroundProps.ImageUrl;
-    topBarProps?: TopBarProps;
+    background?: GlHeroProps.Background;
     linkToMainSection?: {
         title: string;
     };
 };
 
+export declare namespace GlHeroProps {
+    type Background = Background.Color | Background.ImageUrl;
+
+    namespace Background {
+        export type Color = {
+            type: "color";
+            backgroundColor: string;
+        };
+
+        export type ImageUrl = {
+            type: "image";
+            imageUrl: string;
+        };
+    }
+}
+
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        background: GitLandingHeaderProps["background"];
+        background: GlHeroProps["background"];
     }>()((theme, { background }) => ({
         "root": {
             "position": "relative",
@@ -74,11 +77,6 @@ const getUseClassNames = () => {
                 "marginBottom": theme.spacing(4),
                 "width": 1000,
             },
-            "& h3": {
-                "width": 650,
-                "fontWeight": 400,
-                "lineHeight": "40px",
-            },
             ...(theme.responsive.down(1440)
                 ? {
                       "width": 650,
@@ -94,6 +92,11 @@ const getUseClassNames = () => {
                       },
                   }
                 : {}),
+        },
+        "subtitle": {
+            "width": 650,
+            "fontWeight": 400,
+            "lineHeight": "40px",
         },
         "image": {
             "position": "relative",
@@ -157,17 +160,16 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
-    const { image, titleMd, subTitleMd, background, topBarProps, className, linkToMainSection } = props;
+export const GlHero = memo((props: GlHeroProps) => {
+    const { image, titleMd, subTitleMd, background, className, linkToMainSection } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({ background });
 
     return (
-        <header className={cx(classNames.root, className)}>
+        <section className={cx(classNames.root, className)}>
             <div className={classNames.backgroundDiv}></div>
-            {topBarProps !== undefined && <TopBar {...topBarProps} />}
             <div className={classNames.presentation}>
                 <div className={classNames.presentationText}>
                     {titleMd && (
@@ -176,14 +178,14 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                         </Typography>
                     )}
                     {subTitleMd && (
-                        <Typography variant="h3">
+                        <Typography variant="h3" className={classNames.subtitle}>
                             <ReactMarkdown>{subTitleMd}</ReactMarkdown>
                         </Typography>
                     )}
                 </div>
 
                 {image !== undefined && (
-                    <Image
+                    <GlImage
                         className={cx(classNames.image, image.className)}
                         url={image.url}
                         alt={image.alt}
@@ -196,11 +198,11 @@ export const GitLandingHeader = memo((props: GitLandingHeaderProps) => {
                     <Typography variant="h3">
                         <ReactMarkdown>{linkToMainSection.title}</ReactMarkdown>
                     </Typography>
-                    <Link href="#main-section">
-                        <DownArrow />
+                    <Link href={`#${glSectionId}`}>
+                        <GlDownArrow />
                     </Link>
                 </div>
             )}
-        </header>
+        </section>
     );
 });

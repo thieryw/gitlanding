@@ -3,12 +3,12 @@ import { memo } from "react";
 import Link from "@material-ui/core/Link";
 import { Typography } from "onyxia-ui/Typography";
 import { cx, css } from "tss-react";
-import { Button } from "./Button";
-import { getThemeApi } from "../theme";
+import { GlButton } from "./GlButton";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { Logo } from "./Logo";
+import { GlLogo } from "./GlLogo";
 
-export type CardProps = {
+export type GlCardProps = {
     className?: string;
     heading?: {
         title?: string;
@@ -111,7 +111,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const Card = memo((props: CardProps) => {
+export const GlCard = memo((props: GlCardProps) => {
     const { button, href, className, description, heading, subHeading } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
@@ -132,7 +132,7 @@ export const Card = memo((props: CardProps) => {
                         {heading.iconUrls && (
                             <div className={classNames.iconWrapper}>
                                 {heading.iconUrls.map((url, index) => (
-                                    <Logo
+                                    <GlLogo
                                         className={cx(
                                             classNames.icon,
                                             css({
@@ -167,9 +167,9 @@ export const Card = memo((props: CardProps) => {
                 )}
 
                 {button && (
-                    <Button href={button.href} className={cx(classNames.button, button.className)}>
+                    <GlButton href={button.href} className={cx(classNames.button, button.className)}>
                         {button.title}
-                    </Button>
+                    </GlButton>
                 )}
             </Link>
         </div>

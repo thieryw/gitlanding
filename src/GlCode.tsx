@@ -1,14 +1,14 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 import { memo } from "react";
 
-export type Props = {
+export type GlCodeProps = {
     text?: string;
     language?: string;
     showLineNumbers?: boolean;
     className?: string;
 };
 
-export const Code = memo((props: Props) => {
+export const GlCode = memo((props: GlCodeProps) => {
     const { className, language, showLineNumbers, text } = props;
 
     return (

@@ -1,32 +1,19 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useRef } from "react";
-import { CardVariant } from "./components/CardVariant";
-import type { CardVariantProps } from "./components/CardVariant";
-import { Card } from "./components/Card";
-import type { CardProps as CardNormalProps } from "./components/Card";
+import { GlCardVariant } from "./GlCardVariant";
+import type { GlCardVariantProps } from "./GlCardVariant";
+import { GlCard } from "./GlCard";
+import type { GlCardProps } from "./GlCard";
 import { Typography } from "onyxia-ui";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
 import { breakpointsValues } from "onyxia-ui";
 import { cx } from "tss-react";
 
-type CardProps = CardProps.Normal | CardProps.Variant;
-declare namespace CardProps {
-    export type Normal = {
-        type: "normal";
-        cardProps: CardNormalProps;
-    };
-
-    export type Variant = {
-        type: "variant";
-        cardProps: CardVariantProps;
-    };
-}
-
-export type CardSectionProps = {
+export type GlCardSectionProps = {
     className?: string;
     title?: string;
-    cards?: CardProps[];
+    cards?: GlCardSectionProps.Card[];
     /**
      * specify the maximum screen width in witch the thumbnails
      * are displayed as columns.
@@ -34,6 +21,19 @@ export type CardSectionProps = {
     breakpointForColumnDisplay?: number;
     showMoreMessage?: string;
 };
+
+export declare namespace GlCardSectionProps {
+    type Card = Card.Normal | Card.Variant;
+    namespace Card {
+        type Normal = {
+            type: "normal";
+        } & GlCardProps;
+
+        type Variant = {
+            type: "variant";
+        } & GlCardVariantProps;
+    }
+}
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -93,7 +93,7 @@ const getUseClassNames = () => {
 
     return { useClassNames };
 };
-export const CardSection = memo((props: CardSectionProps) => {
+export const GlCardSection = memo((props: GlCardSectionProps) => {
     const {
         title,
         cards,
@@ -149,21 +149,20 @@ export const CardSection = memo((props: CardSectionProps) => {
             {cards && (
                 <div className={classNames.cards}>
                     {cards
-                        .slice(0, cards.length < 4 || areExtraThumbNailsExposed ? cards.length : 4)
+                        .filter(areExtraThumbNailsExposed ? () => true : (...[, i]) => i < 4)
                         .map((card, index) => {
-                            if (card.type === "normal") {
-                                return (
-                                    <Card className={classNames.card} key={index} {...card.cardProps} />
-                                );
+                            switch (card.type) {
+                                case "normal":
+                                    return <GlCard className={classNames.card} key={index} {...card} />;
+                                case "variant":
+                                    return (
+                                        <GlCardVariant
+                                            className={classNames.card}
+                                            key={index}
+                                            {...card}
+                                        />
+                                    );
                             }
-
-                            return (
-                                <CardVariant
-                                    className={classNames.card}
-                                    key={index}
-                                    {...card.cardProps}
-                                />
-                            );
                         })}
                 </div>
             )}

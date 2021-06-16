@@ -1,17 +1,16 @@
-import { TopBar } from "../components/TopBar";
-import type { Props } from "../components/TopBar";
-import { designSystem } from "./sectionName";
+import { GlHeader } from "../GlHeader";
+import type { GlHeaderProps } from "../GlHeader";
 import { getStoryFactory } from "./getStory";
 import { css } from "tss-react";
 
 const { getStory, meta } = getStoryFactory({
-    "sectionName": designSystem,
-    "wrappedComponent": { TopBar },
+    "wrappedComponent": { GlHeader },
 });
 
 export default meta;
 
-const props: Props = {
+/* spell-checker: disable */
+const props: GlHeaderProps = {
     "title": {
         "type": "markdown",
         "markdown": `Espace documentaire du **SSP Cloud**`,
@@ -35,6 +34,7 @@ const props: Props = {
         },
     ],
 };
+/* spell-checker: enabled */
 
 export const largeScreen = getStory({
     ...props,

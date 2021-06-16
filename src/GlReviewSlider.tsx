@@ -5,7 +5,7 @@ import { useConstCallback } from "powerhooks";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
-import { Logo } from "./components/Logo";
+import { GlLogo } from "./GlLogo";
 import { cx } from "tss-react";
 import { useGuaranteedMemo } from "powerhooks";
 import { Icon } from "./theme";
@@ -106,7 +106,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export type Props = {
+export type GlReviewSliderProps = {
     /**
      * enter the assets in an array.
      * example:
@@ -140,7 +140,7 @@ export type Props = {
     className?: string;
 };
 
-export const ReviewSlider = memo((props: Props) => {
+export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
     const { reviews, className } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
@@ -165,7 +165,7 @@ export const ReviewSlider = memo((props: Props) => {
                         >
                             <Paper className={classNames.paper}>
                                 {review.logoUrl !== undefined && (
-                                    <Logo logoUrl={review.logoUrl} className={classNames.logo} />
+                                    <GlLogo logoUrl={review.logoUrl} className={classNames.logo} />
                                 )}
                                 <div>
                                     <ReactMarkdown>{review.descriptionMd}</ReactMarkdown>
@@ -176,7 +176,6 @@ export const ReviewSlider = memo((props: Props) => {
                     ))}
                 </div>
             </div>
-
             <Icon id="arrowForwardIos" className={classNames.arrows} onClick={onClickNext} />
         </div>
     );

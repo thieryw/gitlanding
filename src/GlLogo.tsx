@@ -1,12 +1,12 @@
 import { ReactSVG } from "react-svg";
 import { memo } from "react";
 
-type Props = {
+type GlLogoProps = {
     logoUrl: string;
     className?: string;
 };
 
-export const Logo = memo((props: Props) => {
+export const GlLogo = memo((props: GlLogoProps) => {
     const { className, logoUrl } = props;
 
     return logoUrl.endsWith(".svg") ? (

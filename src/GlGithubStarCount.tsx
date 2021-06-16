@@ -1,10 +1,10 @@
 import { cx } from "tss-react";
 import { memo, useEffect } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui";
-import { getThemeApi } from "../theme";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-type Props = {
+type GlGithubStarCountProps = {
     className?: string;
     size: "normal" | "large";
     repoUrl: string;
@@ -25,7 +25,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const GithubStarCount = memo((props: Props) => {
+export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     const { size, repoUrl, className } = props;
 
     useEffect(() => {

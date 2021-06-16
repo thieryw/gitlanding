@@ -1,8 +1,8 @@
-import type { SectionProps } from "./Section";
-import { Section } from "./Section";
+import type { GlSectionProps } from "./GlSection";
+import { Section } from "./GlSection";
 import { memo } from "react";
 
-export type GitLandingSectionProps = {
+export type GlSectionsProps = {
     /**
      * enter the assets in an array.
      * example:
@@ -25,15 +25,17 @@ export type GitLandingSectionProps = {
      *  },
      * ]
      */
-    sections: SectionProps[];
+    sections: GlSectionProps[];
     className?: string;
 };
 
-export const GitLandingSection = memo((props: GitLandingSectionProps) => {
+export const glSectionId = "main-section";
+
+export const GlSections = memo((props: GlSectionsProps) => {
     const { sections, className } = props;
 
     return (
-        <section id="main-section" className={className}>
+        <section id={glSectionId} className={className}>
             {sections.map((section, index) => (
                 <Section key={index} {...section} />
             ))}

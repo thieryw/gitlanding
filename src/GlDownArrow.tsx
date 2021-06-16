@@ -1,9 +1,13 @@
-import downArrow from "../assets/svg/downArrow.svg";
+import downArrow from "./assets/svg/downArrow.svg";
 import { ReactSVG } from "react-svg";
 import { cx } from "tss-react";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
+
+export type GlDownArrowProps = {
+    className?: string;
+};
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -31,7 +35,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const DownArrow = memo((props: { className?: string }) => {
+export const GlDownArrow = memo((props: GlDownArrowProps) => {
     const { className } = props;
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
     const { classNames } = useClassNames({});

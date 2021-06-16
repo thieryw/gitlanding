@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { cx } from "tss-react";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-export type ImageProps = {
+export type GlImageProps = {
     className?: string;
     url: string;
     alt?: string;
@@ -28,7 +28,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const Image = memo((props: ImageProps) => {
+export const GlImage = memo((props: GlImageProps) => {
     const { className, url, alt } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);

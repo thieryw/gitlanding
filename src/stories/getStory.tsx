@@ -18,10 +18,9 @@ const { ThemeProvider, useTheme } = createThemeProvider({
 });
 
 export function getStoryFactory<Props>(params: {
-    sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
 }) {
-    const { sectionName, wrappedComponent } = params;
+    const { wrappedComponent } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
 
@@ -70,7 +69,7 @@ export function getStoryFactory<Props>(params: {
 
     return {
         "meta": id<Meta>({
-            "title": `${sectionName}/${symToStr(wrappedComponent)}`,
+            "title": symToStr(wrappedComponent),
             "component": Component,
         }),
         getStory,

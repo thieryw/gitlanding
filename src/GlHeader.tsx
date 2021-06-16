@@ -6,12 +6,12 @@ import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
-import { useRef } from "react";
-import { Logo } from "./Logo";
+import { useRef, memo } from "react";
+import { GlLogo } from "./GlLogo";
 import ReactMarkDown from "react-markdown";
 import { Typography } from "onyxia-ui/Typography";
-import { Icon } from "../theme";
-import { getThemeApi } from "../theme";
+import { GlIcon } from "./GlIcon";
+import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 
 /*function getSmallDeviceBreakPoint(params: {
@@ -31,31 +31,35 @@ import { useGuaranteedMemo } from "powerhooks";
     return out();
 }*/
 
-declare namespace Title {
-    export type Logo = {
-        type: "logo";
-        logoUrl: string;
-    };
-
-    export type Markdown = {
-        type: "markdown";
-        markdown: string;
-    };
-}
-
-export type Props = {
+export type GlHeaderProps = {
     /**
      * If you use an svg image that does not have a fill,
      * the fill will be set to the current font color,
      * depending on the dark mode being active.
      */
-    title?: Title.Logo | Title.Markdown;
+    title?: GlHeaderProps.Title;
     menuItems?: {
         name: string;
         url: string;
     }[];
     className?: string;
 };
+
+export declare namespace GlHeaderProps {
+    type Title = Title.Logo | Title.Markdown;
+
+    namespace Title {
+        export type Logo = {
+            type: "logo";
+            logoUrl: string;
+        };
+
+        export type Markdown = {
+            type: "markdown";
+            markdown: string;
+        };
+    }
+}
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -128,7 +132,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export function TopBar(props: Props) {
+export const GlHeader = memo((props: GlHeaderProps) => {
     const { menuItems, title, className } = props;
 
     const { mobileMenuHeight, setMobileMenuHeight } = useNamedState("mobileMenuHeight", 0);
@@ -163,22 +167,22 @@ export function TopBar(props: Props) {
 
     return (
         <List className={cx(classNames.root, className)} component="nav">
-            <div ref={titleRef} className={classNames.title}>
-                {(() => {
-                    if (title === undefined) {
-                        return;
-                    }
-
-                    if (title.type === "logo") {
-                        return <Logo logoUrl={title.logoUrl} />;
-                    }
-                    return (
-                        <Typography variant="h3">
-                            <ReactMarkDown>{title.markdown}</ReactMarkDown>
-                        </Typography>
-                    );
-                })()}
-            </div>
+            {title !== undefined && (
+                <div ref={titleRef} className={classNames.title}>
+                    {(() => {
+                        switch (title.type) {
+                            case "logo":
+                                return <GlLogo logoUrl={title.logoUrl} />;
+                            case "markdown":
+                                return (
+                                    <Typography variant="h3">
+                                        <ReactMarkDown>{title.markdown}</ReactMarkDown>
+                                    </Typography>
+                                );
+                        }
+                    })()}
+                </div>
+            )}
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {menuItems !== undefined &&
                     menuItems.map(item => (
@@ -193,8 +197,8 @@ export function TopBar(props: Props) {
             </div>
 
             <div ref={rootRef} className={classNames.unfold}>
-                <Icon id="dehaze" onClick={toggleMobileMenu} />
+                <GlIcon id="dehaze" onClick={toggleMobileMenu} />
             </div>
         </List>
     );
-}
+});

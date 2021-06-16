@@ -2,26 +2,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import { Logo } from "./components/Logo";
+import { GlLogo } from "./GlLogo";
 import { cx } from "tss-react";
 import { memo } from "react";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-type Item = {
-    name: string;
-    url: string;
-    /**
-     * If you use an svg image that does not have a fill,
-     * the fill will be set to the current font color,
-     * depending on the dark mode being active.
-     */
-    logoUrl?: string;
-};
-
-export type GitLandingFooterProps = {
-    leftItems: Item[];
-    rightItems: Item[];
+export type GlFooter = {
+    leftItems: GlFooter.Item[];
+    rightItems: GlFooter.Item[];
     licence: string;
     background?: {
         type: "image" | "color";
@@ -31,11 +20,24 @@ export type GitLandingFooterProps = {
     className?: string;
 };
 
+export declare namespace GlFooter {
+    type Item = {
+        name: string;
+        url: string;
+        /**
+         * If you use an svg image that does not have a fill,
+         * the fill will be set to the current font color,
+         * depending on the dark mode being active.
+         */
+        logoUrl?: string;
+    };
+}
+
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        background?: GitLandingFooterProps["background"];
+        background?: GlFooter["background"];
     }>()((theme, { background }) => ({
         "root": {
             "display": "flex",
@@ -102,7 +104,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const GitLandingFooter = memo((props: GitLandingFooterProps) => {
+export const GlFooter = memo((props: GlFooter) => {
     const { licence, leftItems, rightItems, background, className } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
@@ -117,7 +119,7 @@ export const GitLandingFooter = memo((props: GitLandingFooterProps) => {
                         {items.map(({ url, name, logoUrl }) => (
                             <Link href={url} key={url + name}>
                                 {logoUrl !== undefined && (
-                                    <Logo logoUrl={logoUrl} className={classNames.logoSvg} />
+                                    <GlLogo logoUrl={logoUrl} className={classNames.logoSvg} />
                                 )}
                                 <Typography>{name}</Typography>
                             </Link>

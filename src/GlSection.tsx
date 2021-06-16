@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Typography } from "onyxia-ui/Typography";
 import ReactMarkdown from "react-markdown";
-import { Image } from "./components/Image";
+import { GlImage } from "./GlImage";
+import type { GlImageProps } from "./GlImage";
 import { memo } from "react";
-import type { ImageProps } from "./components/Image";
 import { cx, css } from "tss-react";
-import { Code } from "./components/Code";
-import type { Props as CodeProps } from "./components/Code";
-import { Button } from "./components/Button";
+import { GlCode } from "./GlCode";
+import type { GlCodeProps } from "./GlCode";
+import { GlButton } from "./GlButton";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { CardSection } from "./CardSection";
-import type { CardSectionProps } from "./CardSection";
+import { GlCardSection } from "./GlCardSection";
+import type { GlCardSectionProps } from "./GlCardSection";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -116,22 +116,10 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-declare namespace IllustrationProps {
-    export type Code = {
-        type: "code";
-        codeProps: CodeProps;
-    };
-
-    export type Image = {
-        type: "image";
-        imageProps: ImageProps;
-    };
-}
-
-export type SectionProps = {
+export type GlSectionProps = {
     className?: string;
-    cardSection?: CardSectionProps;
-    illustration?: IllustrationProps.Code | IllustrationProps.Image;
+    cardSection?: GlCardSectionProps;
+    illustration?: GlSectionProps.Illustration;
     title?: string;
     article?: {
         title: string;
@@ -148,7 +136,17 @@ export type SectionProps = {
     isRowReverse?: boolean;
 };
 
-export const Section = memo((props: SectionProps) => {
+declare namespace GlSectionProps {
+    type Illustration = Illustration.Code | Illustration.Image;
+
+    namespace Illustration {
+        type Code = { type: "code" } & GlCodeProps;
+
+        type Image = { type: "image" } & GlImageProps;
+    }
+}
+
+export const Section = memo((props: GlSectionProps) => {
     const { article, illustration, isRowReverse, className, cardSection, title } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
@@ -164,7 +162,7 @@ export const Section = memo((props: SectionProps) => {
                     {title}
                 </Typography>
             )}
-            {<CardSection {...cardSection} />}
+            {<GlCardSection {...cardSection} />}
             <article className={classNames.articleAndImageWrapper}>
                 {article && (
                     <div className={classNames.article}>
@@ -181,13 +179,13 @@ export const Section = memo((props: SectionProps) => {
                                     article.button.className,
                                 )}
                             >
-                                <Button
+                                <GlButton
                                     className={classNames.button}
                                     type="submit"
                                     href={article.button.href}
                                 >
                                     {article.button.title}
-                                </Button>
+                                </GlButton>
                             </div>
                         )}
                     </div>
@@ -195,17 +193,17 @@ export const Section = memo((props: SectionProps) => {
 
                 {illustration &&
                     (illustration.type === "image" ? (
-                        <Image
-                            url={illustration.imageProps?.url}
-                            alt={illustration.imageProps?.alt}
-                            className={cx(classNames.illustration, illustration.imageProps?.className)}
+                        <GlImage
+                            url={illustration.url}
+                            alt={illustration.alt}
+                            className={cx(classNames.illustration, illustration.className)}
                         />
                     ) : (
-                        <Code
-                            text={illustration.codeProps?.text}
-                            language={illustration.codeProps?.language}
-                            showLineNumbers={illustration.codeProps?.showLineNumbers}
-                            className={cx(classNames.illustration, illustration.codeProps?.className)}
+                        <GlCode
+                            text={illustration.text}
+                            language={illustration.language}
+                            showLineNumbers={illustration.showLineNumbers}
+                            className={cx(classNames.illustration, illustration.className)}
                         />
                     ))}
             </article>
