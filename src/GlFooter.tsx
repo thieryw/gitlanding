@@ -23,7 +23,10 @@ export type GlFooter = {
 export declare namespace GlFooter {
     export type Item = {
         name: string;
-        url: string;
+        link: {
+            href: string;
+            onClick?(): void;
+        };
         /**
          * If you use an svg image that does not have a fill,
          * the fill will be set to the current font color,
@@ -116,8 +119,8 @@ export const GlFooter = memo((props: GlFooter) => {
             <div className={classNames.wrapper}>
                 {([leftItems, rightItems] as const).map((items, i) => (
                     <div className={classNames.column} key={i}>
-                        {items.map(({ url, name, logoUrl }) => (
-                            <Link href={url} key={url + name}>
+                        {items.map(({ link, name, logoUrl }) => (
+                            <Link {...link} key={name}>
                                 {logoUrl !== undefined && (
                                     <GlLogo logoUrl={logoUrl} className={classNames.logoSvg} />
                                 )}

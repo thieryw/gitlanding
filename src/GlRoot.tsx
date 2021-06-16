@@ -94,7 +94,7 @@ export const { GlRoot } = (() => {
         const { ThemeProviderOrId } = useGuaranteedMemo(() => getThemeApi(), []);
 
         return (
-            <ThemeProviderOrId zoomProviderReferenceWidth={undefined}>
+            <ThemeProviderOrId>
                 <GlRootInner {...props} />
             </ThemeProviderOrId>
         );
