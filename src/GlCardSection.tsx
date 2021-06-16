@@ -4,10 +4,10 @@ import { GlCardVariant } from "./GlCardVariant";
 import type { GlCardVariantProps } from "./GlCardVariant";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
-import { Typography } from "onyxia-ui";
+import { Typography } from "onyxia-ui/Typography";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "onyxia-ui/lib";
 import { cx } from "tss-react";
 
 export type GlCardSectionProps = {

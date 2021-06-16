@@ -6,8 +6,8 @@
         "type": "git",
         "url": "git://github.com/thieryw/gitlanding.git"
     },
-    "main": "dist/lib/index.js",
-    "types": "dist/lib/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc && yarn copyfiles",
         "copyfiles": "copyfiles -u 1 src/**/*.svg dist/",
@@ -52,7 +52,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.4",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.6.0",
+        "onyxia-ui": "^0.6.1",
         "powerhooks": "^0.1.4",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",

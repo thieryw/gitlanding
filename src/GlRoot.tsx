@@ -11,7 +11,6 @@ import type { GlReviewSliderProps } from "./GlReviewSlider";
 import type { GlCardSectionProps } from "./GlCardSection";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useState, memo } from "react";
-import { useEffect } from "react";
 import { getThemeApi } from "./theme";
 
 export type GlRootProps = {
@@ -84,10 +83,6 @@ export const { GlRoot } = (() => {
 
     const GlRoot = memo((props: GlRootProps) => {
         const { ThemeProviderOrId } = useGuaranteedMemo(() => getThemeApi(), []);
-
-        useEffect(() => {
-            document.documentElement.style.scrollBehavior = "smooth";
-        }, []);
 
         return (
             <ThemeProviderOrId>

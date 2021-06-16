@@ -3,18 +3,18 @@ import type { Meta } from "@storybook/react";
 import type { Story } from "@storybook/react";
 import { useEffect } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createThemeProvider, useIsDarkModeEnabled, defaultTypography } from "onyxia-ui";
+import { createThemeProvider, useIsDarkModeEnabled, defaultGetTypography } from "onyxia-ui/lib";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import { id } from "tsafe/id";
-import "../assets/fonts/work-sans.css";
+import "onyxia-ui/assets/fonts/work-sans.css";
 
 const { ThemeProvider, useTheme } = createThemeProvider({
     "isReactStrictModeEnabled": false,
-    "typography": {
-        ...defaultTypography,
+    "getTypography": ({ windowInnerWidth }) => ({
+        ...defaultGetTypography({ windowInnerWidth }),
         "fontFamily": '"Work Sans", sans-serif',
-    },
+    }),
 });
 
 export function getStoryFactory<Props>(params: {

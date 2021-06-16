@@ -7338,9 +7338,9 @@ globby@11.0.1:
     slash "^3.0.0"
 
 globby@^11.0.3:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.3.tgz#9b1f0cb523e171dd1ad8c7b2a9fb4b644b9593cb"
-  integrity sha512-ffdmosjA807y7+lA1NM0jELARVmYul/715xiILEjo3hBLPTcirgQNnXECn5g3mtR8TOLCVbkfua1Hpen25/Xcg==
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.4.tgz#2cbaff77c2f2a62e71e9b2813a67b97a3a3001a5"
+  integrity sha512-9O4MVG9ioZJ08ffbcyVYyLOJLk5JQ688pJ4eMGLpdWLHq/Wr1D9BlriLQyL0E+jbkuePVZXYFj47QM/v093wHg==
   dependencies:
     array-union "^2.1.0"
     dir-glob "^3.0.1"
@@ -10418,10 +10418,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.6.0.tgz#8e7948c41e43a8c79e7ec647fb74b005c34a02cb"
-  integrity sha512-/gCCuxd4i95m+G1i6smt1+rZgkpgDUY0Ne4uzAiKM8i4IBD9uwIqAhQun/0/TWq49MZYlHACd4nMv8gyh7M2Qg==
+onyxia-ui@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.6.1.tgz#9d8b74439568b75f578d9d3e908b5660bbae0f9f"
+  integrity sha512-YDvo5/xHIoJwn5AkIQiwH2FvqCvCXvkyrKlZGGUas5jlvyax7TxGj1qsAv0UU8BrQbdCf5C2PntPDym5T3Pg6A==
   dependencies:
     "@material-ui/icons" "^4.11.2"
     color "3.1.3"
@@ -15160,9 +15160,9 @@ ws@^6.2.1:
     async-limiter "~1.0.0"
 
 ws@^7.4.5:
-  version "7.4.6"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
-  integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.0.tgz#0033bafea031fb9df041b2026fc72a571ca44691"
+  integrity sha512-6ezXvzOZupqKj4jUqbQ9tXuJNo+BR2gU8fFRk3XCP3e0G6WT414u5ELe6Y0vtp7kmSJ3F7YWObSNr1ESsgi4vw==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

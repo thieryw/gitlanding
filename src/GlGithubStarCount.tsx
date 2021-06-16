@@ -1,6 +1,6 @@
 import { cx } from "tss-react";
 import { memo, useEffect } from "react";
-import { useIsDarkModeEnabled } from "onyxia-ui";
+import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 
 import type { ReactNode } from "react";
-import { createThemeProvider, defaultTypography } from "onyxia-ui";
+import { createThemeProvider, defaultGetTypography } from "onyxia-ui/lib";
 import { createUseClassNamesFactory } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
@@ -19,10 +19,10 @@ import type { ThemeProviderProps, Theme } from "onyxia-ui";
 let isThemeOverwritten = false;
 
 let { ThemeProvider, useTheme } = createThemeProvider({
-    "typography": {
-        ...defaultTypography,
+    "getTypography": ({ windowInnerWidth }) => ({
+        ...defaultGetTypography({ windowInnerWidth }),
         "fontFamily": '"Work Sans", sans-serif',
-    },
+    }),
 });
 
 let { createUseClassNames } = createUseClassNamesFactory({ useTheme });
