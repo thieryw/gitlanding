@@ -1,3 +1,8 @@
+### **0.0.33** (2021-06-15)  
+  
+- Update deps  
+- Do not import default font by default    
+  
 ### **0.0.31** (2021-06-15)  
   
 - corrected stupid mistakes    
