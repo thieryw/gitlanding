@@ -43,7 +43,7 @@ export const { getThemeApi } = (() => {
 
     function getThemeApi() {
         return {
-            "ThemeProvider": isThemeOverwritten ? Id : ThemeProvider,
+            "ThemeProviderOrId": isThemeOverwritten ? Id : ThemeProvider,
             useTheme,
             createUseClassNames,
         };

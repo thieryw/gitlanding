@@ -25,14 +25,14 @@ export type GitlandingProps = {
 export const Gitlanding = memo((props: GitlandingProps) => {
     const { cardSection, footer, header, mainSection, reviewSlider, className } = props;
 
-    const { ThemeProvider } = useGuaranteedMemo(() => getThemeApi(), []);
+    const { ThemeProviderOrId } = useGuaranteedMemo(() => getThemeApi(), []);
 
     useEffect(() => {
         document.documentElement.style.scrollBehavior = "smooth";
     }, []);
 
     return (
-        <ThemeProvider>
+        <ThemeProviderOrId>
             <div className={className}>
                 {header && <GitLandingHeader {...header} />}
 
@@ -51,6 +51,6 @@ export const Gitlanding = memo((props: GitlandingProps) => {
 
                 {footer && <GitLandingFooter {...footer} />}
             </div>
-        </ThemeProvider>
+        </ThemeProviderOrId>
     );
 });
