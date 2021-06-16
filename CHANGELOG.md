@@ -1,3 +1,8 @@
+### **0.0.34** (2021-06-16)  
+  
+- Fix storybook  
+- updat deps    
+  
 ### **0.0.33** (2021-06-15)  
   
 - Update deps  
