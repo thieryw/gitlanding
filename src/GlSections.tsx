@@ -1,5 +1,5 @@
 import type { GlSectionProps } from "./GlSection";
-import { Section } from "./GlSection";
+import { GlSection } from "./GlSection";
 import { memo } from "react";
 
 export type GlSectionsProps = {
@@ -37,7 +37,7 @@ export const GlSections = memo((props: GlSectionsProps) => {
     return (
         <section id={glSectionId} className={className}>
             {sections.map((section, index) => (
-                <Section key={index} {...section} />
+                <GlSection key={index} {...section} />
             ))}
         </section>
     );

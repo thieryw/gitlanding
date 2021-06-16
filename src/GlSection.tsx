@@ -152,7 +152,7 @@ export declare namespace GlSectionProps {
     }
 }
 
-export const Section = memo((props: GlSectionProps) => {
+export const GlSection = memo((props: GlSectionProps) => {
     const { article, illustration, isRowReverse, className, cardSection, title } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
