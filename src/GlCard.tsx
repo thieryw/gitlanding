@@ -57,8 +57,16 @@ const getUseClassNames = () => {
             },
             "subHeading": {
                 "fontWeight": "normal",
+                "textAlign": "center",
                 "marginTop": theme.spacing(3),
                 "marginBottom": theme.spacing(3),
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "fontSize": "18px",
+                          "lineHeight": "28px",
+                          "textTransform": "uppercase",
+                      }
+                    : {}),
             },
 
             "button": {
@@ -75,6 +83,12 @@ const getUseClassNames = () => {
                 "& h1": {
                     "fontSize": "86px",
                     "lineHeight": "70px",
+                    ...(theme.responsive.down("lg")
+                        ? {
+                              "fontSize": "52px",
+                              "lineHeight": "60px",
+                          }
+                        : {}),
                 },
             },
 
@@ -101,6 +115,21 @@ const getUseClassNames = () => {
                 "& p": {
                     "marginTop": theme.spacing(3),
                 },
+
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "& h4": {
+                              "fontSize": "18px",
+                              "lineHeight": "20px",
+                              "marginTop": theme.spacing(3),
+                          },
+                          "& p": {
+                              "fontSize": "16px",
+                              "lineHeight": "2Opx",
+                              "marginTop": theme.spacing(3),
+                          },
+                      }
+                    : {}),
             },
         }),
     );

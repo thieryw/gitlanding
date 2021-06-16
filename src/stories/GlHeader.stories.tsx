@@ -12,8 +12,8 @@ export default meta;
 /* spell-checker: disable */
 const props: GlHeaderProps = {
     "title": {
-        "type": "markdown",
-        "markdown": `Espace documentaire du **SSP Cloud**`,
+        "type": "text",
+        "text": `Espace documentaire du **SSP Cloud**`,
     },
     "menuItems": [
         {

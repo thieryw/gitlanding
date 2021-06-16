@@ -62,7 +62,7 @@ const getUseClassNames = () => {
             "display": "flex",
             "width": "100%",
             "boxSizing": "border-box",
-            "justifyContent": "center",
+            "justifyContent": "space-between",
             "marginTop": theme.spacing(5),
         },
 
@@ -77,16 +77,17 @@ const getUseClassNames = () => {
                 "marginBottom": theme.spacing(4),
                 "width": 1000,
             },
-            ...(theme.responsive.down(1440)
+            ...(theme.responsive.down("lg")
                 ? {
-                      "width": 650,
-                      "left": 100,
+                      "width": 511,
+                      "left": theme.spacing(4.5),
                       "& h2": {
                           "fontSize": "52px",
                           "width": "unset",
+                          "marginBottom": theme.spacing(4),
                       },
                       "& h3": {
-                          "lineHeight": "20px",
+                          "lineHeight": "28px",
                           "fontSize": "18px",
                           "width": 450,
                       },
@@ -102,9 +103,9 @@ const getUseClassNames = () => {
             "position": "relative",
             "right": 100,
             "width": 900,
-            ...(theme.responsive.down(1440)
+            ...(theme.responsive.down("lg")
                 ? {
-                      "width": 755,
+                      "width": 510,
                       "right": theme.spacing(4.5),
                   }
                 : {}),
@@ -154,6 +155,17 @@ const getUseClassNames = () => {
                 "fontWeight": 400,
                 "marginBottom": 21,
             },
+            ...(theme.responsive.down("lg")
+                ? {
+                      "& h3": {
+                          "fontSize": "18px",
+                          "lineHeight": "28px",
+                      },
+                      "& div": {
+                          "transform": "scale(0.8)",
+                      },
+                  }
+                : {}),
         },
     }));
 

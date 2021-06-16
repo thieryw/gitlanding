@@ -82,6 +82,12 @@ const getUseClassNames = () => {
             "paddingRight": theme.spacing(3),
             "paddingTop": theme.spacing(2),
             "paddingBottom": theme.spacing(2),
+            "height": 188,
+            ...(theme.responsive.down("lg")
+                ? {
+                      "height": 160,
+                  }
+                : {}),
 
             "& h5": {
                 "marginBottom": theme.spacing(1.25),

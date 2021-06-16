@@ -23,16 +23,7 @@ const getUseClassNames = () => {
             "position": "relative",
             "marginTop": theme.spacing(17.25),
         },
-        "smallThumbNails": {
-            "display": "flex",
-            "flexWrap": "wrap",
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": theme.spacing(17.25),
-            "& >div": {
-                "margin": theme.spacing(1.5),
-            },
-        },
+
         "title": {
             "fontSize": "40px",
             "textAlign": "center",
@@ -47,6 +38,13 @@ const getUseClassNames = () => {
         },
         "articleAndImageWrapper": {
             "display": "flex",
+            "gap": theme.spacing(16),
+            ...(theme.responsive.down("lg")
+                ? {
+                      "justifyContent": "space-between",
+                  }
+                : {}),
+
             "justifyContent": "center",
             "alignItems": "center",
             "marginTop": theme.spacing(17.25),
@@ -66,19 +64,29 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexDirection": "column",
             "textAlign": "left",
-            [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(
-                theme.responsive.down("md") ? 1.5 : 16,
-            ),
+
             "width": theme.responsive.down("md") ? 302 : 412,
 
             "& h2": {
                 "marginBottom": 14,
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "fontSize": "22px",
+                          "lineHeight": "24px",
+                      }
+                    : {}),
             },
             "& p": {
                 "fontSize": theme.typography.body1.fontSize,
                 "lineHeight": "24px",
                 "marginTop": 14,
                 "marginBottom": 14,
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "fontSize": "16px",
+                          "lineHeight": "20px",
+                      }
+                    : {}),
             },
             ...(theme.responsive.down("sm")
                 ? {
@@ -91,11 +99,9 @@ const getUseClassNames = () => {
 
         "illustration": {
             "width": 900,
-            [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
-            ...(theme.responsive.down("md")
+            ...(theme.responsive.down("lg")
                 ? {
-                      [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(1.5),
-                      "width": 464,
+                      "width": 511,
                   }
                 : {}),
             ...(theme.responsive.down("sm")

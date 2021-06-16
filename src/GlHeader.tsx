@@ -8,7 +8,6 @@ import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, memo } from "react";
 import { GlLogo } from "./GlLogo";
-import ReactMarkDown from "react-markdown";
 import { Typography } from "onyxia-ui/Typography";
 import { GlIcon } from "./GlIcon";
 import { getThemeApi } from "./theme";
@@ -55,8 +54,8 @@ export declare namespace GlHeaderProps {
         };
 
         export type Markdown = {
-            type: "markdown";
-            markdown: string;
+            type: "text";
+            text: string;
         };
     }
 }
@@ -69,21 +68,28 @@ const getUseClassNames = () => {
     }>()((theme, { mobileMenuHeight }) => ({
         "root": {
             "display": "flex",
-            "justifyContent": "flex-end",
+            "justifyContent": "space-between",
             "flexWrap": "wrap",
             "alignItems": "center",
             "width": "100%",
             "padding": [4.5, 12.5, 4.5, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            ...(theme.responsive.down(1440)
+            ...(theme.responsive.down("lg")
                 ? {
-                      "padding": [2, 8, 2, 8].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+                      "padding": [2, 4.5, 2, 4.5]
+                          .map(spacing => `${theme.spacing(spacing)}px`)
+                          .join(" "),
                   }
                 : {}),
         },
         "title": {
-            "display": "flex",
-            "alignItems": "center",
-            "marginRight": "auto",
+            ...(theme.responsive.down("lg")
+                ? {
+                      "& h3": {
+                          "fontSize": "18px",
+                          "lineHeight": "24px",
+                      },
+                  }
+                : {}),
             "& svg": {
                 "height": 50,
                 "width": 50,
@@ -108,9 +114,11 @@ const getUseClassNames = () => {
             "fontSize": "22px",
             "lineHeight": "32px",
             "marginLeft": theme.spacing(8),
-            ...(theme.responsive.down(1440)
+            ...(theme.responsive.down("lg")
                 ? {
                       "marginLeft": theme.spacing(3),
+                      "fontSize": "14px",
+                      "lineHeight": "24px",
                   }
                 : {}),
         },
@@ -173,16 +181,13 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                         switch (title.type) {
                             case "logo":
                                 return <GlLogo logoUrl={title.logoUrl} />;
-                            case "markdown":
-                                return (
-                                    <Typography variant="h3">
-                                        <ReactMarkDown>{title.markdown}</ReactMarkDown>
-                                    </Typography>
-                                );
+                            case "text":
+                                return <Typography variant="h3">{title.text}</Typography>;
                         }
                     })()}
                 </div>
             )}
+
             <div ref={menuRef} className={classNames.itemWrapper}>
                 {menuItems !== undefined &&
                     menuItems.map(item => (

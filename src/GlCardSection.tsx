@@ -42,6 +42,7 @@ const getUseClassNames = () => {
         hasTitle: boolean;
         breakpointForColumnDisplay: number;
         numberOfCards: number;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }>()((theme, { breakpointForColumnDisplay, hasTitle, numberOfCards }) => ({
         "root": {
             ...(() => {
@@ -52,6 +53,19 @@ const getUseClassNames = () => {
                     "paddingRight": value,
                 };
             })(),
+
+            ...(theme.responsive.down("lg")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(4.5);
+
+                          return {
+                              "paddingLeft": value,
+                              "paddingRight": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
         "title": {
             "marginBottom": theme.spacing(7.5),
@@ -68,26 +82,28 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexWrap": "wrap",
             "& > *": {
-                "flex": `1 1 ${numberOfCards <= 4 ? 100 / (numberOfCards + 1) : 100 / 5}%`,
+                "flex": `1 1 ${(() => {
+                    if (numberOfCards < 4) {
+                        return 100 / (numberOfCards + 1);
+                    }
+
+                    if (theme.responsive.down("lg") && numberOfCards >= 4) {
+                        return 40;
+                    }
+
+                    return 100 / 5;
+                })()}%`,
             },
 
             "gap": theme.spacing(3),
-            ...(theme.responsive.down(breakpointForColumnDisplay)
+            ...(theme.responsive.down("lg")
                 ? {
-                      "flexDirection": "column",
-                      "alignItems": "center",
-                      "paddingLeft": theme.spacing(4.5),
-                      "paddingRight": theme.spacing(4.5),
+                      "gap": theme.spacing(2),
                   }
                 : {}),
         },
         "card": {
-            ...(theme.responsive.down(breakpointForColumnDisplay)
-                ? {
-                      "width": "100%",
-                      "margin": [1.5, 0, 1.5, 0].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-                  }
-                : {}),
+            ...(theme.responsive.down(breakpointForColumnDisplay) ? {} : {}),
         },
     }));
 
