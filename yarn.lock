@@ -10418,16 +10418,16 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.5.8:
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.5.8.tgz#2e8a9cdcf0aae0b0e64293be437ab1815c625e82"
-  integrity sha512-rhYw+1gP/m8lPKuTmnJyKEIW3sqbz0oMyKCsP3EagbvtYo/MxxY7O/e8Cxs1w+OrSTUEfiZcxpRjNNUmgRgo3Q==
+onyxia-ui@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.6.0.tgz#8e7948c41e43a8c79e7ec647fb74b005c34a02cb"
+  integrity sha512-/gCCuxd4i95m+G1i6smt1+rZgkpgDUY0Ne4uzAiKM8i4IBD9uwIqAhQun/0/TWq49MZYlHACd4nMv8gyh7M2Qg==
   dependencies:
     "@material-ui/icons" "^4.11.2"
     color "3.1.3"
     evt beta
     memoizee "^0.4.15"
-    powerhooks "^0.1.2"
+    powerhooks "^0.1.4"
     ts-toolbelt "^9.6.0"
     tsafe "^0.4.0"
   optionalDependencies:
@@ -11609,7 +11609,7 @@ postcss@^8.1.0:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
-powerhooks@^0.1.2, powerhooks@^0.1.4:
+powerhooks@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.1.4.tgz#82aae8dae5485a154d3ce4e89342a2d68cb2a413"
   integrity sha512-ig47hJIW/b75gCS3l2EtK8NVAduNVd9vem8IvaWkuPuZIP4mbDAy4Rc0/hvjXVUPs9OzK7jc/zIQika3tTacYg==

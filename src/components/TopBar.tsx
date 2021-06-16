@@ -70,9 +70,11 @@ const getUseClassNames = () => {
             "alignItems": "center",
             "width": "100%",
             "padding": [4.5, 12.5, 4.5, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            [theme.breakpoints.down(1440)]: {
-                "padding": [2, 8, 2, 8].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            },
+            ...(theme.responsive.down(1440)
+                ? {
+                      "padding": [2, 8, 2, 8].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+                  }
+                : {}),
         },
         "title": {
             "display": "flex",
@@ -84,25 +86,29 @@ const getUseClassNames = () => {
             },
         },
         "itemWrapper": {
-            [theme.breakpoints.down("md")]: {
-                "transition": "height 400ms",
-                "order": 3,
-                "flex": "1 0 100%",
-                "textAlign": "left",
-                "height": mobileMenuHeight,
-                "overflow": "hidden",
-                "display": "flex",
-                "flexDirection": "column",
-            },
+            ...(theme.responsive.down("md")
+                ? {
+                      "transition": "height 400ms",
+                      "order": 3,
+                      "flex": "1 0 100%",
+                      "textAlign": "left",
+                      "height": mobileMenuHeight,
+                      "overflow": "hidden",
+                      "display": "flex",
+                      "flexDirection": "column",
+                  }
+                : {}),
         },
         "link": {
             "color": theme.isDarkModeEnabled ? "white" : "black",
             "fontSize": "22px",
             "lineHeight": "32px",
             "marginLeft": theme.spacing(8),
-            [theme.breakpoints.down(1440)]: {
-                "marginLeft": theme.spacing(3),
-            },
+            ...(theme.responsive.down(1440)
+                ? {
+                      "marginLeft": theme.spacing(3),
+                  }
+                : {}),
         },
 
         "unfold": {
@@ -110,10 +116,12 @@ const getUseClassNames = () => {
             "marginLeft": 10,
             "display": "none",
             "cursor": "pointer",
-            [theme.breakpoints.down("md")]: {
-                "display": "flex",
-                "alignItems": "center",
-            },
+            ...(theme.responsive.down("md")
+                ? {
+                      "display": "flex",
+                      "alignItems": "center",
+                  }
+                : {}),
         },
     }));
 

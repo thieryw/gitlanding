@@ -45,10 +45,12 @@ const getUseClassNames = () => {
                 "borderRadius": 16,
                 "minHeight": 591,
                 "width": 412,
-                [theme.breakpoints.down(1440)]: {
-                    "minHeight": 412,
-                    "width": 310,
-                },
+                ...(theme.responsive.down(1440)
+                    ? {
+                          "minHeight": 412,
+                          "width": 310,
+                      }
+                    : {}),
                 "display": "flex",
                 "flexDirection": "column",
                 "overflow": "hidden",

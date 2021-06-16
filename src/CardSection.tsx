@@ -7,7 +7,9 @@ import type { CardProps as CardNormalProps } from "./components/Card";
 import { Typography } from "onyxia-ui";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
+import { breakpointsValues } from "onyxia-ui";
 
+type CardProps = CardProps.Normal | CardProps.Variant;
 declare namespace CardProps {
     export type Normal = {
         type: "normal";
@@ -19,8 +21,6 @@ declare namespace CardProps {
         cardProps: CardVariantProps;
     };
 }
-
-type CardProps = CardProps.Normal | CardProps.Variant;
 
 export type CardSectionProps = {
     className?: string;
@@ -37,16 +37,23 @@ export type CardSectionProps = {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<
-        Pick<CardSectionProps, "breakpointForColumnDisplay" | "title">
-    >()((theme, { breakpointForColumnDisplay, title }) => ({
+    const { useClassNames } = createUseClassNames<{
+        hasTitle: boolean;
+        breakpointForColumnDisplay: number;
+    }>()((theme, { breakpointForColumnDisplay, hasTitle }) => ({
         "title": {
             "marginBottom": theme.spacing(7.5),
             "marginTop": theme.spacing(17.25),
             "display": "flex",
-            "justifyContent": title ? "space-between" : "flex-end",
-            "paddingLeft": theme.spacing(13),
-            "paddingRight": theme.spacing(13),
+            "justifyContent": hasTitle ? "space-between" : "flex-end",
+            ...(() => {
+                const value = theme.spacing(13);
+
+                return {
+                    "paddingLeft": value,
+                    "paddingRight": value,
+                };
+            })(),
             "& h3": {
                 "color": theme.colors.palette.orangeWarning.main,
                 "cursor": "pointer",
@@ -57,30 +64,36 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexWrap": "wrap",
             "justifyContent": "center",
-            [theme.breakpoints.down(
-                breakpointForColumnDisplay !== undefined ? breakpointForColumnDisplay : "sm",
-            )]: {
-                "flexDirection": "column",
-                "alignItems": "center",
-                "paddingLeft": theme.spacing(4.5),
-                "paddingRight": theme.spacing(4.5),
-            },
+            ...(theme.responsive.down(breakpointForColumnDisplay)
+                ? {
+                      "flexDirection": "column",
+                      "alignItems": "center",
+                      "paddingLeft": theme.spacing(4.5),
+                      "paddingRight": theme.spacing(4.5),
+                  }
+                : {}),
         },
         "card": {
             "margin": theme.spacing(1.5),
-            [theme.breakpoints.down(
-                breakpointForColumnDisplay !== undefined ? breakpointForColumnDisplay : "sm",
-            )]: {
-                "width": "100%",
-                "margin": [1.5, 0, 1.5, 0].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            },
+            ...(theme.responsive.down(breakpointForColumnDisplay)
+                ? {
+                      "width": "100%",
+                      "margin": [1.5, 0, 1.5, 0].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+                  }
+                : {}),
         },
     }));
 
     return { useClassNames };
 };
 export const CardSection = memo((props: CardSectionProps) => {
-    const { title, cards, className, breakpointForColumnDisplay, showMoreMessage } = props;
+    const {
+        title,
+        cards,
+        className,
+        breakpointForColumnDisplay = breakpointsValues["sm"],
+        showMoreMessage,
+    } = props;
 
     const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +104,10 @@ export const CardSection = memo((props: CardSectionProps) => {
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({ breakpointForColumnDisplay, title });
+    const { classNames } = useClassNames({
+        breakpointForColumnDisplay,
+        "hasTitle": title !== undefined,
+    });
 
     const exposeHiddenThumbNails = useConstCallback(async () => {
         setAreExtraThumbNailsExposed(!areExtraThumbNailsExposed);

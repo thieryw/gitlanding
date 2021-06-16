@@ -37,36 +37,40 @@ const getUseClassNames = () => {
             "fontSize": "40px",
             "textAlign": "center",
             "marginBottom": theme.spacing(7.5),
-            [theme.breakpoints.down("sm")]: {
-                "textAlign": "left",
-                "paddingLeft": theme.spacing(4.5),
-                "paddingRight": theme.spacing(4.5),
-            },
+            ...(theme.responsive.down("sm")
+                ? {
+                      "textAlign": "left",
+                      "paddingLeft": theme.spacing(4.5),
+                      "paddingRight": theme.spacing(4.5),
+                  }
+                : {}),
         },
         "articleAndImageWrapper": {
             "display": "flex",
-            "flexDirection": isRowReverse ? "row-reverse" : "row",
             "justifyContent": "center",
             "alignItems": "center",
             "marginTop": theme.spacing(17.25),
-            "paddingLeft": theme.spacing(6),
-            "paddingRight": theme.spacing(6),
-            [theme.breakpoints.down("sm")]: {
-                "flexDirection": "column-reverse",
-                "paddingLeft": theme.spacing(4.5),
-                "paddingRight": theme.spacing(4.5),
-            },
+            ...(theme.responsive.down("sm")
+                ? {
+                      "flexDirection": "column-reverse",
+                      "paddingLeft": theme.spacing(4.5),
+                      "paddingRight": theme.spacing(4.5),
+                  }
+                : {
+                      "flexDirection": isRowReverse ? "row-reverse" : "row",
+                      "paddingLeft": theme.spacing(6),
+                      "paddingRight": theme.spacing(6),
+                  }),
         },
         "article": {
             "display": "flex",
             "flexDirection": "column",
-            "width": 412,
             "textAlign": "left",
-            [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(16),
-            [theme.breakpoints.down("md")]: {
-                [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(1.5),
-                "width": 302,
-            },
+            [isRowReverse ? "marginLeft" : "marginRight"]: theme.spacing(
+                theme.responsive.down("md") ? 1.5 : 16,
+            ),
+            "width": theme.responsive.down("md") ? 302 : 412,
+
             "& h2": {
                 "marginBottom": 14,
             },
@@ -76,24 +80,30 @@ const getUseClassNames = () => {
                 "marginTop": 14,
                 "marginBottom": 14,
             },
-            [theme.breakpoints.down("sm")]: {
-                "width": "100%",
-                "margin": "unset",
-                "marginTop": theme.spacing(4),
-            },
+            ...(theme.responsive.down("sm")
+                ? {
+                      "width": "100%",
+                      "margin": "unset",
+                      "marginTop": theme.spacing(4),
+                  }
+                : {}),
         },
 
         "illustration": {
             "width": 900,
             [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(16),
-            [theme.breakpoints.down("md")]: {
-                [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(1.5),
-                "width": 464,
-            },
-            [theme.breakpoints.down("sm")]: {
-                "margin": "unset",
-                "width": "100%",
-            },
+            ...(theme.responsive.down("md")
+                ? {
+                      [isRowReverse ? "marginRight" : "marginLeft"]: theme.spacing(1.5),
+                      "width": 464,
+                  }
+                : {}),
+            ...(theme.responsive.down("sm")
+                ? {
+                      "margin": "unset",
+                      "width": "100%",
+                  }
+                : {}),
         },
         "button": {
             "color": "unset !important",

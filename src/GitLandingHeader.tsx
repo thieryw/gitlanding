@@ -79,28 +79,32 @@ const getUseClassNames = () => {
                 "fontWeight": 400,
                 "lineHeight": "40px",
             },
-            [theme.breakpoints.down(1440)]: {
-                "width": 650,
-                "left": 100,
-                "& h2": {
-                    "fontSize": "52px",
-                    "width": "unset",
-                },
-                "& h3": {
-                    "lineHeight": "20px",
-                    "fontSize": "18px",
-                    "width": 450,
-                },
-            },
+            ...(theme.responsive.down(1440)
+                ? {
+                      "width": 650,
+                      "left": 100,
+                      "& h2": {
+                          "fontSize": "52px",
+                          "width": "unset",
+                      },
+                      "& h3": {
+                          "lineHeight": "20px",
+                          "fontSize": "18px",
+                          "width": 450,
+                      },
+                  }
+                : {}),
         },
         "image": {
             "position": "relative",
             "right": 100,
             "width": 900,
-            [theme.breakpoints.down(1440)]: {
-                "width": 755,
-                "right": theme.spacing(4.5),
-            },
+            ...(theme.responsive.down(1440)
+                ? {
+                      "width": 755,
+                      "right": theme.spacing(4.5),
+                  }
+                : {}),
         },
         "backgroundDiv": {
             "background": (() => {
