@@ -1,3 +1,7 @@
+### **0.0.43** (2021-06-16)  
+  
+- Replace by href by link for router    
+  
 ### **0.0.42** (2021-06-16)  
   
 - Minor fix    
