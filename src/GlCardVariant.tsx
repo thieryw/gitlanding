@@ -23,15 +23,15 @@ export type GlCardVariantProps = {
 };
 
 export declare namespace GlCardVariantProps {
-    type Background = Background.Color | Background.Image;
+    export type Background = Background.Color | Background.Image;
 
-    namespace Background {
-        type Image = {
+    export namespace Background {
+        export type Image = {
             type: "image";
             url: string;
         };
 
-        type Color = {
+        export type Color = {
             type: "color";
             color: string;
         };

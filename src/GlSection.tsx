@@ -136,10 +136,10 @@ export type GlSectionProps = {
     isRowReverse?: boolean;
 };
 
-declare namespace GlSectionProps {
-    type Illustration = Illustration.Code | Illustration.Image;
+export declare namespace GlSectionProps {
+    export type Illustration = Illustration.Code | Illustration.Image;
 
-    namespace Illustration {
+    export namespace Illustration {
         type Code = { type: "code" } & GlCodeProps;
 
         type Image = { type: "image" } & GlImageProps;

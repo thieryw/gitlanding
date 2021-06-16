@@ -27,9 +27,9 @@ export type GlHeroProps = {
 };
 
 export declare namespace GlHeroProps {
-    type Background = Background.Color | Background.ImageUrl;
+    export type Background = Background.Color | Background.ImageUrl;
 
-    namespace Background {
+    export namespace Background {
         export type Color = {
             type: "color";
             backgroundColor: string;

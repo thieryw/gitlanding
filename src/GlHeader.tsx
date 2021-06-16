@@ -46,9 +46,9 @@ export type GlHeaderProps = {
 };
 
 export declare namespace GlHeaderProps {
-    type Title = Title.Logo | Title.Markdown;
+    export type Title = Title.Logo | Title.Markdown;
 
-    namespace Title {
+    export namespace Title {
         export type Logo = {
             type: "logo";
             logoUrl: string;

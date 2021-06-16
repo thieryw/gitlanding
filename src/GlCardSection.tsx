@@ -23,13 +23,13 @@ export type GlCardSectionProps = {
 };
 
 export declare namespace GlCardSectionProps {
-    type Card = Card.Normal | Card.Variant;
-    namespace Card {
-        type Normal = {
+    export type Card = Card.Normal | Card.Variant;
+    export namespace Card {
+        export type Normal = {
             type: "normal";
         } & GlCardProps;
 
-        type Variant = {
+        export type Variant = {
             type: "variant";
         } & GlCardVariantProps;
     }

@@ -21,7 +21,7 @@ export type GlFooter = {
 };
 
 export declare namespace GlFooter {
-    type Item = {
+    export type Item = {
         name: string;
         url: string;
         /**
