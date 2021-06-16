@@ -21,8 +21,9 @@ export type GlHeroProps = {
      * you can use markdown between back ticks.
      */
     background?: GlHeroProps.Background;
-    linkToMainSection?: {
+    scrollDownButton?: {
         title: string;
+        href?: string;
     };
 };
 
@@ -146,7 +147,7 @@ const getUseClassNames = () => {
             "marginBottom": 30,
             "maxWidth": 650,
         },
-        "linkToMainSection": {
+        "scrollDownButtonWrapper": {
             "display": "flex",
             "flexDirection": "column",
             "alignItems": "center",
@@ -173,7 +174,7 @@ const getUseClassNames = () => {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { image, titleMd, subTitleMd, background, className, linkToMainSection } = props;
+    const { image, titleMd, subTitleMd, background, className, scrollDownButton } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -205,12 +206,12 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             </div>
 
-            {linkToMainSection && (
-                <div className={classNames.linkToMainSection}>
+            {scrollDownButton && (
+                <div className={classNames.scrollDownButtonWrapper}>
                     <Typography variant="h3">
-                        <ReactMarkdown>{linkToMainSection.title}</ReactMarkdown>
+                        <ReactMarkdown>{scrollDownButton.title}</ReactMarkdown>
                     </Typography>
-                    <Link href={`#${glSectionId}`}>
+                    <Link href={scrollDownButton.href ?? `#${glSectionId}`}>
                         <GlDownArrow />
                     </Link>
                 </div>

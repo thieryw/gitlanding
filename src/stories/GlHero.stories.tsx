@@ -20,8 +20,9 @@ const props: GlHeroProps = {
         "Ici je trouve et je partage des ressources",
         "sur le traitement statistique et la datascience.",
     ].join("\n"),
-    "linkToMainSection": {
+    "scrollDownButton": {
         "title": "Ce dont vous avez besoin :",
+        "href": "#",
     },
 };
 /* spell-checker: enable */
