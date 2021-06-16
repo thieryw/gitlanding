@@ -1,3 +1,7 @@
+### **0.0.36** (2021-06-16)  
+  
+- update flex layout    
+  
 ### **0.0.35** (2021-06-16)  
   
 - New responsive api    
