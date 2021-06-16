@@ -1,3 +1,8 @@
+### **0.0.44** (2021-06-16)  
+  
+- push version  
+- update    
+  
 ### **0.0.43** (2021-06-16)  
   
 - Replace by href by link for router    
