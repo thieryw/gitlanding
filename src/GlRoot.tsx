@@ -12,6 +12,7 @@ import type { GlCardSectionProps } from "./GlCardSection";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useState, memo } from "react";
 import { getThemeApi } from "./theme";
+import { useZoomProviderReferenceWidth } from "powerhooks/ZoomProvider";
 
 export type GlRootProps = {
     header?: GlHeaderProps;
@@ -27,17 +28,21 @@ export const { GlRoot } = (() => {
         const getUseClassNames = () => {
             const { createUseClassNames } = getThemeApi();
 
-            const { useClassNames } = createUseClassNames()(() => ({
-                "root": {
-                    "height": "100%",
-                    "display": "flex",
-                    "flexDirection": "column",
-                },
-                "scrollWrapper": {
-                    "flex": 1,
-                    "overflow": "auto",
-                },
-            }));
+            const { useClassNames } = createUseClassNames<{ doUseZoomProvider: boolean }>()(
+                (...[, { doUseZoomProvider }]) => ({
+                    "root": {
+                        "height": doUseZoomProvider ? "100%" : "100vh",
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "overflow": "hidden",
+                    },
+                    "scrollWrapper": {
+                        "flex": 1,
+                        "overflow": "auto",
+                        "scrollBehavior": "smooth",
+                    },
+                }),
+            );
 
             return { useClassNames };
         };
@@ -47,7 +52,11 @@ export const { GlRoot } = (() => {
 
             const [{ useClassNames }] = useState(() => getUseClassNames());
 
-            const { classNames } = useClassNames({});
+            const { referenceWidth } = useZoomProviderReferenceWidth();
+
+            const { classNames } = useClassNames({
+                "doUseZoomProvider": referenceWidth !== undefined,
+            });
 
             return (
                 <div className={classNames.root}>
@@ -85,7 +94,7 @@ export const { GlRoot } = (() => {
         const { ThemeProviderOrId } = useGuaranteedMemo(() => getThemeApi(), []);
 
         return (
-            <ThemeProviderOrId>
+            <ThemeProviderOrId zoomProviderReferenceWidth={undefined}>
                 <GlRootInner {...props} />
             </ThemeProviderOrId>
         );

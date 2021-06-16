@@ -39,7 +39,7 @@ export function overwriteTheme(params: {
 }
 
 export const { getThemeApi } = (() => {
-    const Id = (props: { children: ReactNode }) => <>{props.children}</>;
+    const Id: typeof ThemeProvider = (props: { children: ReactNode }) => <>{props.children}</>;
 
     function getThemeApi() {
         return {
