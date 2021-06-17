@@ -1,3 +1,11 @@
+### **0.0.45** (2021-06-17)  
+  
+- update  
+- Fix default export  
+- Hotfix pour GlSection  
+- Rename section GlSection  
+- Enable providing the href for scroll down    
+  
 ### **0.0.44** (2021-06-16)  
   
 - push version  
