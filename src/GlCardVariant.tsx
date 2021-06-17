@@ -89,12 +89,6 @@ const getUseClassNames = () => {
             "height": 188,
             ...(theme.responsive.down("lg")
                 ? {
-                      "height": 160,
-                  }
-                : {}),
-
-            ...(theme.responsive.down("md")
-                ? {
                       "height": "unset",
                   }
                 : {}),
