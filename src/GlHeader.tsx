@@ -75,7 +75,7 @@ const getUseClassNames = () => {
             "flexWrap": "wrap",
             "alignItems": "center",
             "width": "100%",
-            "padding": [4.5, 12.5, 4.5, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+            "padding": [2.25, 12.5, 2.25, 12.5].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
             ...(theme.responsive.down("lg")
                 ? {
                       "padding": [2, 4.5, 2, 4.5]

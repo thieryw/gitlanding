@@ -57,6 +57,12 @@ const getUseClassNames = () => {
                     "boxShadow": theme.shadows[2],
                     "cursor": isLink ? "pointer" : undefined,
                 },
+                "margin": theme.spacing(1.5),
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "margin": theme.spacing(1),
+                      }
+                    : {}),
             },
             "subHeading": {
                 "fontWeight": "normal",

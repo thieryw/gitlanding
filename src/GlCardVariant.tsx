@@ -60,6 +60,12 @@ const getUseClassNames = () => {
             "flexDirection": "column",
             "overflow": "hidden",
             "cursor": "pointer",
+            "margin": theme.spacing(1.5),
+            ...(theme.responsive.down("lg")
+                ? {
+                      "margin": theme.spacing(1),
+                  }
+                : {}),
         },
         "tagWithBackground": {
             "background": (() => {

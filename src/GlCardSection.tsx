@@ -58,20 +58,7 @@ const getUseClassNames = () => {
             ...(theme.responsive.down("lg")
                 ? {
                       ...(() => {
-                          const value = theme.spacing(4.5);
-
-                          return {
-                              "paddingLeft": value,
-                              "paddingRight": value,
-                          };
-                      })(),
-                  }
-                : {}),
-
-            ...(theme.responsive.down("lg")
-                ? {
-                      ...(() => {
-                          const value = theme.spacing(2);
+                          const value = theme.spacing(1);
 
                           return {
                               "paddingLeft": value,
@@ -98,6 +85,7 @@ const getUseClassNames = () => {
         },
 
         "sectionTitle": {
+            "marginLeft": theme.spacing(2),
             ...(theme.responsive.down("lg")
                 ? {
                       "fontSize": "22px",
@@ -130,12 +118,12 @@ const getUseClassNames = () => {
                     : {}),
             },
 
-            "gap": theme.spacing(3),
+            /*"gap": theme.spacing(3),
             ...(theme.responsive.down("lg")
                 ? {
                       "gap": theme.spacing(2),
                   }
-                : {}),
+                : {}),*/
         },
         "card": {
             ...(theme.responsive.down(breakpointForColumnDisplay) ? {} : {}),
