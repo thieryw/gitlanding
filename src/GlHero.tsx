@@ -58,6 +58,30 @@ const getUseClassNames = () => {
             "& p": {
                 "margin": 0,
             },
+            ...(theme.responsive.down("md")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(4.5);
+
+                          return {
+                              "paddingRight": value,
+                              "paddingLeft": value,
+                          };
+                      })(),
+                  }
+                : {}),
+            ...(theme.responsive.down("sm")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(2);
+
+                          return {
+                              "paddingRight": value,
+                              "paddingLeft": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
         "presentation": {
             "display": "flex",
@@ -65,6 +89,11 @@ const getUseClassNames = () => {
             "boxSizing": "border-box",
             "justifyContent": "space-between",
             "marginTop": theme.spacing(5),
+            ...(theme.responsive.down("md")
+                ? {
+                      "flexDirection": "column",
+                  }
+                : {}),
         },
 
         "presentationText": {
@@ -77,23 +106,55 @@ const getUseClassNames = () => {
                 "fontSize": "86px",
                 "marginBottom": theme.spacing(4),
                 "width": 1000,
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "fontSize": "52px",
+                          "width": "unset",
+                      }
+                    : {}),
+
+                ...(theme.responsive.down("sm")
+                    ? {
+                          "fontSize": "36px",
+                          "lineHeight": "40px",
+                      }
+                    : {}),
             },
             ...(theme.responsive.down("lg")
                 ? {
                       "width": 511,
                       "left": theme.spacing(4.5),
-                      "& h2": {
-                          "fontSize": "52px",
-                          "width": "unset",
-                          "marginBottom": theme.spacing(4),
-                      },
-                      "& h3": {
+                  }
+                : {}),
+
+            ...(theme.responsive.down("sm")
+                ? {
+                      "width": "100%",
+                      "left": 0,
+                  }
+                : {}),
+
+            "& h3": {
+                ...(theme.responsive.down("lg")
+                    ? {
                           "lineHeight": "28px",
                           "fontSize": "18px",
                           "width": 450,
-                      },
-                  }
-                : {}),
+                      }
+                    : {}),
+
+                ...(theme.responsive.down("md")
+                    ? {
+                          "fontSize": "16px",
+                          "lineHeight": "20px",
+                      }
+                    : {}),
+                ...(theme.responsive.down("sm")
+                    ? {
+                          "width": "unset",
+                      }
+                    : {}),
+            },
         },
         "subtitle": {
             "width": 650,
@@ -108,6 +169,13 @@ const getUseClassNames = () => {
                 ? {
                       "width": 510,
                       "right": theme.spacing(4.5),
+                  }
+                : {}),
+
+            ...(theme.responsive.down("md")
+                ? {
+                      "width": "100%",
+                      "right": 0,
                   }
                 : {}),
         },
@@ -164,6 +232,14 @@ const getUseClassNames = () => {
                       },
                       "& div": {
                           "transform": "scale(0.8)",
+                      },
+                  }
+                : {}),
+            ...(theme.responsive.down("md")
+                ? {
+                      "marginTop": theme.spacing(5),
+                      "& h3": {
+                          "display": "none",
                       },
                   }
                 : {}),

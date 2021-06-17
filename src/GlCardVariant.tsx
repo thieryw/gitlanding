@@ -92,6 +92,12 @@ const getUseClassNames = () => {
                   }
                 : {}),
 
+            ...(theme.responsive.down("md")
+                ? {
+                      "height": "unset",
+                  }
+                : {}),
+
             "& h5": {
                 "marginBottom": theme.spacing(1.25),
             },

@@ -66,6 +66,19 @@ const getUseClassNames = () => {
                       })(),
                   }
                 : {}),
+
+            ...(theme.responsive.down("lg")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(2);
+
+                          return {
+                              "paddingLeft": value,
+                              "paddingRight": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
         "title": {
             "marginBottom": theme.spacing(7.5),
@@ -76,6 +89,20 @@ const getUseClassNames = () => {
                 "color": theme.colors.palette.orangeWarning.main,
                 "cursor": "pointer",
             },
+            ...(theme.responsive.down("sm")
+                ? {
+                      "marginTop": theme.spacing(8),
+                  }
+                : {}),
+        },
+
+        "sectionTitle": {
+            ...(theme.responsive.down("lg")
+                ? {
+                      "fontSize": "22px",
+                      "lineHeight": "24px",
+                  }
+                : {}),
         },
 
         "cards": {
@@ -87,12 +114,19 @@ const getUseClassNames = () => {
                         return 100 / (numberOfCards + 1);
                     }
 
-                    if (theme.responsive.down("lg") && numberOfCards >= 4) {
-                        return 40;
-                    }
-
                     return 100 / 5;
                 })()}%`,
+
+                ...(theme.responsive.down(1000)
+                    ? {
+                          "flex": "1 1 33%",
+                      }
+                    : {}),
+                ...(theme.responsive.down(686)
+                    ? {
+                          "flex": "1 1 100%",
+                      }
+                    : {}),
             },
 
             "gap": theme.spacing(3),
@@ -152,7 +186,9 @@ export const GlCardSection = memo((props: GlCardSectionProps) => {
         <section ref={sectionRef} className={cx(classNames.root, className)}>
             {title && (
                 <div className={classNames.title}>
-                    <Typography variant="h2">{title}</Typography>
+                    <Typography className={classNames.sectionTitle} variant="h2">
+                        {title}
+                    </Typography>
 
                     {cards && cards.length > 4 && (
                         <Typography onClick={exposeHiddenThumbNails} variant="h3">

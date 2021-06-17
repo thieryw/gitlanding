@@ -83,6 +83,11 @@ const getUseClassNames = () => {
                           .join(" "),
                   }
                 : {}),
+            ...(theme.responsive.down("sm")
+                ? {
+                      "padding": [2, 2, 2, 2].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+                  }
+                : {}),
         },
         "title": {
             ...(theme.responsive.down("lg")

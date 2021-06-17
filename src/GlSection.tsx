@@ -22,50 +22,68 @@ const getUseClassNames = () => {
         "root": {
             "position": "relative",
             "marginTop": theme.spacing(17.25),
+            ...(theme.responsive.down("sm")
+                ? {
+                      "marginTop": theme.spacing(8),
+                  }
+                : {}),
         },
 
         "title": {
             "fontSize": "40px",
             "textAlign": "center",
             "marginBottom": theme.spacing(7.5),
-            ...(theme.responsive.down("sm")
+            ...(theme.responsive.down("lg")
                 ? {
-                      "textAlign": "left",
-                      "paddingLeft": theme.spacing(4.5),
-                      "paddingRight": theme.spacing(4.5),
+                      "fontSize": "24px",
+                      "lineHeight": "32px",
                   }
                 : {}),
         },
         "articleAndImageWrapper": {
             "display": "flex",
             "gap": theme.spacing(16),
+            "justifyContent": "center",
+            "alignItems": "center",
+            "marginTop": theme.spacing(17.25),
             ...(theme.responsive.down("lg")
                 ? {
                       "justifyContent": "space-between",
                   }
                 : {}),
-
-            "justifyContent": "center",
-            "alignItems": "center",
-            "marginTop": theme.spacing(17.25),
-            ...(theme.responsive.down("sm")
+            ...(theme.responsive.down("md")
                 ? {
                       "flexDirection": "column-reverse",
                       "paddingLeft": theme.spacing(4.5),
                       "paddingRight": theme.spacing(4.5),
+                      "marginTop": theme.spacing(8),
+                      "gap": theme.spacing(8),
                   }
                 : {
                       "flexDirection": isRowReverse ? "row-reverse" : "row",
                       "paddingLeft": theme.spacing(6),
                       "paddingRight": theme.spacing(6),
                   }),
+
+            ...(theme.responsive.down("sm")
+                ? {
+                      "gap": theme.spacing(4),
+                      ...(() => {
+                          const value = theme.spacing(2);
+                          return {
+                              "paddingLeft": value,
+                              "paddingRight": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
         "article": {
             "display": "flex",
             "flexDirection": "column",
             "textAlign": "left",
 
-            "width": theme.responsive.down("md") ? 302 : 412,
+            "width": theme.responsive.down("md") ? "100%" : 412,
 
             "& h2": {
                 "marginBottom": 14,
@@ -104,9 +122,8 @@ const getUseClassNames = () => {
                       "width": 511,
                   }
                 : {}),
-            ...(theme.responsive.down("sm")
+            ...(theme.responsive.down("md")
                 ? {
-                      "margin": "unset",
                       "width": "100%",
                   }
                 : {}),
