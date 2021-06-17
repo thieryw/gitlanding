@@ -15,6 +15,6 @@ export * from "./GlLogo";
 export * from "./GlReviewSlider";
 export * from "./GlRoot";
 export * from "./GlSections";
-export * from "./GlSections";
+export * from "./GlSection";
 export * from "./GlHeader";
 export { overwriteTheme, getThemeApi } from "./theme";
