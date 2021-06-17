@@ -68,7 +68,8 @@ const getUseClassNames = () => {
                 "fontWeight": "normal",
                 "textAlign": "center",
                 "marginTop": theme.spacing(3),
-                "marginBottom": theme.spacing(3),
+                //NOTE: Last minut hack
+                //"marginBottom": theme.spacing(3),
                 ...(theme.responsive.down("lg")
                     ? {
                           "fontSize": "18px",
