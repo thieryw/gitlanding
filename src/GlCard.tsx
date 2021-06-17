@@ -72,12 +72,6 @@ const getUseClassNames = () => {
                     : {}),
             },
 
-            "button": {
-                "color": `${theme.colors.useCases.typography.textPrimary} !important`,
-                "backgroundColor": "unset !important",
-                "borderColor": "unset !important",
-            },
-
             "heading": {
                 "display": "flex",
                 "justifyContent": "center",
@@ -196,7 +190,7 @@ export const GlCard = memo((props: GlCardProps) => {
                 )}
 
                 {button && (
-                    <GlButton {...button.link} className={cx(classNames.button, button.className)}>
+                    <GlButton color="secondary" {...button.link} className={button.className}>
                         {button.title}
                     </GlButton>
                 )}

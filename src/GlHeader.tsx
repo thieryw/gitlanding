@@ -7,11 +7,11 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
 import { useClickAway } from "powerhooks/useClickAway";
 import { useRef, memo } from "react";
-import { GlLogo } from "./GlLogo";
 import { Typography } from "onyxia-ui/Typography";
 import { GlIcon } from "./GlIcon";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
+import type { ReactNode } from "react";
 
 /*function getSmallDeviceBreakPoint(params: {
     menuRef: React.RefObject<HTMLDivElement>;
@@ -36,7 +36,7 @@ export type GlHeaderProps = {
      * the fill will be set to the current font color,
      * depending on the dark mode being active.
      */
-    title?: GlHeaderProps.Title;
+    title?: ReactNode;
     menuItems?: {
         name: string;
         link: {
@@ -47,7 +47,7 @@ export type GlHeaderProps = {
     className?: string;
 };
 
-export declare namespace GlHeaderProps {
+/*export declare namespace GlHeaderProps {
     export type Title = Title.Logo | Title.Markdown;
 
     export namespace Title {
@@ -61,7 +61,7 @@ export declare namespace GlHeaderProps {
             text: string;
         };
     }
-}
+}*/
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -185,14 +185,13 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         <List className={cx(classNames.root, className)} component="nav">
             {title !== undefined && (
                 <div ref={titleRef} className={classNames.title}>
-                    {(() => {
-                        switch (title.type) {
-                            case "logo":
-                                return <GlLogo logoUrl={title.logoUrl} />;
-                            case "text":
-                                return <Typography variant="h3">{title.text}</Typography>;
-                        }
-                    })()}
+                    {typeof title === "string" ? (
+                        <Typography variant="h3">{title}</Typography>
+                    ) : typeof title === "function" ? (
+                        title()
+                    ) : (
+                        title
+                    )}
                 </div>
             )}
 

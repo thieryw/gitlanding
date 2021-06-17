@@ -129,9 +129,6 @@ const getUseClassNames = () => {
                 : {}),
         },
         "button": {
-            "color": "unset !important",
-            "backgroundColor": "unset !important",
-            "borderColor": "unset !important",
             "alignSelf": "right",
         },
     }));
@@ -205,8 +202,8 @@ export const GlSection = memo((props: GlSectionProps) => {
                                 >
                                     <GlButton
                                         className={classNames.button}
-                                        type="submit"
                                         href={article.button.href}
+                                        color="secondary"
                                     >
                                         {article.button.title}
                                     </GlButton>

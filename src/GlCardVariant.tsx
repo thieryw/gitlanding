@@ -59,6 +59,7 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexDirection": "column",
             "overflow": "hidden",
+            "cursor": "pointer",
         },
         "tagWithBackground": {
             "background": (() => {
@@ -150,7 +151,10 @@ export const GlCardVariant = memo((props: GlCardVariantProps) => {
     });
 
     return (
-        <div className={cx(classNames.root, className)}>
+        <div
+            className={cx(classNames.root, className)}
+            onClick={button?.link.onClick ?? (() => (window.location.href = button?.link.href ?? "#"))}
+        >
             <div className={cx(classNames.tagWithBackground, classNames.header)}>
                 <div className={classNames.buttonWrapper}>
                     {button !== undefined && (

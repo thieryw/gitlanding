@@ -45,6 +45,7 @@ const getUseClassNames = () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }>()((theme, { breakpointForColumnDisplay, hasTitle, numberOfCards }) => ({
         "root": {
+            "marginBottom": theme.spacing(5),
             ...(() => {
                 const value = theme.spacing(12.5);
 
