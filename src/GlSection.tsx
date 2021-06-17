@@ -169,50 +169,52 @@ export const GlSection = memo((props: GlSectionProps) => {
                 </Typography>
             )}
             {<GlCardSection {...cardSection} />}
-            <article className={classNames.articleAndImageWrapper}>
-                {article && (
-                    <div className={classNames.article}>
-                        <Typography variant="h2">{article.title}</Typography>
-                        <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
-                        {article.button && (
-                            <div
-                                className={cx(
-                                    css({
-                                        "display": "flex",
-                                        "justifyContent": "flex-end",
-                                        "marginTop": 14,
-                                    }),
-                                    article.button.className,
-                                )}
-                            >
-                                <GlButton
-                                    className={classNames.button}
-                                    type="submit"
-                                    href={article.button.href}
+            {(article !== undefined || illustration !== undefined) && (
+                <article className={classNames.articleAndImageWrapper}>
+                    {article && (
+                        <div className={classNames.article}>
+                            <Typography variant="h2">{article.title}</Typography>
+                            <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
+                            {article.button && (
+                                <div
+                                    className={cx(
+                                        css({
+                                            "display": "flex",
+                                            "justifyContent": "flex-end",
+                                            "marginTop": 14,
+                                        }),
+                                        article.button.className,
+                                    )}
                                 >
-                                    {article.button.title}
-                                </GlButton>
-                            </div>
-                        )}
-                    </div>
-                )}
+                                    <GlButton
+                                        className={classNames.button}
+                                        type="submit"
+                                        href={article.button.href}
+                                    >
+                                        {article.button.title}
+                                    </GlButton>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
-                {illustration &&
-                    (illustration.type === "image" ? (
-                        <GlImage
-                            url={illustration.url}
-                            alt={illustration.alt}
-                            className={cx(classNames.illustration, illustration.className)}
-                        />
-                    ) : (
-                        <GlCode
-                            text={illustration.text}
-                            language={illustration.language}
-                            showLineNumbers={illustration.showLineNumbers}
-                            className={cx(classNames.illustration, illustration.className)}
-                        />
-                    ))}
-            </article>
+                    {illustration &&
+                        (illustration.type === "image" ? (
+                            <GlImage
+                                url={illustration.url}
+                                alt={illustration.alt}
+                                className={cx(classNames.illustration, illustration.className)}
+                            />
+                        ) : (
+                            <GlCode
+                                text={illustration.text}
+                                language={illustration.language}
+                                showLineNumbers={illustration.showLineNumbers}
+                                className={cx(classNames.illustration, illustration.className)}
+                            />
+                        ))}
+                </article>
+            )}
         </section>
     );
 });
