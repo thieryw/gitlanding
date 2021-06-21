@@ -10,8 +10,8 @@ import type { GlCodeProps } from "./GlCode";
 import { GlButton } from "./GlButton";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { GlCardSection } from "./GlCard/GlCards";
-import type { GlCardSectionProps } from "./GlCard/GlCards";
+import { GlCards } from "./GlCards/GlCards";
+import type { GlCardsProps } from "./GlCards/GlCards";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -138,7 +138,7 @@ const getUseClassNames = () => {
 
 export type GlSectionProps = {
     className?: string;
-    cardSection?: GlCardSectionProps;
+    cardSection?: GlCardsProps;
     illustration?: GlSectionProps.Illustration;
     title?: string;
     article?: {
@@ -182,7 +182,7 @@ export const GlSection = memo((props: GlSectionProps) => {
                     {title}
                 </Typography>
             )}
-            {<GlCardSection {...cardSection} />}
+            {<GlCards {...cardSection}>{cardSection?.children}</GlCards>}
             {(article !== undefined || illustration !== undefined) && (
                 <article className={classNames.articleAndImageWrapper}>
                     {article && (

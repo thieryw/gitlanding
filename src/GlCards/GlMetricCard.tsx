@@ -6,9 +6,10 @@ import { GlButton } from "../GlButton";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import { GlLogo } from "../GlLogo";
+import { GlCard } from "./GlCard";
+import type { GlCardProps } from "./GlCard";
 
-export type GlMetricCardProps = {
-    className?: string;
+export type GlMetricCardProps = GlCardProps & {
     heading?: {
         number?: number;
         iconUrl?: string;
@@ -17,32 +18,19 @@ export type GlMetricCardProps = {
     button?: {
         title: string;
     };
-    link?: {
-        href: string;
-        onClick?: () => void;
-    };
 };
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{ hasButton: boolean }>()((theme, { hasButton }) => ({
+    const { useClassNames } = createUseClassNames()(theme => ({
         "root": {
             "position": "relative",
             "display": "flex",
             "gap": theme.spacing(2),
             "justifyContent": "space-between",
             "flexDirection": "column",
-            "backgroundColor": theme.colors.useCases.surfaces.surface1,
             "padding": theme.spacing(3),
-            "borderRadius": 16,
-            "boxShadow": theme.shadows[1],
-            "transition": "box-shadow 200ms",
-            ":hover": {
-                "boxShadow": !hasButton ? theme.shadows[2] : undefined,
-                "cursor": !hasButton ? "pointer" : undefined,
-            },
-            "margin": theme.spacing(1.5),
             ...(theme.responsive.down("lg")
                 ? {
                       "margin": theme.spacing(1),
@@ -103,14 +91,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
     });
 
     return (
-        <div
-            className={cx(classNames.root, className)}
-            onClick={
-                button === undefined
-                    ? link?.onClick ?? (() => (window.location.href = link?.href ?? "#"))
-                    : undefined
-            }
-        >
+        <GlCard className={cx(classNames.root, className)} link={link}>
             {heading && (
                 <div className={classNames.heading}>
                     {heading.number !== undefined && (
@@ -138,6 +119,6 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                     </GlButton>
                 </div>
             )}
-        </div>
+        </GlCard>
     );
 });

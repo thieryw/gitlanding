@@ -5,10 +5,11 @@ import { cx } from "tss-react";
 import { GlButton } from "../GlButton";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
+import { GlCard } from "./GlCard";
+import type { GlCardProps } from "./GlCard";
 
-export type GlProjectCardProps = {
+export type GlProjectCardProps = GlCardProps & {
     background?: GlCardVariantProps.Background;
-    className?: string;
     footer?: {
         title?: string;
         subTitle?: string;
@@ -18,10 +19,6 @@ export type GlProjectCardProps = {
         title: string;
         color?: string;
         backgroundColor?: string;
-    };
-    link?: {
-        href: string;
-        onClick?: () => void;
     };
 };
 
@@ -49,18 +46,14 @@ const getUseClassNames = () => {
         button: GlProjectCardProps["button"];
     }>()((theme, { background, button }) => ({
         "root": {
-            "borderRadius": 16,
             "minHeight": 591,
             ...(theme.responsive.down(1440)
                 ? {
                       "minHeight": 412,
                   }
                 : {}),
-            "display": "flex",
             "flexDirection": "column",
             "overflow": "hidden",
-            "cursor": "pointer",
-            "margin": theme.spacing(1.5),
             ...(theme.responsive.down("lg")
                 ? {
                       "margin": theme.spacing(1),
@@ -88,10 +81,7 @@ const getUseClassNames = () => {
             "backgroundColor": theme.isDarkModeEnabled
                 ? theme.colors.palette.dark.greyVariant1
                 : theme.colors.palette.light.light,
-            "paddingLeft": theme.spacing(3),
-            "paddingRight": theme.spacing(3),
-            "paddingTop": theme.spacing(2),
-            "paddingBottom": theme.spacing(2),
+            "padding": [2, 3, 2, 3].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
             ...(theme.responsive.down("lg")
                 ? {
                       "height": "unset",
@@ -150,10 +140,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     });
 
     return (
-        <div
-            className={cx(classNames.root, className)}
-            onClick={link?.onClick ?? (() => (window.location.href = link?.href ?? "#"))}
-        >
+        <GlCard className={cx(classNames.root, className)}>
             <div className={cx(classNames.tagWithBackground, classNames.header)}>
                 <div className={classNames.buttonWrapper}>
                     {button !== undefined && (
@@ -185,6 +172,6 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                     )}
                 </div>
             )}
-        </div>
+        </GlCard>
     );
 });

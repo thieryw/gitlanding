@@ -6,9 +6,9 @@ import { GlSections } from "./GlSections";
 import type { GlSectionsProps } from "./GlSections";
 import { GlReviewSlider } from "./GlReviewSlider";
 import { GlFooter } from "./GlFooter";
-import { GlCardSection } from "./GlCard/GlCards";
+import { GlCards } from "./GlCards/GlCards";
 import type { GlReviewSliderProps } from "./GlReviewSlider";
-import type { GlCardSectionProps } from "./GlCard/GlCards";
+import type { GlCardsProps } from "./GlCards/GlCards";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useState, memo } from "react";
 import { getThemeApi } from "./theme";
@@ -18,7 +18,7 @@ export type GlRootProps = {
     header?: GlHeaderProps;
     hero?: GlHeroProps;
     mainSection?: GlSectionsProps;
-    cardSection?: GlCardSectionProps;
+    cardSection?: GlCardsProps;
     reviewSlider?: GlReviewSliderProps;
     footer?: GlFooter;
 };
@@ -72,7 +72,7 @@ export const { GlRoot } = (() => {
                             />
                         )}
 
-                        {cardSection !== undefined && <GlCardSection {...cardSection} />}
+                        {cardSection !== undefined && <GlCards {...cardSection} />}
 
                         {reviewSlider !== undefined && (
                             <GlReviewSlider

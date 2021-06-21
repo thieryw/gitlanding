@@ -5,16 +5,13 @@ import { cx, css } from "tss-react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import { GlLogo } from "../GlLogo";
+import { GlCard } from "./GlCard";
+import type { GlCardProps } from "./GlCard";
 
-export type GlLogoCardProps = {
-    className?: string;
+export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
     title?: string;
     paragraph?: string;
-    link?: {
-        href: string;
-        onClick?: () => void;
-    };
 };
 
 const getUseClassNames = () => {
@@ -23,21 +20,12 @@ const getUseClassNames = () => {
     const { useClassNames } = createUseClassNames<{ numberOfIcons: number }>()(
         (theme, { numberOfIcons }) => ({
             "root": {
-                "position": "relative",
-                "backgroundColor": theme.colors.useCases.surfaces.surface1,
                 "padding": theme.spacing(3),
-                "borderRadius": 16,
                 "boxShadow": theme.shadows[1],
-                "transition": "box-shadow 200ms",
                 "display": "flex",
                 "flexDirection": "column",
                 "justifyContent": "space-between",
                 "alignItems": "center",
-                ":hover": {
-                    "boxShadow": theme.shadows[2],
-                    "cursor": "pointer",
-                },
-                "margin": theme.spacing(1.5),
                 ...(theme.responsive.down("lg")
                     ? {
                           "margin": theme.spacing(1),
@@ -99,10 +87,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     });
 
     return (
-        <div
-            onClick={link?.onClick ?? (() => (window.location.href = link?.href ?? "#"))}
-            className={cx(classNames.root, className)}
-        >
+        <GlCard link={link} className={cx(classNames.root, className)}>
             {iconUrls && (
                 <div className={classNames.iconWrapper}>
                     {iconUrls.map((url, index) => (
@@ -133,6 +118,6 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     </Typography>
                 )}
             </div>
-        </div>
+        </GlCard>
     );
 });
