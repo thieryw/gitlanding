@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useRef } from "react";
-import { GlCardVariant } from "./GlCardVariant";
-import type { GlCardVariantProps } from "./GlCardVariant";
-import { GlCard } from "./GlCard";
-import type { GlCardProps } from "./GlCard";
+import { GlProjectCard } from "./GlProjectCard";
+import type { GlProjectCardProps } from "./GlProjectCard";
+import { GlLogoCard } from "./GlLogoCard";
+import type { GlLogoCardProps } from "./GlLogoCard";
+import { GlMetricCard } from "./GlMetricCard";
+import type { GlMetricCardProps } from "./GlMetricCard";
 import { Typography } from "onyxia-ui/Typography";
-import { getThemeApi } from "./theme";
+import { getThemeApi } from "../theme";
 import { useGuaranteedMemo, useNamedState, useConstCallback } from "powerhooks";
 import { breakpointsValues } from "onyxia-ui/lib";
 import { cx } from "tss-react";
@@ -23,15 +25,19 @@ export type GlCardSectionProps = {
 };
 
 export declare namespace GlCardSectionProps {
-    export type Card = Card.Normal | Card.Variant;
+    export type Card = Card.Metric | Card.Project | Card.Logo;
     export namespace Card {
-        export type Normal = {
-            type: "normal";
-        } & GlCardProps;
+        export type Metric = {
+            type: "metric";
+        } & GlMetricCardProps;
 
-        export type Variant = {
-            type: "variant";
-        } & GlCardVariantProps;
+        export type Logo = {
+            type: "project";
+        } & GlProjectCardProps;
+
+        export type Project = {
+            type: "logo";
+        } & GlLogoCardProps;
     }
 }
 
@@ -73,15 +79,17 @@ const getUseClassNames = () => {
             "marginTop": theme.spacing(17.25),
             "display": "flex",
             "justifyContent": hasTitle ? "space-between" : "flex-end",
-            "& h3": {
-                "color": theme.colors.palette.orangeWarning.main,
-                "cursor": "pointer",
-            },
+            "& h3": {},
             ...(theme.responsive.down("sm")
                 ? {
                       "marginTop": theme.spacing(8),
                   }
                 : {}),
+        },
+
+        "seeMoreLink": {
+            "color": theme.colors.palette.orangeWarning.main,
+            "cursor": "pointer",
         },
 
         "sectionTitle": {
@@ -193,12 +201,27 @@ export const GlCardSection = memo((props: GlCardSectionProps) => {
                         .filter(areExtraThumbNailsExposed ? () => true : (...[, i]) => i < 4)
                         .map((card, index) => {
                             switch (card.type) {
-                                case "normal":
-                                    return <GlCard className={classNames.card} key={index} {...card} />;
-                                case "variant":
+                                case "metric":
                                     return (
-                                        <GlCardVariant
-                                            className={classNames.card}
+                                        <GlMetricCard
+                                            className={cx(classNames.card, card.className)}
+                                            key={index}
+                                            {...card}
+                                        />
+                                    );
+                                case "project":
+                                    return (
+                                        <GlProjectCard
+                                            className={cx(classNames.card, card.className)}
+                                            key={index}
+                                            {...card}
+                                        />
+                                    );
+
+                                case "logo":
+                                    return (
+                                        <GlLogoCard
+                                            className={cx(classNames.card, card.className)}
                                             key={index}
                                             {...card}
                                         />

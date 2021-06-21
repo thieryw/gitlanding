@@ -10,8 +10,8 @@ import type { GlCodeProps } from "./GlCode";
 import { GlButton } from "./GlButton";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { GlCardSection } from "./GlCardSection";
-import type { GlCardSectionProps } from "./GlCardSection";
+import { GlCardSection } from "./GlCard/GlCards";
+import type { GlCardSectionProps } from "./GlCard/GlCards";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();

@@ -2,11 +2,11 @@
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { cx } from "tss-react";
-import { GlButton } from "./GlButton";
-import { getThemeApi } from "./theme";
+import { GlButton } from "../GlButton";
+import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-export type GlCardVariantProps = {
+export type GlProjectCardProps = {
     background?: GlCardVariantProps.Background;
     className?: string;
     footer?: {
@@ -16,12 +16,12 @@ export type GlCardVariantProps = {
     };
     button?: {
         title: string;
-        link: {
-            href: string;
-            onClick?(): void;
-        };
         color?: string;
         backgroundColor?: string;
+    };
+    link?: {
+        href: string;
+        onClick?: () => void;
     };
 };
 
@@ -45,8 +45,8 @@ const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        background: GlCardVariantProps["background"];
-        button: GlCardVariantProps["button"];
+        background: GlProjectCardProps["background"];
+        button: GlProjectCardProps["button"];
     }>()((theme, { background, button }) => ({
         "root": {
             "borderRadius": 16,
@@ -92,21 +92,21 @@ const getUseClassNames = () => {
             "paddingRight": theme.spacing(3),
             "paddingTop": theme.spacing(2),
             "paddingBottom": theme.spacing(2),
-            "height": 188,
             ...(theme.responsive.down("lg")
                 ? {
                       "height": "unset",
                   }
                 : {}),
-
-            "& h5": {
-                "marginBottom": theme.spacing(1.25),
-            },
-
-            "& h6:nth-child(2)": {
-                "marginBottom": 10,
-            },
         },
+
+        "footerH5": {
+            "marginBottom": theme.spacing(1.25),
+        },
+
+        "footerH6": {
+            "marginBottom": theme.spacing(1.25),
+        },
+
         "header": {
             "flex": 1,
             "width": "100%",
@@ -115,7 +115,6 @@ const getUseClassNames = () => {
         "buttonWrapper": {
             "display": "flex",
             "justifyContent": "flex-end",
-            "& button": {},
             ...(() => {
                 const value = theme.spacing(2);
 
@@ -140,8 +139,8 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-export const GlCardVariant = memo((props: GlCardVariantProps) => {
-    const { className, background, button, footer } = props;
+export const GlProjectCard = memo((props: GlProjectCardProps) => {
+    const { className, background, button, footer, link } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -153,12 +152,17 @@ export const GlCardVariant = memo((props: GlCardVariantProps) => {
     return (
         <div
             className={cx(classNames.root, className)}
-            onClick={button?.link.onClick ?? (() => (window.location.href = button?.link.href ?? "#"))}
+            onClick={link?.onClick ?? (() => (window.location.href = link?.href ?? "#"))}
         >
             <div className={cx(classNames.tagWithBackground, classNames.header)}>
                 <div className={classNames.buttonWrapper}>
                     {button !== undefined && (
-                        <GlButton {...button.link} className={classNames.button}>
+                        <GlButton
+                            type="submit"
+                            className={classNames.button}
+                            href={link?.href}
+                            onClick={link?.onClick}
+                        >
                             {button.title}
                         </GlButton>
                     )}
@@ -166,9 +170,15 @@ export const GlCardVariant = memo((props: GlCardVariantProps) => {
             </div>
             {footer !== undefined && (
                 <div className={classNames.footer}>
-                    {footer.title !== undefined && <Typography variant="h5">{footer.title}</Typography>}
+                    {footer.title !== undefined && (
+                        <Typography variant="h5" className={classNames.footerH5}>
+                            {footer.title}
+                        </Typography>
+                    )}
                     {footer.subTitle !== undefined && (
-                        <Typography variant="subtitle1">{footer.subTitle}</Typography>
+                        <Typography variant="subtitle1" className={classNames.footerH6}>
+                            {footer.subTitle}
+                        </Typography>
                     )}
                     {footer.date !== undefined && (
                         <Typography variant="subtitle1">{footer.date}</Typography>
