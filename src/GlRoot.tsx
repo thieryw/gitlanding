@@ -1,14 +1,14 @@
-import { GlHeader } from "./GlHeader";
-import type { GlHeaderProps } from "./GlHeader";
+import { GlHeader } from "./GlHeader/GlHeader";
+import type { GlHeaderProps } from "./GlHeader/GlHeader";
 import { GlHero } from "./GlHero";
 import type { GlHeroProps } from "./GlHero";
 import { GlSections } from "./GlSections";
 import type { GlSectionsProps } from "./GlSections";
 import { GlReviewSlider } from "./GlReviewSlider";
 import { GlFooter } from "./GlFooter";
-import { GlCardSection } from "./GlCard/GlCards";
+import { GlCardSection } from "./GlCards/GlCards";
 import type { GlReviewSliderProps } from "./GlReviewSlider";
-import type { GlCardSectionProps } from "./GlCard/GlCards";
+import type { GlCardSectionProps } from "./GlCards/GlCards";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useState, memo } from "react";
 import { getThemeApi } from "./theme";

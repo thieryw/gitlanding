@@ -1,6 +1,6 @@
-import { GlMetricCard } from "../GlCard";
-import { GlLogoCard } from "../GlCard";
-import { GlProjectCard } from "../GlCard";
+import { GlMetricCard } from "../GlCards";
+import { GlLogoCard } from "../GlCards";
+import { GlProjectCard } from "../GlCards";
 import { getStoryFactory } from "./getStory";
 import twitterImgUrl from "../assets/svg/twitter.svg";
 import { css } from "tss-react";

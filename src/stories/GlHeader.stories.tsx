@@ -1,5 +1,5 @@
-import { GlHeader } from "../GlHeader";
-import type { GlHeaderProps } from "../GlHeader";
+import { GlHeader } from "../GlHeader/GlHeader";
+import type { GlHeaderProps } from "../GlHeader/GlHeader";
 import { getStoryFactory } from "./getStory";
 import { css } from "tss-react";
 
