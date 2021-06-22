@@ -7,7 +7,7 @@ import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
 export type GlProjectCardProps = {
-    background?: GlCardVariantProps.Background;
+    backgroundSurface?: GlCardVariantProps.Background;
     className?: string;
     footer?: {
         title?: string;
@@ -45,9 +45,9 @@ const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        background: GlProjectCardProps["background"];
+        backgroundSurface: GlProjectCardProps["backgroundSurface"];
         button: GlProjectCardProps["button"];
-    }>()((theme, { background, button }) => ({
+    }>()((theme, { backgroundSurface, button }) => ({
         "root": {
             "borderRadius": 16,
             "minHeight": 591,
@@ -69,17 +69,17 @@ const getUseClassNames = () => {
         },
         "tagWithBackground": {
             "background": (() => {
-                if (background === undefined) {
+                if (backgroundSurface === undefined) {
                     return theme.isDarkModeEnabled
                         ? theme.colors.palette.dark.greyVariant3
                         : theme.colors.palette.light.greyVariant3;
                 }
 
-                if (background.type === "color") {
-                    return background.color;
+                if (backgroundSurface.type === "color") {
+                    return backgroundSurface.color;
                 }
 
-                return `url(${background.url}) no-repeat center`;
+                return `url(${backgroundSurface.url}) no-repeat center`;
             })(),
             "backgroundSize": "cover",
         },
@@ -140,12 +140,12 @@ const getUseClassNames = () => {
 };
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
-    const { className, background, button, footer, link } = props;
+    const { className, backgroundSurface, button, footer, link } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
-        background,
+        backgroundSurface,
         button,
     });
 

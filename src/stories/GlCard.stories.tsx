@@ -60,4 +60,8 @@ export const ProjectCard = project({
         "title": "Lorem Ipsum",
         "subTitle": "Lorem Ipsum dolor si ame",
     },
+    "backgroundSurface": {
+        "type": "color",
+        "color": "blue",
+    },
 });
