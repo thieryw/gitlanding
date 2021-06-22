@@ -1,6 +1,12 @@
 export * from "./GlButton";
 export * from "./GlCards/GlMetricCard";
-export * from "./GlCards/GlCards";
+
+export * from "./GlCards";
+export * from "./GlCards/GlCard";
+export * from "./GlCards/GlLogoCard";
+export * from "./GlCards/GlMetricCard";
+export * from "./GlCards/GlProjectCard";
+
 export * from "./GlCards/GlProjectCard";
 export * from "./GlCode";
 export * from "./GlDarkModeSwitch";
