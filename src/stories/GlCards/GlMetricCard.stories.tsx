@@ -1,8 +1,10 @@
-import { GlMetricCard } from "../GlCards/GlMetricCard";
-import { getStoryFactory } from "./getStory";
-import twitterImgUrl from "../assets/svg/twitter.svg";
+import { GlMetricCard } from "../../GlCards/GlMetricCard";
+import { sectionName } from "./sectionName";
+import { getStoryFactory } from "../getStory";
+import twitterImgUrl from "../../assets/svg/twitter.svg";
 
 const { getStory, meta } = getStoryFactory({
+    sectionName,
     "wrappedComponent": {
         GlMetricCard,
     },
@@ -16,7 +18,6 @@ export const Vue = getStory({
         "iconUrl": twitterImgUrl,
     },
     "subHeading": "Lorem Ipsum",
-
     "button": {
         "title": "Button",
     },
