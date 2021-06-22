@@ -1,5 +1,5 @@
-import { GlHeader } from "./GlHeader";
-import type { GlHeaderProps } from "./GlHeader";
+import { GlHeader } from "./GlHeader/GlHeader";
+import type { GlHeaderProps } from "./GlHeader/GlHeader";
 import { GlHero } from "./GlHero";
 import type { GlHeroProps } from "./GlHero";
 import { GlSections } from "./GlSections";

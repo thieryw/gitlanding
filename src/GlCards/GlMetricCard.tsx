@@ -44,7 +44,6 @@ const getUseClassNames = () => {
                 ? {
                       "fontSize": "18px",
                       "lineHeight": "28px",
-                      "textTransform": "uppercase",
                   }
                 : {}),
         },

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
-import { cx, css } from "tss-react";
+import { cx } from "tss-react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import { GlLogo } from "../GlLogo";
@@ -17,62 +17,61 @@ export type GlLogoCardProps = GlCardProps & {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{ numberOfIcons: number }>()(
-        (theme, { numberOfIcons }) => ({
-            "root": {
-                "padding": theme.spacing(3),
-                "boxShadow": theme.shadows[1],
-                "display": "flex",
-                "flexDirection": "column",
-                "justifyContent": "space-between",
-                "alignItems": "center",
-                ...(theme.responsive.down("lg")
-                    ? {
-                          "margin": theme.spacing(1),
-                      }
-                    : {}),
-            },
+    const { useClassNames } = createUseClassNames()(theme => ({
+        "root": {
+            "padding": theme.spacing(3),
+            "boxShadow": theme.shadows[1],
+            "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            ...(theme.responsive.down("lg")
+                ? {
+                      "margin": theme.spacing(1),
+                  }
+                : {}),
+        },
 
-            "iconWrapper": {
-                "display": "grid",
-                "columnGap": numberOfIcons < 3 ? theme.spacing(2) : undefined,
-                "gridTemplateColumns":
-                    numberOfIcons >= 3 ? "repeat(auto-fit,  minmax(10px, max-content))" : undefined,
-                "gridAutoFlow": numberOfIcons < 3 ? "column" : undefined,
-                "width": numberOfIcons >= 3 ? (numberOfIcons - 1) * 50 : undefined,
-            },
+        "iconWrapper": {
+            "display": "grid",
+            "columnGap": theme.spacing(2),
+            "gridAutoFlow": "column",
+        },
 
-            "icon": {
+        "icon": {
+            "width": 50,
+            "height": 50,
+            "fill": theme.colors.palette.focus.main,
+            "& svg": {
                 "width": 50,
                 "height": 50,
-                "fill": theme.colors.palette.focus.main,
             },
-            "title": {
-                "marginTop": theme.spacing(3),
-                ...(theme.responsive.down("lg")
-                    ? {
-                          "fontSize": "18px",
-                          "lineHeight": "20px",
-                      }
-                    : {}),
-            },
+        },
+        "title": {
+            "marginTop": theme.spacing(3),
+            ...(theme.responsive.down("lg")
+                ? {
+                      "fontSize": "18px",
+                      "lineHeight": "20px",
+                  }
+                : {}),
+        },
 
-            "paragraph": {
-                "marginTop": theme.spacing(3),
+        "paragraph": {
+            "marginTop": theme.spacing(3),
 
-                ...(theme.responsive.down("lg")
-                    ? {
-                          "fontSize": "16px",
-                          "lineHeight": "2Opx",
-                      }
-                    : {}),
-            },
+            ...(theme.responsive.down("lg")
+                ? {
+                      "fontSize": "16px",
+                      "lineHeight": "2Opx",
+                  }
+                : {}),
+        },
 
-            "description": {
-                "textAlign": "center",
-            },
-        }),
-    );
+        "description": {
+            "textAlign": "center",
+        },
+    }));
 
     return { useClassNames };
 };
@@ -82,26 +81,14 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({
-        "numberOfIcons": iconUrls !== undefined ? iconUrls.length : 0,
-    });
+    const { classNames } = useClassNames({});
 
     return (
         <GlCard link={link} className={cx(classNames.root, className)}>
             {iconUrls && (
                 <div className={classNames.iconWrapper}>
                     {iconUrls.map((url, index) => (
-                        <GlLogo
-                            className={cx(
-                                classNames.icon,
-                                css({
-                                    "zIndex":
-                                        iconUrls !== undefined ? iconUrls?.length - index : undefined,
-                                }),
-                            )}
-                            logoUrl={url}
-                            key={index}
-                        />
+                        <GlLogo className={cx(classNames.icon)} logoUrl={url} key={index} />
                     ))}
                 </div>
             )}

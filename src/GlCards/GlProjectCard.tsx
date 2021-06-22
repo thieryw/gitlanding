@@ -17,8 +17,6 @@ export type GlProjectCardProps = GlCardProps & {
     };
     button?: {
         title: string;
-        color?: string;
-        backgroundColor?: string;
     };
 };
 
@@ -46,6 +44,7 @@ const getUseClassNames = () => {
         button: GlProjectCardProps["button"];
     }>()((theme, { background, button }) => ({
         "root": {
+            "display": "flex",
             "minHeight": 591,
             ...(theme.responsive.down(1440)
                 ? {
@@ -60,7 +59,26 @@ const getUseClassNames = () => {
                   }
                 : {}),
         },
-        "tagWithBackground": {
+
+        "footer": {
+            "backgroundColor": theme.isDarkModeEnabled
+                ? theme.colors.palette.dark.greyVariant1
+                : theme.colors.palette.light.light,
+            "padding": [2, 3, 2, 3].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+        },
+
+        "footerH5": {
+            "marginBottom": theme.spacing(1.25),
+        },
+
+        "footerH6": {
+            "marginBottom": theme.spacing(1.25),
+        },
+
+        "header": {
+            "flex": 1,
+            "width": "100%",
+            "margin": 0,
             "background": (() => {
                 if (background === undefined) {
                     return theme.isDarkModeEnabled
@@ -76,53 +94,24 @@ const getUseClassNames = () => {
             })(),
             "backgroundSize": "cover",
         },
-
-        "footer": {
-            "backgroundColor": theme.isDarkModeEnabled
-                ? theme.colors.palette.dark.greyVariant1
-                : theme.colors.palette.light.light,
-            "padding": [2, 3, 2, 3].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
-            ...(theme.responsive.down("lg")
-                ? {
-                      "height": "unset",
-                  }
-                : {}),
-        },
-
-        "footerH5": {
-            "marginBottom": theme.spacing(1.25),
-        },
-
-        "footerH6": {
-            "marginBottom": theme.spacing(1.25),
-        },
-
-        "header": {
-            "flex": 1,
-            "width": "100%",
-            "margin": 0,
-        },
         "buttonWrapper": {
             "display": "flex",
             "justifyContent": "flex-end",
-            ...(() => {
+            "padding": theme.spacing(2),
+            /*...(() => {
                 const value = theme.spacing(2);
 
                 return {
                     "paddingTop": value,
                     "paddingRight": value,
                 };
-            })(),
+            })(),*/
         },
         "button":
             button === undefined
                 ? {}
                 : {
                       "alignSelf": "right",
-                      "color": `${button.color} !important`,
-                      "borderColor": "unset !important",
-                      "backgroundColor": `${button.backgroundColor} !important`,
-                      "border": "unset !important",
                   },
     }));
 
@@ -141,7 +130,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
 
     return (
         <GlCard className={cx(classNames.root, className)}>
-            <div className={cx(classNames.tagWithBackground, classNames.header)}>
+            <div className={classNames.header}>
                 <div className={classNames.buttonWrapper}>
                     {button !== undefined && (
                         <GlButton

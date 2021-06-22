@@ -12,6 +12,6 @@ export const GlLogo = memo((props: GlLogoProps) => {
     return logoUrl.endsWith(".svg") ? (
         <ReactSVG src={logoUrl} className={className} />
     ) : (
-        <img style={{}} src={logoUrl} className={className} alt="logo" />
+        <img src={logoUrl} className={className} alt="logo" />
     );
 });

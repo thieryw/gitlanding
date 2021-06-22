@@ -9,7 +9,7 @@ import { cx } from "tss-react";
 export type GlCardsProps = {
     className?: string;
     title?: string;
-    children: ReactNode;
+    children?: ReactNode;
 };
 
 const getUseClassNames = () => {
@@ -19,7 +19,6 @@ const getUseClassNames = () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }>()(theme => ({
         "root": {
-            "marginBottom": theme.spacing(5),
             ...(() => {
                 const value = theme.spacing(12.5);
 
@@ -42,23 +41,16 @@ const getUseClassNames = () => {
                   }
                 : {}),
         },
+
         "title": {
-            "marginBottom": theme.spacing(7.5),
-            "marginTop": theme.spacing(17.25),
-            ...(theme.responsive.down("sm")
-                ? {
-                      "marginTop": theme.spacing(8),
-                  }
-                : {}),
-        },
-
-        "seeMoreLink": {
-            "color": theme.colors.palette.orangeWarning.main,
-            "cursor": "pointer",
-        },
-
-        "sectionTitle": {
-            "marginLeft": theme.spacing(2),
+            "textAlign": "center",
+            ...(() => {
+                const value = theme.spacing(5);
+                return {
+                    "marginTop": value,
+                    "marginBottom": value,
+                };
+            })(),
             ...(theme.responsive.down("lg")
                 ? {
                       "fontSize": "22px",
@@ -71,8 +63,12 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexWrap": "wrap",
             "& > *": {
-                "flex": `1 1 33%`,
-
+                "flex": `1 1 30%`,
+                ...(theme.responsive.down(1400)
+                    ? {
+                          "flex": "1 1 40%",
+                      }
+                    : {}),
                 ...(theme.responsive.down(686)
                     ? {
                           "flex": "1 1 100%",
@@ -94,7 +90,7 @@ export const GlCards = memo((props: GlCardsProps) => {
     return (
         <section className={cx(classNames.root, className)}>
             {title && (
-                <Typography className={classNames.sectionTitle} variant="h2">
+                <Typography className={classNames.title} variant="h2">
                     {title}
                 </Typography>
             )}

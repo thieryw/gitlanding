@@ -1,7 +1,7 @@
 import { cx } from "tss-react";
 import { memo, useEffect } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-import { getThemeApi } from "./theme";
+import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
 type GlGithubStarCountProps = {
@@ -49,16 +49,11 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
             <a
                 className="github-button"
                 href={repoUrl}
-                data-color-scheme={(() => {
-                    return ["no-preference", "light", "dark"]
-                        .map(
-                            prefix =>
-                                `${prefix}: ${
-                                    useIsDarkModeEnabled().isDarkModeEnabled ? "dark" : "light"
-                                }`,
-                        )
-                        .join("\n");
-                })()}
+                data-color-scheme={`
+                    no-preference: light;
+                    light: light;
+                    dark: ${useIsDarkModeEnabled().isDarkModeEnabled ? "light" : "dark"};
+                `}
                 data-icon="octicon-star"
                 data-size={size === "large" ? "large" : ""}
                 data-show-count="true"
