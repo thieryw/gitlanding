@@ -11,6 +11,7 @@ import {
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import { id } from "tsafe/id";
+import { cx, css } from "tss-react";
 import "onyxia-ui/assets/fonts/work-sans.css";
 
 const { ThemeProvider, useTheme } = createThemeProvider({
@@ -31,8 +32,9 @@ export function getStoryFactory<Props>(params: {
         ([, component]) => component,
     )[0];
 
-    const Template: Story<Props & { darkMode: boolean }> = ({
+    const Template: Story<Props & { darkMode: boolean; width: number }> = ({
         darkMode,
+        width,
         ...props
     }) => {
         const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
@@ -51,6 +53,7 @@ export function getStoryFactory<Props>(params: {
                             style={{
                                 "backgroundColor":
                                     theme.colors.useCases.surfaces.background,
+                                "width": width !== 0 ? width : undefined,
                             }}
                         >
                             <div
@@ -72,6 +75,7 @@ export function getStoryFactory<Props>(params: {
 
         out.args = {
             "darkMode": false,
+            "width": 0,
             ...props,
         };
 
@@ -84,6 +88,17 @@ export function getStoryFactory<Props>(params: {
                 (sectionName !== undefined ? `${sectionName}/` : "") +
                 symToStr(wrappedComponent),
             "component": Component,
+            // https://storybook.js.org/docs/react/essentials/controls
+            "argTypes": {
+                "width": {
+                    "control": {
+                        "type": "range",
+                        "min": 0,
+                        "max": 1920,
+                        "step": 1,
+                    },
+                },
+            },
         }),
         getStory,
     };
