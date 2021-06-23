@@ -19,15 +19,16 @@ import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 export type GlHeaderProps = {
     className?: string;
     title?: ReactNode;
-    menuItems?: {
-        name: string;
-        link?: {
-            href?: string;
+    links?: {
+        label: string;
+        link: {
+            href: string;
             onClick?(): void;
         };
     }[];
     enableDarkModeSwitch?: boolean;
-    githubStarCount?: GlGithubStarCountProps;
+    githubRepoUrl?: GlGithubStarCountProps["repoUrl"];
+    githubButtonSize?: GlGithubStarCountProps["size"];
 };
 
 const getUseClassNames = () => {
@@ -40,14 +41,7 @@ const getUseClassNames = () => {
             "width": "100%",
             "gap": theme.spacing(4),
             "height": 80,
-            ...(() => {
-                const value = theme.spacing(4);
-
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
+            "padding": theme.spacing(0, 4),
         },
         "title": {
             "flex": 1,
@@ -76,9 +70,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const {
         className,
         title,
-        menuItems,
+        links,
         enableDarkModeSwitch,
-        githubStarCount,
+        githubButtonSize,
+        githubRepoUrl,
     } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
@@ -97,16 +92,19 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             </div>
 
             <div className={classNames.linkWrapper}>
-                {menuItems !== undefined &&
-                    menuItems.map(({ link, name }) => (
-                        <Link className={classNames.link} key={name} {...link}>
-                            {name}
+                {links !== undefined &&
+                    links.map(({ link, label }) => (
+                        <Link className={classNames.link} key={label} {...link}>
+                            {label}
                         </Link>
                     ))}
             </div>
 
-            {githubStarCount !== undefined && (
-                <GlGithubStarCount {...githubStarCount} />
+            {githubRepoUrl !== undefined && (
+                <GlGithubStarCount
+                    repoUrl={githubRepoUrl}
+                    size={githubButtonSize}
+                />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
