@@ -167,7 +167,14 @@ export declare namespace GlSectionProps {
 }
 
 export const GlSection = memo((props: GlSectionProps) => {
-    const { article, illustration, isRowReverse, className, cardSection, title } = props;
+    const {
+        article,
+        illustration,
+        isRowReverse,
+        className,
+        cardSection,
+        title,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -187,7 +194,9 @@ export const GlSection = memo((props: GlSectionProps) => {
                 <article className={classNames.articleAndImageWrapper}>
                     {article && (
                         <div className={classNames.article}>
-                            <Typography variant="h2">{article.title}</Typography>
+                            <Typography variant="h2">
+                                {article.title}
+                            </Typography>
                             <ReactMarkdown>{article.paragraphMd}</ReactMarkdown>
                             {article.button && (
                                 <div
@@ -217,14 +226,20 @@ export const GlSection = memo((props: GlSectionProps) => {
                             <GlImage
                                 url={illustration.url}
                                 alt={illustration.alt}
-                                className={cx(classNames.illustration, illustration.className)}
+                                className={cx(
+                                    classNames.illustration,
+                                    illustration.className,
+                                )}
                             />
                         ) : (
                             <GlCode
                                 text={illustration.text}
                                 language={illustration.language}
                                 showLineNumbers={illustration.showLineNumbers}
-                                className={cx(classNames.illustration, illustration.className)}
+                                className={cx(
+                                    classNames.illustration,
+                                    illustration.className,
+                                )}
                             />
                         ))}
                 </article>

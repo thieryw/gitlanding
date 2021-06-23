@@ -40,7 +40,10 @@ export const GlCard = memo((props: GlCardProps) => {
 
     return (
         <div
-            onClick={link?.onClick ?? (() => (window.location.href = link?.href ?? "#"))}
+            onClick={
+                link?.onClick ??
+                (() => (window.location.href = link?.href ?? "#"))
+            }
             className={cx(classNames.root, className)}
         >
             {children}

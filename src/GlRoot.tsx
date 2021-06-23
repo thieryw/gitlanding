@@ -28,27 +28,34 @@ export const { GlRoot } = (() => {
         const getUseClassNames = () => {
             const { createUseClassNames } = getThemeApi();
 
-            const { useClassNames } = createUseClassNames<{ doUseZoomProvider: boolean }>()(
-                (...[, { doUseZoomProvider }]) => ({
-                    "root": {
-                        "height": doUseZoomProvider ? "100%" : "100vh",
-                        "display": "flex",
-                        "flexDirection": "column",
-                        "overflow": "hidden",
-                    },
-                    "scrollWrapper": {
-                        "flex": 1,
-                        "overflow": "auto",
-                        "scrollBehavior": "smooth",
-                    },
-                }),
-            );
+            const { useClassNames } = createUseClassNames<{
+                doUseZoomProvider: boolean;
+            }>()((...[, { doUseZoomProvider }]) => ({
+                "root": {
+                    "height": doUseZoomProvider ? "100%" : "100vh",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "overflow": "hidden",
+                },
+                "scrollWrapper": {
+                    "flex": 1,
+                    "overflow": "auto",
+                    "scrollBehavior": "smooth",
+                },
+            }));
 
             return { useClassNames };
         };
 
         const GlRootInner = memo((props: GlRootProps) => {
-            const { cardSection, footer, header, hero, mainSection, reviewSlider } = props;
+            const {
+                cardSection,
+                footer,
+                header,
+                hero,
+                mainSection,
+                reviewSlider,
+            } = props;
 
             const [{ useClassNames }] = useState(() => getUseClassNames());
 
@@ -72,7 +79,9 @@ export const { GlRoot } = (() => {
                             />
                         )}
 
-                        {cardSection !== undefined && <GlCards {...cardSection} />}
+                        {cardSection !== undefined && (
+                            <GlCards {...cardSection} />
+                        )}
 
                         {reviewSlider !== undefined && (
                             <GlReviewSlider
@@ -91,7 +100,10 @@ export const { GlRoot } = (() => {
     })();
 
     const GlRoot = memo((props: GlRootProps) => {
-        const { ThemeProviderOrId } = useGuaranteedMemo(() => getThemeApi(), []);
+        const { ThemeProviderOrId } = useGuaranteedMemo(
+            () => getThemeApi(),
+            [],
+        );
 
         return (
             <ThemeProviderOrId>

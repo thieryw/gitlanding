@@ -35,11 +35,15 @@ export function overwriteTheme(params: {
 
     ThemeProvider = params.ThemeProvider;
     useTheme = params.useTheme;
-    createUseClassNames = createUseClassNamesFactory({ useTheme }).createUseClassNames;
+    createUseClassNames = createUseClassNamesFactory({
+        useTheme,
+    }).createUseClassNames;
 }
 
 export const { getThemeApi } = (() => {
-    const Id: typeof ThemeProvider = (props: { children: ReactNode }) => <>{props.children}</>;
+    const Id: typeof ThemeProvider = (props: { children: ReactNode }) => (
+        <>{props.children}</>
+    );
 
     function getThemeApi() {
         return {

@@ -88,7 +88,11 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
             {iconUrls && (
                 <div className={classNames.iconWrapper}>
                     {iconUrls.map((url, index) => (
-                        <GlLogo className={cx(classNames.icon)} logoUrl={url} key={index} />
+                        <GlLogo
+                            className={cx(classNames.icon)}
+                            logoUrl={url}
+                            key={index}
+                        />
                     ))}
                 </div>
             )}
@@ -100,7 +104,10 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     </Typography>
                 )}
                 {paragraph !== undefined && (
-                    <Typography variant="body1" className={classNames.paragraph}>
+                    <Typography
+                        variant="body1"
+                        className={classNames.paragraph}
+                    >
                         {paragraph}
                     </Typography>
                 )}

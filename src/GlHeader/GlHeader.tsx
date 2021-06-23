@@ -73,7 +73,13 @@ const getUseClassNames = () => {
 };
 
 export const GlHeader = memo((props: GlHeaderProps) => {
-    const { className, title, menuItems, enableDarkModeSwitch, githubStarCount } = props;
+    const {
+        className,
+        title,
+        menuItems,
+        enableDarkModeSwitch,
+        githubStarCount,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -83,7 +89,11 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         <header className={cx(classNames.root, className)}>
             <div className={classNames.title}>
                 {title !== undefined &&
-                    (typeof title === "string" ? <Typography variant="h3">{title}</Typography> : title)}
+                    (typeof title === "string" ? (
+                        <Typography variant="h3">{title}</Typography>
+                    ) : (
+                        title
+                    ))}
             </div>
 
             <div className={classNames.linkWrapper}>
@@ -95,9 +105,13 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     ))}
             </div>
 
-            {githubStarCount !== undefined && <GlGithubStarCount {...githubStarCount} />}
+            {githubStarCount !== undefined && (
+                <GlGithubStarCount {...githubStarCount} />
+            )}
 
-            {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && <GlDarkModeSwitch />}
+            {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
+                <GlDarkModeSwitch />
+            )}
         </header>
     );
 });

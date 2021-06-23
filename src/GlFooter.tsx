@@ -58,7 +58,9 @@ const getUseClassNames = () => {
                 }
 
                 return `center no-repeat url(${
-                    theme.isDarkModeEnabled ? background.colorOrUrlDark : background.colorOrUrlLight
+                    theme.isDarkModeEnabled
+                        ? background.colorOrUrlDark
+                        : background.colorOrUrlLight
                 })`;
             })(),
             "backgroundSize": (() => {
@@ -122,7 +124,10 @@ export const GlFooter = memo((props: GlFooter) => {
                         {items.map(({ link, name, logoUrl }) => (
                             <Link {...link} key={name}>
                                 {logoUrl !== undefined && (
-                                    <GlLogo logoUrl={logoUrl} className={classNames.logoSvg} />
+                                    <GlLogo
+                                        logoUrl={logoUrl}
+                                        className={classNames.logoSvg}
+                                    />
                                 )}
                                 <Typography>{name}</Typography>
                             </Link>

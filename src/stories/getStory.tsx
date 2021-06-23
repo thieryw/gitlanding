@@ -3,7 +3,11 @@ import type { Meta } from "@storybook/react";
 import type { Story } from "@storybook/react";
 import { useEffect } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createThemeProvider, useIsDarkModeEnabled, defaultGetTypography } from "onyxia-ui/lib";
+import {
+    createThemeProvider,
+    useIsDarkModeEnabled,
+    defaultGetTypography,
+} from "onyxia-ui/lib";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import { id } from "tsafe/id";
@@ -23,9 +27,14 @@ export function getStoryFactory<Props>(params: {
 }) {
     const { sectionName, wrappedComponent } = params;
 
-    const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
+    const Component: any = Object.entries(wrappedComponent).map(
+        ([, component]) => component,
+    )[0];
 
-    const Template: Story<Props & { darkMode: boolean }> = ({ darkMode, ...props }) => {
+    const Template: Story<Props & { darkMode: boolean }> = ({
+        darkMode,
+        ...props
+    }) => {
         const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
 
         useEffect(() => {
@@ -40,7 +49,8 @@ export function getStoryFactory<Props>(params: {
                     <Box clone p={4} m={2} display="inline-block">
                         <Paper
                             style={{
-                                "backgroundColor": theme.colors.useCases.surfaces.background,
+                                "backgroundColor":
+                                    theme.colors.useCases.surfaces.background,
                             }}
                         >
                             <div
@@ -70,17 +80,24 @@ export function getStoryFactory<Props>(params: {
 
     return {
         "meta": id<Meta>({
-            "title": (sectionName !== undefined ? `${sectionName}/` : "") + symToStr(wrappedComponent),
+            "title":
+                (sectionName !== undefined ? `${sectionName}/` : "") +
+                symToStr(wrappedComponent),
             "component": Component,
         }),
         getStory,
     };
 }
 
-export function logCallbacks<T extends string>(propertyNames: readonly T[]): Record<T, () => void> {
+export function logCallbacks<T extends string>(
+    propertyNames: readonly T[],
+): Record<T, () => void> {
     const out: Record<T, () => void> = id<Record<string, never>>({});
 
-    propertyNames.forEach(propertyName => (out[propertyName] = console.log.bind(console, propertyName)));
+    propertyNames.forEach(
+        propertyName =>
+            (out[propertyName] = console.log.bind(console, propertyName)),
+    );
 
     return out;
 }

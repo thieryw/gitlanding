@@ -145,8 +145,12 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
 
-    const onClickPrev = useConstCallback(() => emblaApi && emblaApi.scrollPrev());
-    const onClickNext = useConstCallback(() => emblaApi && emblaApi.scrollNext());
+    const onClickPrev = useConstCallback(
+        () => emblaApi && emblaApi.scrollPrev(),
+    );
+    const onClickNext = useConstCallback(
+        () => emblaApi && emblaApi.scrollNext(),
+    );
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -154,7 +158,11 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
 
     return (
         <div className={cx(classNames.root, className)}>
-            <Icon id="arrowBackIos" className={classNames.arrows} onClick={onClickPrev} />
+            <Icon
+                id="arrowBackIos"
+                className={classNames.arrows}
+                onClick={onClickPrev}
+            />
 
             <div className={classNames.viewport} ref={emblaRef}>
                 <div className={classNames.container}>
@@ -165,10 +173,15 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
                         >
                             <Paper className={classNames.paper}>
                                 {review.logoUrl !== undefined && (
-                                    <GlLogo logoUrl={review.logoUrl} className={classNames.logo} />
+                                    <GlLogo
+                                        logoUrl={review.logoUrl}
+                                        className={classNames.logo}
+                                    />
                                 )}
                                 <div>
-                                    <ReactMarkdown>{review.descriptionMd}</ReactMarkdown>
+                                    <ReactMarkdown>
+                                        {review.descriptionMd}
+                                    </ReactMarkdown>
                                     <Typography>{review.signature}</Typography>
                                 </div>
                             </Paper>
@@ -176,7 +189,11 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
                     ))}
                 </div>
             </div>
-            <Icon id="arrowForwardIos" className={classNames.arrows} onClick={onClickNext} />
+            <Icon
+                id="arrowForwardIos"
+                className={classNames.arrows}
+                onClick={onClickNext}
+            />
         </div>
     );
 });

@@ -94,13 +94,19 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
             {heading && (
                 <div className={classNames.heading}>
                     {heading.number !== undefined && (
-                        <Typography className={classNames.headingMetric} variant="h1">
+                        <Typography
+                            className={classNames.headingMetric}
+                            variant="h1"
+                        >
                             {heading.number}
                         </Typography>
                     )}
 
                     {heading.iconUrl !== undefined && (
-                        <GlLogo className={cx(classNames.icon)} logoUrl={heading.iconUrl} />
+                        <GlLogo
+                            className={cx(classNames.icon)}
+                            logoUrl={heading.iconUrl}
+                        />
                     )}
                 </div>
             )}
@@ -113,7 +119,12 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
 
             {button && (
                 <div className={classNames.buttonWrapper}>
-                    <GlButton type="submit" color="secondary" href={link?.href} onClick={link?.onClick}>
+                    <GlButton
+                        type="submit"
+                        color="secondary"
+                        href={link?.href}
+                        onClick={link?.onClick}
+                    >
                         {button.title}
                     </GlButton>
                 </div>

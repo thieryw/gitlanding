@@ -64,7 +64,9 @@ const getUseClassNames = () => {
             "backgroundColor": theme.isDarkModeEnabled
                 ? theme.colors.palette.dark.greyVariant1
                 : theme.colors.palette.light.light,
-            "padding": [2, 3, 2, 3].map(spacing => `${theme.spacing(spacing)}px`).join(" "),
+            "padding": [2, 3, 2, 3]
+                .map(spacing => `${theme.spacing(spacing)}px`)
+                .join(" "),
         },
 
         "footerH5": {
@@ -147,17 +149,25 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
             {footer !== undefined && (
                 <div className={classNames.footer}>
                     {footer.title !== undefined && (
-                        <Typography variant="h5" className={classNames.footerH5}>
+                        <Typography
+                            variant="h5"
+                            className={classNames.footerH5}
+                        >
                             {footer.title}
                         </Typography>
                     )}
                     {footer.subTitle !== undefined && (
-                        <Typography variant="subtitle1" className={classNames.footerH6}>
+                        <Typography
+                            variant="subtitle1"
+                            className={classNames.footerH6}
+                        >
                             {footer.subTitle}
                         </Typography>
                     )}
                     {footer.date !== undefined && (
-                        <Typography variant="subtitle1">{footer.date}</Typography>
+                        <Typography variant="subtitle1">
+                            {footer.date}
+                        </Typography>
                     )}
                 </div>
             )}

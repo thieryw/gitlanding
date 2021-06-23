@@ -46,7 +46,9 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
                 href={repoUrl}
                 data-color-scheme={[
                     "no-preference: light;",
-                    ...["light", "dark"].map(osPref => `${osPref}: ${themeVariant};`),
+                    ...["light", "dark"].map(
+                        osPref => `${osPref}: ${themeVariant};`,
+                    ),
                 ].join("\n")}
                 data-icon="octicon-star"
                 data-size={size === "large" ? size : ""}

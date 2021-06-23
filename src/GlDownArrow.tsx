@@ -39,5 +39,7 @@ export const GlDownArrow = memo((props: GlDownArrowProps) => {
     const { className } = props;
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
     const { classNames } = useClassNames({});
-    return <ReactSVG className={cx(className, classNames.root)} src={downArrow} />;
+    return (
+        <ReactSVG className={cx(className, classNames.root)} src={downArrow} />
+    );
 });

@@ -192,7 +192,11 @@ const getUseClassNames = () => {
                 }
 
                 return `
-                    url("${theme.isDarkModeEnabled ? background.imageUrl : background.imageUrl}")
+                    url("${
+                        theme.isDarkModeEnabled
+                            ? background.imageUrl
+                            : background.imageUrl
+                    }")
                 `;
             })(),
             "backgroundRepeat": "no-repeat",
@@ -250,7 +254,14 @@ const getUseClassNames = () => {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { image, titleMd, subTitleMd, background, className, scrollDownButton } = props;
+    const {
+        image,
+        titleMd,
+        subTitleMd,
+        background,
+        className,
+        scrollDownButton,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -267,7 +278,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                         </Typography>
                     )}
                     {subTitleMd && (
-                        <Typography variant="h3" className={classNames.subtitle}>
+                        <Typography
+                            variant="h3"
+                            className={classNames.subtitle}
+                        >
                             <ReactMarkdown>{subTitleMd}</ReactMarkdown>
                         </Typography>
                     )}
