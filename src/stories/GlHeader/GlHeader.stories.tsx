@@ -28,7 +28,10 @@ const props: GlHeaderProps = {
         },
     ],
     "enableDarkModeSwitch": true,
-    "githubRepoUrl": "",
+    "githubStarCount": {
+        "repoUrl": "",
+        "size": "large",
+    },
 };
 /* spell-checker: enabled */
 

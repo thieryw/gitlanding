@@ -10,6 +10,6 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const VueDefault = getStory({
-    "size": "normal",
+    "size": "large",
     "repoUrl": "",
 });

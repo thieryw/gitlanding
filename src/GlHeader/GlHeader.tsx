@@ -14,6 +14,7 @@ import { useGuaranteedMemo } from "powerhooks";
 import type { ReactNode } from "react";
 import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";
+import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 
 export type GlHeaderProps = {
     className?: string;
@@ -26,7 +27,7 @@ export type GlHeaderProps = {
         };
     }[];
     enableDarkModeSwitch?: boolean;
-    githubRepoUrl?: string;
+    githubStarCount?: GlGithubStarCountProps;
 };
 
 const getUseClassNames = () => {
@@ -72,7 +73,7 @@ const getUseClassNames = () => {
 };
 
 export const GlHeader = memo((props: GlHeaderProps) => {
-    const { className, title, menuItems, enableDarkModeSwitch, githubRepoUrl } = props;
+    const { className, title, menuItems, enableDarkModeSwitch, githubStarCount } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
@@ -94,7 +95,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     ))}
             </div>
 
-            {githubRepoUrl !== undefined && <GlGithubStarCount size="large" repoUrl="" />}
+            {githubStarCount !== undefined && <GlGithubStarCount {...githubStarCount} />}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && <GlDarkModeSwitch />}
         </header>

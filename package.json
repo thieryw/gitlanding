@@ -59,7 +59,8 @@
         "react-svg": "^13.0.4",
         "tsafe": "^0.4.0",
         "tss-react": "^0.0.12",
-        "typeface-work-sans": "^1.1.13"
+        "typeface-work-sans": "^1.1.13",
+        "react-github-btn": "^1.2.0"
     },
     "devDependencies": {
         "@storybook/addon-actions": "^6.2.9",
