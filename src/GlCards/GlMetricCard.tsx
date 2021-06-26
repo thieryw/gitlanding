@@ -10,14 +10,10 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 
 export type GlMetricCardProps = GlCardProps & {
-    heading?: {
-        number?: number;
-        iconUrl?: string;
-    };
+    number?: number;
+    iconUrl?: string;
     subHeading?: string;
-    button?: {
-        title: string;
-    };
+    buttonLabel?: string;
 };
 
 const getUseClassNames = () => {
@@ -81,35 +77,28 @@ const getUseClassNames = () => {
 };
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
-    const { button, link, className, heading, subHeading } = props;
+    const { buttonLabel, link, className, iconUrl, subHeading, number } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({
-        "hasButton": button !== undefined,
-    });
+    const { classNames } = useClassNames({});
 
     return (
         <GlCard className={cx(classNames.root, className)} link={link}>
-            {heading && (
-                <div className={classNames.heading}>
-                    {heading.number !== undefined && (
-                        <Typography
-                            className={classNames.headingMetric}
-                            variant="h1"
-                        >
-                            {heading.number}
-                        </Typography>
-                    )}
+            <div className={classNames.heading}>
+                {number !== undefined && (
+                    <Typography
+                        className={classNames.headingMetric}
+                        variant="h1"
+                    >
+                        {number}
+                    </Typography>
+                )}
 
-                    {heading.iconUrl !== undefined && (
-                        <GlLogo
-                            className={cx(classNames.icon)}
-                            logoUrl={heading.iconUrl}
-                        />
-                    )}
-                </div>
-            )}
+                {iconUrl !== undefined && (
+                    <GlLogo className={cx(classNames.icon)} logoUrl={iconUrl} />
+                )}
+            </div>
 
             {subHeading && (
                 <Typography className={classNames.subHeading} variant="h3">
@@ -117,7 +106,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 </Typography>
             )}
 
-            {button && (
+            {buttonLabel && (
                 <div className={classNames.buttonWrapper}>
                     <GlButton
                         type="submit"
@@ -125,7 +114,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                         href={link?.href}
                         onClick={link?.onClick}
                     >
-                        {button.title}
+                        {buttonLabel}
                     </GlButton>
                 </div>
             )}
