@@ -19,12 +19,10 @@ export const Vue = getStory({
         <>
             {[13, 14, 15].map(index => (
                 <GlMetricCard
-                    button={{ "title": "Gloria" }}
+                    buttonLabel="Gloria"
                     key={index}
-                    heading={{
-                        "number": index,
-                        "iconUrl": twitterImgUrl,
-                    }}
+                    number={index}
+                    iconUrl={twitterImgUrl}
                     subHeading="et in terra pax hominibus bonae voluntatis"
                 />
             ))}

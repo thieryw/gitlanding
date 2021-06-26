@@ -13,12 +13,8 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const Vue = getStory({
-    "heading": {
-        "number": 13,
-        "iconUrl": twitterImgUrl,
-    },
+    "number": 13,
+    "iconUrl": twitterImgUrl,
     "subHeading": "Lorem Ipsum",
-    "button": {
-        "title": "Button",
-    },
+    "buttonLabel": "Button",
 });
