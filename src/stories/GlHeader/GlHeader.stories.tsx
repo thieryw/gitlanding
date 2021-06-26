@@ -13,25 +13,23 @@ export default meta;
 /* spell-checker: disable */
 const props: GlHeaderProps = {
     "title": "Lorem Ipsum",
-    "menuItems": [
+    "links": [
         {
-            "name": "Gloria",
+            "label": "Gloria",
             "link": { "href": "#" },
         },
         {
-            "name": "In Excelsis",
+            "label": "In Excelsis",
             "link": { "href": "#" },
         },
         {
-            "name": "Deo",
+            "label": "Deo",
             "link": { "href": "#" },
         },
     ],
     "enableDarkModeSwitch": true,
-    "githubStarCount": {
-        "repoUrl": "",
-        "size": "large",
-    },
+    "githubButtonSize": "large",
+    "githubRepoUrl": "",
 };
 /* spell-checker: enabled */
 

@@ -11,7 +11,6 @@ import {
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import { id } from "tsafe/id";
-import { cx, css } from "tss-react";
 import "onyxia-ui/assets/fonts/work-sans.css";
 
 const { ThemeProvider, useTheme } = createThemeProvider({

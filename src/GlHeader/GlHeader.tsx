@@ -15,6 +15,7 @@ import type { ReactNode } from "react";
 import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./GlGithubStarCount";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 
 export type GlHeaderProps = {
     className?: string;
@@ -42,6 +43,7 @@ const getUseClassNames = () => {
             "gap": theme.spacing(4),
             "height": 80,
             "padding": theme.spacing(0, 4),
+            "flexWrap": "wrap",
         },
         "title": {
             "flex": 1,
@@ -49,17 +51,12 @@ const getUseClassNames = () => {
         "linkWrapper": {
             "display": "flex",
             "gap": theme.spacing(4),
+            //"order": 123,
+            //"flex": "100%"
         },
 
         "link": {
             "color": theme.colors.useCases.typography.textPrimary,
-            "fontSize": "22px",
-            ...(theme.responsive.down("lg")
-                ? {
-                      "fontSize": "14px",
-                      "lineHeight": "24px",
-                  }
-                : {}),
         },
     }));
 
@@ -110,6 +107,8 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
                 <GlDarkModeSwitch />
             )}
+
+            <FormatListBulletedIcon />
         </header>
     );
 });

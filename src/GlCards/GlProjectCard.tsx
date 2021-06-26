@@ -9,40 +9,19 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 
 export type GlProjectCardProps = GlCardProps & {
-    background?: GlCardVariantProps.Background;
-    footer?: {
-        title?: string;
-        subTitle?: string;
-        date?: string;
-    };
-    button?: {
-        title: string;
-    };
+    projectImageUrl: string;
+    badgeLabel?: string;
+    title: string;
+    subtitle: string;
+    date?: string;
 };
-
-export declare namespace GlCardVariantProps {
-    export type Background = Background.Color | Background.Image;
-
-    export namespace Background {
-        export type Image = {
-            type: "image";
-            url: string;
-        };
-
-        export type Color = {
-            type: "color";
-            color: string;
-        };
-    }
-}
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        background: GlProjectCardProps["background"];
-        button: GlProjectCardProps["button"];
-    }>()((theme, { background, button }) => ({
+        projectImageUrl: string;
+    }>()((theme, { projectImageUrl }) => ({
         "root": {
             "display": "flex",
             "minHeight": 591,
@@ -81,96 +60,62 @@ const getUseClassNames = () => {
             "flex": 1,
             "width": "100%",
             "margin": 0,
-            "background": (() => {
-                if (background === undefined) {
-                    return theme.isDarkModeEnabled
-                        ? theme.colors.palette.dark.greyVariant3
-                        : theme.colors.palette.light.greyVariant3;
-                }
-
-                if (background.type === "color") {
-                    return background.color;
-                }
-
-                return `url(${background.url}) no-repeat center`;
-            })(),
+            "background": `url(${projectImageUrl}) no-repeat center`,
             "backgroundSize": "cover",
         },
         "buttonWrapper": {
             "display": "flex",
             "justifyContent": "flex-end",
             "padding": theme.spacing(2),
-            /*...(() => {
-                const value = theme.spacing(2);
-
-                return {
-                    "paddingTop": value,
-                    "paddingRight": value,
-                };
-            })(),*/
         },
-        "button":
-            button === undefined
-                ? {}
-                : {
-                      "alignSelf": "right",
-                  },
+        "badge": { "alignSelf": "right" },
     }));
 
     return { useClassNames };
 };
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
-    const { className, background, button, footer, link } = props;
+    const {
+        className,
+        date,
+        projectImageUrl,
+        subtitle,
+        title,
+        badgeLabel,
+        link,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({
-        background,
-        button,
-    });
+    const { classNames } = useClassNames({ projectImageUrl });
 
     return (
         <GlCard className={cx(classNames.root, className)}>
             <div className={classNames.header}>
                 <div className={classNames.buttonWrapper}>
-                    {button !== undefined && (
+                    {badgeLabel !== undefined && (
                         <GlButton
                             type="submit"
-                            className={classNames.button}
+                            className={classNames.badge}
                             href={link?.href}
                             onClick={link?.onClick}
                         >
-                            {button.title}
+                            {badgeLabel}
                         </GlButton>
                     )}
                 </div>
             </div>
-            {footer !== undefined && (
-                <div className={classNames.footer}>
-                    {footer.title !== undefined && (
-                        <Typography
-                            variant="h5"
-                            className={classNames.footerH5}
-                        >
-                            {footer.title}
-                        </Typography>
-                    )}
-                    {footer.subTitle !== undefined && (
-                        <Typography
-                            variant="subtitle1"
-                            className={classNames.footerH6}
-                        >
-                            {footer.subTitle}
-                        </Typography>
-                    )}
-                    {footer.date !== undefined && (
-                        <Typography variant="subtitle1">
-                            {footer.date}
-                        </Typography>
-                    )}
-                </div>
-            )}
+            <div className={classNames.footer}>
+                <Typography variant="h5" className={classNames.footerH5}>
+                    {title}
+                </Typography>
+                <Typography variant="subtitle1" className={classNames.footerH6}>
+                    {subtitle}
+                </Typography>
+                {date !== undefined && (
+                    <Typography variant="subtitle1">{date}</Typography>
+                )}
+            </div>
         </GlCard>
     );
 });
