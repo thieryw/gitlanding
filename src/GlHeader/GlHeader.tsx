@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-//import List from "@material-ui/core/List";
 import Link from "@material-ui/core/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { cx } from "tss-react";
-//import { useClickAway } from "powerhooks/useClickAway";
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
-//import { GlIcon } from "../GlIcon";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import type { ReactNode } from "react";
@@ -19,8 +16,8 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 
 export type GlHeaderProps = {
     className?: string;
-    title?: ReactNode;
-    links?: {
+    title: ReactNode;
+    links: {
         label: string;
         link: {
             href: string;
@@ -30,6 +27,7 @@ export type GlHeaderProps = {
     enableDarkModeSwitch?: boolean;
     githubRepoUrl?: GlGithubStarCountProps["repoUrl"];
     githubButtonSize?: GlGithubStarCountProps["size"];
+    isCollapsible?: boolean;
 };
 
 const getUseClassNames = () => {
@@ -43,7 +41,6 @@ const getUseClassNames = () => {
             "display": "flex",
             "alignItems": "center",
             "width": "100%",
-            "gap": theme.spacing(4),
             "padding": theme.spacing(2, 4),
             ...(theme.responsive.down("md")
                 ? {
@@ -52,12 +49,14 @@ const getUseClassNames = () => {
                 : {}),
         },
         "title": {
+            "display": "flex",
             "flex": 1,
+            "marginRight": theme.spacing(2),
         },
         "links": {
             "display": "flex",
-            "gap": theme.spacing(4),
             "transition": "height 300ms",
+            "flexWrap": "wrap",
             ...(theme.responsive.down("md")
                 ? {
                       "order": 123,
@@ -68,23 +67,60 @@ const getUseClassNames = () => {
                           ? (21 + theme.spacing(1)) * numberOfLinks
                           : 0,
                       "overflow": "hidden",
+                      "flexWrap": "nowrap",
                   }
                 : {}),
+        },
+
+        "linkWrapper": {
+            ...(() => {
+                const leftRight = theme.spacing(2);
+                const topBottom = theme.spacing(1);
+                return {
+                    "marginLeft": leftRight,
+                    "marginRight": leftRight,
+                    "marginTop": topBottom,
+                    "marginBottom": topBottom,
+                    ...(theme.responsive.down("md")
+                        ? {
+                              ...(() => {
+                                  const value = 0;
+                                  return {
+                                      "marginLeft": value,
+                                  };
+                              })(),
+                          }
+                        : {}),
+                };
+            })(),
         },
 
         "link": {
             "color": theme.colors.useCases.typography.textPrimary,
             "fontSize": "18px",
+            "whiteSpace": "nowrap",
         },
 
         "unfoldIcon": {
             "display": "none",
             "cursor": "pointer",
+            "marginLeft": theme.spacing(2),
             ...(theme.responsive.down("md")
                 ? {
                       "display": "flex",
                   }
                 : {}),
+        },
+
+        "githubStarAndDarkModeSwitch": {
+            ...(() => {
+                const value = theme.spacing(2);
+
+                return {
+                    "marginLeft": value,
+                    "marginRight": value,
+                };
+            })(),
         },
     }));
 
@@ -120,34 +156,37 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     return (
         <header className={cx(classNames.root, className)}>
             <div className={classNames.title}>
-                {title !== undefined &&
-                    (typeof title === "string" ? (
+                {typeof title === "string" ? (
+                    <div>
                         <Typography variant="h3">{title}</Typography>
-                    ) : (
-                        title
-                    ))}
+                    </div>
+                ) : (
+                    <div>{title}</div>
+                )}
             </div>
 
             <div className={classNames.links}>
-                {links !== undefined &&
-                    links.map(({ link, label }) => (
-                        <div key={label}>
-                            <Link className={classNames.link} {...link}>
-                                {label}
-                            </Link>
-                        </div>
-                    ))}
+                {links.map(({ link, label }) => (
+                    <div className={classNames.linkWrapper} key={label}>
+                        <Link className={classNames.link} {...link}>
+                            {label}
+                        </Link>
+                    </div>
+                ))}
             </div>
 
             {githubRepoUrl !== undefined && (
                 <GlGithubStarCount
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
+                    className={classNames.githubStarAndDarkModeSwitch}
                 />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <GlDarkModeSwitch />
+                <GlDarkModeSwitch
+                    className={classNames.githubStarAndDarkModeSwitch}
+                />
             )}
 
             <FormatListBulletedIcon
