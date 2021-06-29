@@ -2,7 +2,7 @@
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { cx } from "tss-react";
-import { GlButton } from "../GlButton";
+import { GlButton } from "../utils/GlButton";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import { GlCard } from "./GlCard";

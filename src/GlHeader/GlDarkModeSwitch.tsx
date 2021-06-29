@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useConstCallback } from "powerhooks";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-import { GlIconButton } from "../GlIconButton";
+import { GlIconButton } from "../utils/GlIconButton";
 
 export type GlDarkModeSwitchProps = {
     className?: string;

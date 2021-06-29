@@ -1,6 +1,6 @@
 import type { Param0 } from "tsafe";
 
-import { Icon as GlIcon } from "./theme";
+import { Icon as GlIcon } from "../theme";
 
 export { GlIcon };
 

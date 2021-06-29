@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { cx } from "tss-react";
 import { memo } from "react";
-import { getThemeApi } from "./theme";
+import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
 export type GlImageProps = {

@@ -4,7 +4,7 @@ import { Typography } from "onyxia-ui/Typography";
 import { cx } from "tss-react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { GlLogo } from "../GlLogo";
+import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 

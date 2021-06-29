@@ -2,7 +2,7 @@ import downArrow from "./assets/svg/downArrow.svg";
 import { ReactSVG } from "react-svg";
 import { cx } from "tss-react";
 import { memo } from "react";
-import { getThemeApi } from "./theme";
+import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
 export type GlDownArrowProps = {

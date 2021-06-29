@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import { GlLogo } from "./GlLogo";
+import { GlLogo } from "./utils/GlLogo";
 import { cx } from "tss-react";
 import { memo } from "react";
 import { getThemeApi } from "./theme";

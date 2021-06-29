@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Typography } from "onyxia-ui/Typography";
-import { GlImage } from "./GlImage";
-import type { GlImageProps } from "./GlImage";
+import { GlImage } from "./utils/GlImage";
+import type { GlImageProps } from "./utils/GlImage";
 import { cx } from "tss-react";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
-import { GlDownArrow } from "./GlDownArrow";
+import { GlDownArrow } from "./utils/GlDownArrow";
 import Link from "@material-ui/core/Link";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { glSectionId } from "./GlSections";
 
 export type GlHeroProps = {
     titleMd?: string;
@@ -301,7 +300,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                     <Typography variant="h3">
                         <ReactMarkdown>{scrollDownButton.title}</ReactMarkdown>
                     </Typography>
-                    <Link href={scrollDownButton.href ?? `#${glSectionId}`}>
+                    <Link href={"#"}>
                         <GlDownArrow />
                     </Link>
                 </div>

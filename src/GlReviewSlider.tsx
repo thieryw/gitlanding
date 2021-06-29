@@ -5,7 +5,7 @@ import { useConstCallback } from "powerhooks";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ReactMarkdown from "react-markdown";
-import { GlLogo } from "./GlLogo";
+import { GlLogo } from "./utils/GlLogo";
 import { cx } from "tss-react";
 import { useGuaranteedMemo } from "powerhooks";
 import { Icon } from "./theme";

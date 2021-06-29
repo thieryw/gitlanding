@@ -1,6 +1,6 @@
 import type { Param0 } from "tsafe";
 
-import { IconButton as GlIconButton } from "./theme";
+import { IconButton as GlIconButton } from "../theme";
 
 export { GlIconButton };
 
