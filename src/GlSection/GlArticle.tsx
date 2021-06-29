@@ -2,7 +2,8 @@ import { getThemeApi } from "../theme";
 import { Typography } from "onyxia-ui/Typography";
 import ReactMarkdown from "react-markdown";
 import { useGuaranteedMemo } from "powerhooks";
-import { GlButton } from "../GlButton";
+import { GlButton } from "../utils/GlButton";
+import { memo } from "react";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
@@ -55,7 +56,7 @@ const getUseClassNames = () => {
     return { useClassNames };
 };
 
-type GlArticleProps = {
+export type GlArticleProps = {
     title?: string;
     articleMd?: string;
     buttonLabel?: string;
@@ -65,7 +66,7 @@ type GlArticleProps = {
     };
 };
 
-export const GlArticle = (props: GlArticleProps) => {
+export const GlArticle = memo((props: GlArticleProps) => {
     const { buttonLink, buttonLabel, articleMd, title } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
@@ -98,4 +99,4 @@ export const GlArticle = (props: GlArticleProps) => {
             )}
         </article>
     );
-};
+});
