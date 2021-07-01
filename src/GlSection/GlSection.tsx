@@ -1,28 +1,27 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Typography } from "onyxia-ui/Typography";
-import { memo } from "react";
+import { memo, ReactNode } from "react";
 import { cx } from "tss-react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { GlArticle } from "./GlArticle";
-import type { GlArticleProps } from "./GlArticle";
-import { GlAside } from "./GlAside";
-import type { GlAsideProps } from "./GlAside";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
-        isRowReverse: boolean | undefined;
-    }>()((theme, { isRowReverse }) => ({
+    const { useClassNames } = createUseClassNames()(theme => ({
         "root": {
             "position": "relative",
-            "marginTop": theme.spacing(17.25),
-            ...(theme.responsive.down("sm")
-                ? {
-                      "marginTop": theme.spacing(8),
-                  }
-                : {}),
+            ...(() => {
+                const valueTopBottom = theme.spacing(8);
+                const valueLeftRight = theme.spacing(4);
+
+                return {
+                    "paddingTop": valueTopBottom,
+                    "paddingBottom": valueTopBottom,
+                    "paddingLeft": valueLeftRight,
+                    "paddingRight": valueLeftRight,
+                };
+            })(),
         },
 
         "title": {
@@ -37,42 +36,11 @@ const getUseClassNames = () => {
                 : {}),
         },
         "articleAndImageWrapper": {
-            "display": "flex",
-            "gap": theme.spacing(16),
-            "justifyContent": "center",
+            "display": "grid",
+            "gridTemplateColumns": "repeat(2, 1fr)",
+            "marginTop": theme.spacing(8),
             "alignItems": "center",
-            "marginTop": theme.spacing(17.25),
-            ...(theme.responsive.down("lg")
-                ? {
-                      "justifyContent": "space-between",
-                  }
-                : {}),
-            ...(theme.responsive.down("md")
-                ? {
-                      "flexDirection": "column-reverse",
-                      "paddingLeft": theme.spacing(4.5),
-                      "paddingRight": theme.spacing(4.5),
-                      "marginTop": theme.spacing(8),
-                      "gap": theme.spacing(8),
-                  }
-                : {
-                      "flexDirection": isRowReverse ? "row-reverse" : "row",
-                      "paddingLeft": theme.spacing(6),
-                      "paddingRight": theme.spacing(6),
-                  }),
-
-            ...(theme.responsive.down("sm")
-                ? {
-                      "gap": theme.spacing(4),
-                      ...(() => {
-                          const value = theme.spacing(2);
-                          return {
-                              "paddingLeft": value,
-                              "paddingRight": value,
-                          };
-                      })(),
-                  }
-                : {}),
+            "gap": theme.spacing(4),
         },
     }));
 
@@ -82,28 +50,16 @@ const getUseClassNames = () => {
 export type GlSectionProps = {
     className?: string;
     heading?: string;
-    isRowReverse?: boolean;
-    aside?: GlAsideProps;
-} & GlArticleProps &
-    GlAsideProps;
+    article?: ReactNode;
+    aside?: ReactNode;
+};
 
 export const GlSection = memo((props: GlSectionProps) => {
-    const {
-        isRowReverse,
-        className,
-        articleMd,
-        title,
-        buttonLabel,
-        buttonLink,
-        heading,
-        aside,
-    } = props;
+    const { className, heading, aside, article } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({
-        isRowReverse,
-    });
+    const { classNames } = useClassNames({});
 
     return (
         <section className={cx(classNames.root, className)}>
@@ -113,14 +69,8 @@ export const GlSection = memo((props: GlSectionProps) => {
                 </Typography>
             )}
             <div className={classNames.articleAndImageWrapper}>
-                <GlArticle
-                    articleMd={articleMd}
-                    buttonLabel={buttonLabel}
-                    buttonLink={buttonLink}
-                    title={title}
-                />
-
-                {aside !== undefined && <GlAside {...aside} />}
+                {article}
+                {aside}
             </div>
         </section>
     );

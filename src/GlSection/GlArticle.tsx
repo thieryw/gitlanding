@@ -13,14 +13,6 @@ const getUseClassNames = () => {
             "display": "flex",
             "flexDirection": "column",
             "textAlign": "left",
-            "width": theme.responsive.down("md") ? "100%" : 412,
-            ...(theme.responsive.down("sm")
-                ? {
-                      "width": "100%",
-                      "margin": "unset",
-                      "marginTop": theme.spacing(4),
-                  }
-                : {}),
         },
         "title": {
             "marginBottom": 14,

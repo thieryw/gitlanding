@@ -3,9 +3,6 @@ import type { GlImageProps } from "../utils/GlImage";
 import { GlCode } from "../utils/GlCode";
 import type { GlCodeProps } from "../utils/GlCode";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
 
 export declare namespace GlAsideProps {
     export type Aside = Aside.Code | Aside.Image;
@@ -18,7 +15,7 @@ export declare namespace GlAsideProps {
 
 export type GlAsideProps = GlAsideProps.Aside;
 
-const getUseClassNames = () => {
+/*const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames()(theme => ({
@@ -38,11 +35,11 @@ const getUseClassNames = () => {
     }));
 
     return { useClassNames };
-};
+};*/
 
 export const GlAside = memo((props: GlAsideProps) => {
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
-    const { classNames } = useClassNames({});
+    /* const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { classNames } = useClassNames({});*/
 
     return (
         <>
@@ -50,14 +47,14 @@ export const GlAside = memo((props: GlAsideProps) => {
                 <GlImage
                     url={props.url}
                     alt={props.alt}
-                    className={cx(classNames.root, props.className)}
+                    //className={cx(classNames.root, props.className)}
                 />
             ) : (
                 <GlCode
                     text={props.text}
                     language={props.language}
                     showLineNumbers={props.showLineNumbers}
-                    className={cx(classNames.root, props.className)}
+                    //className={cx(classNames.root, props.className)}
                 />
             )}
         </>
