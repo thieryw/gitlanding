@@ -1,3 +1,35 @@
+### **0.0.50** (2021-07-01)  
+  
+- bump version  
+- Corrected Svg path  
+- redefine Glsection Api and changed display flex to grid  
+- corrected menu height  
+- rename  
+- update paths  
+- GlSection Api redefinition. verry shitty awaiting better idea  
+- wrapped GlArticle in memo  
+- utils component  
+- delete GlRoot and GlSection  
+- GlTemplate with scroll handeling  
+- articleSection  
+- deleted GlSections component because it is useless  
+- responsive menu with collapsible  
+- added unfolding menu for small devices  
+- update stories  
+- change GlMetricCard Api  
+- update  
+- refactor header  
+- Feat. tweak container width  
+- fmt  
+- Add header  
+- Refactor star count  
+- improved github star counter with dark mode  
+- update  
+- Refactor stories  
+- The intex should export every components that are suceptible to be used.  
+- refactor cards  
+- update cards    
+  
 ### **0.0.49** (2021-06-17)  
   
 - Last minute hack    
