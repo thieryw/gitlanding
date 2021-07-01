@@ -64,7 +64,7 @@ const getUseClassNames = () => {
                       "flexDirection": "column",
                       "gap": theme.spacing(1),
                       "height": isMenuUnfolded
-                          ? (21 + theme.spacing(1)) * numberOfLinks
+                          ? (21 + theme.spacing(2)) * numberOfLinks
                           : 0,
                       "overflow": "hidden",
                       "flexWrap": "nowrap",
