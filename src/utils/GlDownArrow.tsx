@@ -1,4 +1,4 @@
-import downArrow from "./assets/svg/downArrow.svg";
+import downArrow from "../assets/svg/downArrow.svg";
 import { ReactSVG } from "react-svg";
 import { cx } from "tss-react";
 import { memo } from "react";
