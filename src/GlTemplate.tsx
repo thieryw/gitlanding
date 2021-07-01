@@ -9,8 +9,8 @@ export type GlRootProps = {
     children?: ReactNode;
 };
 
-export const { GlRoot } = (() => {
-    const { GlRootInner } = (() => {
+export const { GlTemplate } = (() => {
+    const { GlTemplateInner } = (() => {
         const getUseClassNames = () => {
             const { createUseClassNames } = getThemeApi();
 
@@ -33,7 +33,7 @@ export const { GlRoot } = (() => {
             return { useClassNames };
         };
 
-        const GlRootInner = memo((props: GlRootProps) => {
+        const GlTemplateInner = memo((props: GlRootProps) => {
             const { header, children } = props;
 
             const [{ useClassNames }] = useState(() => getUseClassNames());
@@ -53,10 +53,10 @@ export const { GlRoot } = (() => {
             );
         });
 
-        return { GlRootInner };
+        return { GlTemplateInner };
     })();
 
-    const GlRoot = memo((props: GlRootProps) => {
+    const GlTemplate = memo((props: GlRootProps) => {
         const { ThemeProviderOrId } = useGuaranteedMemo(
             () => getThemeApi(),
             [],
@@ -64,10 +64,10 @@ export const { GlRoot } = (() => {
 
         return (
             <ThemeProviderOrId>
-                <GlRootInner {...props} />
+                <GlTemplateInner {...props} />
             </ThemeProviderOrId>
         );
     });
 
-    return { GlRoot };
+    return { GlTemplate };
 })();
