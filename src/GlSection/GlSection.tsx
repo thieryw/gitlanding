@@ -13,7 +13,7 @@ const getUseClassNames = () => {
             "position": "relative",
             ...(() => {
                 const valueTopBottom = theme.spacing(8);
-                const valueLeftRight = theme.spacing(4);
+                const valueLeftRight = theme.spacing(12);
 
                 return {
                     "paddingTop": valueTopBottom,
@@ -22,25 +22,36 @@ const getUseClassNames = () => {
                     "paddingRight": valueLeftRight,
                 };
             })(),
+
+            ...(theme.responsive.down("sm")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(4);
+                          return {
+                              "paddingLeft": value,
+                              "paddingRight": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
 
         "title": {
-            "fontSize": "40px",
             "textAlign": "center",
-            "marginBottom": theme.spacing(7.5),
-            ...(theme.responsive.down("lg")
-                ? {
-                      "fontSize": "24px",
-                      "lineHeight": "32px",
-                  }
-                : {}),
+            "marginBottom": theme.spacing(10),
         },
         "articleAndImageWrapper": {
             "display": "grid",
             "gridTemplateColumns": "repeat(2, 1fr)",
             "marginTop": theme.spacing(8),
             "alignItems": "center",
-            "gap": theme.spacing(4),
+            "gap": theme.spacing(12),
+            ...(theme.responsive.down("md")
+                ? {
+                      "gridTemplateColumns": undefined,
+                      "gridAutoFlow": "row",
+                  }
+                : {}),
         },
     }));
 
