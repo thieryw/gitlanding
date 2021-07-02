@@ -16,12 +16,13 @@ const getUseClassNames = () => {
     const { useClassNames } = createUseClassNames()(() => ({
         "root": {
             "position": "relative",
-            "& > img": {
-                "width": "100%",
-                "height": "100%",
-                "objectFit": "cover",
-                "verticalAlign": "middle",
-            },
+        },
+
+        "image": {
+            "width": "100%",
+            "height": "100%",
+            "objectFit": "cover",
+            "verticalAlign": "middle",
         },
     }));
 
@@ -37,7 +38,7 @@ export const GlImage = memo((props: GlImageProps) => {
 
     return (
         <div className={cx(classNames.root, className)}>
-            <img src={url} alt={alt} />
+            <img className={classNames.image} src={url} alt={alt} />
         </div>
     );
 });
