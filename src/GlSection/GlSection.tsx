@@ -8,7 +8,9 @@ import { useGuaranteedMemo } from "powerhooks";
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useClassNames } = createUseClassNames<{
+        hasArticleAndAside: boolean;
+    }>()((theme, { hasArticleAndAside }) => ({
         "root": {
             "position": "relative",
             ...(() => {
@@ -42,7 +44,7 @@ const getUseClassNames = () => {
         },
         "articleAndImageWrapper": {
             "display": "grid",
-            "gridTemplateColumns": "repeat(2, 1fr)",
+            "gridTemplateColumns": `repeat(${hasArticleAndAside ? 2 : 1}, 1fr)`,
             "marginTop": theme.spacing(8),
             "alignItems": "center",
             "gap": theme.spacing(12),
@@ -63,14 +65,17 @@ export type GlSectionProps = {
     heading?: string;
     article?: ReactNode;
     aside?: ReactNode;
+    children?: ReactNode;
 };
 
 export const GlSection = memo((props: GlSectionProps) => {
-    const { className, heading, aside, article } = props;
+    const { className, heading, aside, article, children } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({});
+    const { classNames } = useClassNames({
+        "hasArticleAndAside": aside !== undefined && article !== undefined,
+    });
 
     return (
         <section className={cx(classNames.root, className)}>
@@ -83,6 +88,7 @@ export const GlSection = memo((props: GlSectionProps) => {
                 {article}
                 {aside}
             </div>
+            {children}
         </section>
     );
 });
