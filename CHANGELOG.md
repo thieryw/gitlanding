@@ -1,3 +1,9 @@
+### **0.0.52** (2021-07-03)  
+  
+- bump version  
+- GlSection added children props and updated grid layout  
+- update hero layour and added chilren for customization    
+  
 ### **0.0.51** (2021-07-02)  
   
 - bumb version  
