@@ -1,3 +1,11 @@
+### **0.0.51** (2021-07-02)  
+  
+- bumb version  
+- responsive for GlSection  
+- added hacky css to correct the fact that  wrapLongLines props does not work  
+- changed GlHero api and style  
+- css corrections    
+  
 ### **0.0.50** (2021-07-01)  
   
 - bump version  
