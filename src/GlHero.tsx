@@ -4,6 +4,7 @@ import { Typography } from "onyxia-ui/Typography";
 import { GlImage } from "./utils/GlImage";
 import { cx } from "tss-react";
 import { memo } from "react";
+import type { ReactNode } from "react";
 import { getThemeApi } from "./theme";
 import { useGuaranteedMemo } from "powerhooks";
 
@@ -13,6 +14,7 @@ export type GlHeroProps = {
     className?: string;
     imageSrc?: string;
     backgroundImageSrc?: string;
+    children?: ReactNode;
 };
 
 const getUseClassNames = () => {
@@ -20,14 +22,11 @@ const getUseClassNames = () => {
 
     const { useClassNames } = createUseClassNames<{
         backgroundImageSrc: GlHeroProps["backgroundImageSrc"];
-    }>()((theme, { backgroundImageSrc }) => ({
+        hasTextAndImage: boolean;
+    }>()((theme, { backgroundImageSrc, hasTextAndImage }) => ({
         "root": {
             "position": "relative",
             "width": "100%",
-            "display": "grid",
-            "gridTemplateColumns": "repeat(2, 1fr)",
-            "alignItems": "center",
-            "gap": theme.spacing(12),
             ...(() => {
                 const value = theme.spacing(12);
                 return {
@@ -35,13 +34,6 @@ const getUseClassNames = () => {
                     "paddingRight": value,
                 };
             })(),
-            ...(theme.responsive.down("lg")
-                ? {
-                      "gridTemplateColumns": undefined,
-                      "gridAutoFlow": "row",
-                      "gap": theme.spacing(6),
-                  }
-                : {}),
             ...(theme.responsive.down("sm")
                 ? {
                       ...(() => {
@@ -54,6 +46,19 @@ const getUseClassNames = () => {
                   }
                 : {}),
         },
+        "textAndImageWrapper": {
+            "display": "grid",
+            "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
+            "alignItems": "center",
+            "gap": theme.spacing(12),
+            ...(theme.responsive.down("lg")
+                ? {
+                      "gridTemplateColumns": undefined,
+                      "gridAutoFlow": "row",
+                      "gap": theme.spacing(6),
+                  }
+                : {}),
+        },
 
         "title": {
             "marginBottom": theme.spacing(2),
@@ -61,6 +66,10 @@ const getUseClassNames = () => {
 
         "subtitle": {
             "marginTop": theme.spacing(2),
+        },
+
+        "textWrapper": {
+            "textAlign": hasTextAndImage ? undefined : "center",
         },
 
         "backgroundDiv": {
@@ -82,31 +91,49 @@ const getUseClassNames = () => {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { title, subTitle, className, backgroundImageSrc, imageSrc } = props;
+    const {
+        title,
+        subTitle,
+        className,
+        backgroundImageSrc,
+        imageSrc,
+        children,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({ backgroundImageSrc });
+    const { classNames } = useClassNames({
+        backgroundImageSrc,
+        "hasTextAndImage":
+            (title !== undefined || subTitle !== undefined) &&
+            imageSrc !== undefined,
+    });
 
     return (
         <section className={cx(classNames.root, className)}>
             <div className={classNames.backgroundDiv}></div>
-            <div>
-                {title && (
-                    <Typography className={classNames.title} variant="h1">
-                        {title}
-                    </Typography>
-                )}
-                {subTitle && (
-                    <Typography variant="h3" className={classNames.subtitle}>
-                        {subTitle}
-                    </Typography>
+            <div className={classNames.textAndImageWrapper}>
+                <div className={classNames.textWrapper}>
+                    {title !== undefined && (
+                        <Typography className={classNames.title} variant="h1">
+                            {title}
+                        </Typography>
+                    )}
+                    {subTitle !== undefined && (
+                        <Typography
+                            variant="h3"
+                            className={classNames.subtitle}
+                        >
+                            {subTitle}
+                        </Typography>
+                    )}
+                </div>
+
+                {imageSrc !== undefined && (
+                    <GlImage url={imageSrc} alt="hero image" />
                 )}
             </div>
-
-            {imageSrc !== undefined && (
-                <GlImage url={imageSrc} alt="hero image" />
-            )}
+            {children}
         </section>
     );
 });
