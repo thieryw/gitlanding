@@ -51,6 +51,13 @@ const getUseClassNames = () => {
             "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
             "alignItems": "center",
             "gap": theme.spacing(12),
+            ...(() => {
+                const value = theme.spacing(10);
+                return {
+                    "paddingTop": value,
+                    "paddingBottom": value,
+                };
+            })(),
             ...(theme.responsive.down("lg")
                 ? {
                       "gridTemplateColumns": undefined,
