@@ -42,12 +42,15 @@ const getUseClassNames = () => {
             "textAlign": "center",
             "marginBottom": theme.spacing(10),
         },
-        "articleAndImageWrapper": {
+        "articleAndAsideWrapper": {
             "display": "grid",
             "gridTemplateColumns": `repeat(${hasArticleAndAside ? 2 : 1}, 1fr)`,
             "marginTop": theme.spacing(8),
             "alignItems": "center",
             "gap": theme.spacing(12),
+            "& code": {
+                "width": 0,
+            },
             ...(theme.responsive.down("md")
                 ? {
                       "gridTemplateColumns": undefined,
@@ -84,7 +87,7 @@ export const GlSection = memo((props: GlSectionProps) => {
                     {heading}
                 </Typography>
             )}
-            <div className={classNames.articleAndImageWrapper}>
+            <div className={classNames.articleAndAsideWrapper}>
                 {article}
                 {aside}
             </div>
