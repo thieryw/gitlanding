@@ -1,3 +1,8 @@
+### **0.0.55** (2021-07-04)  
+  
+- bump version  
+- remove console log because i forgot, stupid stupid me, for goodness sake    
+  
 ### **0.0.54** (2021-07-04)  
   
 - bump version  
