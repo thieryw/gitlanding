@@ -57,8 +57,6 @@ export const GlCode = memo((props: GlCodeProps) => {
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    console.log(hasDecorativeVsCodeButtons);
-
     const { classNames } = useClassNames({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
     });
