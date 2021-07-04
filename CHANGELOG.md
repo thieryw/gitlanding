@@ -1,3 +1,8 @@
+### **0.0.53** (2021-07-03)  
+  
+- bump version  
+- added padding on hero    
+  
 ### **0.0.52** (2021-07-03)  
   
 - bump version  
