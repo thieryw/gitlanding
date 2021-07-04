@@ -15,46 +15,24 @@ export declare namespace GlAsideProps {
 
 export type GlAsideProps = GlAsideProps.Aside;
 
-/*const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
-
-    const { useClassNames } = createUseClassNames()(theme => ({
-        "root": {
-            "width": 900,
-            ...(theme.responsive.down("lg")
-                ? {
-                      "width": 511,
-                  }
-                : {}),
-            ...(theme.responsive.down("md")
-                ? {
-                      "width": "100%",
-                  }
-                : {}),
-        },
-    }));
-
-    return { useClassNames };
-};*/
-
 export const GlAside = memo((props: GlAsideProps) => {
-    /* const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
-    const { classNames } = useClassNames({});*/
-
     return (
         <>
             {props.type === "image" ? (
                 <GlImage
                     url={props.url}
                     alt={props.alt}
-                    //className={cx(classNames.root, props.className)}
+                    className={props.className}
                 />
             ) : (
                 <GlCode
                     text={props.text}
                     language={props.language}
                     showLineNumbers={props.showLineNumbers}
-                    //className={cx(classNames.root, props.className)}
+                    hasDecorativeVsCodeButtons={
+                        props.hasDecorativeVsCodeButtons
+                    }
+                    className={props.className}
                 />
             )}
         </>

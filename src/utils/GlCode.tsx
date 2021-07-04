@@ -14,10 +14,17 @@ const colors = {
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useClassNames } = createUseClassNames<{
+        hasDecorativeVsCodeButtons: boolean;
+    }>()((theme, { hasDecorativeVsCodeButtons }) => ({
         "root": {
-            "position": "relative",
-            "borderTop": `solid ${colors.darkslategray} 24px`,
+            ...(hasDecorativeVsCodeButtons
+                ? {
+                      "position": "relative",
+                      "borderTop": `solid ${colors.darkslategray} 24px`,
+                      "borderRadius": 3,
+                  }
+                : {}),
         },
         "vsCodeButtons": {
             "position": "absolute",
@@ -32,22 +39,36 @@ const getUseClassNames = () => {
 };
 
 export type GlCodeProps = {
+    className?: string;
     text?: string;
     language?: string;
     showLineNumbers?: boolean;
-    className?: string;
+    hasDecorativeVsCodeButtons?: boolean;
 };
 
 export const GlCode = memo((props: GlCodeProps) => {
-    const { className, language, showLineNumbers, text } = props;
+    const {
+        className,
+        language,
+        showLineNumbers,
+        text,
+        hasDecorativeVsCodeButtons,
+    } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
-    const { classNames } = useClassNames({});
+    console.log(hasDecorativeVsCodeButtons);
+
+    const { classNames } = useClassNames({
+        "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
+    });
 
     return (
         <div className={cx(classNames.root, className)}>
-            <VsCodeButtons className={classNames.vsCodeButtons} />
+            {hasDecorativeVsCodeButtons !== undefined &&
+                hasDecorativeVsCodeButtons && (
+                    <VsCodeButtons className={classNames.vsCodeButtons} />
+                )}
             <CodeBlock
                 language={language}
                 showLineNumbers={showLineNumbers}
