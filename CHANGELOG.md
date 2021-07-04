@@ -1,3 +1,12 @@
+### **0.0.54** (2021-07-04)  
+  
+- bump version  
+- remove comment and added className props and added decorative vs code button option for code block in GlAside and GlCode components  
+- added vs code buttons for GlCode component  
+- adjust text  
+- added dark and light mode backgorund image option for GlHero  
+- corrected code block display    
+  
 ### **0.0.53** (2021-07-03)  
   
 - bump version  
