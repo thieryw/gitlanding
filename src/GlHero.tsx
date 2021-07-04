@@ -13,7 +13,8 @@ export type GlHeroProps = {
     subTitle?: string;
     className?: string;
     imageSrc?: string;
-    backgroundImageSrc?: string;
+    backgroundImageSrcLight?: string;
+    backgroundImageSrcDark?: string;
     children?: ReactNode;
 };
 
@@ -21,78 +22,96 @@ const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames<{
-        backgroundImageSrc: GlHeroProps["backgroundImageSrc"];
+        backgroundImageSrcLight: GlHeroProps["backgroundImageSrcLight"];
+        backgroundImageSrcDark: GlHeroProps["backgroundImageSrcDark"];
         hasTextAndImage: boolean;
-    }>()((theme, { backgroundImageSrc, hasTextAndImage }) => ({
-        "root": {
-            "position": "relative",
-            "width": "100%",
-            ...(() => {
-                const value = theme.spacing(12);
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
-            ...(theme.responsive.down("sm")
-                ? {
-                      ...(() => {
-                          const value = theme.spacing(4);
-                          return {
-                              "paddingLeft": value,
-                              "paddingRight": value,
-                          };
-                      })(),
-                  }
-                : {}),
-        },
-        "textAndImageWrapper": {
-            "display": "grid",
-            "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
-            "alignItems": "center",
-            "gap": theme.spacing(12),
-            ...(() => {
-                const value = theme.spacing(10);
-                return {
-                    "paddingTop": value,
-                    "paddingBottom": value,
-                };
-            })(),
-            ...(theme.responsive.down("lg")
-                ? {
-                      "gridTemplateColumns": undefined,
-                      "gridAutoFlow": "row",
-                      "gap": theme.spacing(6),
-                  }
-                : {}),
-        },
+    }>()(
+        (
+            theme,
+            {
+                backgroundImageSrcLight,
+                hasTextAndImage,
+                backgroundImageSrcDark,
+            },
+        ) => ({
+            "root": {
+                "position": "relative",
+                "width": "100%",
+                ...(() => {
+                    const value = theme.spacing(12);
+                    return {
+                        "paddingLeft": value,
+                        "paddingRight": value,
+                    };
+                })(),
+                ...(theme.responsive.down("sm")
+                    ? {
+                          ...(() => {
+                              const value = theme.spacing(4);
+                              return {
+                                  "paddingLeft": value,
+                                  "paddingRight": value,
+                              };
+                          })(),
+                      }
+                    : {}),
+            },
+            "textAndImageWrapper": {
+                "display": "grid",
+                "gridTemplateColumns": `repeat(${
+                    hasTextAndImage ? 2 : 1
+                }, 1fr)`,
+                "alignItems": "center",
+                "gap": theme.spacing(12),
+                ...(() => {
+                    const value = theme.spacing(10);
+                    return {
+                        "paddingTop": value,
+                        "paddingBottom": value,
+                    };
+                })(),
+                ...(theme.responsive.down("lg")
+                    ? {
+                          "gridTemplateColumns": undefined,
+                          "gridAutoFlow": "row",
+                          "gap": theme.spacing(6),
+                      }
+                    : {}),
+            },
 
-        "title": {
-            "marginBottom": theme.spacing(2),
-        },
+            "title": {
+                "marginBottom": theme.spacing(2),
+            },
 
-        "subtitle": {
-            "marginTop": theme.spacing(2),
-        },
+            "subtitle": {
+                "marginTop": theme.spacing(2),
+            },
 
-        "textWrapper": {
-            "textAlign": hasTextAndImage ? undefined : "center",
-        },
+            "textWrapper": {
+                "textAlign": hasTextAndImage ? undefined : "center",
+            },
 
-        "backgroundDiv": {
-            "background": `url(${backgroundImageSrc})`,
-            "backgroundRepeat": "no-repeat",
-            "backgroundSize": "cover",
-            "backgroundPosition": "center",
-            "width": "100%",
-            "height": "100%",
-            "position": "absolute",
-            "top": 0,
-            "left": 0,
-            "zIndex": -1,
-            "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
-        },
-    }));
+            "backgroundDiv": {
+                "background": `url(${
+                    theme.isDarkModeEnabled
+                        ? backgroundImageSrcDark
+                        : backgroundImageSrcLight
+                })`,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "cover",
+                "backgroundPosition": "center",
+                "width": "100%",
+                "height": "100%",
+                "position": "absolute",
+                "top": 0,
+                "left": 0,
+                "zIndex": -1,
+                "filter": theme.isDarkModeEnabled
+                    ? "brightness(0.8)"
+                    : undefined,
+            },
+        }),
+    );
 
     return { useClassNames };
 };
@@ -102,7 +121,8 @@ export const GlHero = memo((props: GlHeroProps) => {
         title,
         subTitle,
         className,
-        backgroundImageSrc,
+        backgroundImageSrcLight,
+        backgroundImageSrcDark,
         imageSrc,
         children,
     } = props;
@@ -110,7 +130,8 @@ export const GlHero = memo((props: GlHeroProps) => {
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({
-        backgroundImageSrc,
+        backgroundImageSrcLight,
+        backgroundImageSrcDark,
         "hasTextAndImage":
             (title !== undefined || subTitle !== undefined) &&
             imageSrc !== undefined,
