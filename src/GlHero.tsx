@@ -75,20 +75,31 @@ const getUseClassNames = () => {
                           "gridTemplateColumns": undefined,
                           "gridAutoFlow": "row",
                           "gap": theme.spacing(6),
+                          "justifyContent": "center",
                       }
                     : {}),
             },
 
             "title": {
-                "marginBottom": theme.spacing(2),
+                "marginBottom": theme.spacing(4),
             },
 
             "subtitle": {
-                "marginTop": theme.spacing(2),
+                "marginTop": theme.spacing(4),
+                "maxWidth": 400,
             },
 
             "textWrapper": {
-                "textAlign": hasTextAndImage ? undefined : "center",
+                "textAlign":
+                    hasTextAndImage && theme.responsive.up("lg")
+                        ? undefined
+                        : "center",
+                "alignItems":
+                    hasTextAndImage && theme.responsive.up("lg")
+                        ? undefined
+                        : "center",
+                "display": "flex",
+                "flexDirection": "column",
             },
 
             "backgroundDiv": {
