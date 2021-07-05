@@ -1,3 +1,8 @@
+### **0.0.56** (2021-07-05)  
+  
+- refactor GlReviewSlider and bump version  
+- install stotybook addon-docs and setup quick start page    
+  
 ### **0.0.55** (2021-07-04)  
   
 - bump version  
