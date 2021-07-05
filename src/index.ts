@@ -18,7 +18,7 @@ export * from "./utils/GlIcon";
 export * from "./utils/GlIconButton";
 export * from "./utils/GlImage";
 export * from "./utils/GlLogo";
-export * from "./GlReviewSlider";
+export * from "./GlReviewSlider/GlReviewSlider";
 export * from "./GlTemplate";
 export * from "./GlSection/GlSection";
 export * from "./GlHeader/GlHeader";
