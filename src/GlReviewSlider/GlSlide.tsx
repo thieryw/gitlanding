@@ -25,7 +25,7 @@ const getUseClassNames = () => {
         },
 
         "paragraph": {
-            "margin": 40,
+            "margin": theme.spacing(5),
             "fontSize": theme.typography.body1.fontSize,
             "fontWeight": theme.typography.body1.fontWeight,
             "lineHeight": theme.typography.body1.lineHeight,
@@ -71,10 +71,6 @@ const getUseClassNames = () => {
             "& svg": {
                 "width": 70,
                 "height": 70,
-            },
-            "@media (max-width: 1000px)": {
-                "marginLeft": 0,
-                "marginTop": 40,
             },
             ...(theme.responsive.down("md")
                 ? {

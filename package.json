@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.0.56",
+    "version": "0.0.57",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
