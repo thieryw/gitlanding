@@ -1,40 +1,130 @@
-import type { ReactNode } from "react";
-import { memo } from "react";
 import { getThemeApi } from "../theme";
+import { GlSlide } from "./GlSlide";
+import { memo } from "react";
+import { GlLogo } from "../utils/GlLogo";
+import Paper from "@material-ui/core/Paper";
+import { Typography } from "onyxia-ui/Typography";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
-
-export type GlSlideTemplateProps = {
-    className?: string;
-    children?: ReactNode;
-};
+import ReactMarkdown from "react-markdown";
 
 const getUseClassNames = () => {
     const { createUseClassNames } = getThemeApi();
 
     const { useClassNames } = createUseClassNames()(theme => ({
         "root": {
+            "display": "flex",
+            "flexDirection": "row",
+            "alignItems": "center",
+            "justifyContent": "space-between",
             "position": "relative",
-            "minWidth": "100%",
-            ...(() => {
-                const value = theme.spacing(4);
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
+            ...(theme.responsive.down("md")
+                ? {
+                      "flexDirection": "column",
+                  }
+                : {}),
+        },
+
+        "paragraph": {
+            "margin": theme.spacing(5),
+            "fontSize": theme.typography.body1.fontSize,
+            "fontWeight": theme.typography.body1.fontWeight,
+            "lineHeight": theme.typography.body1.lineHeight,
+            ...(theme.responsive.down("md")
+                ? {
+                      "textAlign": "center",
+                  }
+                : {}),
+            ...(theme.responsive.down("sm")
+                ? {
+                      ...(() => {
+                          const valueVertical = theme.spacing(1);
+                          const valueHorizontal = theme.spacing(5);
+
+                          return {
+                              "marginTop": valueVertical,
+                              "marginBottom": valueVertical,
+                              "marginLeft": valueHorizontal,
+                              "marginRight": valueHorizontal,
+                          };
+                      })(),
+                  }
+                : {}),
+        },
+
+        "signature": {
+            "textAlign": "right",
+            "fontStyle": "italic",
+            "marginRight": theme.spacing(5),
+            "marginBottom": theme.spacing(5),
+
+            ...(theme.responsive.down("md")
+                ? {
+                      "textAlign": "center",
+                      "marginRight": 0,
+                  }
+                : {}),
+        },
+        "logo": {
+            "width": 70,
+            "marginLeft": theme.spacing(5),
+            "fill": theme.isDarkModeEnabled ? "white" : "black",
+            "& svg": {
+                "width": 70,
+                "height": 70,
+            },
+            ...(theme.responsive.down("md")
+                ? {
+                      "marginLeft": 0,
+                      "marginTop": theme.spacing(5),
+                  }
+                : {}),
         },
     }));
 
     return { useClassNames };
 };
 
+export type GlSlideTemplateProps = {
+    /**
+     * you can use markdown between back ticks.
+     */
+    descriptionMd?: string;
+    signature?: string;
+    /**
+     * If you use an svg image that does not have a fill,
+     * the fill will be set to the current font color,
+     * depending on the dark mode being active.
+     */
+    logoUrl?: string;
+    className?: string;
+};
+
 export const GlSlideTemplate = memo((props: GlSlideTemplateProps) => {
-    const { children, className } = props;
+    const { descriptionMd, className, signature, logoUrl } = props;
 
     const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
 
     const { classNames } = useClassNames({});
 
-    return <div className={cx(classNames.root, className)}>{children}</div>;
+    return (
+        <GlSlide className={className}>
+            <Paper className={classNames.root}>
+                {logoUrl !== undefined && (
+                    <GlLogo logoUrl={logoUrl} className={classNames.logo} />
+                )}
+                <div>
+                    {descriptionMd !== undefined && (
+                        <ReactMarkdown className={classNames.paragraph}>
+                            {descriptionMd}
+                        </ReactMarkdown>
+                    )}
+                    {signature !== undefined && (
+                        <Typography className={classNames.signature}>
+                            {signature}
+                        </Typography>
+                    )}
+                </div>
+            </Paper>
+        </GlSlide>
+    );
 });
