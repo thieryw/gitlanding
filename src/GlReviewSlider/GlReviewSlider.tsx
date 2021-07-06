@@ -57,14 +57,14 @@ const getUseClassNames = () => {
 };
 
 export type GlReviewSliderProps = {
-    slides: ReactNode[];
+    sliderContent: ReactNode;
     className?: string;
     title?: string;
     children?: ReactNode;
 };
 
 export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
-    const { slides, className, children, title } = props;
+    const { sliderContent, className, children, title } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
 
@@ -93,13 +93,7 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
                     onClick={onClickPrev}
                 />
                 <div className={classNames.viewport} ref={emblaRef}>
-                    <div className={classNames.container}>
-                        {slides.map((slide, index) => (
-                            <div className={classNames.slide} key={index}>
-                                {slide}
-                            </div>
-                        ))}
-                    </div>
+                    <div className={classNames.container}>{sliderContent}</div>
                 </div>
                 <Icon
                     id="arrowForwardIos"

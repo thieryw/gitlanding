@@ -16,6 +16,9 @@ const getUseClassNames = () => {
         "root": {
             "position": "relative",
             "minWidth": "100%",
+            "display": "flex",
+            "justifyContent": "center",
+            "overflow": "hidden",
             ...(() => {
                 const value = theme.spacing(4);
                 return {
