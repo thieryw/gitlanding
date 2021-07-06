@@ -12,3 +12,8 @@ declare module "*.css" {
     const _default: string;
     export default _default;
 }
+
+declare module "*.jpeg" {
+    const _default: string;
+    export default _default;
+}
