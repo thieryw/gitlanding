@@ -1,3 +1,11 @@
+### **0.0.58** (2021-07-07)  
+  
+- bump version  
+- update GlreviewSlider add stoybook examples  
+- add jpeg as module  
+- added index file in GlReviewSlider  
+- inverted GlSlide and GlSlideTemplate    
+  
    
   
 ### **0.0.55** (2021-07-04)  
