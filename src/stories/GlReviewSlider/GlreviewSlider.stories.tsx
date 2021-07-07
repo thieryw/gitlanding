@@ -78,16 +78,5 @@ export const VueImageSlider = getStory({
                 <img src={image} alt="slider" key={index} />
             </GlSlide>
         ),
-    ) /* <>
-		<GlSlide>
-			<img src={example2ImageUrl} alt="slider image 1" />
-		</GlSlide>
-		<GlSlide>
-			<img src={example3ImageUrl} alt="slider image 2" />
-		</GlSlide>
-		<GlSlide>
-			<img src={example4ImageUrl} alt="slider image 3" />
-		</GlSlide>
-
-	</>*/,
+    ),
 });
