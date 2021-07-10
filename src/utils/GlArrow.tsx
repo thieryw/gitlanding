@@ -80,7 +80,13 @@ export const GlArrow = memo((props: GlArrowProps) => {
     });
 
     return (
-        <div className={cx(className, classNames.root)}>
+        <div
+            onClick={
+                link?.onClick ??
+                (() => (window.location.href = link?.href ?? "#"))
+            }
+            className={cx(className, classNames.root)}
+        >
             <ReactSVG src={downArrow} />
         </div>
     );
