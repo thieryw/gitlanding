@@ -1,3 +1,18 @@
+### **0.0.59** (2021-07-11)  
+  
+- bumb version  
+- GlFooter stories  
+- GlFooterInfo style  
+- phone number validation function  
+- GlLogo if no fill on svg or in props then automaticaly set to theme values  
+- GlFooter Bottom div  
+- GlFooter layout and style  
+- GlSlide remove fill from icon  
+- new footer api with email validation  
+- email vaidation function  
+- added link to GlArrow  
+- GlArrow update    
+  
 ### **0.0.58** (2021-07-07)  
   
 - bump version  
