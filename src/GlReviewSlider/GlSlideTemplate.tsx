@@ -67,7 +67,6 @@ const getUseClassNames = () => {
         "logo": {
             "width": 70,
             "marginLeft": theme.spacing(5),
-            "fill": theme.isDarkModeEnabled ? "white" : "black",
             "& svg": {
                 "width": 70,
                 "height": 70,
