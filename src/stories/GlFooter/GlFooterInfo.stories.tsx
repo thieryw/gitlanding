@@ -13,4 +13,5 @@ export default meta;
 
 export const Vue = getStory({
     "email": "williamalexthiery@hotmail.fr",
+    "phoneNumber": "+33671124615",
 });
