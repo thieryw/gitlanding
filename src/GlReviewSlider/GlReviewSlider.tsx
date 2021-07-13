@@ -20,6 +20,18 @@ const getUseClassNames = () => {
                     "paddingRight": value,
                 };
             })(),
+
+            ...(theme.responsive.down("sm")
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(4);
+                          return {
+                              "paddingLeft": value,
+                              "paddingRight": value,
+                          };
+                      })(),
+                  }
+                : {}),
         },
         "heading": {
             "textAlign": "center",
@@ -34,15 +46,10 @@ const getUseClassNames = () => {
         "viewport": {
             "overflow": "hidden",
             "userSelect": "none",
-            "width": "800px",
         },
         "container": {
             "display": "flex",
             "alignItems": "center",
-        },
-        "slide": {
-            "position": "relative",
-            "minWidth": "100%",
         },
 
         "arrows": {
