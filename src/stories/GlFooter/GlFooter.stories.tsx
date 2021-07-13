@@ -20,21 +20,15 @@ export const Vue = getStory({
     "iconLinks": [
         {
             "iconUrl": twitterSvg,
-            "link": {
-                "href": "",
-            },
+            "href": "",
         },
         {
             "iconUrl": redditSvg,
-            "link": {
-                "href": "",
-            },
+            "href": "",
         },
         {
             "iconUrl": youtubeSvg,
-            "link": {
-                "href": "",
-            },
+            "href": "",
         },
     ],
     "links": [
