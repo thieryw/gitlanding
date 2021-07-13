@@ -25,6 +25,14 @@ const getUseClassNames = () => {
             "alignItems": "center",
             "justifyContent": "center",
             "gap": theme.spacing(1),
+            ...(() => {
+                const value = theme.spacing(4);
+
+                return {
+                    "paddingTop": value,
+                    "paddingBottom": value,
+                };
+            })(),
         },
         "email": {
             "color": theme.colors.useCases.typography.textSecondary,
