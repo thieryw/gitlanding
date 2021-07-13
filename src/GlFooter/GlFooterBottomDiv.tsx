@@ -11,7 +11,7 @@ const getUseClassNames = () => {
     const { useClassNames } = createUseClassNames()(theme => ({
         "root": {
             "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
-            "marginTop": theme.spacing(6),
+            "marginTop": theme.spacing(3),
             "width": "100%",
             "display": "flex",
             "justifyContent": "center",
