@@ -1,3 +1,14 @@
+### **0.0.60** (2021-07-13)  
+  
+- bumb version  
+- updated GlFooter stories  
+- GlReviewSlider, deleted useless css rules and corrected display on mobile devices  
+- GlfooterInfo added padding  
+- update margin Top GlfooterBottomDiv  
+- update api, added marginTop, background Color, added transition on icon hover and added flex wrap for iconslinks and links  
+- update index for new footer  
+- deleted old footer version    
+  
 ### **0.0.59** (2021-07-11)  
   
 - bumb version  
