@@ -3,7 +3,7 @@ import { memo } from "react";
 import type { ReactNode } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 export type GlCardsProps = {
     className?: string;

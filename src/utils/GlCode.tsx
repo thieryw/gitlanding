@@ -1,7 +1,7 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 import { memo } from "react";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 const colors = {
     "tomatoRed": "#f85b52",

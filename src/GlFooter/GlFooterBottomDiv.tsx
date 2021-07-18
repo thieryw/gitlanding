@@ -1,7 +1,7 @@
 import ReactMarkDown from "react-markdown";
 import { getThemeApi } from "../theme";
 import { memo } from "react";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import type { ReactNode } from "react";
 
 const getUseStyles = () => {

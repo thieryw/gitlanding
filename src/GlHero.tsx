@@ -5,7 +5,7 @@ import { GlImage } from "./utils/GlImage";
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { getThemeApi } from "./theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 export type GlHeroProps = {
     title?: string;

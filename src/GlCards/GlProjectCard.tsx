@@ -4,7 +4,7 @@ import { Typography } from "onyxia-ui/Typography";
 
 import { GlButton } from "../utils/GlButton";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 

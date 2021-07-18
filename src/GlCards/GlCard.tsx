@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 const getUseStyles = () => {
     const { makeStyles } = getThemeApi();

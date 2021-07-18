@@ -4,7 +4,7 @@ import { validatePhoneNumber } from "../utils/validatePhoneNumber";
 import Link from "@material-ui/core/Link";
 import { Typography } from "onyxia-ui";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 import type { ReactNode } from "react";
 

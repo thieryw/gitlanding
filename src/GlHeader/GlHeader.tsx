@@ -7,7 +7,7 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import type { ReactNode } from "react";
 import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";

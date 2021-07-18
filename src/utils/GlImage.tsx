@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 export type GlImageProps = {
     className?: string;

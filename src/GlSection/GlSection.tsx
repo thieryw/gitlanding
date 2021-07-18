@@ -3,7 +3,7 @@ import { Typography } from "onyxia-ui/Typography";
 import { memo, ReactNode } from "react";
 
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 const getUseStyles = () => {
     const { makeStyles } = getThemeApi();

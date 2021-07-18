@@ -3,7 +3,7 @@ import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@material-ui/core/Link";
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 type Link = {
     href: string;

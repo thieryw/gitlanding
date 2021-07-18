@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
 
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";

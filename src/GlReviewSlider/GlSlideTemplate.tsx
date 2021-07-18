@@ -4,7 +4,7 @@ import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "onyxia-ui/Typography";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import ReactMarkdown from "react-markdown";
 
 const getUseStyles = () => {

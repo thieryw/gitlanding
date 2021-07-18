@@ -1,7 +1,7 @@
 import { getThemeApi } from "../theme";
 import { Typography } from "onyxia-ui/Typography";
 import ReactMarkdown from "react-markdown";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { GlButton } from "../utils/GlButton";
 import { memo } from "react";
 

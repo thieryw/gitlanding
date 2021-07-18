@@ -2,10 +2,10 @@ import { memo } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { getThemeApi } from "../theme";
-import { useConstCallback } from "powerhooks";
+import { useConstCallback } from "powerhooks/useConstCallback";
 import Typography from "@material-ui/core/Typography";
 
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { Icon } from "../theme";
 
 const getUseStyles = () => {

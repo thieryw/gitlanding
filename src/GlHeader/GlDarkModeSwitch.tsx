@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useConstCallback } from "powerhooks";
+import { useConstCallback } from "powerhooks/useConstCallback";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 import { GlIconButton } from "../utils/GlIconButton";
 

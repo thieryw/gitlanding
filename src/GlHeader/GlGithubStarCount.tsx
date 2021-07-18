@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 
 import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import GithubBtn from "react-github-btn";
 
 export type GlGithubStarCountProps = {
