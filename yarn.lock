@@ -7180,7 +7180,7 @@ evt@2.0.0-beta.15:
     minimal-polyfills "^2.1.5"
     run-exclusive "^2.2.14"
 
-evt@2.0.0-beta.22:
+evt@2.0.0-beta.22, evt@^2.0.0-beta.22:
   version "2.0.0-beta.22"
   resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.22.tgz#d7376d63b5407cc71f57d8ea13382cb889f1144f"
   integrity sha512-7+GE5f9W03/2+vfmGwqtw2vxzyhtpYyWgbifa7fbvtfYazMV6QRDhrr4WXBFIHS7hRZdBQAZXBL4L76n/RUafw==
@@ -7189,7 +7189,7 @@ evt@2.0.0-beta.22:
     run-exclusive "^2.2.14"
     tsafe "^0.2.2"
 
-evt@^2.0.0-beta.18, evt@beta:
+evt@beta:
   version "2.0.0-beta.20"
   resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.20.tgz#a018ff46a7dcb475c488e6508ac3aec7910e76fb"
   integrity sha512-aIIqrDkQ5Hm4zzW7v9STZbO9RcwAI2vMQUkjQ7Bw4YkWOv2zoIl6ooJZ6942JU7UCYKWSi1u5BBtyoiXUSsnMA==
