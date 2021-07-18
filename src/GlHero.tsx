@@ -169,7 +169,9 @@ export const GlHero = memo((props: GlHeroProps) => {
                 </div>
 
                 {imageSrc !== undefined && (
-                    <GlImage url={imageSrc} alt="hero image" />
+                    <div>
+                        <GlImage url={imageSrc} alt="hero image" />
+                    </div>
                 )}
             </div>
             {children}

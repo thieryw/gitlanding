@@ -78,7 +78,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 </ReactMarkdown>
             )}
             {buttonLabel && (
-                <div className={classNames.buttonWrapper}>
+                <div /*ref={rootRef}*/ className={classNames.buttonWrapper}>
                     <GlButton
                         className={classNames.button}
                         type="submit"
