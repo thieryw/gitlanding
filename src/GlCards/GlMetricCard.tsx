@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
-import { cx } from "tss-react";
+
 import { GlButton } from "../utils/GlButton";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
@@ -16,10 +16,10 @@ export type GlMetricCardProps = GlCardProps & {
     buttonLabel?: string;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "position": "relative",
             "display": "flex",
@@ -73,41 +73,38 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
     const { buttonLabel, link, className, iconUrl, subHeading, number } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <GlCard className={cx(classNames.root, className)} link={link}>
-            <div className={classNames.heading}>
+        <GlCard className={cx(classes.root, className)} link={link}>
+            <div className={classes.heading}>
                 {number !== undefined && (
-                    <Typography
-                        className={classNames.headingMetric}
-                        variant="h1"
-                    >
+                    <Typography className={classes.headingMetric} variant="h1">
                         {number}
                     </Typography>
                 )}
 
                 {iconUrl !== undefined && (
-                    <GlLogo className={cx(classNames.icon)} logoUrl={iconUrl} />
+                    <GlLogo className={cx(classes.icon)} logoUrl={iconUrl} />
                 )}
             </div>
 
             {subHeading && (
-                <Typography className={classNames.subHeading} variant="h3">
+                <Typography className={classes.subHeading} variant="h3">
                     {subHeading}
                 </Typography>
             )}
 
             {buttonLabel && (
-                <div className={classNames.buttonWrapper}>
+                <div className={classes.buttonWrapper}>
                     <GlButton
                         type="submit"
                         color="secondary"

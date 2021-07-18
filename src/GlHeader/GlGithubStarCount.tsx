@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-import { cx } from "tss-react";
+
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import GithubBtn from "react-github-btn";
@@ -11,26 +11,26 @@ export type GlGithubStarCountProps = {
     repoUrl: string;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(() => ({
+    const { useStyles } = makeStyles()({
         "root": {
             "& span": {
                 "display": "flex",
                 "alignItems": "center",
             },
         },
-    }));
+    });
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     const { repoUrl, size, className } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
-    const { classNames } = useClassNames({});
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
+    const { classes, cx } = useStyles();
 
     const { themeVariant } = (function useClosure() {
         const { isDarkModeEnabled } = useIsDarkModeEnabled();
@@ -41,7 +41,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     })();
 
     return (
-        <div className={cx(classNames.root, className)}>
+        <div className={cx(classes.root, className)}>
             <GithubBtn
                 href={repoUrl}
                 data-color-scheme={[

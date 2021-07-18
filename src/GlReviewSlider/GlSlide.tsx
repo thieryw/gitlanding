@@ -2,17 +2,16 @@ import type { ReactNode } from "react";
 import { memo } from "react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
 
 export type GlSlideProps = {
     className?: string;
     children?: ReactNode;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "position": "relative",
             "minWidth": "100%",
@@ -29,15 +28,15 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlSlide = memo((props: GlSlideProps) => {
     const { children, className } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
-    return <div className={cx(classNames.root, className)}>{children}</div>;
+    return <div className={cx(classes.root, className)}>{children}</div>;
 });

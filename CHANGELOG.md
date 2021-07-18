@@ -199,7 +199,7 @@
 ### **0.0.25** (2021-06-13)  
   
 - bump version  
-- getUseClassNames in all components  
+- getUseStyles in all components  
 - Enable the theme to be customizable    
   
 ### **0.0.24** (2021-06-11)  

@@ -7,10 +7,10 @@ import { Typography } from "onyxia-ui/Typography";
 import { useGuaranteedMemo } from "powerhooks";
 import ReactMarkdown from "react-markdown";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "flexDirection": "row",
@@ -80,7 +80,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlSlideTemplateProps = {
@@ -101,24 +101,24 @@ export type GlSlideTemplateProps = {
 export const GlSlideTemplate = memo((props: GlSlideTemplateProps) => {
     const { descriptionMd, className, signature, logoUrl } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes } = useStyles();
 
     return (
         <GlSlide className={className}>
-            <Paper className={classNames.root}>
+            <Paper className={classes.root}>
                 {logoUrl !== undefined && (
-                    <GlLogo logoUrl={logoUrl} className={classNames.logo} />
+                    <GlLogo logoUrl={logoUrl} className={classes.logo} />
                 )}
                 <div>
                     {descriptionMd !== undefined && (
-                        <ReactMarkdown className={classNames.paragraph}>
+                        <ReactMarkdown className={classes.paragraph}>
                             {descriptionMd}
                         </ReactMarkdown>
                     )}
                     {signature !== undefined && (
-                        <Typography className={classNames.signature}>
+                        <Typography className={classes.signature}>
                             {signature}
                         </Typography>
                     )}

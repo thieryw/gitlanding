@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { createThemeProvider, defaultGetTypography } from "onyxia-ui/lib";
-import { createUseClassNamesFactory } from "tss-react";
+import { createMakeStyles } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
 import { createButton } from "onyxia-ui/Button";
@@ -25,7 +25,7 @@ let { ThemeProvider, useTheme } = createThemeProvider({
     }),
 });
 
-let { createUseClassNames } = createUseClassNamesFactory({ useTheme });
+let { makeStyles } = createMakeStyles({ useTheme });
 
 export function overwriteTheme(params: {
     ThemeProvider(props: ThemeProviderProps): JSX.Element;
@@ -35,9 +35,9 @@ export function overwriteTheme(params: {
 
     ThemeProvider = params.ThemeProvider;
     useTheme = params.useTheme;
-    createUseClassNames = createUseClassNamesFactory({
+    makeStyles = createMakeStyles({
         useTheme,
-    }).createUseClassNames;
+    }).makeStyles;
 }
 
 export const { getThemeApi } = (() => {
@@ -49,7 +49,7 @@ export const { getThemeApi } = (() => {
         return {
             "ThemeProviderOrId": isThemeOverwritten ? Id : ThemeProvider,
             useTheme,
-            createUseClassNames,
+            makeStyles,
         };
     }
 

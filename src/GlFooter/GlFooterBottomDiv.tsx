@@ -3,12 +3,11 @@ import { getThemeApi } from "../theme";
 import { memo } from "react";
 import { useGuaranteedMemo } from "powerhooks";
 import type { ReactNode } from "react";
-import { cx } from "tss-react";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
             "marginTop": theme.spacing(3),
@@ -19,7 +18,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlFooterBottomDivProps = {
@@ -31,12 +30,12 @@ export type GlFooterBottomDivProps = {
 export const GlFooterBottomDiv = memo((props: GlFooterBottomDivProps) => {
     const { contentMd, children, className } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <div className={cx(classNames.root, className)}>
+        <div className={cx(classes.root, className)}>
             {contentMd !== undefined && (
                 <ReactMarkDown>{contentMd}</ReactMarkDown>
             )}

@@ -5,7 +5,7 @@ import Link from "@material-ui/core/Link";
 import { Typography } from "onyxia-ui";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
+
 import type { ReactNode } from "react";
 
 export type GlFooterInfoProps = {
@@ -15,10 +15,10 @@ export type GlFooterInfoProps = {
     children?: ReactNode;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -40,7 +40,7 @@ const getUseClassNames = () => {
     }));
 
     return {
-        useClassNames,
+        useStyles,
     };
 };
 
@@ -55,14 +55,14 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
         throw new Error("phone number not valid!");
     }
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <div className={cx(classNames.root, className)}>
+        <div className={cx(classes.root, className)}>
             {email !== undefined && (
-                <Link className={classNames.email} href={`mailto:${email}`}>
+                <Link className={classes.email} href={`mailto:${email}`}>
                     {email}
                 </Link>
             )}

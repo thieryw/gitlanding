@@ -3,7 +3,7 @@
 import Link from "@material-ui/core/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
-import { cx } from "tss-react";
+
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { getThemeApi } from "../theme";
@@ -30,10 +30,10 @@ export type GlHeaderProps = {
     isCollapsible?: boolean;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         isMenuUnfolded: boolean;
         numberOfLinks: number;
     }>()((theme, { isMenuUnfolded, numberOfLinks }) => ({
@@ -124,7 +124,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlHeader = memo((props: GlHeaderProps) => {
@@ -137,7 +137,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         githubRepoUrl,
     } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
         "isMenuUnfolded",
@@ -148,14 +148,14 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setIsMenuUnfolded(!isMenuUnfolded);
     });
 
-    const { classNames } = useClassNames({
+    const { classes, cx } = useStyles({
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
     });
 
     return (
-        <header className={cx(classNames.root, className)}>
-            <div className={classNames.title}>
+        <header className={cx(classes.root, className)}>
+            <div className={classes.title}>
                 {typeof title === "string" ? (
                     <div>
                         <Typography variant="h3">{title}</Typography>
@@ -165,10 +165,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 )}
             </div>
 
-            <div className={classNames.links}>
+            <div className={classes.links}>
                 {links.map(({ link, label }) => (
-                    <div className={classNames.linkWrapper} key={label}>
-                        <Link className={classNames.link} {...link}>
+                    <div className={classes.linkWrapper} key={label}>
+                        <Link className={classes.link} {...link}>
                             {label}
                         </Link>
                     </div>
@@ -179,19 +179,19 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 <GlGithubStarCount
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
-                    className={classNames.githubStarAndDarkModeSwitch}
+                    className={classes.githubStarAndDarkModeSwitch}
                 />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
                 <GlDarkModeSwitch
-                    className={classNames.githubStarAndDarkModeSwitch}
+                    className={classes.githubStarAndDarkModeSwitch}
                 />
             )}
 
             <FormatListBulletedIcon
                 onClick={unfoldLinks}
-                className={classNames.unfoldIcon}
+                className={classes.unfoldIcon}
             />
         </header>
     );

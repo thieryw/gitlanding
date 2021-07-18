@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { cx } from "tss-react";
+
 import { memo } from "react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
@@ -10,10 +10,10 @@ export type GlImageProps = {
     alt?: string;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(() => ({
+    const { useStyles } = makeStyles()({
         "root": {
             "position": "relative",
         },
@@ -24,21 +24,21 @@ const getUseClassNames = () => {
             "objectFit": "cover",
             "verticalAlign": "middle",
         },
-    }));
+    });
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlImage = memo((props: GlImageProps) => {
     const { className, url, alt } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <div className={cx(classNames.root, className)}>
-            <img className={classNames.image} src={url} alt={alt} />
+        <div className={cx(classes.root, className)}>
+            <img className={classes.image} src={url} alt={alt} />
         </div>
     );
 });

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Typography } from "onyxia-ui/Typography";
 import { memo, ReactNode } from "react";
-import { cx } from "tss-react";
+
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         hasArticleAndAside: boolean;
     }>()((theme, { hasArticleAndAside }) => ({
         "root": {
@@ -60,7 +60,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlSectionProps = {
@@ -74,20 +74,20 @@ export type GlSectionProps = {
 export const GlSection = memo((props: GlSectionProps) => {
     const { className, heading, aside, article, children } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({
+    const { classes, cx } = useStyles({
         "hasArticleAndAside": aside !== undefined && article !== undefined,
     });
 
     return (
-        <section className={cx(classNames.root, className)}>
+        <section className={cx(classes.root, className)}>
             {heading && (
-                <Typography className={classNames.title} variant="h2">
+                <Typography className={classes.title} variant="h2">
                     {heading}
                 </Typography>
             )}
-            <div className={classNames.articleAndAsideWrapper}>
+            <div className={classes.articleAndAsideWrapper}>
                 {article}
                 {aside}
             </div>

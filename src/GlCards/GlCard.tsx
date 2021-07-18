@@ -2,11 +2,10 @@ import type { ReactNode } from "react";
 import { memo } from "react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
-    const { useClassNames } = createUseClassNames()(theme => ({
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "borderRadius": 16,
             "transition": "box-shadow 200ms",
@@ -20,7 +19,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlCardProps = {
@@ -34,9 +33,9 @@ export type GlCardProps = {
 
 export const GlCard = memo((props: GlCardProps) => {
     const { children, link, className } = props;
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
         <div
@@ -44,7 +43,7 @@ export const GlCard = memo((props: GlCardProps) => {
                 link?.onClick ??
                 (() => (window.location.href = link?.href ?? "#"))
             }
-            className={cx(classNames.root, className)}
+            className={cx(classes.root, className)}
         >
             {children}
         </div>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
-import { cx } from "tss-react";
+
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
 import { GlLogo } from "../utils/GlLogo";
@@ -14,10 +14,10 @@ export type GlLogoCardProps = GlCardProps & {
     paragraph?: string;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "padding": theme.spacing(3),
             "boxShadow": theme.shadows[1],
@@ -73,23 +73,23 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlLogoCard = memo((props: GlLogoCardProps) => {
     const { className, iconUrls, link, paragraph, title } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <GlCard link={link} className={cx(classNames.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             {iconUrls && (
-                <div className={classNames.iconWrapper}>
+                <div className={classes.iconWrapper}>
                     {iconUrls.map((url, index) => (
                         <GlLogo
-                            className={cx(classNames.icon)}
+                            className={cx(classes.icon)}
                             logoUrl={url}
                             key={index}
                         />
@@ -97,17 +97,14 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 </div>
             )}
 
-            <div className={classNames.description}>
+            <div className={classes.description}>
                 {title !== undefined && (
-                    <Typography variant="h4" className={classNames.title}>
+                    <Typography variant="h4" className={classes.title}>
                         {title}
                     </Typography>
                 )}
                 {paragraph !== undefined && (
-                    <Typography
-                        variant="body1"
-                        className={classNames.paragraph}
-                    >
+                    <Typography variant="body1" className={classes.paragraph}>
                         {paragraph}
                     </Typography>
                 )}

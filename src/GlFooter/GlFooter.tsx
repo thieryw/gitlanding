@@ -4,7 +4,6 @@ import { GlLogo } from "../utils/GlLogo";
 import Link from "@material-ui/core/Link";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
 
 type Link = {
     href: string;
@@ -19,10 +18,10 @@ export type GlFooterProps = {
     bottomDiv?: ReactNode;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -82,20 +81,20 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlFooter = memo((props: GlFooterProps) => {
     const { bottomDiv, className, info, iconLinks, links } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <footer className={cx(classNames.root, className)}>
+        <footer className={cx(classes.root, className)}>
             {iconLinks !== undefined && (
-                <div className={classNames.icons}>
+                <div className={classes.icons}>
                     {iconLinks.map((iconLink, index) => (
                         <div
                             key={index}
@@ -107,7 +106,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
                             }
                         >
                             <GlLogo
-                                className={classNames.icon}
+                                className={classes.icon}
                                 logoUrl={iconLink.iconUrl}
                             />
                         </div>
@@ -116,13 +115,13 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {links !== undefined && (
-                <div className={classNames.links}>
+                <div className={classes.links}>
                     {links.map((link, index) => (
                         <Link
                             key={index}
                             href={link.href}
                             onClick={link.onClick}
-                            className={classNames.link}
+                            className={classes.link}
                         >
                             {link.title}
                         </Link>

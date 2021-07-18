@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Typography } from "onyxia-ui/Typography";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
-import { cx } from "tss-react";
 
 export type GlCardsProps = {
     className?: string;
@@ -12,12 +11,10 @@ export type GlCardsProps = {
     children?: ReactNode;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    }>()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             ...(() => {
                 const value = theme.spacing(12.5);
@@ -78,23 +75,23 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 export const GlCards = memo((props: GlCardsProps) => {
     const { title, children, className } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <section className={cx(classNames.root, className)}>
+        <section className={cx(classes.root, className)}>
             {title && (
-                <Typography className={classNames.title} variant="h2">
+                <Typography className={classes.title} variant="h2">
                     {title}
                 </Typography>
             )}
-            <div className={classNames.cards}>{children}</div>
+            <div className={classes.cards}>{children}</div>
         </section>
     );
 });

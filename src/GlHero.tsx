@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Typography } from "onyxia-ui/Typography";
 import { GlImage } from "./utils/GlImage";
-import { cx } from "tss-react";
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { getThemeApi } from "./theme";
@@ -18,10 +17,10 @@ export type GlHeroProps = {
     children?: ReactNode;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         backgroundImageSrcLight: GlHeroProps["backgroundImageSrcLight"];
         backgroundImageSrcDark: GlHeroProps["backgroundImageSrcDark"];
         hasTextAndImage: boolean;
@@ -124,7 +123,7 @@ const getUseClassNames = () => {
         }),
     );
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
@@ -138,9 +137,9 @@ export const GlHero = memo((props: GlHeroProps) => {
         children,
     } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({
+    const { classes, cx } = useStyles({
         backgroundImageSrcLight,
         backgroundImageSrcDark,
         "hasTextAndImage":
@@ -149,20 +148,17 @@ export const GlHero = memo((props: GlHeroProps) => {
     });
 
     return (
-        <section className={cx(classNames.root, className)}>
-            <div className={classNames.backgroundDiv}></div>
-            <div className={classNames.textAndImageWrapper}>
-                <div className={classNames.textWrapper}>
+        <section className={cx(classes.root, className)}>
+            <div className={classes.backgroundDiv}></div>
+            <div className={classes.textAndImageWrapper}>
+                <div className={classes.textWrapper}>
                     {title !== undefined && (
-                        <Typography className={classNames.title} variant="h1">
+                        <Typography className={classes.title} variant="h1">
                             {title}
                         </Typography>
                     )}
                     {subTitle !== undefined && (
-                        <Typography
-                            variant="h3"
-                            className={classNames.subtitle}
-                        >
+                        <Typography variant="h3" className={classes.subtitle}>
                             {subTitle}
                         </Typography>
                     )}

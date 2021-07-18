@@ -1,7 +1,6 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 import { memo } from "react";
 import { getThemeApi } from "../theme";
-import { cx, css } from "tss-react";
 import { useGuaranteedMemo } from "powerhooks";
 
 const colors = {
@@ -11,10 +10,10 @@ const colors = {
     "darkslategray": "#282a36",
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         hasDecorativeVsCodeButtons: boolean;
     }>()((theme, { hasDecorativeVsCodeButtons }) => ({
         "root": {
@@ -34,7 +33,7 @@ const getUseClassNames = () => {
     }));
 
     return {
-        useClassNames,
+        useStyles,
     };
 };
 
@@ -55,17 +54,17 @@ export const GlCode = memo((props: GlCodeProps) => {
         hasDecorativeVsCodeButtons,
     } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({
+    const { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
     });
 
     return (
-        <div className={cx(classNames.root, className)}>
+        <div className={cx(classes.root, className)}>
             {hasDecorativeVsCodeButtons !== undefined &&
                 hasDecorativeVsCodeButtons && (
-                    <VsCodeButtons className={classNames.vsCodeButtons} />
+                    <VsCodeButtons className={classes.vsCodeButtons} />
                 )}
             <CodeBlock
                 language={language}
@@ -78,9 +77,9 @@ export const GlCode = memo((props: GlCodeProps) => {
 });
 
 const { VsCodeButtons } = (() => {
-    const { createUseClassNames } = getThemeApi();
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "gap": theme.spacing(1),
@@ -104,15 +103,15 @@ const { VsCodeButtons } = (() => {
     const VsCodeButtons = memo((props: VsCodeButtonsProps) => {
         const { className } = props;
 
-        const { classNames } = useClassNames({});
+        const { classes, cx, css } = useStyles();
         return (
-            <div className={cx(classNames.root, className)}>
+            <div className={cx(classes.root, className)}>
                 {[colors.tomatoRed, colors.goldenRoad, colors.limeGreen].map(
                     color => {
                         return (
                             <div
                                 className={cx(
-                                    classNames.icon,
+                                    classes.icon,
                                     css({
                                         "backgroundColor": color,
                                     }),

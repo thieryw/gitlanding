@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import { Typography } from "onyxia-ui/Typography";
-import { cx } from "tss-react";
+
 import { GlButton } from "../utils/GlButton";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
@@ -16,10 +16,10 @@ export type GlProjectCardProps = GlCardProps & {
     date?: string;
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         projectImageUrl: string;
     }>()((theme, { projectImageUrl }) => ({
         "root": {
@@ -71,7 +71,7 @@ const getUseClassNames = () => {
         "badge": { "alignSelf": "right" },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
@@ -85,18 +85,18 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         link,
     } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({ projectImageUrl });
+    const { classes, cx } = useStyles({ projectImageUrl });
 
     return (
-        <GlCard className={cx(classNames.root, className)}>
-            <div className={classNames.header}>
-                <div className={classNames.buttonWrapper}>
+        <GlCard className={cx(classes.root, className)}>
+            <div className={classes.header}>
+                <div className={classes.buttonWrapper}>
                     {badgeLabel !== undefined && (
                         <GlButton
                             type="submit"
-                            className={classNames.badge}
+                            className={classes.badge}
                             href={link?.href}
                             onClick={link?.onClick}
                         >
@@ -105,11 +105,11 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                     )}
                 </div>
             </div>
-            <div className={classNames.footer}>
-                <Typography variant="h5" className={classNames.footerH5}>
+            <div className={classes.footer}>
+                <Typography variant="h5" className={classes.footerH5}>
                     {title}
                 </Typography>
-                <Typography variant="subtitle1" className={classNames.footerH6}>
+                <Typography variant="subtitle1" className={classes.footerH6}>
                     {subtitle}
                 </Typography>
                 {date !== undefined && (

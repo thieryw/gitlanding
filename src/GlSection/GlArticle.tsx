@@ -5,10 +5,10 @@ import { useGuaranteedMemo } from "powerhooks";
 import { GlButton } from "../utils/GlButton";
 import { memo } from "react";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -45,7 +45,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlArticleProps = {
@@ -61,26 +61,26 @@ export type GlArticleProps = {
 export const GlArticle = memo((props: GlArticleProps) => {
     const { buttonLink, buttonLabel, articleMd, title } = props;
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes } = useStyles();
 
     return (
         <article>
             {title && (
-                <Typography className={classNames.title} variant="h2">
+                <Typography className={classes.title} variant="h2">
                     {title}
                 </Typography>
             )}
             {articleMd && (
-                <ReactMarkdown className={classNames.paragraph}>
+                <ReactMarkdown className={classes.paragraph}>
                     {articleMd}
                 </ReactMarkdown>
             )}
             {buttonLabel && (
-                <div /*ref={rootRef}*/ className={classNames.buttonWrapper}>
+                <div /*ref={rootRef}*/ className={classes.buttonWrapper}>
                     <GlButton
-                        className={classNames.button}
+                        className={classes.button}
                         type="submit"
                         {...buttonLink}
                         color="secondary"

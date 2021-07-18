@@ -4,14 +4,14 @@ import { useEmblaCarousel } from "embla-carousel/react";
 import { getThemeApi } from "../theme";
 import { useConstCallback } from "powerhooks";
 import Typography from "@material-ui/core/Typography";
-import { cx } from "tss-react";
+
 import { useGuaranteedMemo } from "powerhooks";
 import { Icon } from "../theme";
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames()(theme => ({
+    const { useStyles } = makeStyles()(theme => ({
         "root": {
             ...(() => {
                 const value = theme.spacing(12);
@@ -60,7 +60,7 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export type GlReviewSliderProps = {
@@ -82,29 +82,29 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
         () => emblaApi && emblaApi.scrollNext(),
     );
 
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({});
+    const { classes, cx } = useStyles();
 
     return (
-        <section className={cx(classNames.root, className)}>
+        <section className={cx(classes.root, className)}>
             {title !== undefined && (
-                <Typography className={classNames.heading} variant="h2">
+                <Typography className={classes.heading} variant="h2">
                     {title}
                 </Typography>
             )}
-            <div className={classNames.sliderWrapper}>
+            <div className={classes.sliderWrapper}>
                 <Icon
                     id="arrowBackIos"
-                    className={classNames.arrows}
+                    className={classes.arrows}
                     onClick={onClickPrev}
                 />
-                <div className={classNames.viewport} ref={emblaRef}>
-                    <div className={classNames.container}>{sliderContent}</div>
+                <div className={classes.viewport} ref={emblaRef}>
+                    <div className={classes.container}>{sliderContent}</div>
                 </div>
                 <Icon
                     id="arrowForwardIos"
-                    className={classNames.arrows}
+                    className={classes.arrows}
                     onClick={onClickNext}
                 />
             </div>

@@ -1,6 +1,6 @@
 import downArrow from "../assets/svg/downArrow.svg";
 import { ReactSVG } from "react-svg";
-import { cx } from "tss-react";
+
 import { memo } from "react";
 import { getThemeApi } from "../theme";
 import { useGuaranteedMemo } from "powerhooks";
@@ -15,10 +15,10 @@ export type GlArrowProps = {
     };
 };
 
-const getUseClassNames = () => {
-    const { createUseClassNames } = getThemeApi();
+const getUseStyles = () => {
+    const { makeStyles } = getThemeApi();
 
-    const { useClassNames } = createUseClassNames<{
+    const { useStyles } = makeStyles<{
         direction: GlArrowProps["direction"];
         hasCircularBorder: boolean;
     }>()((theme, { direction, hasCircularBorder }) => ({
@@ -67,14 +67,14 @@ const getUseClassNames = () => {
         },
     }));
 
-    return { useClassNames };
+    return { useStyles };
 };
 
 export const GlArrow = memo((props: GlArrowProps) => {
     const { className, link, direction, hasCircularBorder } = props;
-    const { useClassNames } = useGuaranteedMemo(() => getUseClassNames(), []);
+    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
-    const { classNames } = useClassNames({
+    const { classes, cx } = useStyles({
         direction,
         "hasCircularBorder": hasCircularBorder ?? false,
     });
@@ -85,7 +85,7 @@ export const GlArrow = memo((props: GlArrowProps) => {
                 link?.onClick ??
                 (() => (window.location.href = link?.href ?? "#"))
             }
-            className={cx(className, classNames.root)}
+            className={cx(className, classes.root)}
         >
             <ReactSVG src={downArrow} />
         </div>

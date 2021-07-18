@@ -11,10 +11,10 @@ export type GlRootProps = {
 
 export const { GlTemplate } = (() => {
     const { GlTemplateInner } = (() => {
-        const getUseClassNames = () => {
-            const { createUseClassNames } = getThemeApi();
+        const getUseStyles = () => {
+            const { makeStyles } = getThemeApi();
 
-            const { useClassNames } = createUseClassNames<{
+            const { useStyles } = makeStyles<{
                 doUseZoomProvider: boolean;
             }>()((...[, { doUseZoomProvider }]) => ({
                 "root": {
@@ -30,25 +30,25 @@ export const { GlTemplate } = (() => {
                 },
             }));
 
-            return { useClassNames };
+            return { useStyles };
         };
 
         const GlTemplateInner = memo((props: GlRootProps) => {
             const { header, children } = props;
 
-            const [{ useClassNames }] = useState(() => getUseClassNames());
+            const [{ useStyles }] = useState(() => getUseStyles());
 
             const { referenceWidth } = useZoomProviderReferenceWidth();
 
-            const { classNames } = useClassNames({
+            const { classes } = useStyles({
                 "doUseZoomProvider": referenceWidth !== undefined,
             });
 
             return (
-                <div className={classNames.root}>
+                <div className={classes.root}>
                     {header}
 
-                    <div className={classNames.scrollWrapper}>{children}</div>
+                    <div className={classes.scrollWrapper}>{children}</div>
                 </div>
             );
         });
