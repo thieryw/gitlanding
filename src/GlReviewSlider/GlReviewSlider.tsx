@@ -1,67 +1,58 @@
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
-import { getThemeApi } from "../theme";
+import { makeStyles, Text } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
-import Typography from "@material-ui/core/Typography";
-
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { Icon } from "../theme";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        ...(() => {
+            const value = theme.spacing(12);
+            return {
+                "paddingLeft": value,
+                "paddingRight": value,
+            };
+        })(),
 
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            ...(() => {
-                const value = theme.spacing(12);
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
+        ...(theme.responsive.down("sm")
+            ? {
+                  ...(() => {
+                      const value = theme.spacing(4);
+                      return {
+                          "paddingLeft": value,
+                          "paddingRight": value,
+                      };
+                  })(),
+              }
+            : {}),
+    },
+    "heading": {
+        "textAlign": "center",
+        "marginBottom": theme.spacing(10),
+    },
+    "sliderWrapper": {
+        "position": "relative",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+    },
+    "viewport": {
+        "overflow": "hidden",
+        "userSelect": "none",
+    },
+    "container": {
+        "display": "flex",
+        "alignItems": "center",
+    },
 
-            ...(theme.responsive.down("sm")
-                ? {
-                      ...(() => {
-                          const value = theme.spacing(4);
-                          return {
-                              "paddingLeft": value,
-                              "paddingRight": value,
-                          };
-                      })(),
-                  }
-                : {}),
+    "arrows": {
+        "transition": "transform 300ms",
+        ":hover": {
+            "transform": "scale(1.2)",
         },
-        "heading": {
-            "textAlign": "center",
-            "marginBottom": theme.spacing(10),
-        },
-        "sliderWrapper": {
-            "position": "relative",
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "center",
-        },
-        "viewport": {
-            "overflow": "hidden",
-            "userSelect": "none",
-        },
-        "container": {
-            "display": "flex",
-            "alignItems": "center",
-        },
-
-        "arrows": {
-            "transition": "transform 300ms",
-            ":hover": {
-                "transform": "scale(1.2)",
-            },
-        },
-    }));
-
-    return { useStyles };
-};
+    },
+}));
 
 export type GlReviewSliderProps = {
     sliderContent: ReactNode;
@@ -82,20 +73,18 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
         () => emblaApi && emblaApi.scrollNext(),
     );
 
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
-
     const { classes, cx } = useStyles();
 
     return (
         <section className={cx(classes.root, className)}>
             {title !== undefined && (
-                <Typography className={classes.heading} variant="h2">
+                <Text className={classes.heading} typo="page heading">
                     {title}
-                </Typography>
+                </Text>
             )}
             <div className={classes.sliderWrapper}>
                 <Icon
-                    id="arrowBackIos"
+                    iconId="arrowBackIos"
                     className={classes.arrows}
                     onClick={onClickPrev}
                 />
@@ -103,7 +92,7 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
                     <div className={classes.container}>{sliderContent}</div>
                 </div>
                 <Icon
-                    id="arrowForwardIos"
+                    iconId="arrowForwardIos"
                     className={classes.arrows}
                     onClick={onClickNext}
                 />

@@ -1,87 +1,79 @@
-import { getThemeApi } from "../theme";
+import { makeStyles, Text } from "../theme";
 import { GlSlide } from "./GlSlide";
 import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
-import { Typography } from "onyxia-ui/Typography";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import ReactMarkdown from "react-markdown";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "display": "flex",
+        "flexDirection": "row",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "position": "relative",
+        ...(theme.responsive.down("md")
+            ? {
+                  "flexDirection": "column",
+              }
+            : {}),
+    },
 
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "display": "flex",
-            "flexDirection": "row",
-            "alignItems": "center",
-            "justifyContent": "space-between",
-            "position": "relative",
-            ...(theme.responsive.down("md")
-                ? {
-                      "flexDirection": "column",
-                  }
-                : {}),
-        },
+    "paragraph": {
+        "margin": theme.spacing(5),
+        "fontSize": theme.typography.variants["body 1"].style.fontSize,
+        "fontWeight": theme.typography.variants["body 1"].style.fontWeight,
+        "lineHeight": theme.typography.variants["body 1"].style.lineHeight,
+        ...(theme.responsive.down("md")
+            ? {
+                  "textAlign": "center",
+              }
+            : {}),
+        ...(theme.responsive.down("sm")
+            ? {
+                  ...(() => {
+                      const valueVertical = theme.spacing(1);
+                      const valueHorizontal = theme.spacing(5);
 
-        "paragraph": {
-            "margin": theme.spacing(5),
-            "fontSize": theme.typography.body1.fontSize,
-            "fontWeight": theme.typography.body1.fontWeight,
-            "lineHeight": theme.typography.body1.lineHeight,
-            ...(theme.responsive.down("md")
-                ? {
-                      "textAlign": "center",
-                  }
-                : {}),
-            ...(theme.responsive.down("sm")
-                ? {
-                      ...(() => {
-                          const valueVertical = theme.spacing(1);
-                          const valueHorizontal = theme.spacing(5);
+                      return {
+                          "marginTop": valueVertical,
+                          "marginBottom": valueVertical,
+                          "marginLeft": valueHorizontal,
+                          "marginRight": valueHorizontal,
+                      };
+                  })(),
+              }
+            : {}),
+    },
 
-                          return {
-                              "marginTop": valueVertical,
-                              "marginBottom": valueVertical,
-                              "marginLeft": valueHorizontal,
-                              "marginRight": valueHorizontal,
-                          };
-                      })(),
-                  }
-                : {}),
-        },
+    "signature": {
+        "textAlign": "right",
+        "fontStyle": "italic",
+        "marginRight": theme.spacing(5),
+        "marginBottom": theme.spacing(5),
 
-        "signature": {
-            "textAlign": "right",
-            "fontStyle": "italic",
-            "marginRight": theme.spacing(5),
-            "marginBottom": theme.spacing(5),
-
-            ...(theme.responsive.down("md")
-                ? {
-                      "textAlign": "center",
-                      "marginRight": 0,
-                  }
-                : {}),
-        },
-        "logo": {
+        ...(theme.responsive.down("md")
+            ? {
+                  "textAlign": "center",
+                  "marginRight": 0,
+              }
+            : {}),
+    },
+    "logo": {
+        "width": 70,
+        "marginLeft": theme.spacing(5),
+        "& svg": {
             "width": 70,
-            "marginLeft": theme.spacing(5),
-            "& svg": {
-                "width": 70,
-                "height": 70,
-            },
-            ...(theme.responsive.down("md")
-                ? {
-                      "marginLeft": 0,
-                      "marginTop": theme.spacing(5),
-                  }
-                : {}),
+            "height": 70,
         },
-    }));
-
-    return { useStyles };
-};
+        ...(theme.responsive.down("md")
+            ? {
+                  "marginLeft": 0,
+                  "marginTop": theme.spacing(5),
+              }
+            : {}),
+    },
+}));
 
 export type GlSlideTemplateProps = {
     /**
@@ -101,8 +93,6 @@ export type GlSlideTemplateProps = {
 export const GlSlideTemplate = memo((props: GlSlideTemplateProps) => {
     const { descriptionMd, className, signature, logoUrl } = props;
 
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
-
     const { classes } = useStyles();
 
     return (
@@ -118,9 +108,9 @@ export const GlSlideTemplate = memo((props: GlSlideTemplateProps) => {
                         </ReactMarkdown>
                     )}
                     {signature !== undefined && (
-                        <Typography className={classes.signature}>
+                        <Text typo="body 2" className={classes.signature}>
                             {signature}
-                        </Typography>
+                        </Text>
                     )}
                 </div>
             </Paper>

@@ -1,7 +1,6 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles } from "../theme";
 
 const colors = {
     "tomatoRed": "#f85b52",
@@ -10,32 +9,24 @@ const colors = {
     "darkslategray": "#282a36",
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-
-    const { useStyles } = makeStyles<{
-        hasDecorativeVsCodeButtons: boolean;
-    }>()((theme, { hasDecorativeVsCodeButtons }) => ({
-        "root": {
-            ...(hasDecorativeVsCodeButtons
-                ? {
-                      "position": "relative",
-                      "borderTop": `solid ${colors.darkslategray} 24px`,
-                      "borderRadius": 3,
-                  }
-                : {}),
-        },
-        "vsCodeButtons": {
-            "position": "absolute",
-            "top": theme.spacing(-2),
-            "left": theme.spacing(1),
-        },
-    }));
-
-    return {
-        useStyles,
-    };
-};
+const { useStyles } = makeStyles<{
+    hasDecorativeVsCodeButtons: boolean;
+}>()((theme, { hasDecorativeVsCodeButtons }) => ({
+    "root": {
+        ...(hasDecorativeVsCodeButtons
+            ? {
+                  "position": "relative",
+                  "borderTop": `solid ${colors.darkslategray} 24px`,
+                  "borderRadius": 3,
+              }
+            : {}),
+    },
+    "vsCodeButtons": {
+        "position": "absolute",
+        "top": theme.spacing(-2),
+        "left": theme.spacing(1),
+    },
+}));
 
 export type GlCodeProps = {
     className?: string;
@@ -53,8 +44,6 @@ export const GlCode = memo((props: GlCodeProps) => {
         text,
         hasDecorativeVsCodeButtons,
     } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
@@ -77,8 +66,6 @@ export const GlCode = memo((props: GlCodeProps) => {
 });
 
 const { VsCodeButtons } = (() => {
-    const { makeStyles } = getThemeApi();
-
     const { useStyles } = makeStyles()(theme => ({
         "root": {
             "display": "flex",

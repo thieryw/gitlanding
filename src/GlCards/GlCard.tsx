@@ -1,26 +1,20 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles } from "../theme";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "borderRadius": 16,
-            "transition": "box-shadow 200ms",
-            "margin": theme.spacing(1.5),
-            "boxShadow": theme.shadows[1],
-            "backgroundColor": theme.colors.useCases.surfaces.surface1,
-            ":hover": {
-                "boxShadow": theme.shadows[2],
-                "cursor": "pointer",
-            },
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "borderRadius": 16,
+        "transition": "box-shadow 200ms",
+        "margin": theme.spacing(1.5),
+        "boxShadow": theme.shadows[1],
+        "backgroundColor": theme.colors.useCases.surfaces.surface1,
+        ":hover": {
+            "boxShadow": theme.shadows[2],
+            "cursor": "pointer",
         },
-    }));
-
-    return { useStyles };
-};
+    },
+}));
 
 export type GlCardProps = {
     className?: string;
@@ -33,7 +27,6 @@ export type GlCardProps = {
 
 export const GlCard = memo((props: GlCardProps) => {
     const { children, link, className } = props;
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles();
 

@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@material-ui/core/Link";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles } from "../theme";
 
 type Link = {
     href: string;
@@ -18,76 +17,68 @@ export type GlFooterProps = {
     bottomDiv?: ReactNode;
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": theme.spacing(8),
+        "backgroundColor": theme.colors.useCases.surfaces.surface2,
+        ...(() => {
+            const value = theme.spacing(4);
 
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "center",
-            "justifyContent": "center",
-            "marginTop": theme.spacing(8),
-            "backgroundColor": theme.colors.useCases.surfaces.surface2,
-            ...(() => {
-                const value = theme.spacing(4);
-
-                return {
-                    "paddingTop": value,
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
+            return {
+                "paddingTop": value,
+                "paddingLeft": value,
+                "paddingRight": value,
+            };
+        })(),
+    },
+    "icon": {
+        "transition": "transform 200ms",
+        ":hover": {
+            "cursor": "pointer",
+            "transform": "scale(1.2)",
         },
-        "icon": {
-            "transition": "transform 200ms",
-            ":hover": {
-                "cursor": "pointer",
-                "transform": "scale(1.2)",
-            },
-            ...(() => {
-                const value = theme.spacing(5);
+        ...(() => {
+            const value = theme.spacing(5);
 
-                return {
+            return {
+                "width": value,
+                "height": value,
+                "& svg": {
                     "width": value,
                     "height": value,
-                    "& svg": {
-                        "width": value,
-                        "height": value,
-                    },
-                };
-            })(),
-        },
-        "icons": {
-            "display": "flex",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-            "gap": theme.spacing(4),
-            "marginBottom": theme.spacing(3),
-            "marginTop": theme.spacing(2),
-        },
-        "link": {
-            "color": theme.colors.useCases.typography.textPrimary,
-        },
-        "links": {
-            "display": "flex",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "center",
-            "gap": theme.spacing(4),
-            "marginTop": theme.spacing(3),
-            "marginBottom": theme.spacing(3),
-        },
-    }));
-
-    return { useStyles };
-};
+                },
+            };
+        })(),
+    },
+    "icons": {
+        "display": "flex",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "gap": theme.spacing(4),
+        "marginBottom": theme.spacing(3),
+        "marginTop": theme.spacing(2),
+    },
+    "link": {
+        "color": theme.colors.useCases.typography.textPrimary,
+    },
+    "links": {
+        "display": "flex",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "gap": theme.spacing(4),
+        "marginTop": theme.spacing(3),
+        "marginBottom": theme.spacing(3),
+    },
+}));
 
 export const GlFooter = memo((props: GlFooterProps) => {
     const { bottomDiv, className, info, iconLinks, links } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles();
 

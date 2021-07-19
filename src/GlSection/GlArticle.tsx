@@ -1,52 +1,44 @@
-import { getThemeApi } from "../theme";
-import { Typography } from "onyxia-ui/Typography";
+import { makeStyles, Text } from "../theme";
 import ReactMarkdown from "react-markdown";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { GlButton } from "../utils/GlButton";
 import { memo } from "react";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "display": "flex",
-            "flexDirection": "column",
-            "textAlign": "left",
-        },
-        "title": {
-            "marginBottom": 14,
-            ...(theme.responsive.down("lg")
-                ? {
-                      "fontSize": "22px",
-                      "lineHeight": "24px",
-                  }
-                : {}),
-        },
-        "paragraph": {
-            "fontSize": theme.typography.body1.fontSize,
-            "lineHeight": "24px",
-            "marginTop": 14,
-            "marginBottom": 14,
-            ...(theme.responsive.down("lg")
-                ? {
-                      "fontSize": "16px",
-                      "lineHeight": "20px",
-                  }
-                : {}),
-        },
-        "buttonWrapper": {
-            "display": "flex",
-            "justifyContent": "flex-end",
-            "marginTop": 14,
-        },
-        "button": {
-            "alignSelf": "right",
-        },
-    }));
-
-    return { useStyles };
-};
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "display": "flex",
+        "flexDirection": "column",
+        "textAlign": "left",
+    },
+    "title": {
+        "marginBottom": 14,
+        ...(theme.responsive.down("lg")
+            ? {
+                  "fontSize": "22px",
+                  "lineHeight": "24px",
+              }
+            : {}),
+    },
+    "paragraph": {
+        "fontSize": theme.typography.variants["body 1"].style.fontSize,
+        "lineHeight": "24px",
+        "marginTop": 14,
+        "marginBottom": 14,
+        ...(theme.responsive.down("lg")
+            ? {
+                  "fontSize": "16px",
+                  "lineHeight": "20px",
+              }
+            : {}),
+    },
+    "buttonWrapper": {
+        "display": "flex",
+        "justifyContent": "flex-end",
+        "marginTop": 14,
+    },
+    "button": {
+        "alignSelf": "right",
+    },
+}));
 
 export type GlArticleProps = {
     title?: string;
@@ -61,16 +53,14 @@ export type GlArticleProps = {
 export const GlArticle = memo((props: GlArticleProps) => {
     const { buttonLink, buttonLabel, articleMd, title } = props;
 
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
-
     const { classes } = useStyles();
 
     return (
         <article>
             {title && (
-                <Typography className={classes.title} variant="h2">
+                <Text className={classes.title} typo="page heading">
                     {title}
-                </Typography>
+                </Text>
             )}
             {articleMd && (
                 <ReactMarkdown className={classes.paragraph}>
@@ -83,7 +73,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                         className={classes.button}
                         type="submit"
                         {...buttonLink}
-                        color="secondary"
+                        variant="secondary"
                     >
                         {buttonLabel}
                     </GlButton>

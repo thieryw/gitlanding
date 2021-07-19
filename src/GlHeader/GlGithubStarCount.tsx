@@ -1,8 +1,6 @@
 import { memo } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles } from "../theme";
 import GithubBtn from "react-github-btn";
 
 export type GlGithubStarCountProps = {
@@ -11,25 +9,18 @@ export type GlGithubStarCountProps = {
     repoUrl: string;
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-
-    const { useStyles } = makeStyles()({
-        "root": {
-            "& span": {
-                "display": "flex",
-                "alignItems": "center",
-            },
+const { useStyles } = makeStyles()({
+    "root": {
+        "& span": {
+            "display": "flex",
+            "alignItems": "center",
         },
-    });
-
-    return { useStyles };
-};
+    },
+});
 
 export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     const { repoUrl, size, className } = props;
 
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
     const { classes, cx } = useStyles();
 
     const { themeVariant } = (function useClosure() {

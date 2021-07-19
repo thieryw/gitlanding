@@ -1,70 +1,77 @@
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
-import { useState, memo } from "react";
-import { getThemeApi } from "./theme";
-import { useZoomProviderReferenceWidth } from "powerhooks/ZoomProvider";
+import { useEffect, memo } from "react";
+import { getThemeProvider, makeStyles } from "./theme";
 import type { ReactNode } from "react";
+import type { ComponentType } from "./tools/ComponentType";
+import { useSplashScreen } from "onyxia-ui";
 
-export type GlRootProps = {
+export type GlTemplateProps = {
     header?: ReactNode;
+    SplashScreenLogo?: ComponentType<{ className: string }>;
+    splashScreenLogoFillColor?: string;
     children?: ReactNode;
 };
 
 export const { GlTemplate } = (() => {
     const { GlTemplateInner } = (() => {
-        const getUseStyles = () => {
-            const { makeStyles } = getThemeApi();
-
-            const { useStyles } = makeStyles<{
-                doUseZoomProvider: boolean;
-            }>()((...[, { doUseZoomProvider }]) => ({
-                "root": {
-                    "height": doUseZoomProvider ? "100%" : "100vh",
-                    "display": "flex",
-                    "flexDirection": "column",
-                    "overflow": "hidden",
-                },
-                "scrollWrapper": {
-                    "flex": 1,
-                    "overflow": "auto",
-                    "scrollBehavior": "smooth",
-                },
-            }));
-
-            return { useStyles };
-        };
-
-        const GlTemplateInner = memo((props: GlRootProps) => {
-            const { header, children } = props;
-
-            const [{ useStyles }] = useState(() => getUseStyles());
-
-            const { referenceWidth } = useZoomProviderReferenceWidth();
-
-            const { classes } = useStyles({
-                "doUseZoomProvider": referenceWidth !== undefined,
-            });
-
-            return (
-                <div className={classes.root}>
-                    {header}
-
-                    <div className={classes.scrollWrapper}>{children}</div>
-                </div>
-            );
+        const { useStyles } = makeStyles()({
+            "root": {
+                "height": "100%",
+                "display": "flex",
+                "flexDirection": "column",
+                "overflow": "hidden",
+            },
+            "scrollWrapper": {
+                "flex": 1,
+                "overflow": "auto",
+                "scrollBehavior": "smooth",
+            },
         });
+
+        const GlTemplateInner = memo(
+            (props: Omit<GlTemplateProps, "SplashScreenLogo">) => {
+                const { header, children } = props;
+
+                {
+                    const { hideRootSplashScreen } = useSplashScreen();
+
+                    useEffect(() => {
+                        hideRootSplashScreen();
+                    }, []);
+                }
+
+                const { classes } = useStyles();
+
+                return (
+                    <div className={classes.root}>
+                        {header}
+                        <div className={classes.scrollWrapper}>{children}</div>
+                    </div>
+                );
+            },
+        );
 
         return { GlTemplateInner };
     })();
 
-    const GlTemplate = memo((props: GlRootProps) => {
+    const GlTemplate = memo((props: GlTemplateProps) => {
         const { ThemeProviderOrId } = useGuaranteedMemo(
-            () => getThemeApi(),
+            () => getThemeProvider(),
             [],
         );
 
+        const { SplashScreenLogo, splashScreenLogoFillColor, ...rest } = props;
+
         return (
-            <ThemeProviderOrId>
-                <GlTemplateInner {...props} />
+            <ThemeProviderOrId
+                splashScreen={{
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    "Logo": SplashScreenLogo as any,
+                    "fillColor": splashScreenLogoFillColor,
+                    "minimumDisplayDuration": 0,
+                }}
+            >
+                <GlTemplateInner {...rest} />
             </ThemeProviderOrId>
         );
     });

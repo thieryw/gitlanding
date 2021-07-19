@@ -52,7 +52,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.4",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.6.1",
+        "onyxia-ui": "^0.9.2",
         "powerhooks": "^0.6.1",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",

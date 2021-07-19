@@ -5,9 +5,7 @@ import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 
 import { memo } from "react";
-import { Typography } from "onyxia-ui/Typography";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles, Text } from "../theme";
 import type { ReactNode } from "react";
 import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";
@@ -30,102 +28,96 @@ export type GlHeaderProps = {
     isCollapsible?: boolean;
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles<{
+    isMenuUnfolded: boolean;
+    numberOfLinks: number;
+}>()((theme, { isMenuUnfolded, numberOfLinks }) => ({
+    "root": {
+        "display": "flex",
+        "alignItems": "center",
+        "width": "100%",
+        "padding": theme.spacing(2, 4),
+        ...(theme.responsive.down("md")
+            ? {
+                  "flexWrap": "wrap",
+              }
+            : {}),
+    },
+    "title": {
+        "display": "flex",
+        "flex": 1,
+        "marginRight": theme.spacing(2),
+    },
+    "links": {
+        "display": "flex",
+        "transition": "height 300ms",
+        "flexWrap": "wrap",
+        ...(theme.responsive.down("md")
+            ? {
+                  "order": 123,
+                  "flex": "100%",
+                  "flexDirection": "column",
+                  "gap": theme.spacing(1),
+                  "height": isMenuUnfolded
+                      ? (21 + theme.spacing(2)) * numberOfLinks
+                      : 0,
+                  "overflow": "hidden",
+                  "flexWrap": "nowrap",
+              }
+            : {}),
+    },
 
-    const { useStyles } = makeStyles<{
-        isMenuUnfolded: boolean;
-        numberOfLinks: number;
-    }>()((theme, { isMenuUnfolded, numberOfLinks }) => ({
-        "root": {
-            "display": "flex",
-            "alignItems": "center",
-            "width": "100%",
-            "padding": theme.spacing(2, 4),
-            ...(theme.responsive.down("md")
-                ? {
-                      "flexWrap": "wrap",
-                  }
-                : {}),
-        },
-        "title": {
-            "display": "flex",
-            "flex": 1,
-            "marginRight": theme.spacing(2),
-        },
-        "links": {
-            "display": "flex",
-            "transition": "height 300ms",
-            "flexWrap": "wrap",
-            ...(theme.responsive.down("md")
-                ? {
-                      "order": 123,
-                      "flex": "100%",
-                      "flexDirection": "column",
-                      "gap": theme.spacing(1),
-                      "height": isMenuUnfolded
-                          ? (21 + theme.spacing(2)) * numberOfLinks
-                          : 0,
-                      "overflow": "hidden",
-                      "flexWrap": "nowrap",
-                  }
-                : {}),
-        },
+    "linkWrapper": {
+        ...(() => {
+            const leftRight = theme.spacing(2);
+            const topBottom = theme.spacing(1);
+            return {
+                "marginLeft": leftRight,
+                "marginRight": leftRight,
+                "marginTop": topBottom,
+                "marginBottom": topBottom,
+                ...(theme.responsive.down("md")
+                    ? {
+                          ...(() => {
+                              const value = 0;
+                              return {
+                                  "marginLeft": value,
+                              };
+                          })(),
+                      }
+                    : {}),
+            };
+        })(),
+    },
 
-        "linkWrapper": {
-            ...(() => {
-                const leftRight = theme.spacing(2);
-                const topBottom = theme.spacing(1);
-                return {
-                    "marginLeft": leftRight,
-                    "marginRight": leftRight,
-                    "marginTop": topBottom,
-                    "marginBottom": topBottom,
-                    ...(theme.responsive.down("md")
-                        ? {
-                              ...(() => {
-                                  const value = 0;
-                                  return {
-                                      "marginLeft": value,
-                                  };
-                              })(),
-                          }
-                        : {}),
-                };
-            })(),
-        },
+    "link": {
+        "color": theme.colors.useCases.typography.textPrimary,
+        "fontSize": "18px",
+        "whiteSpace": "nowrap",
+    },
 
-        "link": {
-            "color": theme.colors.useCases.typography.textPrimary,
-            "fontSize": "18px",
-            "whiteSpace": "nowrap",
-        },
+    "unfoldIcon": {
+        "display": "none",
+        "cursor": "pointer",
+        "marginLeft": theme.spacing(2),
+        ...(theme.responsive.down("md")
+            ? {
+                  "display": "flex",
+              }
+            : {}),
+    },
 
-        "unfoldIcon": {
-            "display": "none",
-            "cursor": "pointer",
-            "marginLeft": theme.spacing(2),
-            ...(theme.responsive.down("md")
-                ? {
-                      "display": "flex",
-                  }
-                : {}),
-        },
+    "githubStarAndDarkModeSwitch": {
+        ...(() => {
+            const value = theme.spacing(2);
 
-        "githubStarAndDarkModeSwitch": {
-            ...(() => {
-                const value = theme.spacing(2);
-
-                return {
-                    "marginLeft": value,
-                    "marginRight": value,
-                };
-            })(),
-        },
-    }));
-
-    return { useStyles };
-};
+            return {
+                "marginLeft": value,
+                "marginRight": value,
+            };
+        })(),
+    },
+}));
 
 export const GlHeader = memo((props: GlHeaderProps) => {
     const {
@@ -136,8 +128,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         githubButtonSize,
         githubRepoUrl,
     } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
         "isMenuUnfolded",
@@ -158,7 +148,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             <div className={classes.title}>
                 {typeof title === "string" ? (
                     <div>
-                        <Typography variant="h3">{title}</Typography>
+                        <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
                     <div>{title}</div>

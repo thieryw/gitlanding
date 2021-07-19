@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
-import { Typography } from "onyxia-ui/Typography";
-
 import { GlButton } from "../utils/GlButton";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles, Text } from "../theme";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 
@@ -16,63 +13,57 @@ export type GlProjectCardProps = GlCardProps & {
     date?: string;
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles<{
+    projectImageUrl: string;
+}>()((theme, { projectImageUrl }) => ({
+    "root": {
+        "display": "flex",
+        "minHeight": 591,
+        ...(theme.responsive.down(1440)
+            ? {
+                  "minHeight": 412,
+              }
+            : {}),
+        "flexDirection": "column",
+        "overflow": "hidden",
+        ...(theme.responsive.down("lg")
+            ? {
+                  "margin": theme.spacing(1),
+              }
+            : {}),
+    },
 
-    const { useStyles } = makeStyles<{
-        projectImageUrl: string;
-    }>()((theme, { projectImageUrl }) => ({
-        "root": {
-            "display": "flex",
-            "minHeight": 591,
-            ...(theme.responsive.down(1440)
-                ? {
-                      "minHeight": 412,
-                  }
-                : {}),
-            "flexDirection": "column",
-            "overflow": "hidden",
-            ...(theme.responsive.down("lg")
-                ? {
-                      "margin": theme.spacing(1),
-                  }
-                : {}),
-        },
+    "footer": {
+        "backgroundColor": theme.isDarkModeEnabled
+            ? theme.colors.palette.dark.greyVariant1
+            : theme.colors.palette.light.light,
+        "padding": [2, 3, 2, 3]
+            .map(spacing => `${theme.spacing(spacing)}px`)
+            .join(" "),
+    },
 
-        "footer": {
-            "backgroundColor": theme.isDarkModeEnabled
-                ? theme.colors.palette.dark.greyVariant1
-                : theme.colors.palette.light.light,
-            "padding": [2, 3, 2, 3]
-                .map(spacing => `${theme.spacing(spacing)}px`)
-                .join(" "),
-        },
+    "footerH5": {
+        "marginBottom": theme.spacing(1.25),
+    },
 
-        "footerH5": {
-            "marginBottom": theme.spacing(1.25),
-        },
+    "footerH6": {
+        "marginBottom": theme.spacing(1.25),
+    },
 
-        "footerH6": {
-            "marginBottom": theme.spacing(1.25),
-        },
-
-        "header": {
-            "flex": 1,
-            "width": "100%",
-            "margin": 0,
-            "background": `url(${projectImageUrl}) no-repeat center`,
-            "backgroundSize": "cover",
-        },
-        "buttonWrapper": {
-            "display": "flex",
-            "justifyContent": "flex-end",
-            "padding": theme.spacing(2),
-        },
-        "badge": { "alignSelf": "right" },
-    }));
-
-    return { useStyles };
-};
+    "header": {
+        "flex": 1,
+        "width": "100%",
+        "margin": 0,
+        "background": `url(${projectImageUrl}) no-repeat center`,
+        "backgroundSize": "cover",
+    },
+    "buttonWrapper": {
+        "display": "flex",
+        "justifyContent": "flex-end",
+        "padding": theme.spacing(2),
+    },
+    "badge": { "alignSelf": "right" },
+}));
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
     const {
@@ -84,8 +75,6 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         badgeLabel,
         link,
     } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles({ projectImageUrl });
 
@@ -106,15 +95,13 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Typography variant="h5" className={classes.footerH5}>
+                <Text typo="object heading" className={classes.footerH5}>
                     {title}
-                </Typography>
-                <Typography variant="subtitle1" className={classes.footerH6}>
+                </Text>
+                <Text typo="label 2" className={classes.footerH6}>
                     {subtitle}
-                </Typography>
-                {date !== undefined && (
-                    <Typography variant="subtitle1">{date}</Typography>
-                )}
+                </Text>
+                {date !== undefined && <Text typo="label 2">{date}</Text>}
             </div>
         </GlCard>
     );

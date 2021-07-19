@@ -6,7 +6,7 @@ import { symToStr } from "tsafe/symToStr";
 import {
     createThemeProvider,
     useIsDarkModeEnabled,
-    defaultGetTypography,
+    defaultGetTypographyDesc,
 } from "onyxia-ui/lib";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
@@ -15,8 +15,16 @@ import "onyxia-ui/assets/fonts/work-sans.css";
 
 const { ThemeProvider, useTheme } = createThemeProvider({
     "isReactStrictModeEnabled": false,
-    "getTypography": ({ windowInnerWidth }) => ({
-        ...defaultGetTypography({ windowInnerWidth }),
+    "getTypographyDesc": ({
+        windowInnerWidth,
+        windowInnerHeight,
+        browserFontSizeFactor,
+    }) => ({
+        ...defaultGetTypographyDesc({
+            windowInnerWidth,
+            windowInnerHeight,
+            browserFontSizeFactor,
+        }),
         "fontFamily": '"Work Sans", sans-serif',
     }),
 });

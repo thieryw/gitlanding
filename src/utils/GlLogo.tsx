@@ -1,21 +1,14 @@
 import { ReactSVG } from "react-svg";
 import { memo } from "react";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles } from "../theme";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-
-    const { useStyles } = makeStyles<{
-        fill: string | undefined;
-    }>()((theme, { fill }) => ({
-        "svg": {
-            "fill": fill ?? theme.colors.useCases.typography.textPrimary,
-        },
-    }));
-
-    return { useStyles };
-};
+const { useStyles } = makeStyles<{
+    fill: string | undefined;
+}>()((theme, { fill }) => ({
+    "svg": {
+        "fill": fill ?? theme.colors.useCases.typography.textPrimary,
+    },
+}));
 
 type GlLogoProps = {
     logoUrl: string;
@@ -25,8 +18,6 @@ type GlLogoProps = {
 
 export const GlLogo = memo((props: GlLogoProps) => {
     const { className, logoUrl, fill } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles({ fill });
 

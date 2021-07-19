@@ -2,9 +2,7 @@ import { memo } from "react";
 import { validateEmail } from "../utils/validateEmail";
 import { validatePhoneNumber } from "../utils/validatePhoneNumber";
 import Link from "@material-ui/core/Link";
-import { Typography } from "onyxia-ui";
-import { getThemeApi } from "../theme";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { makeStyles, Text } from "../theme";
 
 import type { ReactNode } from "react";
 
@@ -15,34 +13,26 @@ export type GlFooterInfoProps = {
     children?: ReactNode;
 };
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "gap": theme.spacing(1),
+        ...(() => {
+            const value = theme.spacing(4);
 
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "center",
-            "justifyContent": "center",
-            "gap": theme.spacing(1),
-            ...(() => {
-                const value = theme.spacing(4);
-
-                return {
-                    "paddingTop": value,
-                    "paddingBottom": value,
-                };
-            })(),
-        },
-        "email": {
-            "color": theme.colors.useCases.typography.textSecondary,
-        },
-    }));
-
-    return {
-        useStyles,
-    };
-};
+            return {
+                "paddingTop": value,
+                "paddingBottom": value,
+            };
+        })(),
+    },
+    "email": {
+        "color": theme.colors.useCases.typography.textSecondary,
+    },
+}));
 
 export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
     const { email, phoneNumber, className, children } = props;
@@ -55,8 +45,6 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
         throw new Error("phone number not valid!");
     }
 
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
-
     const { classes, cx } = useStyles();
 
     return (
@@ -68,7 +56,7 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
             )}
 
             {phoneNumber !== undefined && (
-                <Typography variant="body2">{phoneNumber}</Typography>
+                <Text typo="body 2">{phoneNumber}</Text>
             )}
 
             {children}

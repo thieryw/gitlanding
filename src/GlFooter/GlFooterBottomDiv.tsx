@@ -1,25 +1,18 @@
 import ReactMarkDown from "react-markdown";
-import { getThemeApi } from "../theme";
+import { makeStyles } from "../theme";
 import { memo } from "react";
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import type { ReactNode } from "react";
 
-const getUseStyles = () => {
-    const { makeStyles } = getThemeApi();
-
-    const { useStyles } = makeStyles()(theme => ({
-        "root": {
-            "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
-            "marginTop": theme.spacing(3),
-            "width": "100%",
-            "display": "flex",
-            "justifyContent": "center",
-            "alignItems": "center",
-        },
-    }));
-
-    return { useStyles };
-};
+const { useStyles } = makeStyles()(theme => ({
+    "root": {
+        "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
+        "marginTop": theme.spacing(3),
+        "width": "100%",
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+    },
+}));
 
 export type GlFooterBottomDivProps = {
     className?: string;
@@ -29,8 +22,6 @@ export type GlFooterBottomDivProps = {
 
 export const GlFooterBottomDiv = memo((props: GlFooterBottomDivProps) => {
     const { contentMd, children, className } = props;
-
-    const { useStyles } = useGuaranteedMemo(() => getUseStyles(), []);
 
     const { classes, cx } = useStyles();
 

@@ -24,4 +24,4 @@ export * from "./GlReviewSlider/GlReviewSlider";
 export * from "./GlTemplate";
 export * from "./GlSection/GlSection";
 export * from "./GlHeader/GlHeader";
-export { overwriteTheme, getThemeApi } from "./theme";
+export { overwriteTheme, getThemeProvider } from "./theme";

@@ -18,7 +18,7 @@ export const GlDarkModeSwitch = memo((props: GlDarkModeSwitchProps) => {
     return (
         <GlIconButton
             className={className}
-            id={isDarkModeEnabled ? "brightness7" : "brightness4"}
+            iconId={isDarkModeEnabled ? "brightness7" : "brightness4"}
             onClick={onClick}
         />
     );

@@ -627,7 +627,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-syntax-jsx@^7.12.13", "@babel/plugin-syntax-jsx@^7.14.5":
+"@babel/plugin-syntax-jsx@^7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-jsx/-/plugin-syntax-jsx-7.14.5.tgz#000e2e25d8673cce49300517a3eda44c263e4201"
   integrity sha512-ohuFIsOMXJnbOMRfX7/w7LocdR6R7whhuRD4ax8IipLcLPlZGJKkBxgHp++U4N/vKyU16/YDQr2f5seajD3jIw==
@@ -1362,24 +1362,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
-"@emotion/babel-plugin@^11.0.0":
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.3.0.tgz#3a16850ba04d8d9651f07f3fb674b3436a4fb9d7"
-  integrity sha512-UZKwBV2rADuhRp+ZOGgNWg2eYgbzKzQXfQPtJbu/PLy8onurxlNCLvxMQEvlr1/GudguPI5IU9qIY1+2z1M5bA==
-  dependencies:
-    "@babel/helper-module-imports" "^7.12.13"
-    "@babel/plugin-syntax-jsx" "^7.12.13"
-    "@babel/runtime" "^7.13.10"
-    "@emotion/hash" "^0.8.0"
-    "@emotion/memoize" "^0.7.5"
-    "@emotion/serialize" "^1.0.2"
-    babel-plugin-macros "^2.6.1"
-    convert-source-map "^1.5.0"
-    escape-string-regexp "^4.0.0"
-    find-root "^1.1.0"
-    source-map "^0.5.7"
-    stylis "^4.0.3"
-
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -1390,7 +1372,7 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
-"@emotion/cache@^11.0.0", "@emotion/cache@^11.1.3", "@emotion/cache@^11.4.0":
+"@emotion/cache@^11.0.0", "@emotion/cache@^11.4.0":
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.4.0.tgz#293fc9d9a7a38b9aad8e9337e5014366c3b09ac0"
   integrity sha512-Zx70bjE7LErRO9OaZrhf22Qye1y4F7iDl+ITjet0J+i+B88PrAOBkKvaAWhxsZf72tDLajwCgfCjJ2dvH77C3g==
@@ -1422,17 +1404,6 @@
     "@emotion/utils" "0.11.3"
     babel-plugin-emotion "^10.0.27"
 
-"@emotion/css@^11.1.3":
-  version "11.1.3"
-  resolved "https://registry.yarnpkg.com/@emotion/css/-/css-11.1.3.tgz#9ed44478b19e5d281ccbbd46d74d123d59be793f"
-  integrity sha512-RSQP59qtCNTf5NWD6xM08xsQdCZmVYnX/panPYvB6LQAPKQB6GL49Njf0EMbS3CyDtrlWsBcmqBtysFvfWT3rA==
-  dependencies:
-    "@emotion/babel-plugin" "^11.0.0"
-    "@emotion/cache" "^11.1.3"
-    "@emotion/serialize" "^1.0.0"
-    "@emotion/sheet" "^1.0.0"
-    "@emotion/utils" "^1.0.0"
-
 "@emotion/hash@0.8.0", "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -1450,7 +1421,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.4.tgz#19bf0f5af19149111c40d98bb0cf82119f5d9eeb"
   integrity sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
 
-"@emotion/memoize@^0.7.4", "@emotion/memoize@^0.7.5":
+"@emotion/memoize@^0.7.4":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
@@ -4546,7 +4517,7 @@ babel-plugin-jest-hoist@^26.6.2:
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-macros@2.8.0, babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.6.1, babel-plugin-macros@^2.8.0:
+babel-plugin-macros@2.8.0, babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.8.0.tgz#0f958a7cc6556b1e65344465d99111a1e5e10138"
   integrity sha512-SEP5kJpfGYqYKpBrj5XU3ahw5p5GOHJ0U5ssOSQ/WBVdwkD2Dzlce95exQTs3jOVWPPKLBN2rlEWkCK7dSmLvg==
@@ -7172,27 +7143,10 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
 
-evt@2.0.0-beta.15:
-  version "2.0.0-beta.15"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.15.tgz#a34ef224c827152c06f29157a9af5a41644e1a36"
-  integrity sha512-AZIuA8ujBsDX/rPC9mJ2sGvrBJAvV2OGj/yzACbuT4pRLKii5PMjYPitNk4xJMKuXSDwvwCsQzuGPDCcbRc60A==
-  dependencies:
-    minimal-polyfills "^2.1.5"
-    run-exclusive "^2.2.14"
-
 evt@2.0.0-beta.22, evt@^2.0.0-beta.22:
   version "2.0.0-beta.22"
   resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.22.tgz#d7376d63b5407cc71f57d8ea13382cb889f1144f"
   integrity sha512-7+GE5f9W03/2+vfmGwqtw2vxzyhtpYyWgbifa7fbvtfYazMV6QRDhrr4WXBFIHS7hRZdBQAZXBL4L76n/RUafw==
-  dependencies:
-    minimal-polyfills "^2.2.1"
-    run-exclusive "^2.2.14"
-    tsafe "^0.2.2"
-
-evt@beta:
-  version "2.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.20.tgz#a018ff46a7dcb475c488e6508ac3aec7910e76fb"
-  integrity sha512-aIIqrDkQ5Hm4zzW7v9STZbO9RcwAI2vMQUkjQ7Bw4YkWOv2zoIl6ooJZ6942JU7UCYKWSi1u5BBtyoiXUSsnMA==
   dependencies:
     minimal-polyfills "^2.2.1"
     run-exclusive "^2.2.14"
@@ -11077,22 +11031,22 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.6.1.tgz#9d8b74439568b75f578d9d3e908b5660bbae0f9f"
-  integrity sha512-YDvo5/xHIoJwn5AkIQiwH2FvqCvCXvkyrKlZGGUas5jlvyax7TxGj1qsAv0UU8BrQbdCf5C2PntPDym5T3Pg6A==
+onyxia-ui@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.9.2.tgz#762dc17b93b3ce87ce12b5f36408b351f78bff60"
+  integrity sha512-WLO5yVGk73dA5fhziekGP+GyPup06K7JR8ILYTfSpaE9DaK/TD0EFLZKTYUt/NMhS8L2r1xdNNMe9wZLkNtq1g==
   dependencies:
     "@material-ui/icons" "^4.11.2"
     color "3.1.3"
-    evt beta
+    evt "2.0.0-beta.22"
     memoizee "^0.4.15"
-    powerhooks "^0.1.4"
+    powerhooks "^0.6.1"
     ts-toolbelt "^9.6.0"
-    tsafe "^0.4.0"
+    tsafe "^0.4.1"
   optionalDependencies:
     "@material-ui/lab" "^4.0.0-alpha.58"
     "@types/react" "^17.0.0"
-    tss-react "^0.0.12"
+    tss-react "^0.3.3"
 
 open@^7.0.2, open@^7.0.3:
   version "7.4.2"
@@ -12267,16 +12221,6 @@ postcss@^8.1.0:
     colorette "^1.2.2"
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
-
-powerhooks@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.1.4.tgz#82aae8dae5485a154d3ce4e89342a2d68cb2a413"
-  integrity sha512-ig47hJIW/b75gCS3l2EtK8NVAduNVd9vem8IvaWkuPuZIP4mbDAy4Rc0/hvjXVUPs9OzK7jc/zIQika3tTacYg==
-  dependencies:
-    evt "2.0.0-beta.15"
-    memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
-    tsafe "^0.1.0"
 
 powerhooks@^0.6.1:
   version "0.6.1"
@@ -14779,11 +14723,6 @@ ts-toolbelt@^9.6.0:
   resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-9.6.0.tgz#50a25426cfed500d4a09bd1b3afb6f28879edfd5"
   integrity sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==
 
-tsafe@^0.1.0:
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.1.15.tgz#9e2b6137fb5a49fc7c23cb0bc49ae09bab215f2a"
-  integrity sha512-aAWMOACHXMmwE2zRcQpBv+whxYqB4zvAbs+dzwbnGaGK9NAOQ65m0+WyO+jw/41JzCX7orJU/ieFHTmgehTOKA==
-
 tsafe@^0.2.2:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.2.4.tgz#f2cffb9b33e4d20c6f9800aa1c45bee02d917aa1"
@@ -14813,13 +14752,6 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
-
-tss-react@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-0.0.12.tgz#6463617ae5e7f670742e48e497d8825d59e2a2e9"
-  integrity sha512-oHekukqdaE71uhHx4XEdHy6aMnDYhoHLWB94iy2Fy9X8btH2lJH1joPj0zS1q7+1Xy2TydkLEZsTq3ElVd7ZqA==
-  dependencies:
-    "@emotion/css" "^11.1.3"
 
 tss-react@^0.3.3:
   version "0.3.3"
