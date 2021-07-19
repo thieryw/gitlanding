@@ -1,3 +1,14 @@
+### **0.0.61** (2021-07-19)  
+  
+- update  
+- update  
+- Update evt  
+- Update powerhooks  
+- Update tss-react  
+- update  
+- A seemingly functioning version of animation function  
+- useAnimation function    
+  
 ### **0.0.60** (2021-07-13)  
   
 - bumb version  
