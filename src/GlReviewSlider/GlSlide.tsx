@@ -7,7 +7,7 @@ export type GlSlideProps = {
     children?: ReactNode;
 };
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
         "minWidth": "100%",

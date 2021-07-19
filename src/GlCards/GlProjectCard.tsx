@@ -13,7 +13,7 @@ export type GlProjectCardProps = GlCardProps & {
     date?: string;
 };
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     projectImageUrl: string;
 }>()((theme, { projectImageUrl }) => ({
     "root": {

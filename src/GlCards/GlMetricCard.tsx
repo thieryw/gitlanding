@@ -13,7 +13,7 @@ export type GlMetricCardProps = GlCardProps & {
     buttonLabel?: string;
 };
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
         "display": "flex",

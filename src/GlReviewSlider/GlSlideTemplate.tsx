@@ -5,7 +5,7 @@ import { GlLogo } from "../utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
 import ReactMarkdown from "react-markdown";
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "display": "flex",
         "flexDirection": "row",

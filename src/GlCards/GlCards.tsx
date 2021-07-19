@@ -10,7 +10,7 @@ export type GlCardsProps = {
     children?: ReactNode;
 };
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         ...(() => {
             const value = theme.spacing(12.5);

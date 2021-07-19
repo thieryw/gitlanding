@@ -8,18 +8,17 @@ export function useAnimation<T extends HTMLElement = any>(params: {
     rootMargin?: string;
     animationType: "fade";
 }): {
-    "rootRef": RefObject<T>;
-    "animate": () => void;
+    rootRef: RefObject<T>;
+    animate: () => void;
 };
-
 export function useAnimation<T extends HTMLElement = any>(params: {
     animationDuration?: number;
     animationDelay?: number;
     rootMargin?: string;
     animationType: "fadeFromDirection";
 }): {
-    "rootRef": RefObject<T>;
-    "animate": (params: {
+    rootRef: RefObject<T>;
+    animate: (params: {
         direction:
             | "left"
             | "right"
@@ -31,7 +30,6 @@ export function useAnimation<T extends HTMLElement = any>(params: {
             | "bottomRight";
     }) => void;
 };
-
 export function useAnimation<T extends HTMLElement = any>(params: {
     animationDuration?: number;
     animationDelay?: number;

@@ -3,7 +3,7 @@ import { makeStyles } from "../theme";
 import { memo } from "react";
 import type { ReactNode } from "react";
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
         "marginTop": theme.spacing(3),

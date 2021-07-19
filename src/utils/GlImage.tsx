@@ -8,7 +8,7 @@ export type GlImageProps = {
     alt?: string;
 };
 
-const { useStyles } = makeStyles()({
+const useStyles = makeStyles()({
     "root": {
         "position": "relative",
     },

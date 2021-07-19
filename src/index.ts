@@ -24,4 +24,3 @@ export * from "./GlReviewSlider/GlReviewSlider";
 export * from "./GlTemplate";
 export * from "./GlSection/GlSection";
 export * from "./GlHeader/GlHeader";
-export { overwriteTheme, getThemeProvider } from "./theme";

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { memo } from "react";
 import { makeStyles } from "../theme";
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "borderRadius": 16,
         "transition": "box-shadow 200ms",

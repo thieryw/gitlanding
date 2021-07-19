@@ -9,7 +9,7 @@ const colors = {
     "darkslategray": "#282a36",
 };
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     hasDecorativeVsCodeButtons: boolean;
 }>()((theme, { hasDecorativeVsCodeButtons }) => ({
     "root": {
@@ -66,7 +66,7 @@ export const GlCode = memo((props: GlCodeProps) => {
 });
 
 const { VsCodeButtons } = (() => {
-    const { useStyles } = makeStyles()(theme => ({
+    const useStyles = makeStyles()(theme => ({
         "root": {
             "display": "flex",
             "gap": theme.spacing(1),

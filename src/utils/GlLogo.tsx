@@ -2,7 +2,7 @@ import { ReactSVG } from "react-svg";
 import { memo } from "react";
 import { makeStyles } from "../theme";
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     fill: string | undefined;
 }>()((theme, { fill }) => ({
     "svg": {

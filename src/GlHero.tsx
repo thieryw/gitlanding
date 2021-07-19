@@ -17,7 +17,7 @@ export type GlHeroProps = {
     children?: ReactNode;
 };
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     backgroundImageSrcLight: GlHeroProps["backgroundImageSrcLight"];
     backgroundImageSrcDark: GlHeroProps["backgroundImageSrcDark"];
     hasTextAndImage: boolean;

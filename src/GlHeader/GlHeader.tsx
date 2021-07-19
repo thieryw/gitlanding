@@ -28,7 +28,7 @@ export type GlHeaderProps = {
     isCollapsible?: boolean;
 };
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     isMenuUnfolded: boolean;
     numberOfLinks: number;
 }>()((theme, { isMenuUnfolded, numberOfLinks }) => ({

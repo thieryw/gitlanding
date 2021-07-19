@@ -14,7 +14,7 @@ export type GlArrowProps = {
     };
 };
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     direction: GlArrowProps["direction"];
     hasCircularBorder: boolean;
 }>()((theme, { direction, hasCircularBorder }) => ({

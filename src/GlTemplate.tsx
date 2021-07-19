@@ -1,80 +1,93 @@
-import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useEffect, memo } from "react";
-import { getThemeProvider, makeStyles } from "./theme";
+import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
-import type { ComponentType } from "./tools/ComponentType";
 import { useSplashScreen } from "onyxia-ui";
+import type { ComponentType } from "./tools/ComponentType";
+import type { ThemeProviderProps } from "onyxia-ui";
+import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 
 export type GlTemplateProps = {
     header?: ReactNode;
     SplashScreenLogo?: ComponentType<{ className: string }>;
     splashScreenLogoFillColor?: string;
     children?: ReactNode;
+    ThemeProvider?: ComponentType<{
+        splashScreen: NonNullable<ThemeProviderProps["splashScreen"]>;
+        children: JSX.Element;
+    }>;
 };
 
-export const { GlTemplate } = (() => {
-    const { GlTemplateInner } = (() => {
-        const { useStyles } = makeStyles()({
-            "root": {
-                "height": "100%",
-                "display": "flex",
-                "flexDirection": "column",
-                "overflow": "hidden",
-            },
-            "scrollWrapper": {
-                "flex": 1,
-                "overflow": "auto",
-                "scrollBehavior": "smooth",
-            },
-        });
+const useStyles = makeStyles()({
+    "root": {
+        "height": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "overflow": "hidden",
+    },
+    "scrollWrapper": {
+        "flex": 1,
+        "overflow": "auto",
+        "scrollBehavior": "smooth",
+    },
+});
 
-        const GlTemplateInner = memo(
-            (props: Omit<GlTemplateProps, "SplashScreenLogo">) => {
-                const { header, children } = props;
+const GlTemplateInner = memo(
+    (
+        props: Omit<GlTemplateProps, "SplashScreenLogo"> & {
+            isThemeProvidedOutside: boolean;
+        },
+    ) => {
+        const { header, children, isThemeProvidedOutside } = props;
 
-                {
-                    const { hideRootSplashScreen } = useSplashScreen();
+        {
+            const { hideRootSplashScreen } = useSplashScreen();
 
-                    useEffect(() => {
-                        hideRootSplashScreen();
-                    }, []);
+            useEffect(() => {
+                if (isThemeProvidedOutside) {
+                    return;
                 }
 
-                const { classes } = useStyles();
+                hideRootSplashScreen();
+            }, []);
+        }
 
-                return (
-                    <div className={classes.root}>
-                        {header}
-                        <div className={classes.scrollWrapper}>{children}</div>
-                    </div>
-                );
-            },
-        );
-
-        return { GlTemplateInner };
-    })();
-
-    const GlTemplate = memo((props: GlTemplateProps) => {
-        const { ThemeProviderOrId } = useGuaranteedMemo(
-            () => getThemeProvider(),
-            [],
-        );
-
-        const { SplashScreenLogo, splashScreenLogoFillColor, ...rest } = props;
+        const { classes } = useStyles();
 
         return (
-            <ThemeProviderOrId
-                splashScreen={{
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    "Logo": SplashScreenLogo as any,
-                    "fillColor": splashScreenLogoFillColor,
-                    "minimumDisplayDuration": 0,
-                }}
-            >
-                <GlTemplateInner {...rest} />
-            </ThemeProviderOrId>
+            <div className={classes.root}>
+                {header}
+                <div className={classes.scrollWrapper}>{children}</div>
+            </div>
         );
-    });
+    },
+);
 
-    return { GlTemplate };
-})();
+export const GlTemplate = memo((props: GlTemplateProps) => {
+    const {
+        ThemeProvider = ThemeProviderDefault,
+        SplashScreenLogo,
+        splashScreenLogoFillColor,
+        ...rest
+    } = props;
+
+    const isThemeProvided = useIsThemeProvided();
+
+    const children = (
+        <GlTemplateInner {...rest} isThemeProvidedOutside={isThemeProvided} />
+    );
+
+    return isThemeProvided ? (
+        children
+    ) : (
+        <ThemeProvider
+            splashScreen={{
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                "Logo": SplashScreenLogo as any,
+                "fillColor": splashScreenLogoFillColor,
+                "minimumDisplayDuration": 0,
+            }}
+        >
+            {children}
+        </ThemeProvider>
+    );
+});

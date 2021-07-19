@@ -11,7 +11,7 @@ export type GlLogoCardProps = GlCardProps & {
     paragraph?: string;
 };
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "padding": theme.spacing(3),
         "boxShadow": theme.shadows[1],

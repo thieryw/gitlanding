@@ -3,7 +3,7 @@ import { memo, ReactNode } from "react";
 
 import { makeStyles, Text } from "../theme";
 
-const { useStyles } = makeStyles<{
+const useStyles = makeStyles<{
     hasArticleAndAside: boolean;
 }>()((theme, { hasArticleAndAside }) => ({
     "root": {

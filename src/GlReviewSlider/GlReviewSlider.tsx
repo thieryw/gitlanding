@@ -5,7 +5,7 @@ import { makeStyles, Text } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Icon } from "../theme";
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         ...(() => {
             const value = theme.spacing(12);

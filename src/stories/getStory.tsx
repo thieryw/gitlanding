@@ -1,47 +1,78 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Meta } from "@storybook/react";
-import type { Story } from "@storybook/react";
-import { useEffect } from "react";
+import type { Meta, Story } from "@storybook/react";
+import type { ArgType } from "@storybook/addons";
+import { useEffect, useCallback, useMemo } from "react";
 import { symToStr } from "tsafe/symToStr";
 import {
-    createThemeProvider,
     useIsDarkModeEnabled,
-    defaultGetTypographyDesc,
-} from "onyxia-ui/lib";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
+    chromeFontSizesFactors,
+    breakpointsValues,
+    useWindowInnerSize,
+} from "onyxia-ui";
+import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
+import {
+    ThemeProviderDefault as ThemeProvider,
+    Text,
+    useTheme,
+} from "../theme";
 import { id } from "tsafe/id";
 import "onyxia-ui/assets/fonts/work-sans.css";
-
-const { ThemeProvider, useTheme } = createThemeProvider({
-    "isReactStrictModeEnabled": false,
-    "getTypographyDesc": ({
-        windowInnerWidth,
-        windowInnerHeight,
-        browserFontSizeFactor,
-    }) => ({
-        ...defaultGetTypographyDesc({
-            windowInnerWidth,
-            windowInnerHeight,
-            browserFontSizeFactor,
-        }),
-        "fontFamily": '"Work Sans", sans-serif',
-    }),
-});
+import { GlobalStyles } from "tss-react";
+import { objectKeys } from "tsafe/objectKeys";
 
 export function getStoryFactory<Props>(params: {
+    sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
-    sectionName?: string;
+    /** https://storybook.js.org/docs/react/essentials/controls */
+    argTypes?: Partial<Record<keyof Props, ArgType>>;
 }) {
-    const { sectionName, wrappedComponent } = params;
+    const { sectionName, wrappedComponent, argTypes = {} } = params;
 
-    const Component: any = Object.entries(wrappedComponent).map(
-        ([, component]) => component,
-    )[0];
+    const Component: React.ComponentType<Props> = Object.entries(
+        wrappedComponent,
+    ).map(([, component]) => component)[0];
 
-    const Template: Story<Props & { darkMode: boolean; width: number }> = ({
+    function ScreenSize() {
+        const { windowInnerWidth } = useWindowInnerSize();
+
+        const range = useMemo(() => {
+            if (windowInnerWidth >= breakpointsValues["xl"]) {
+                return "xl-∞";
+            }
+
+            if (windowInnerWidth >= breakpointsValues["lg"]) {
+                return "lg-xl";
+            }
+
+            if (windowInnerWidth >= breakpointsValues["md"]) {
+                return "md-lg";
+            }
+
+            if (windowInnerWidth >= breakpointsValues["sm"]) {
+                return "sm-md";
+            }
+
+            return "0-sm";
+        }, [windowInnerWidth]);
+
+        return (
+            <Text typo="body 1">
+                {windowInnerWidth}px width: {range}
+            </Text>
+        );
+    }
+
+    const Template: Story<
+        Props & {
+            darkMode: boolean;
+            width: number;
+            chromeFontSize: ChromeFontSize;
+            targetWindowInnerWidth: number;
+        }
+    > = ({
         darkMode,
         width,
+        targetWindowInnerWidth,
+        chromeFontSize,
         ...props
     }) => {
         const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
@@ -50,30 +81,48 @@ export function getStoryFactory<Props>(params: {
             setIsDarkModeEnabled(darkMode);
         }, [darkMode]);
 
+        const getViewPortConfig = useCallback<
+            NonNullable<ThemeProviderProps["getViewPortConfig"]>
+        >(
+            ({ windowInnerWidth }) => ({
+                "targetBrowserFontSizeFactor":
+                    chromeFontSizesFactors[chromeFontSize],
+                "targetWindowInnerWidth":
+                    targetWindowInnerWidth || windowInnerWidth,
+            }),
+            [targetWindowInnerWidth, chromeFontSize],
+        );
+
         const theme = useTheme();
 
         return (
-            <ThemeProvider>
-                <Box p={4} style={{ "backgroundColor": "white" }}>
-                    <Box clone p={4} m={2} display="inline-block">
-                        <Paper
-                            style={{
-                                "backgroundColor":
-                                    theme.colors.useCases.surfaces.background,
-                                "width": width !== 0 ? width : undefined,
-                            }}
-                        >
-                            <div
-                                style={{
-                                    "border": `1px dotted ${theme.colors.useCases.typography.textDisabled}`,
-                                }}
-                            >
-                                <Component {...props} />
-                            </div>
-                        </Paper>
-                    </Box>
-                </Box>
-            </ThemeProvider>
+            <>
+                {
+                    <GlobalStyles
+                        styles={{
+                            "html": {
+                                "font-size": "100% !important",
+                            },
+                            "body": {
+                                "padding": `0 !important`,
+                                "backgroundColor": `${theme.colors.useCases.surfaces.surface1} !important`,
+                            },
+                        }}
+                    />
+                }
+                <ThemeProvider getViewPortConfig={getViewPortConfig}>
+                    <ScreenSize />
+                    <div
+                        style={{
+                            "width": width || undefined,
+                            "border": "1px dotted grey",
+                            "display": "inline-block",
+                        }}
+                    >
+                        <Component {...(props as any)} />
+                    </div>
+                </ThemeProvider>
+            </>
         );
     };
 
@@ -83,6 +132,8 @@ export function getStoryFactory<Props>(params: {
         out.args = {
             "darkMode": false,
             "width": 0,
+            "targetWindowInnerWidth": 0,
+            "chromeFontSize": "Medium (Recommended)",
             ...props,
         };
 
@@ -91,11 +142,8 @@ export function getStoryFactory<Props>(params: {
 
     return {
         "meta": id<Meta>({
-            "title":
-                (sectionName !== undefined ? `${sectionName}/` : "") +
-                symToStr(wrappedComponent),
+            "title": `${sectionName}/${symToStr(wrappedComponent)}`,
             "component": Component,
-            // https://storybook.js.org/docs/react/essentials/controls
             "argTypes": {
                 "width": {
                     "control": {
@@ -105,6 +153,19 @@ export function getStoryFactory<Props>(params: {
                         "step": 1,
                     },
                 },
+                "targetWindowInnerWidth": {
+                    "control": {
+                        "type": "range",
+                        "min": 0,
+                        "max": 2560,
+                        "step": 10,
+                    },
+                },
+                "chromeFontSize": {
+                    "options": objectKeys(chromeFontSizesFactors),
+                    "control": { "type": "select" },
+                },
+                ...argTypes,
             },
         }),
         getStory,

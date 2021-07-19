@@ -9,7 +9,7 @@ export type GlGithubStarCountProps = {
     repoUrl: string;
 };
 
-const { useStyles } = makeStyles()({
+const useStyles = makeStyles()({
     "root": {
         "& span": {
             "display": "flex",
