@@ -52,13 +52,13 @@
     "dependencies": {
         "@material-ui/core": "^4.11.4",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.9.4",
+        "onyxia-ui": "^0.9.6",
         "powerhooks": "^0.6.1",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",
         "react-svg": "^13.0.4",
         "tsafe": "^0.4.0",
-        "tss-react": "^0.4.0",
+        "tss-react": "^0.4.1",
         "typeface-work-sans": "^1.1.13",
         "react-github-btn": "^1.2.0"
     },
