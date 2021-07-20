@@ -43,11 +43,11 @@ const useStyles = makeStyles<{
     },
 
     "footerH5": {
-        "marginBottom": theme.spacing(1.25),
+        "marginBottom": theme.spacing(1),
     },
 
     "footerH6": {
-        "marginBottom": theme.spacing(1.25),
+        "marginBottom": theme.spacing(1),
     },
 
     "header": {

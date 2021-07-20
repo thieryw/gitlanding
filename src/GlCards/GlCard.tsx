@@ -6,7 +6,7 @@ const useStyles = makeStyles()(theme => ({
     "root": {
         "borderRadius": 16,
         "transition": "box-shadow 200ms",
-        "margin": theme.spacing(1.5),
+        "margin": theme.spacing(1),
         "boxShadow": theme.shadows[1],
         "backgroundColor": theme.colors.useCases.surfaces.surface1,
         ":hover": {

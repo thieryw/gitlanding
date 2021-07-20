@@ -42,7 +42,7 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "justifyContent": "center",
         "alignItems": "center",
-        "gap": theme.spacing(1.7),
+        "gap": theme.spacing(2),
     },
 
     "headingMetric": {

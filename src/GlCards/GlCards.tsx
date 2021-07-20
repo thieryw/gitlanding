@@ -13,7 +13,7 @@ export type GlCardsProps = {
 const useStyles = makeStyles()(theme => ({
     "root": {
         ...(() => {
-            const value = theme.spacing(12.5);
+            const value = theme.spacing(12);
 
             return {
                 "paddingLeft": value,

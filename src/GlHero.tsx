@@ -2,10 +2,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useAnimation } from "./utils/useAnimation";
+import { useSplashScreen } from "onyxia-ui";
 
 export type GlHeroProps = {
     title?: string;
@@ -135,9 +136,12 @@ export const GlHero = memo((props: GlHeroProps) => {
         "animationType": "fade",
     });
 
-    useEffect(() => {
-        animate();
-    }, []);
+    useSplashScreen({
+        "onHidden": () => {
+            console.log("onHidden!!");
+            animate();
+        },
+    });
 
     return (
         <section className={cx(classes.root, className)}>
