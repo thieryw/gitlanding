@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { validateEmail } from "../utils/validateEmail";
-import { validatePhoneNumber } from "../utils/validatePhoneNumber";
+import { validateEmail } from "../tools/validateEmail";
+import { validatePhoneNumber } from "../tools/validatePhoneNumber";
 import Link from "@material-ui/core/Link";
 import { makeStyles, Text } from "../theme";
 

@@ -5,7 +5,7 @@ import { GlImage } from "./utils/GlImage";
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
-import { useAnimation } from "./utils/useAnimation";
+import { useAnimation } from "./tools/useAnimation";
 import { useSplashScreen } from "onyxia-ui";
 
 export type GlHeroProps = {
@@ -133,13 +133,14 @@ export const GlHero = memo((props: GlHeroProps) => {
     });
 
     const { rootRef, animate } = useAnimation({
-        "animationType": "fade",
+        "animationType": "fadeFromDirection",
+        "triggerOnPageLoad": true,
     });
 
     useSplashScreen({
         "onHidden": () => {
             console.log("onHidden!!");
-            animate();
+            animate({ "direction": "bottom" });
         },
     });
 

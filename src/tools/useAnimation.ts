@@ -1,44 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import type { RefObject } from "react";
 
-export function useAnimation<T extends HTMLElement = any>(params: {
+export function useAnimation<
+    T extends "fade" | "fadeFromDirection",
+    U extends HTMLElement = any,
+>(params: {
     animationDuration?: number;
     animationDelay?: number;
     rootMargin?: string;
-    animationType: "fade";
-}): {
-    rootRef: RefObject<T>;
-    animate: () => void;
-};
-export function useAnimation<T extends HTMLElement = any>(params: {
-    animationDuration?: number;
-    animationDelay?: number;
-    rootMargin?: string;
-    animationType: "fadeFromDirection";
-}): {
-    rootRef: RefObject<T>;
-    animate: (params: {
-        direction:
-            | "left"
-            | "right"
-            | "top"
-            | "bottom"
-            | "topLeft"
-            | "topRight"
-            | "bottomLeft"
-            | "bottomRight";
-    }) => void;
-};
-export function useAnimation<T extends HTMLElement = any>(params: {
-    animationDuration?: number;
-    animationDelay?: number;
-    rootMargin?: string;
-    animationType: "fade" | "fadeFromDirection";
-}): any {
-    const rootRef = useRef<T>(null);
-    const { animationDelay, animationDuration, rootMargin, animationType } =
-        params;
+    animationType: T;
+    triggerOnPageLoad?: boolean;
+}): T extends "fade"
+    ? {
+          rootRef: RefObject<U>;
+          animate: () => void;
+      }
+    : T extends "fadeFromDirection"
+    ? {
+          rootRef: RefObject<U>;
+          animate: (params: {
+              direction:
+                  | "left"
+                  | "right"
+                  | "top"
+                  | "bottom"
+                  | "topLeft"
+                  | "topRight"
+                  | "bottomLeft"
+                  | "bottomRight";
+          }) => void;
+      }
+    : never {
+    const rootRef = useRef<U>(null);
+    const {
+        animationDelay,
+        animationDuration,
+        rootMargin,
+        animationType,
+        triggerOnPageLoad,
+    } = params;
+
+    useEffect(() => {
+        if (!rootRef.current) {
+            return;
+        }
+        rootRef.current.style.opacity = "0%";
+        rootRef.current.style.transitionTimingFunction = "ease-in-out";
+        rootRef.current.style.transitionDelay = `${animationDelay ?? 0}ms`;
+        rootRef.current.style.transitionTimingFunction = "ease-in-out";
+    }, []);
 
     function fade() {
         if (!rootRef.current) {
@@ -48,18 +59,14 @@ export function useAnimation<T extends HTMLElement = any>(params: {
         const ref = rootRef.current;
         const style = ref.style;
 
-        style.opacity = "0%";
-
         const observe = () => {
             const observer = new IntersectionObserver(
                 entries => {
-                    if (entries[0].isIntersecting) {
+                    if (entries[0].isIntersecting || triggerOnPageLoad) {
                         style.transition = `opacity ${
                             animationDuration ?? 300
                         }ms`;
-                        style.transitionDelay = `${animationDelay ?? 0}ms`;
                         style.opacity = "100%";
-                        style.transitionTimingFunction = "ease-in-out";
                         observer.unobserve(entries[0].target);
                         window.removeEventListener("load", observe);
                         return;
@@ -69,6 +76,10 @@ export function useAnimation<T extends HTMLElement = any>(params: {
             );
             observer.observe(ref);
         };
+        if (triggerOnPageLoad) {
+            observe();
+            return;
+        }
         window.addEventListener("load", observe);
     }
 
@@ -90,8 +101,6 @@ export function useAnimation<T extends HTMLElement = any>(params: {
 
         const ref = rootRef.current;
         const style = ref.style;
-
-        style.opacity = "0%";
 
         style.transform = (() => {
             switch (direction) {
@@ -119,24 +128,13 @@ export function useAnimation<T extends HTMLElement = any>(params: {
         const observe = () => {
             const observer = new IntersectionObserver(
                 entries => {
-                    if (entries[0].isIntersecting) {
-                        style.transition = (() => {
-                            if (direction === undefined) {
-                                return `opacity ${animationDuration ?? 300}ms`;
-                            }
-
-                            return [
-                                "opacity 300ms,",
-                                `transform ${animationDuration ?? 300}ms`,
-                            ].join(" ");
-                        })();
-
-                        style.transitionDelay = `${animationDelay ?? 0}ms`;
+                    if (entries[0].isIntersecting || triggerOnPageLoad) {
+                        style.transition = [
+                            "opacity 300ms,",
+                            `transform ${animationDuration ?? 300}ms`,
+                        ].join(" ");
                         style.opacity = "100%";
-                        if (direction !== undefined) {
-                            style.transform = "none";
-                        }
-                        style.transitionTimingFunction = "ease-in-out";
+                        style.transform = "none";
                         observer.unobserve(entries[0].target);
                         window.removeEventListener("load", observe);
                         return;
@@ -146,6 +144,11 @@ export function useAnimation<T extends HTMLElement = any>(params: {
             );
             observer.observe(ref);
         };
+
+        if (triggerOnPageLoad) {
+            observe();
+            return;
+        }
         window.addEventListener("load", observe);
     }
 
@@ -158,5 +161,5 @@ export function useAnimation<T extends HTMLElement = any>(params: {
         }
     })();
 
-    return { rootRef, animate };
+    return { rootRef, animate } as any;
 }
