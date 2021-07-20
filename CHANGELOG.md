@@ -1,3 +1,8 @@
+### **0.0.65** (2021-07-20)  
+  
+- bump version  
+- put useAnimation validateEmail and validatePhonenumber in tools directory; corrected useAnimation Probleme with splash screen    
+  
 ### **0.0.64** (2021-07-20)  
   
 - Update    
