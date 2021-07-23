@@ -5,8 +5,9 @@ import { GlImage } from "./utils/GlImage";
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
-import { useAnimation } from "./tools/useAnimation";
 import { useSplashScreen } from "onyxia-ui";
+import { useNamedState } from "powerhooks";
+import { motion } from "framer-motion";
 
 export type GlHeroProps = {
     title?: string;
@@ -124,6 +125,11 @@ export const GlHero = memo((props: GlHeroProps) => {
         children,
     } = props;
 
+    const { setTitleAnimationProps, titleAnimationProps } = useNamedState(
+        "titleAnimationProps",
+        {},
+    );
+
     const { classes, cx } = useStyles({
         backgroundImageSrcLight,
         backgroundImageSrcDark,
@@ -132,15 +138,11 @@ export const GlHero = memo((props: GlHeroProps) => {
             imageSrc !== undefined,
     });
 
-    const { rootRef, animate } = useAnimation({
-        "animationType": "fadeFromDirection",
-        "triggerOnPageLoad": true,
-    });
-
     useSplashScreen({
         "onHidden": () => {
-            console.log("onHidden!!");
-            animate({ "direction": "bottom" });
+            setTitleAnimationProps({
+                "opacity": 1,
+            });
         },
     });
 
@@ -148,7 +150,13 @@ export const GlHero = memo((props: GlHeroProps) => {
         <section className={cx(classes.root, className)}>
             <div className={classes.backgroundDiv}></div>
             <div className={classes.textAndImageWrapper}>
-                <div ref={rootRef} className={classes.textWrapper}>
+                <motion.div
+                    className={classes.textWrapper}
+                    initial={{
+                        "opacity": 0,
+                    }}
+                    animate={titleAnimationProps}
+                >
                     {title !== undefined && (
                         <Text className={classes.title} typo="display heading">
                             {title}
@@ -159,7 +167,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             {subTitle}
                         </Text>
                     )}
-                </div>
+                </motion.div>
 
                 {imageSrc !== undefined && (
                     <div>
