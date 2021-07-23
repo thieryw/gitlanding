@@ -60,7 +60,8 @@
         "tsafe": "^0.4.1",
         "tss-react": "^0.4.1",
         "typeface-work-sans": "^1.1.13",
-        "react-github-btn": "^1.2.0"
+        "react-github-btn": "^1.2.0",
+        "framer-motion": "^4.1.17"
     },
     "devDependencies": {
         "@storybook/addon-actions": "^6.2.9",
