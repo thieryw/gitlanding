@@ -17,7 +17,7 @@ export type GlTemplateProps = {
     }>;
 };
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "height": "100%",
         "display": "flex",
@@ -28,8 +28,17 @@ const useStyles = makeStyles()({
         "flex": 1,
         "overflow": "auto",
         "scrollBehavior": "smooth",
+        "> *": {
+            ...(() => {
+                const value = theme.spacing(7);
+                return {
+                    "paddingLeft": value,
+                    "paddingRight": value,
+                };
+            })(),
+        },
     },
-});
+}));
 
 const GlTemplateInner = memo(
     (
