@@ -11,6 +11,7 @@ import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import { useClickAway } from "powerhooks";
 
 export type GlHeaderProps = {
     className?: string;
@@ -36,7 +37,7 @@ const useStyles = makeStyles<{
         "display": "flex",
         "alignItems": "center",
         "width": "100%",
-        "padding": theme.spacing(2, 4),
+        "padding": theme.spacing(4, 7),
         ...(theme.responsive.down("md")
             ? {
                   "flexWrap": "wrap",
@@ -57,12 +58,13 @@ const useStyles = makeStyles<{
                   "order": 123,
                   "flex": "100%",
                   "flexDirection": "column",
-                  "gap": theme.spacing(1),
+                  "gap": theme.spacing(2),
                   "height": isMenuUnfolded
                       ? (21 + theme.spacing(2)) * numberOfLinks
                       : 0,
                   "overflow": "hidden",
                   "flexWrap": "nowrap",
+                  "marginTop": theme.spacing(2),
               }
             : {}),
     },
@@ -138,6 +140,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setIsMenuUnfolded(!isMenuUnfolded);
     });
 
+    const { rootRef } = useClickAway(() => {
+        setIsMenuUnfolded(false);
+    });
+
     const { classes, cx } = useStyles({
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
@@ -180,6 +186,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             )}
 
             <FormatListBulletedIcon
+                ref={rootRef}
                 onClick={unfoldLinks}
                 className={classes.unfoldIcon}
             />
