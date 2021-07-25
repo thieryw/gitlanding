@@ -31,24 +31,6 @@ const useStyles = makeStyles<{
         "root": {
             "position": "relative",
             "width": "100%",
-            ...(() => {
-                const value = theme.spacing(12);
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
-            ...(theme.responsive.down("sm")
-                ? {
-                      ...(() => {
-                          const value = theme.spacing(4);
-                          return {
-                              "paddingLeft": value,
-                              "paddingRight": value,
-                          };
-                      })(),
-                  }
-                : {}),
         },
         "textAndImageWrapper": {
             "display": "grid",
@@ -66,7 +48,7 @@ const useStyles = makeStyles<{
                 ? {
                       "gridTemplateColumns": undefined,
                       "gridAutoFlow": "row",
-                      "gap": theme.spacing(6),
+                      "gap": theme.spacing(2),
                       "justifyContent": "center",
                   }
                 : {}),
