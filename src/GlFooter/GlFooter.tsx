@@ -30,8 +30,6 @@ const useStyles = makeStyles()(theme => ({
 
             return {
                 "paddingTop": value,
-                "paddingLeft": value,
-                "paddingRight": value,
             };
         })(),
     },
