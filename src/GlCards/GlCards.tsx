@@ -11,30 +11,6 @@ export type GlCardsProps = {
 };
 
 const useStyles = makeStyles()(theme => ({
-    "root": {
-        ...(() => {
-            const value = theme.spacing(12);
-
-            return {
-                "paddingLeft": value,
-                "paddingRight": value,
-            };
-        })(),
-
-        ...(theme.responsive.down("lg")
-            ? {
-                  ...(() => {
-                      const value = theme.spacing(1);
-
-                      return {
-                          "paddingLeft": value,
-                          "paddingRight": value,
-                      };
-                  })(),
-              }
-            : {}),
-    },
-
     "title": {
         "textAlign": "center",
         ...(() => {
@@ -74,10 +50,10 @@ const useStyles = makeStyles()(theme => ({
 export const GlCards = memo((props: GlCardsProps) => {
     const { title, children, className } = props;
 
-    const { classes, cx } = useStyles();
+    const { classes } = useStyles();
 
     return (
-        <section className={cx(classes.root, className)}>
+        <section className={className}>
             {title && (
                 <Text className={classes.title} typo="page heading">
                     {title}
