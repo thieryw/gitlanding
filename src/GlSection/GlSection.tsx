@@ -9,28 +9,13 @@ const useStyles = makeStyles<{
     "root": {
         "position": "relative",
         ...(() => {
-            const valueTopBottom = theme.spacing(8);
-            const valueLeftRight = theme.spacing(12);
+            const value = theme.spacing(8);
 
             return {
-                "paddingTop": valueTopBottom,
-                "paddingBottom": valueTopBottom,
-                "paddingLeft": valueLeftRight,
-                "paddingRight": valueLeftRight,
+                "paddingTop": value,
+                "paddingBottom": value,
             };
         })(),
-
-        ...(theme.responsive.down("sm")
-            ? {
-                  ...(() => {
-                      const value = theme.spacing(4);
-                      return {
-                          "paddingLeft": value,
-                          "paddingRight": value,
-                      };
-                  })(),
-              }
-            : {}),
     },
 
     "title": {
