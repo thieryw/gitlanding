@@ -1,3 +1,15 @@
+### **0.0.68** (2021-07-23)  
+  
+- Update onyxia-ui    
+  
+### **0.0.67** (2021-07-23)  
+  
+- bump version  
+- create a component that animates on screen intersection based on framer-motion library  
+- animation on hero text when splashscreen hidden  
+- added framer-motion animation library  
+- deleted my shity animation function    
+  
 ### **0.0.66** (2021-07-23)  
   
 - Update deps    
