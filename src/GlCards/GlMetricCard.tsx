@@ -17,7 +17,7 @@ const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
         "display": "flex",
-        "gap": theme.spacing(2),
+        "gap": theme.spacing(4),
         "justifyContent": "space-between",
         "flexDirection": "column",
         "padding": theme.spacing(3),
@@ -47,7 +47,6 @@ const useStyles = makeStyles()(theme => ({
 
     "headingMetric": {
         "fontSize": "86px",
-        "lineHeight": "0px",
         ...(theme.responsive.down("lg")
             ? {
                   "fontSize": "52px",
