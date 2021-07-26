@@ -4,6 +4,18 @@ import { useNamedState } from "powerhooks";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 import { GlIconButton } from "../utils/GlIconButton";
 import { motion } from "framer-motion";
+import { makeStyles } from "../theme";
+
+const useStyles = makeStyles()({
+    "root": {
+        "display": "flex",
+        "width": 50,
+        "height": 50,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": 0,
+    },
+});
 
 export type GlDarkModeSwitchProps = {
     className?: string;
@@ -23,8 +35,10 @@ export const GlDarkModeSwitch = memo((props: GlDarkModeSwitchProps) => {
         });
     });
 
+    const { classes } = useStyles();
+
     return (
-        <motion.div animate={motionProps}>
+        <motion.div className={classes.root} animate={motionProps}>
             <GlIconButton
                 className={className}
                 iconId={isDarkModeEnabled ? "brightness7" : "brightness4"}
