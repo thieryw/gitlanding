@@ -1,3 +1,19 @@
+### **0.0.69** (2021-07-26)  
+  
+- bump version  
+- GlDarkModeSwitch wrap styles in useStyles  
+- correct GlMetricCard title line height  
+- implemented a wave background  
+- bump version  
+- GlReviewSlider remove padding  
+- Gl header  modify padding and useClick away for unfolding menu  
+- remove padding Glfooter  
+- remove padding  
+- added padding on children to isolate it in the code  
+- remove padding  
+- GlArrow corected centering probleme  
+- rotating dark mode switch    
+  
 ### **0.0.68** (2021-07-23)  
   
 - Update onyxia-ui    
