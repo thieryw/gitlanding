@@ -6,6 +6,9 @@ import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { WaveBackground } from "./utils/WaveBackground";
+import { breakpointsValues } from "onyxia-ui";
+
+//window.visualViewport.height
 
 export type GlTemplateProps = {
     header?: ReactNode;
@@ -25,22 +28,24 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "flexDirection": "column",
         "overflow": "hidden",
+        "padding": theme.spacing(
+            0,
+            (() => {
+                if (
+                    theme.responsive.windowInnerWidth >= breakpointsValues["xl"]
+                ) {
+                    return 7;
+                }
+
+                return 2;
+            })(),
+        ),
     },
     "scrollWrapper": {
         "flex": 1,
         "position": "relative",
         "overflow": "auto",
         "scrollBehavior": "smooth",
-
-        "> *": {
-            ...(() => {
-                const value = theme.spacing(7);
-                return {
-                    "paddingLeft": value,
-                    "paddingRight": value,
-                };
-            })(),
-        },
     },
 }));
 
