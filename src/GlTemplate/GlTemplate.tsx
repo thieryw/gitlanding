@@ -1,11 +1,11 @@
 import { useEffect, memo } from "react";
-import { makeStyles, ThemeProviderDefault } from "./theme";
+import { makeStyles, ThemeProviderDefault } from "../theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
-import type { ComponentType } from "./tools/ComponentType";
+import type { ComponentType } from "../tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
-import { WaveBackground } from "./utils/WaveBackground";
+import { WaveBackground } from "./WaveBackground";
 import { breakpointsValues } from "onyxia-ui";
 
 //window.visualViewport.height
@@ -28,24 +28,30 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "flexDirection": "column",
         "overflow": "hidden",
-        "padding": theme.spacing(
-            0,
-            (() => {
-                if (
-                    theme.responsive.windowInnerWidth >= breakpointsValues["xl"]
-                ) {
-                    return 7;
-                }
-
-                return 2;
-            })(),
-        ),
     },
     "scrollWrapper": {
         "flex": 1,
         "position": "relative",
         "overflow": "auto",
         "scrollBehavior": "smooth",
+        "padding": theme.spacing(
+            0,
+            (() => {
+                if (
+                    theme.responsive.windowInnerWidth >= breakpointsValues["lg"]
+                ) {
+                    return 7;
+                }
+
+                if (
+                    theme.responsive.windowInnerWidth >= breakpointsValues["sm"]
+                ) {
+                    return 6;
+                }
+
+                return 4;
+            })(),
+        ),
     },
 }));
 
