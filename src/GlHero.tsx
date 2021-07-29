@@ -8,6 +8,7 @@ import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
 import { useNamedState } from "powerhooks";
 import { motion } from "framer-motion";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlHeroProps = {
     title?: string;
@@ -140,9 +141,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                     animate={titleAnimationProps}
                 >
                     {title !== undefined && (
-                        <Text className={classes.title} typo="display heading">
-                            {title}
-                        </Text>
+                        <HeroText className={classes.title}>{title}</HeroText>
                     )}
                     {subTitle !== undefined && (
                         <Text typo="subtitle" className={classes.subtitle}>
@@ -161,3 +160,45 @@ export const GlHero = memo((props: GlHeroProps) => {
         </section>
     );
 });
+
+const { HeroText } = (() => {
+    type Props = {
+        className?: string;
+        children: NonNullable<ReactNode>;
+    };
+
+    const useStyles = makeStyles()(theme => ({
+        "root": {
+            "fontSize":
+                theme.typography.rootFontSizePx *
+                (() => {
+                    if (
+                        theme.responsive.windowInnerWidth >=
+                        breakpointsValues["lg"]
+                    ) {
+                        return 86 / 16;
+                    }
+
+                    return 0;
+                })(),
+        },
+    }));
+
+    const HeroText = memo((props: Props) => {
+        const { children, className } = props;
+
+        const { classes, cx } = useStyles();
+
+        return (
+            <Text
+                className={cx(classes.root, className)}
+                htmlComponent="h1"
+                typo="body 1"
+            >
+                {children}
+            </Text>
+        );
+    });
+
+    return { HeroText };
+})();
