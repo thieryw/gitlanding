@@ -12,6 +12,7 @@ import { GlGithubStarCount } from "./GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import { useClickAway } from "powerhooks";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlHeaderProps = {
     className?: string;
@@ -37,7 +38,24 @@ const useStyles = makeStyles<{
         "display": "flex",
         "alignItems": "center",
         "width": "100%",
-        "padding": theme.spacing(4, 7),
+        "padding": theme.spacing(
+            4,
+            (() => {
+                if (
+                    theme.responsive.windowInnerWidth >= breakpointsValues["lg"]
+                ) {
+                    return 7;
+                }
+
+                if (
+                    theme.responsive.windowInnerWidth >= breakpointsValues["sm"]
+                ) {
+                    return 6;
+                }
+
+                return 4;
+            })(),
+        ),
         ...(theme.responsive.down("md")
             ? {
                   "flexWrap": "wrap",
