@@ -8,7 +8,7 @@ import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
 import { useNamedState } from "powerhooks";
 import { motion } from "framer-motion";
-import { breakpointsValues } from "onyxia-ui";
+import type { CSSObject } from "tss-react";
 
 export type GlHeroProps = {
     title?: string;
@@ -36,16 +36,9 @@ const useStyles = makeStyles<{
         "textAndImageWrapper": {
             "display": "grid",
             "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
-            "alignItems": "center",
-            "gap": theme.spacing(12),
-            ...(() => {
-                const value = theme.spacing(10);
-                return {
-                    "paddingTop": value,
-                    "paddingBottom": value,
-                };
-            })(),
-            ...(theme.responsive.down("lg")
+            "gap": theme.spacing(4),
+            "padding": theme.spacing(5, 0),
+            ...(theme.responsive.down("md")
                 ? {
                       "gridTemplateColumns": undefined,
                       "gridAutoFlow": "row",
@@ -61,18 +54,21 @@ const useStyles = makeStyles<{
 
         "subtitle": {
             "marginTop": theme.spacing(4),
-            "maxWidth": 400,
+            "maxWidth": 650,
+            ...(theme.responsive.windowInnerWidth < 1440
+                ? {
+                      "fontSize":
+                          theme.typography.variants["body 1"].style.fontSize,
+                      "fontWeight":
+                          theme.typography.variants["body 1"].style.fontWeight,
+                      "lineHeight":
+                          theme.typography.variants["body 1"].style.lineHeight,
+                      "maxWidth": 460,
+                  }
+                : {}),
         },
 
         "textWrapper": {
-            "textAlign":
-                hasTextAndImage && theme.responsive.up("lg")
-                    ? undefined
-                    : "center",
-            "alignItems":
-                hasTextAndImage && theme.responsive.up("lg")
-                    ? undefined
-                    : "center",
             "display": "flex",
             "flexDirection": "column",
         },
@@ -86,11 +82,11 @@ const useStyles = makeStyles<{
             "backgroundRepeat": "no-repeat",
             "backgroundSize": "cover",
             "backgroundPosition": "center",
-            "width": "100%",
+            "width": "100vw",
             "height": "100%",
             "position": "absolute",
             "top": 0,
-            "left": 0,
+            "left": -theme.spacing(7),
             "zIndex": -1,
             "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
         },
@@ -169,18 +165,24 @@ const { HeroText } = (() => {
 
     const useStyles = makeStyles()(theme => ({
         "root": {
-            "fontSize":
-                theme.typography.rootFontSizePx *
-                (() => {
-                    if (
-                        theme.responsive.windowInnerWidth >=
-                        breakpointsValues["lg"]
-                    ) {
-                        return 86 / 16;
-                    }
+            "fontWeight": 700,
+            ...((): CSSObject => {
+                let value = theme.typography.rootFontSizePx * (86 / 16);
 
-                    return 0;
-                })(),
+                if (
+                    theme.responsive.windowInnerWidth < 1440 &&
+                    theme.responsive.windowInnerWidth >= 600
+                ) {
+                    value = theme.typography.rootFontSizePx * (52 / 16);
+                } else {
+                    value = theme.typography.rootFontSizePx * (36 / 16);
+                }
+
+                return {
+                    "fontSize": value,
+                    "lineHeight": `${value}px`,
+                };
+            })(),
         },
     }));
 
