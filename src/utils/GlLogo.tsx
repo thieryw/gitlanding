@@ -6,7 +6,11 @@ const useStyles = makeStyles<{
     fill: string | undefined;
 }>()((theme, { fill }) => ({
     "svg": {
-        "fill": fill ?? theme.colors.useCases.typography.textPrimary,
+        "& svg": {
+            "fill": fill ?? theme.colors.useCases.typography.textPrimary,
+            "width": "100%",
+            "height": "100%",
+        },
     },
 }));
 
