@@ -58,7 +58,6 @@ const useStyles = makeStyles()(theme => ({
     "icon": {
         "width": 50,
         "height": 50,
-        "fill": theme.colors.palette.focus.main,
     },
 
     "buttonWrapper": {
