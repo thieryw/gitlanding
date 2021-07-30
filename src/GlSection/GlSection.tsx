@@ -8,14 +8,7 @@ const useStyles = makeStyles<{
 }>()((theme, { hasArticleAndAside }) => ({
     "root": {
         "position": "relative",
-        ...(() => {
-            const value = theme.spacing(8);
-
-            return {
-                "paddingTop": value,
-                "paddingBottom": value,
-            };
-        })(),
+        "padding": theme.spacing(4, 8),
     },
 
     "title": {
@@ -27,7 +20,7 @@ const useStyles = makeStyles<{
         "gridTemplateColumns": `repeat(${hasArticleAndAside ? 2 : 1}, 1fr)`,
         "marginTop": theme.spacing(8),
         "alignItems": "center",
-        "gap": theme.spacing(12),
+        "gap": theme.spacing(8),
         "& code": {
             "width": 0,
         },
