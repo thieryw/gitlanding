@@ -174,7 +174,9 @@ const { HeroText } = (() => {
                     theme.responsive.windowInnerWidth >= 600
                 ) {
                     value = theme.typography.rootFontSizePx * (52 / 16);
-                } else {
+                }
+
+                if (theme.responsive.windowInnerWidth < 600) {
                     value = theme.typography.rootFontSizePx * (36 / 16);
                 }
 
