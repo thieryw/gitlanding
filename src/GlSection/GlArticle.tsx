@@ -10,7 +10,6 @@ const useStyles = makeStyles()(theme => ({
         "textAlign": "left",
     },
     "title": {
-        "marginBottom": 14,
         ...(theme.responsive.down("lg")
             ? {
                   "fontSize": "22px",
@@ -20,20 +19,14 @@ const useStyles = makeStyles()(theme => ({
     },
     "paragraph": {
         "fontSize": theme.typography.variants["body 1"].style.fontSize,
-        "lineHeight": "24px",
-        "marginTop": 14,
-        "marginBottom": 14,
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "16px",
-                  "lineHeight": "20px",
-              }
-            : {}),
+        "lineHeight": theme.typography.variants["body 1"].style.lineHeight,
+        "fontWeight": theme.typography.variants["body 1"].style.fontWeight,
+        "margin": theme.spacing(4, 0),
+        "color": theme.colors.useCases.typography.textSecondary,
     },
     "buttonWrapper": {
         "display": "flex",
         "justifyContent": "flex-end",
-        "marginTop": 14,
     },
     "button": {
         "alignSelf": "right",
