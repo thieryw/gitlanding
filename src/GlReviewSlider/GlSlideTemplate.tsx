@@ -4,74 +4,77 @@ import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
 import ReactMarkdown from "react-markdown";
+import { breakpointsValues } from "onyxia-ui";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
         "display": "flex",
-        "flexDirection": "row",
         "alignItems": "center",
         "justifyContent": "space-between",
         "position": "relative",
-        ...(theme.responsive.down("md")
-            ? {
-                  "flexDirection": "column",
-              }
-            : {}),
-    },
+        "flexDirection": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return "row";
+            }
 
+            return "column";
+        })(),
+    },
     "paragraph": {
-        "margin": theme.spacing(5),
-        "fontSize": theme.typography.variants["body 1"].style.fontSize,
-        "fontWeight": theme.typography.variants["body 1"].style.fontWeight,
-        "lineHeight": theme.typography.variants["body 1"].style.lineHeight,
-        ...(theme.responsive.down("md")
-            ? {
-                  "textAlign": "center",
-              }
-            : {}),
-        ...(theme.responsive.down("sm")
-            ? {
-                  ...(() => {
-                      const valueVertical = theme.spacing(1);
-                      const valueHorizontal = theme.spacing(5);
+        ...theme.typography.variants["body 1"].style,
+        "textAlign": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return undefined;
+            }
 
-                      return {
-                          "marginTop": valueVertical,
-                          "marginBottom": valueVertical,
-                          "marginLeft": valueHorizontal,
-                          "marginRight": valueHorizontal,
-                      };
-                  })(),
-              }
-            : {}),
+            return "center";
+        })(),
+        "margin": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.sm) {
+                return theme.spacing(5);
+            }
+
+            return theme.spacing(1, 5);
+        })(),
     },
-
     "signature": {
-        "textAlign": "right",
         "fontStyle": "italic",
-        "marginRight": theme.spacing(5),
-        "marginBottom": theme.spacing(5),
+        "marginRight": theme.spacing(
+            (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return 5;
+                }
 
-        ...(theme.responsive.down("md")
-            ? {
-                  "textAlign": "center",
-                  "marginRight": 0,
-              }
-            : {}),
+                return 0;
+            })(),
+        ),
+        "marginBottom": theme.spacing(5),
+        "textAlign": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return "right";
+            }
+
+            return "center";
+        })(),
     },
     "logo": {
         "width": 70,
-        "marginLeft": theme.spacing(5),
         "& svg": {
             "width": 70,
             "height": 70,
         },
-        ...(theme.responsive.down("md")
-            ? {
-                  "marginLeft": 0,
-                  "marginTop": theme.spacing(5),
-              }
-            : {}),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return {
+                    "marginLeft": theme.spacing(5),
+                };
+            }
+
+            return {
+                "marginLeft": 0,
+                "marginTop": theme.spacing(5),
+            };
+        })(),
     },
 }));
 

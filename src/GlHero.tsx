@@ -8,7 +8,7 @@ import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
 import { useNamedState } from "powerhooks";
 import { motion } from "framer-motion";
-import type { CSSObject } from "tss-react";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlHeroProps = {
     title?: string;
@@ -38,34 +38,39 @@ const useStyles = makeStyles<{
             "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
             "gap": theme.spacing(4),
             "padding": theme.spacing(5, 0),
-            ...(theme.responsive.down("md")
-                ? {
-                      "gridTemplateColumns": undefined,
-                      "gridAutoFlow": "row",
-                      "gap": theme.spacing(2),
-                      "justifyContent": "center",
-                  }
-                : {}),
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {};
+                }
+                return {
+                    "gridTemplateColumns": undefined,
+                    "gridAutoFlow": "row",
+                    "gap": theme.spacing(2),
+                    "justifyContent": "center",
+                };
+            })(),
         },
 
         "title": {
             "marginBottom": theme.spacing(4),
         },
-
         "subtitle": {
             "marginTop": theme.spacing(4),
             "maxWidth": 650,
-            ...(theme.responsive.windowInnerWidth < 1440
-                ? {
-                      "fontSize":
-                          theme.typography.variants["body 1"].style.fontSize,
-                      "fontWeight":
-                          theme.typography.variants["body 1"].style.fontWeight,
-                      "lineHeight":
-                          theme.typography.variants["body 1"].style.lineHeight,
-                      "maxWidth": 460,
-                  }
-                : {}),
+            ...(() => {
+                if (theme.windowInnerWidth >= 1440) {
+                    return {};
+                }
+                return {
+                    "fontSize":
+                        theme.typography.variants["body 1"].style.fontSize,
+                    "fontWeight":
+                        theme.typography.variants["body 1"].style.fontWeight,
+                    "lineHeight":
+                        theme.typography.variants["body 1"].style.lineHeight,
+                    "maxWidth": 460,
+                };
+            })(),
         },
 
         "textWrapper": {
@@ -166,19 +171,20 @@ const { HeroText } = (() => {
     const useStyles = makeStyles()(theme => ({
         "root": {
             "fontWeight": 700,
-            ...((): CSSObject => {
-                let value = theme.typography.rootFontSizePx * (86 / 16);
+            ...(() => {
+                const value =
+                    (theme.typography.rootFontSizePx / 16) *
+                    (() => {
+                        if (theme.windowInnerWidth >= 1440) {
+                            return 86;
+                        }
 
-                if (
-                    theme.responsive.windowInnerWidth < 1440 &&
-                    theme.responsive.windowInnerWidth >= 600
-                ) {
-                    value = theme.typography.rootFontSizePx * (52 / 16);
-                }
+                        if (theme.windowInnerWidth >= 600) {
+                            return 52;
+                        }
 
-                if (theme.responsive.windowInnerWidth < 600) {
-                    value = theme.typography.rootFontSizePx * (36 / 16);
-                }
+                        return 36;
+                    })();
 
                 return {
                     "fontSize": value,

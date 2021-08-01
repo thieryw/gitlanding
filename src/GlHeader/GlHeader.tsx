@@ -41,26 +41,24 @@ const useStyles = makeStyles<{
         "padding": theme.spacing(
             4,
             (() => {
-                if (
-                    theme.responsive.windowInnerWidth >= breakpointsValues["lg"]
-                ) {
+                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
                     return 7;
                 }
 
-                if (
-                    theme.responsive.windowInnerWidth >= breakpointsValues["sm"]
-                ) {
+                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
                     return 6;
                 }
 
                 return 4;
             })(),
         ),
-        ...(theme.responsive.down("md")
-            ? {
-                  "flexWrap": "wrap",
-              }
-            : {}),
+        "flexWrap": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return undefined;
+            }
+
+            return "wrap";
+        })(),
     },
     "title": {
         "display": "flex",
@@ -70,42 +68,42 @@ const useStyles = makeStyles<{
     "links": {
         "display": "flex",
         "transition": "height 300ms",
-        "flexWrap": "wrap",
-        ...(theme.responsive.down("md")
-            ? {
-                  "order": 123,
-                  "flex": "100%",
-                  "flexDirection": "column",
-                  "gap": theme.spacing(2),
-                  "height": isMenuUnfolded
-                      ? (21 + theme.spacing(2)) * numberOfLinks
-                      : 0,
-                  "overflow": "hidden",
-                  "flexWrap": "nowrap",
-                  "marginTop": theme.spacing(2),
-              }
-            : {}),
-    },
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return {
+                    "flexWrap": "wrap",
+                } as const;
+            }
 
+            return {
+                "order": 123,
+                "flex": "100%",
+                "flexDirection": "column",
+                "gap": theme.spacing(2),
+                "height": isMenuUnfolded
+                    ? (21 + theme.spacing(2)) * numberOfLinks
+                    : 0,
+                "overflow": "hidden",
+                "flexWrap": "nowrap",
+                "marginTop": theme.spacing(2),
+            } as const;
+        })(),
+    },
     "linkWrapper": {
         ...(() => {
             const leftRight = theme.spacing(2);
             const topBottom = theme.spacing(1);
             return {
-                "marginLeft": leftRight,
                 "marginRight": leftRight,
                 "marginTop": topBottom,
                 "marginBottom": topBottom,
-                ...(theme.responsive.down("md")
-                    ? {
-                          ...(() => {
-                              const value = 0;
-                              return {
-                                  "marginLeft": value,
-                              };
-                          })(),
-                      }
-                    : {}),
+                "marginLeft": (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return leftRight;
+                    }
+
+                    return 0;
+                })(),
             };
         })(),
     },
@@ -115,27 +113,19 @@ const useStyles = makeStyles<{
         "fontSize": "18px",
         "whiteSpace": "nowrap",
     },
-
     "unfoldIcon": {
-        "display": "none",
         "cursor": "pointer",
         "marginLeft": theme.spacing(2),
-        ...(theme.responsive.down("md")
-            ? {
-                  "display": "flex",
-              }
-            : {}),
-    },
+        "display": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return "none";
+            }
 
-    "githubStarAndDarkModeSwitch": {
-        ...(() => {
-            const value = theme.spacing(2);
-
-            return {
-                "marginLeft": value,
-                "marginRight": value,
-            };
+            return "flex";
         })(),
+    },
+    "githubStarAndDarkModeSwitch": {
+        "margin": theme.spacing(0, 2),
     },
 }));
 

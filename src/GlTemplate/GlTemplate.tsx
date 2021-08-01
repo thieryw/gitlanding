@@ -37,15 +37,11 @@ const useStyles = makeStyles()(theme => ({
         "padding": theme.spacing(
             0,
             (() => {
-                if (
-                    theme.responsive.windowInnerWidth >= breakpointsValues["lg"]
-                ) {
+                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
                     return 7;
                 }
 
-                if (
-                    theme.responsive.windowInnerWidth >= breakpointsValues["sm"]
-                ) {
+                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
                     return 6;
                 }
 

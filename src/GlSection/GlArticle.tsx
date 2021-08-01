@@ -2,6 +2,7 @@ import { makeStyles, Text } from "../theme";
 import ReactMarkdown from "react-markdown";
 import { GlButton } from "../utils/GlButton";
 import { memo } from "react";
+import { breakpointsValues } from "onyxia-ui";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -10,17 +11,19 @@ const useStyles = makeStyles()(theme => ({
         "textAlign": "left",
     },
     "title": {
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "22px",
-                  "lineHeight": "24px",
-              }
-            : {}),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
+
+            return {
+                "fontSize": "22px",
+                "lineHeight": "24px",
+            };
+        })(),
     },
     "paragraph": {
-        "fontSize": theme.typography.variants["body 1"].style.fontSize,
-        "lineHeight": theme.typography.variants["body 1"].style.lineHeight,
-        "fontWeight": theme.typography.variants["body 1"].style.fontWeight,
+        ...theme.typography.variants["body 1"].style,
         "margin": theme.spacing(4, 0),
         "color": theme.colors.useCases.typography.textSecondary,
     },

@@ -2,6 +2,7 @@
 import { memo, ReactNode } from "react";
 
 import { makeStyles, Text } from "../theme";
+import { breakpointsValues } from "onyxia-ui";
 
 const useStyles = makeStyles<{
     hasArticleAndAside: boolean;
@@ -17,19 +18,25 @@ const useStyles = makeStyles<{
     },
     "articleAndAsideWrapper": {
         "display": "grid",
-        "gridTemplateColumns": `repeat(${hasArticleAndAside ? 2 : 1}, 1fr)`,
         "marginTop": theme.spacing(8),
         "alignItems": "center",
         "gap": theme.spacing(8),
         "& code": {
             "width": 0,
         },
-        ...(theme.responsive.down("md")
-            ? {
-                  "gridTemplateColumns": undefined,
-                  "gridAutoFlow": "row",
-              }
-            : {}),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return {
+                    "gridTemplateColumns": `repeat(${
+                        hasArticleAndAside ? 2 : 1
+                    }, 1fr)`,
+                };
+            }
+
+            return {
+                "gridAutoFlow": "row",
+            };
+        })(),
     },
 }));
 

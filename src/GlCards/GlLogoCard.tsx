@@ -4,6 +4,7 @@ import { makeStyles, Text } from "../theme";
 import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
@@ -19,13 +20,14 @@ const useStyles = makeStyles()(theme => ({
         "flexDirection": "column",
         "justifyContent": "space-between",
         "alignItems": "center",
-        ...(theme.responsive.down("lg")
-            ? {
-                  "margin": theme.spacing(1),
-              }
-            : {}),
-    },
+        "margin": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return undefined;
+            }
 
+            return theme.spacing(1);
+        })(),
+    },
     "iconWrapper": {
         "display": "grid",
         "columnGap": theme.spacing(2),
@@ -43,25 +45,30 @@ const useStyles = makeStyles()(theme => ({
     },
     "title": {
         "marginTop": theme.spacing(3),
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "18px",
-                  "lineHeight": "20px",
-              }
-            : {}),
-    },
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
 
+            return {
+                "fontSize": "18px",
+                "lineHeight": "20px",
+            };
+        })(),
+    },
     "paragraph": {
         "marginTop": theme.spacing(3),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
 
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "16px",
-                  "lineHeight": "2Opx",
-              }
-            : {}),
+            return {
+                "fontSize": "16px",
+                "lineHeight": "2Opx",
+            };
+        })(),
     },
-
     "description": {
         "textAlign": "center",
     },

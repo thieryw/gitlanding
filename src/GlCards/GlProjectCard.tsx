@@ -4,6 +4,7 @@ import { GlButton } from "../utils/GlButton";
 import { makeStyles, Text } from "../theme";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlProjectCardProps = GlCardProps & {
     projectImageUrl: string;
@@ -18,19 +19,22 @@ const useStyles = makeStyles<{
 }>()((theme, { projectImageUrl }) => ({
     "root": {
         "display": "flex",
-        "minHeight": 591,
-        ...(theme.responsive.down(1440)
-            ? {
-                  "minHeight": 412,
-              }
-            : {}),
+        "minHeight": (() => {
+            if (theme.windowInnerWidth >= 1440) {
+                return 591;
+            }
+
+            return 412;
+        })(),
         "flexDirection": "column",
         "overflow": "hidden",
-        ...(theme.responsive.down("lg")
-            ? {
-                  "margin": theme.spacing(1),
-              }
-            : {}),
+        "margin": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return undefined;
+            }
+
+            return theme.spacing(1);
+        })(),
     },
 
     "footer": {

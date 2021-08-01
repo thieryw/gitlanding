@@ -5,6 +5,7 @@ import { makeStyles, Text } from "../theme";
 import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
+import { breakpointsValues } from "onyxia-ui";
 
 export type GlMetricCardProps = GlCardProps & {
     number?: number;
@@ -21,23 +22,27 @@ const useStyles = makeStyles()(theme => ({
         "justifyContent": "space-between",
         "flexDirection": "column",
         "padding": theme.spacing(3),
-        ...(theme.responsive.down("lg")
-            ? {
-                  "margin": theme.spacing(1),
-              }
-            : {}),
+        "margin": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return undefined;
+            }
+
+            return theme.spacing(1);
+        })(),
     },
     "subHeading": {
         "fontWeight": "normal",
         "textAlign": "center",
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "18px",
-                  "lineHeight": "28px",
-              }
-            : {}),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
+            return {
+                "fontSize": "18px",
+                "lineHeight": "28px",
+            };
+        })(),
     },
-
     "heading": {
         "display": "flex",
         "justifyContent": "center",
@@ -47,19 +52,21 @@ const useStyles = makeStyles()(theme => ({
 
     "headingMetric": {
         "fontSize": "86px",
-        ...(theme.responsive.down("lg")
-            ? {
-                  "fontSize": "52px",
-                  "lineHeight": "60px",
-              }
-            : {}),
-    },
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
 
+            return {
+                "fontSize": "52px",
+                "lineHeight": "60px",
+            };
+        })(),
+    },
     "icon": {
         "width": 50,
         "height": 50,
     },
-
     "buttonWrapper": {
         "textAlign": "center",
     },
