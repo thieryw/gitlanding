@@ -1,3 +1,19 @@
+### **0.0.70** (2021-08-01)  
+  
+- Bump version  
+- Refactor responsive styles  
+- Emergency commit  
+- GlSections padding and grid gap corrections  
+- GlArticle font corrections  
+- GlMetricCard remove fill from icon  
+- GlLogo fill and dimentions corrections  
+- Correct GlHero title size  
+- GlHeader padding corrections  
+- GlTemplate padding corrections  
+- GlHero font size and layout corrections  
+- Suggestion for wave  
+- Custom text for hero    
+  
 ### **0.0.69** (2021-07-26)  
   
 - bump version  
