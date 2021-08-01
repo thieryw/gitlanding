@@ -8,7 +8,7 @@ const useStyles = makeStyles<{
 }>()((theme, { hasArticleAndAside }) => ({
     "root": {
         "position": "relative",
-        "padding": theme.spacing(4, 8),
+        "padding": theme.spacing(8, 8),
     },
 
     "title": {
