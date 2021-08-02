@@ -1,3 +1,8 @@
+### **0.0.71** (2021-08-02)  
+  
+- bump version  
+- GlHero refactor font size    
+  
 ### **0.0.70** (2021-08-01)  
   
 - Bump version  
