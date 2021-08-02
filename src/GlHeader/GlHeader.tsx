@@ -39,7 +39,7 @@ const useStyles = makeStyles<{
         "alignItems": "center",
         "width": "100%",
         "padding": theme.spacing(
-            4,
+            3,
             (() => {
                 if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
                     return 7;
@@ -91,7 +91,7 @@ const useStyles = makeStyles<{
     },
     "linkWrapper": {
         ...(() => {
-            const leftRight = theme.spacing(2);
+            const leftRight = theme.spacing(4);
             const topBottom = theme.spacing(1);
             return {
                 "marginRight": leftRight,
@@ -110,8 +110,8 @@ const useStyles = makeStyles<{
 
     "link": {
         "color": theme.colors.useCases.typography.textPrimary,
-        "fontSize": "18px",
         "whiteSpace": "nowrap",
+        ...theme.typography.variants["body 1"].style,
     },
     "unfoldIcon": {
         "cursor": "pointer",

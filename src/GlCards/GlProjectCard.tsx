@@ -20,7 +20,7 @@ const useStyles = makeStyles<{
     "root": {
         "display": "flex",
         "minHeight": (() => {
-            if (theme.windowInnerWidth >= 1440) {
+            if (theme.windowInnerWidth >= 1650) {
                 return 591;
             }
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles<{
         "backgroundColor": theme.isDarkModeEnabled
             ? theme.colors.palette.dark.greyVariant1
             : theme.colors.palette.light.light,
-        "padding": [2, 3, 2, 3]
+        "padding": [4, 5, 4, 5]
             .map(spacing => `${theme.spacing(spacing)}px`)
             .join(" "),
     },

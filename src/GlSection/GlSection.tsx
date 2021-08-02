@@ -9,7 +9,15 @@ const useStyles = makeStyles<{
 }>()((theme, { hasArticleAndAside }) => ({
     "root": {
         "position": "relative",
-        "padding": theme.spacing(8, 8),
+        "padding": theme.spacing(
+            8,
+            (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return 8;
+                }
+                return 0;
+            })(),
+        ),
     },
 
     "title": {

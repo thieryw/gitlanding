@@ -61,15 +61,7 @@ const useStyles = makeStyles<{
                 if (theme.windowInnerWidth >= 1440) {
                     return {};
                 }
-                return {
-                    "fontSize":
-                        theme.typography.variants["body 1"].style.fontSize,
-                    "fontWeight":
-                        theme.typography.variants["body 1"].style.fontWeight,
-                    "lineHeight":
-                        theme.typography.variants["body 1"].style.lineHeight,
-                    "maxWidth": 460,
-                };
+                return theme.typography.variants["body 1"].style;
             })(),
         },
 
