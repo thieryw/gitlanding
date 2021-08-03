@@ -1,3 +1,11 @@
+### **0.0.72** (2021-08-03)  
+  
+- bump version  
+- update  
+- GlLogoCard added button and optional overlap icon effect  
+- GlMetricCard responsive logo size  
+- GlArrow modification of display plus responsiveness    
+  
 ### **0.0.71** (2021-08-02)  
   
 - bump version  
