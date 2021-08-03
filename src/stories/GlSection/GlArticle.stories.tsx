@@ -1,10 +1,10 @@
-import { GlArticle } from "../../GlSection/GlArticle";
+import { GlSectionArticle } from "../../GlSectionArticle";
 import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { GlArticle },
+    "wrappedComponent": { GlArticle: GlSectionArticle },
 });
 
 export default meta;

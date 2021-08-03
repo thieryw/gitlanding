@@ -22,6 +22,7 @@ const useStyles = makeStyles()(theme => ({
         "justifyContent": "space-between",
         "flexDirection": "column",
         "padding": theme.spacing(3),
+        "zIndex": 1,
         "margin": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.lg) {
                 return undefined;

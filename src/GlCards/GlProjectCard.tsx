@@ -83,7 +83,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     const { classes, cx } = useStyles({ projectImageUrl });
 
     return (
-        <GlCard className={cx(classes.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             <div className={classes.header}>
                 <div className={classes.buttonWrapper}>
                     {badgeLabel !== undefined && (

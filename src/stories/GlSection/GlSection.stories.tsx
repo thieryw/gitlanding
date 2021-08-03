@@ -1,8 +1,8 @@
 import { GlSection } from "../../GlSection";
 import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlArticle } from "../../GlSection/GlArticle";
-import { GlAside } from "../../GlSection/GlAside";
+import { GlSectionArticle } from "../../GlSectionArticle";
+import { GlSectionAside } from "../../GlSectionAside";
 import examplePng from "../assets/img/example.png";
 
 const { getStory, meta } = getStoryFactory({
@@ -13,9 +13,8 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const VueWithCode = getStory({
-    "heading": "Lorem Ipsum",
     "article": (
-        <GlArticle
+        <GlSectionArticle
             title="Lorem Ipsum"
             articleMd={`
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
@@ -33,7 +32,7 @@ finibus lectus posuere sit amet.
     ),
 
     "aside": (
-        <GlAside
+        <GlSectionAside
             type="code"
             language="typescript"
             showLineNumbers={true}
@@ -47,9 +46,8 @@ function sum(x: number, y: number){
 });
 
 export const VueWithImage = getStory({
-    "heading": "Lorem Ipsum",
     "article": (
-        <GlArticle
+        <GlSectionArticle
             title="Lorem Ipsum"
             articleMd={`
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
@@ -66,5 +64,5 @@ finibus lectus posuere sit amet.
         />
     ),
 
-    "aside": <GlAside type="image" url={examplePng} />,
+    "aside": <GlSectionAside type="image" url={examplePng} />,
 });

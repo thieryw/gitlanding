@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, ReactNode } from "react";
-
-import { makeStyles, Text } from "../theme";
+import { makeStyles, Text } from "./theme";
 import { breakpointsValues } from "onyxia-ui";
 
 const useStyles = makeStyles<{
@@ -54,6 +53,7 @@ export type GlSectionProps = {
     article?: ReactNode;
     aside?: ReactNode;
     children?: ReactNode;
+    activateWaveBackground?: boolean;
 };
 
 export const GlSection = memo((props: GlSectionProps) => {

@@ -1,6 +1,6 @@
-import { makeStyles, Text } from "../theme";
+import { makeStyles, Text } from "./theme";
 import ReactMarkdown from "react-markdown";
-import { GlButton } from "../utils/GlButton";
+import { GlButton } from "./utils/GlButton";
 import { memo } from "react";
 import { breakpointsValues } from "onyxia-ui";
 
@@ -36,7 +36,8 @@ const useStyles = makeStyles()(theme => ({
     },
 }));
 
-export type GlArticleProps = {
+export type GlSectionArticleProps = {
+    className?: string;
     title?: string;
     articleMd?: string;
     buttonLabel?: string;
@@ -46,13 +47,13 @@ export type GlArticleProps = {
     };
 };
 
-export const GlArticle = memo((props: GlArticleProps) => {
-    const { buttonLink, buttonLabel, articleMd, title } = props;
+export const GlSectionArticle = memo((props: GlSectionArticleProps) => {
+    const { buttonLink, buttonLabel, articleMd, title, className } = props;
 
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     return (
-        <article>
+        <article className={cx(classes.root, className)}>
             {title && (
                 <Text className={classes.title} typo="page heading">
                     {title}

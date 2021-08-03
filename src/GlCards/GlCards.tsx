@@ -14,6 +14,9 @@ export type GlCardsProps = {
 
 const useStyles = makeStyles<{ numberOfCards: number }>()(
     (theme, { numberOfCards }) => ({
+        "root": {
+            "position": "relative",
+        },
         "title": {
             "textAlign": "center",
             "marginTop": theme.spacing(5),
@@ -35,7 +38,6 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
             "& > *": {
                 "flex": (() => {
                     if (theme.windowInnerWidth >= 1400) {
-                        //return "1 1 30%";
                         return numberOfCards > 3 ? "1 1 20%" : "1 1 30%";
                     }
 
@@ -64,10 +66,10 @@ export const GlCards = memo((props: GlCardsProps) => {
         setNumberOfCards(ref.current.childElementCount);
     }, []);
 
-    const { classes } = useStyles({ numberOfCards });
+    const { classes, cx } = useStyles({ numberOfCards });
 
     return (
-        <section className={className}>
+        <section className={cx(classes.root, className)}>
             {title && (
                 <Text className={classes.title} typo="page heading">
                     {title}

@@ -1,11 +1,10 @@
 import { useEffect, memo } from "react";
-import { makeStyles, ThemeProviderDefault } from "../theme";
+import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
-import type { ComponentType } from "../tools/ComponentType";
+import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
-import { WaveBackground } from "./WaveBackground";
 import { breakpointsValues } from "onyxia-ui";
 
 //window.visualViewport.height
@@ -19,7 +18,6 @@ export type GlTemplateProps = {
         splashScreen: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: JSX.Element;
     }>;
-    waveBackgroundOffsets?: number[];
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -57,12 +55,7 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const {
-            header,
-            children,
-            isThemeProvidedOutside,
-            waveBackgroundOffsets,
-        } = props;
+        const { header, children, isThemeProvidedOutside } = props;
 
         {
             const { hideRootSplashScreen } = useSplashScreen();
@@ -81,13 +74,7 @@ const GlTemplateInner = memo(
         return (
             <div className={classes.root}>
                 {header}
-                <div className={classes.scrollWrapper}>
-                    {children}
-                    {waveBackgroundOffsets !== undefined &&
-                        waveBackgroundOffsets.map(offset => (
-                            <WaveBackground offset={offset} key={offset} />
-                        ))}
-                </div>
+                <div className={classes.scrollWrapper}>{children}</div>
             </div>
         );
     },
