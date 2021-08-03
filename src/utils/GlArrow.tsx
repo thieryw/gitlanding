@@ -29,7 +29,7 @@ const useStyles = makeStyles<{
         "padding": 10,
         "borderRadius": "50%",
         ...(() => {
-            const value = 40;
+            const value = theme.spacing(5);
 
             return {
                 "width": value,
@@ -48,22 +48,13 @@ const useStyles = makeStyles<{
                     return "rotate(-90deg)";
             }
         })(),
-
-        "position": "relative",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "display": "flex",
 
         "& >div": {
             "display": "flex",
-            "width": 16,
-            "position": "absolute",
-            ...(() => {
-                const position = "50%";
-                return {
-                    "top": position,
-                    "left": position,
-                };
-            })(),
-            "marginLeft": "-8px",
-            "marginTop": "-6px",
+            "width": "12px",
             "& >svg": {
                 "fill": theme.isDarkModeEnabled
                     ? theme.colors.palette.light.main
