@@ -5,14 +5,20 @@ import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "onyxia-ui";
+import { GlButton } from "../utils/GlButton";
 
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
     title?: string;
     paragraph?: string;
+    buttonLabel?: string;
+    overlapIcons?: boolean;
 };
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles<{
+    numberOfIcons: number;
+    overlapIcons: boolean;
+}>()((theme, { numberOfIcons, overlapIcons }) => ({
     "root": {
         "padding": theme.spacing(3),
         "boxShadow": theme.shadows[1],
@@ -31,53 +37,72 @@ const useStyles = makeStyles()(theme => ({
     "iconWrapper": {
         "display": "grid",
         "columnGap": theme.spacing(2),
-        "gridAutoFlow": "column",
+        "gridTemplateColumns": (() => {
+            if (overlapIcons) {
+                return "repeat(auto-fit, minmax(10px, max-content))";
+            }
+
+            return `repeat(${numberOfIcons}, 1fr)`;
+        })(),
+        "width": (() => {
+            if (!overlapIcons) {
+                return undefined;
+            }
+
+            return numberOfIcons * 35;
+        })(),
     },
 
     "icon": {
-        "width": 50,
-        "height": 50,
-        "fill": theme.colors.palette.focus.main,
-        "& svg": {
-            "width": 50,
-            "height": 50,
-        },
+        ...(() => {
+            const value = (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                    return 50;
+                }
+
+                return 40;
+            })();
+
+            return {
+                "width": value,
+                "height": value,
+                "fill": theme.colors.palette.focus.main,
+                "& svg": {
+                    "width": value,
+                    "height": value,
+                },
+            };
+        })(),
+
+        "gridRow": 1 / 2,
     },
     "title": {
         "marginTop": theme.spacing(3),
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                return {};
-            }
-
-            return {
-                "fontSize": "18px",
-                "lineHeight": "20px",
-            };
-        })(),
     },
     "paragraph": {
         "marginTop": theme.spacing(3),
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                return {};
-            }
-
-            return {
-                "fontSize": "16px",
-                "lineHeight": "2Opx",
-            };
-        })(),
     },
-    "description": {
+    "textWrapper": {
         "textAlign": "center",
+        "marginBottom": theme.spacing(3),
     },
 }));
 
 export const GlLogoCard = memo((props: GlLogoCardProps) => {
-    const { className, iconUrls, link, paragraph, title } = props;
+    const {
+        className,
+        iconUrls,
+        link,
+        paragraph,
+        title,
+        buttonLabel,
+        overlapIcons,
+    } = props;
 
-    const { classes, cx } = useStyles();
+    const { classes, cx, css } = useStyles({
+        "numberOfIcons": iconUrls?.length ?? 0,
+        "overlapIcons": overlapIcons ?? false,
+    });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
@@ -85,7 +110,12 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 <div className={classes.iconWrapper}>
                     {iconUrls.map((url, index) => (
                         <GlLogo
-                            className={cx(classes.icon)}
+                            className={cx(
+                                classes.icon,
+                                css({
+                                    "zIndex": iconUrls.length - index,
+                                }),
+                            )}
                             logoUrl={url}
                             key={index}
                         />
@@ -93,7 +123,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 </div>
             )}
 
-            <div className={classes.description}>
+            <div className={classes.textWrapper}>
                 {title !== undefined && (
                     <Text typo="section heading" className={classes.title}>
                         {title}
@@ -105,6 +135,17 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     </Text>
                 )}
             </div>
+
+            {buttonLabel !== undefined && (
+                <GlButton
+                    type="submit"
+                    href={link?.href}
+                    variant="secondary"
+                    onClick={link?.onClick}
+                >
+                    {buttonLabel}
+                </GlButton>
+            )}
         </GlCard>
     );
 });
