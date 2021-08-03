@@ -64,8 +64,13 @@ const useStyles = makeStyles()(theme => ({
         })(),
     },
     "icon": {
-        "width": 50,
-        "height": 50,
+        ...(() => {
+            const value = theme.spacing(6.5);
+            return {
+                "width": value,
+                "height": value,
+            };
+        })(),
     },
     "buttonWrapper": {
         "textAlign": "center",
