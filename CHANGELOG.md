@@ -1,3 +1,8 @@
+### **0.0.73** (2021-08-05)  
+  
+- bump version  
+- correct animation bug on GlHero    
+  
 ### **0.0.72** (2021-08-03)  
   
 - bump version  
