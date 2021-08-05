@@ -92,11 +92,11 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     const {
         className,
         iconUrls,
-        link,
         paragraph,
         title,
         buttonLabel,
         overlapIcons,
+        ...rest
     } = props;
 
     const { classes, cx, css } = useStyles({
@@ -105,7 +105,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     });
 
     return (
-        <GlCard link={link} className={cx(classes.root, className)}>
+        <GlCard {...rest} className={cx(classes.root, className)}>
             {iconUrls && (
                 <div className={classes.iconWrapper}>
                     {iconUrls.map((url, index) => (
@@ -139,9 +139,9 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
             {buttonLabel !== undefined && (
                 <GlButton
                     type="submit"
-                    href={link?.href}
+                    href={rest.link?.href}
                     variant="secondary"
-                    onClick={link?.onClick}
+                    onClick={rest.link?.onClick}
                 >
                     {buttonLabel}
                 </GlButton>

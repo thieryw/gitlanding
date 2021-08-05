@@ -1,6 +1,7 @@
 import type { RefObject } from "react";
 import type { GlAnimatedOnScrollProps } from "./GlAnimatedOnScroll";
 import type { Animation } from "./types";
+import { useEffect } from "react";
 
 export function useAnimationOnScroll(
     params: Pick<GlAnimatedOnScrollProps, "animate" | "rootMargin"> & {
@@ -14,6 +15,7 @@ export function useAnimationOnScroll(
         if (!ref.current) {
             return;
         }
+
         const observer = new IntersectionObserver(
             entries => {
                 if (!entries[0].isIntersecting) {
@@ -22,7 +24,6 @@ export function useAnimationOnScroll(
 
                 setAnimationProps(animate);
                 observer.unobserve(entries[0].target);
-                window.removeEventListener("load", observe);
             },
             { rootMargin },
         );
@@ -30,5 +31,7 @@ export function useAnimationOnScroll(
         observer.observe(ref.current);
     };
 
-    window.addEventListener("load", observe);
+    useEffect(() => {
+        observe();
+    }, []);
 }

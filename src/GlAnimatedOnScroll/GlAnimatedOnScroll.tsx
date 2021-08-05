@@ -6,15 +6,25 @@ import type { Transition } from "framer-motion";
 import { useAnimationOnScroll } from "./useAnimationOnScroll";
 
 export type GlAnimatedOnScrollProps = {
+    className?: string;
     children?: ReactNode;
     animate?: Animation;
     initial?: Initial;
     rootMargin?: string;
     transition?: Transition;
+    onClick?: () => void;
 };
 
 export const GlAnimatedOnScroll = memo((props: GlAnimatedOnScrollProps) => {
-    const { children, animate, initial, transition } = props;
+    const {
+        children,
+        animate,
+        initial,
+        transition,
+        className,
+        onClick,
+        rootMargin,
+    } = props;
     const ref = useRef<HTMLDivElement>(null);
     const [animationProps, setAnimationProps] = useState<Animation>({});
 
@@ -22,6 +32,7 @@ export const GlAnimatedOnScroll = memo((props: GlAnimatedOnScrollProps) => {
         animate,
         ref,
         setAnimationProps,
+        rootMargin,
     });
 
     return (
@@ -30,6 +41,8 @@ export const GlAnimatedOnScroll = memo((props: GlAnimatedOnScrollProps) => {
             initial={initial}
             transition={transition}
             ref={ref}
+            className={className}
+            onClick={onClick}
         >
             {children}
         </motion.div>

@@ -90,10 +90,15 @@ const useStyles = makeStyles<{
 );
 
 const animationProps = {
-    "initial": {
+    "textInitial": {
+        "x": -150,
         "opacity": 0,
     },
-    "animate": {},
+    "textAnimate": {},
+    "imageInitial": {
+        "opacity": 0,
+    },
+    "imageAnimate": {},
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
@@ -119,11 +124,18 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            animationProps.animate = {
+            animationProps.textAnimate = {
+                "x": 1,
                 "opacity": 1,
             };
-            animationProps.initial.opacity = 1;
 
+            animationProps.textInitial.x = 0;
+            animationProps.textInitial.opacity = 1;
+
+            animationProps.imageAnimate = {
+                "opacity": 1,
+            };
+            animationProps.imageInitial.opacity = 1;
             reRender();
         },
     });
@@ -132,25 +144,53 @@ export const GlHero = memo((props: GlHeroProps) => {
         <section className={cx(classes.root, className)}>
             <div className={classes.backgroundDiv}></div>
             <div className={classes.textAndImageWrapper}>
-                <motion.div
-                    className={classes.textWrapper}
-                    initial={animationProps.initial}
-                    animate={animationProps.animate}
-                >
+                <div className={classes.textWrapper}>
                     {title !== undefined && (
-                        <HeroText className={classes.title}>{title}</HeroText>
+                        <motion.div
+                            variants={animationProps}
+                            initial="textInitial"
+                            animate="textAnimate"
+                            transition={{
+                                "duration": 1,
+                                "type": "tween",
+                                "ease": "easeOut",
+                            }}
+                        >
+                            <HeroText className={classes.title}>
+                                {title}
+                            </HeroText>
+                        </motion.div>
                     )}
                     {subTitle !== undefined && (
-                        <Text typo="subtitle" className={classes.subtitle}>
-                            {subTitle}
-                        </Text>
+                        <motion.div
+                            variants={animationProps}
+                            initial="textInitial"
+                            animate="textAnimate"
+                            transition={{
+                                "delay": 0.2,
+                                "duration": 1,
+                                "ease": "easeOut",
+                            }}
+                        >
+                            <Text typo="subtitle" className={classes.subtitle}>
+                                {subTitle}
+                            </Text>
+                        </motion.div>
                     )}
-                </motion.div>
+                </div>
 
                 {imageSrc !== undefined && (
-                    <div>
+                    <motion.div
+                        variants={animationProps}
+                        initial="imageInitial"
+                        animate="imageAnimate"
+                        transition={{
+                            "delay": 1,
+                            "duration": 0.5,
+                        }}
+                    >
                         <GlImage url={imageSrc} alt="hero image" />
-                    </div>
+                    </motion.div>
                 )}
             </div>
             {children}
