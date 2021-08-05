@@ -2,11 +2,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo } from "react";
+import { memo, useReducer } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
-import { useNamedState } from "powerhooks";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "onyxia-ui";
 
@@ -90,6 +89,13 @@ const useStyles = makeStyles<{
     }),
 );
 
+const animationProps = {
+    "initial": {
+        "opacity": 0,
+    },
+    "animate": {},
+};
+
 export const GlHero = memo((props: GlHeroProps) => {
     const {
         title,
@@ -101,10 +107,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         children,
     } = props;
 
-    const { setTitleAnimationProps, titleAnimationProps } = useNamedState(
-        "titleAnimationProps",
-        {},
-    );
+    const [, reRender] = useReducer(x => x + 1, 0);
 
     const { classes, cx } = useStyles({
         backgroundImageSrcLight,
@@ -116,9 +119,12 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            setTitleAnimationProps({
+            animationProps.animate = {
                 "opacity": 1,
-            });
+            };
+            animationProps.initial.opacity = 1;
+
+            reRender();
         },
     });
 
@@ -128,10 +134,8 @@ export const GlHero = memo((props: GlHeroProps) => {
             <div className={classes.textAndImageWrapper}>
                 <motion.div
                     className={classes.textWrapper}
-                    initial={{
-                        "opacity": 0,
-                    }}
-                    animate={titleAnimationProps}
+                    initial={animationProps.initial}
+                    animate={animationProps.animate}
                 >
                     {title !== undefined && (
                         <HeroText className={classes.title}>{title}</HeroText>
