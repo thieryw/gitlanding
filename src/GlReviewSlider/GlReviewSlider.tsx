@@ -6,6 +6,15 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { Icon } from "../theme";
 
 const useStyles = makeStyles()(theme => ({
+    "root": {
+        ...(() => {
+            const value = theme.spacing(7);
+            return {
+                "marginTop": value,
+                "marginBottom": value,
+            };
+        })(),
+    },
     "heading": {
         "textAlign": "center",
         "marginBottom": theme.spacing(10),
@@ -52,10 +61,10 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
         () => emblaApi && emblaApi.scrollNext(),
     );
 
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     return (
-        <section className={className}>
+        <section className={cx(classes.root, className)}>
             {title !== undefined && (
                 <Text className={classes.heading} typo="page heading">
                     {title}
