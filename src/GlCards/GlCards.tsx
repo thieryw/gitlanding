@@ -16,6 +16,13 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
     (theme, { numberOfCards }) => ({
         "root": {
             "position": "relative",
+            ...(() => {
+                const value = theme.spacing(7);
+                return {
+                    "marginTop": value,
+                    "marginBottom": value,
+                };
+            })(),
         },
         "title": {
             "textAlign": "center",
