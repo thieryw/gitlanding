@@ -1,3 +1,14 @@
+### **0.0.75** (2021-08-16)  
+  
+- bump version  
+- update stories  
+- GlFooter corrected margin top  
+- GlReview Slider added top bottom margin  
+- added index to GlSection folder  
+- change GlCard spacing and added top bottom margin  
+- change GlSection export  
+- change GlSection architecture and corrected layout    
+  
 ### **0.0.74** (2021-08-16)  
   
 - bump version  
