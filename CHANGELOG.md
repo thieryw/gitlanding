@@ -1,3 +1,9 @@
+### **0.0.74** (2021-08-16)  
+  
+- bump version  
+- remove animation props from cards  
+- update animations    
+  
 ### **0.0.73** (2021-08-05)  
   
 - bump version  
