@@ -79,13 +79,12 @@ const useStyles = makeStyles()(theme => ({
 }));
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
-    const { buttonLabel, iconUrl, subHeading, number, className, ...rest } =
-        props;
+    const { buttonLabel, iconUrl, subHeading, number, className, link } = props;
 
     const { classes, cx } = useStyles();
 
     return (
-        <GlCard {...rest} className={cx(classes.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             <div className={classes.heading}>
                 {number !== undefined && (
                     <Text
@@ -111,9 +110,9 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 <div className={classes.buttonWrapper}>
                     <GlButton
                         type="submit"
-                        href={rest.link?.href}
+                        href={link?.href}
                         variant="secondary"
-                        onClick={rest.link?.onClick}
+                        onClick={link?.onClick}
                     >
                         {buttonLabel}
                     </GlButton>

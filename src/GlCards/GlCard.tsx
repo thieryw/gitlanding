@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { makeStyles } from "../theme";
-import { GlAnimatedOnScroll } from "../GlAnimatedOnScroll";
-import type { GlAnimatedOnScrollProps } from "../GlAnimatedOnScroll";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -25,30 +23,15 @@ export type GlCardProps = {
         href?: string;
         onClick?: () => void;
     };
-} & Pick<
-    GlAnimatedOnScrollProps,
-    "animate" | "initial" | "rootMargin" | "transition"
->;
+};
 
 export const GlCard = memo((props: GlCardProps) => {
-    const {
-        children,
-        link,
-        className,
-        animate,
-        initial,
-        rootMargin,
-        transition,
-    } = props;
+    const { children, link, className } = props;
 
     const { classes, cx } = useStyles();
 
     return (
-        <GlAnimatedOnScroll
-            animate={animate}
-            initial={initial}
-            rootMargin={rootMargin}
-            transition={transition}
+        <div
             className={cx(classes.root, className)}
             onClick={
                 link?.onClick ??
@@ -56,6 +39,6 @@ export const GlCard = memo((props: GlCardProps) => {
             }
         >
             {children}
-        </GlAnimatedOnScroll>
+        </div>
     );
 });
