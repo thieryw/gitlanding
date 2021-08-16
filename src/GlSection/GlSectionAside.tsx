@@ -1,7 +1,7 @@
-import { GlImage } from "./utils/GlImage";
-import type { GlImageProps } from "./utils/GlImage";
-import { GlCode } from "./utils/GlCode";
-import type { GlCodeProps } from "./utils/GlCode";
+import { GlImage } from "../utils/GlImage";
+import type { GlImageProps } from "../utils/GlImage";
+import { GlCode } from "../utils/GlCode";
+import type { GlCodeProps } from "../utils/GlCode";
 import { memo } from "react";
 
 export declare namespace GlSectionAsideProps {
@@ -16,8 +16,9 @@ export declare namespace GlSectionAsideProps {
 export type GlSectionAsideProps = GlSectionAsideProps.Aside;
 
 export const GlSectionAside = memo((props: GlSectionAsideProps) => {
+    const { className } = props;
     return (
-        <aside>
+        <aside className={className}>
             {props.type === "image" ? (
                 <GlImage
                     url={props.url}

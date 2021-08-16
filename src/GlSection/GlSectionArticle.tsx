@@ -1,6 +1,6 @@
-import { makeStyles, Text } from "./theme";
+import { makeStyles, Text } from "../theme";
 import ReactMarkdown from "react-markdown";
-import { GlButton } from "./utils/GlButton";
+import { GlButton } from "../utils/GlButton";
 import { memo } from "react";
 import { breakpointsValues } from "onyxia-ui";
 
@@ -38,41 +38,48 @@ const useStyles = makeStyles()(theme => ({
 
 export type GlSectionArticleProps = {
     className?: string;
-    title?: string;
-    articleMd?: string;
-    buttonLabel?: string;
-    buttonLink?: {
+    articleTitle?: string;
+    articleParagraphMd?: string;
+    articleButtonLabel?: string;
+    articleButtonLink?: {
         href: string;
         onClick?: () => void;
     };
 };
 
 export const GlSectionArticle = memo((props: GlSectionArticleProps) => {
-    const { buttonLink, buttonLabel, articleMd, title, className } = props;
+    const {
+        articleButtonLink,
+        articleButtonLabel,
+        articleParagraphMd,
+        articleTitle,
+        className,
+    } = props;
 
     const { classes, cx } = useStyles();
 
     return (
         <article className={cx(classes.root, className)}>
-            {title && (
+            {articleTitle && (
                 <Text className={classes.title} typo="page heading">
-                    {title}
+                    {articleTitle}
                 </Text>
             )}
-            {articleMd && (
+            {articleParagraphMd && (
                 <ReactMarkdown className={classes.paragraph}>
-                    {articleMd}
+                    {articleParagraphMd}
                 </ReactMarkdown>
             )}
-            {buttonLabel && (
-                <div /*ref={rootRef}*/ className={classes.buttonWrapper}>
+            {articleButtonLabel && (
+                <div className={classes.buttonWrapper}>
                     <GlButton
                         className={classes.button}
                         type="submit"
-                        {...buttonLink}
+                        href={articleButtonLink?.href}
+                        onClick={articleButtonLink?.onClick}
                         variant="secondary"
                     >
-                        {buttonLabel}
+                        {articleButtonLabel}
                     </GlButton>
                 </div>
             )}
