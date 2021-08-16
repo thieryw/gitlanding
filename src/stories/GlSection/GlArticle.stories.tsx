@@ -1,17 +1,17 @@
-import { GlSectionArticle } from "../../GlSectionArticle";
+import { GlSectionArticle } from "../../GlSection/GlSectionArticle";
 import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { GlArticle: GlSectionArticle },
+    "wrappedComponent": { GlSectionArticle },
 });
 
 export default meta;
 
 export const Vue = getStory({
-    "title": "Lorem Ipsum",
-    "articleMd": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    "articleTitle": "Lorem Ipsum",
+    "articleParagraphMd": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Nulla tempor consectetur mauris nec pharetra. 
 Aliquam a vulputate nibh. Etiam magna tortor, 
 congue vel faucibus ut, aliquam sit amet augue. 
@@ -22,5 +22,5 @@ quam enim in magna. Suspendisse potenti.
 Maecenas hendrerit diam mauris, 
 sed finibus lectus posuere sit amet.`,
 
-    "buttonLabel": "Lorem Ipsum",
+    "articleButtonLabel": "Lorem Ipsum",
 });

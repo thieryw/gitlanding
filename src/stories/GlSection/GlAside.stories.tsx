@@ -1,4 +1,4 @@
-import { GlSectionAside } from "../../GlSectionAside";
+import { GlSectionAside } from "../../GlSection/GlSectionAside";
 import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
 import imgExamplePng from "../assets/img/example.png";
