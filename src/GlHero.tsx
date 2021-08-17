@@ -22,72 +22,74 @@ export type GlHeroProps = {
 const useStyles = makeStyles<{
     backgroundImageSrcLight: GlHeroProps["backgroundImageSrcLight"];
     backgroundImageSrcDark: GlHeroProps["backgroundImageSrcDark"];
-    hasTextAndImage: boolean;
-}>()(
-    (
-        theme,
-        { backgroundImageSrcLight, hasTextAndImage, backgroundImageSrcDark },
-    ) => ({
-        "root": {
-            "position": "relative",
-            "width": "100%",
-        },
-        "textAndImageWrapper": {
-            "display": "grid",
-            "gridTemplateColumns": `repeat(${hasTextAndImage ? 2 : 1}, 1fr)`,
-            "gap": theme.spacing(4),
-            "padding": theme.spacing(5, 0),
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return {};
-                }
+}>()((theme, { backgroundImageSrcLight, backgroundImageSrcDark }) => ({
+    "root": {
+        "position": "relative",
+        "width": "100%",
+    },
+    "textAndImageWrapper": {
+        "padding": theme.spacing(5, 0),
+        "display": "flex",
+        "flexDirection":
+            theme.windowInnerWidth >= breakpointsValues.md
+                ? undefined
+                : "column",
+    },
+
+    "title": {
+        "marginBottom": theme.spacing(4),
+    },
+    "subtitle": {
+        "marginTop": theme.spacing(4),
+        "maxWidth": 650,
+        ...(() => {
+            if (theme.windowInnerWidth >= 1440) {
+                return undefined;
+            }
+            return theme.typography.variants["body 1"].style;
+        })(),
+    },
+
+    "textWrapper": {
+        "display": "flex",
+        "flexDirection": "column",
+        "flex": 1.5,
+        ...(() => {
+            const value = theme.spacing(4);
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return {
-                    "gridTemplateColumns": undefined,
-                    "gridAutoFlow": "row",
-                    "gap": theme.spacing(2),
-                    "justifyContent": "center",
+                    "marginRight": value,
                 };
-            })(),
-        },
+            }
 
-        "title": {
-            "marginBottom": theme.spacing(4),
-        },
-        "subtitle": {
-            "marginTop": theme.spacing(4),
-            "maxWidth": 650,
-            ...(() => {
-                if (theme.windowInnerWidth >= 1440) {
-                    return {};
-                }
-                return theme.typography.variants["body 1"].style;
-            })(),
-        },
+            return {
+                "marginBottom": value,
+            };
+        })(),
+    },
 
-        "textWrapper": {
-            "display": "flex",
-            "flexDirection": "column",
-        },
+    "imageWrapper": {
+        "flex": 2,
+    },
 
-        "backgroundDiv": {
-            "background": `url(${
-                theme.isDarkModeEnabled
-                    ? backgroundImageSrcDark
-                    : backgroundImageSrcLight
-            })`,
-            "backgroundRepeat": "no-repeat",
-            "backgroundSize": "cover",
-            "backgroundPosition": "center",
-            "width": "100vw",
-            "height": "100%",
-            "position": "absolute",
-            "top": 0,
-            "left": -theme.spacing(7),
-            "zIndex": -1,
-            "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
-        },
-    }),
-);
+    "backgroundDiv": {
+        "background": `url(${
+            theme.isDarkModeEnabled
+                ? backgroundImageSrcDark
+                : backgroundImageSrcLight
+        })`,
+        "backgroundRepeat": "no-repeat",
+        "backgroundSize": "cover",
+        "backgroundPosition": "center",
+        "width": "100vw",
+        "height": "100%",
+        "position": "absolute",
+        "top": 0,
+        "left": -theme.spacing(7),
+        "zIndex": -1,
+        "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
+    },
+}));
 
 const animationProps = {
     "textInitial": {
@@ -117,9 +119,6 @@ export const GlHero = memo((props: GlHeroProps) => {
     const { classes, cx } = useStyles({
         backgroundImageSrcLight,
         backgroundImageSrcDark,
-        "hasTextAndImage":
-            (title !== undefined || subTitle !== undefined) &&
-            imageSrc !== undefined,
     });
 
     useSplashScreen({
@@ -144,43 +143,49 @@ export const GlHero = memo((props: GlHeroProps) => {
         <section className={cx(classes.root, className)}>
             <div className={classes.backgroundDiv}></div>
             <div className={classes.textAndImageWrapper}>
-                <div className={classes.textWrapper}>
-                    {title !== undefined && (
-                        <motion.div
-                            variants={animationProps}
-                            initial="textInitial"
-                            animate="textAnimate"
-                            transition={{
-                                "duration": 1,
-                                "type": "tween",
-                                "ease": "easeOut",
-                            }}
-                        >
-                            <HeroText className={classes.title}>
-                                {title}
-                            </HeroText>
-                        </motion.div>
-                    )}
-                    {subTitle !== undefined && (
-                        <motion.div
-                            variants={animationProps}
-                            initial="textInitial"
-                            animate="textAnimate"
-                            transition={{
-                                "delay": 0.2,
-                                "duration": 1,
-                                "ease": "easeOut",
-                            }}
-                        >
-                            <Text typo="subtitle" className={classes.subtitle}>
-                                {subTitle}
-                            </Text>
-                        </motion.div>
-                    )}
-                </div>
+                {(title !== undefined || subTitle !== undefined) && (
+                    <div className={classes.textWrapper}>
+                        {title !== undefined && (
+                            <motion.div
+                                variants={animationProps}
+                                initial="textInitial"
+                                animate="textAnimate"
+                                transition={{
+                                    "duration": 1,
+                                    "type": "tween",
+                                    "ease": "easeOut",
+                                }}
+                            >
+                                <HeroText className={classes.title}>
+                                    {title}
+                                </HeroText>
+                            </motion.div>
+                        )}
+                        {subTitle !== undefined && (
+                            <motion.div
+                                variants={animationProps}
+                                initial="textInitial"
+                                animate="textAnimate"
+                                transition={{
+                                    "delay": 0.2,
+                                    "duration": 1,
+                                    "ease": "easeOut",
+                                }}
+                            >
+                                <Text
+                                    typo="subtitle"
+                                    className={classes.subtitle}
+                                >
+                                    {subTitle}
+                                </Text>
+                            </motion.div>
+                        )}
+                    </div>
+                )}
 
                 {imageSrc !== undefined && (
                     <motion.div
+                        className={classes.imageWrapper}
                         variants={animationProps}
                         initial="imageInitial"
                         animate="imageAnimate"
@@ -211,7 +216,7 @@ const { HeroText } = (() => {
                 const value =
                     (theme.typography.rootFontSizePx / 16) *
                     (() => {
-                        if (theme.windowInnerWidth >= 1440) {
+                        if (theme.windowInnerWidth >= breakpointsValues.xl) {
                             return 86;
                         }
 
