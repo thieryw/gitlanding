@@ -65,6 +65,12 @@ const useStyles = makeStyles()(theme => ({
         })(),
     },
     "icon": {
+        "borderRadius": "50%",
+        "padding": theme.spacing(2),
+        "backgroundColor": !theme.isDarkModeEnabled
+            ? theme.colors.useCases.surfaces.background
+            : theme.colors.palette.light.greyVariant1,
+        "fill": "orange",
         ...(() => {
             const value = theme.spacing(6.5);
             return {
@@ -81,7 +87,7 @@ const useStyles = makeStyles()(theme => ({
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
     const { buttonLabel, iconUrl, subHeading, number, className, link } = props;
 
-    const { classes, cx } = useStyles();
+    const { classes, cx, theme } = useStyles();
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
@@ -96,7 +102,11 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 )}
 
                 {iconUrl !== undefined && (
-                    <GlLogo className={cx(classes.icon)} logoUrl={iconUrl} />
+                    <GlLogo
+                        fill={theme.colors.useCases.buttons.actionHoverPrimary}
+                        className={classes.icon}
+                        logoUrl={iconUrl}
+                    />
                 )}
             </div>
 
