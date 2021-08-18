@@ -40,21 +40,26 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
         },
 
         "cards": {
-            "display": "flex",
-            "flexWrap": "wrap",
-            "& > *": {
-                "flex": (() => {
-                    if (theme.windowInnerWidth >= 1400) {
-                        return numberOfCards > 3 ? "1 1 20%" : "1 1 30%";
-                    }
+            "display": "grid",
+            "gridTemplateColumns": (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                    return `repeat(${
+                        numberOfCards > 4 ? 4 : numberOfCards
+                    }, 1fr)`;
+                }
 
-                    if (theme.windowInnerWidth >= 686) {
-                        return "1 1 40%";
-                    }
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return `repeat(${
+                        numberOfCards > 3 ? 2 : numberOfCards
+                    }, 1fr)`;
+                }
 
-                    return "1 1 100%";
-                })(),
-            },
+                if (theme.windowInnerWidth >= breakpointsValues.sm) {
+                    return `repeat(${numberOfCards > 3 ? 2 : 1}, 1fr)`;
+                }
+
+                return undefined;
+            })(),
         },
     }),
 );
