@@ -4,7 +4,7 @@ import { GlButton } from "../utils/GlButton";
 import { makeStyles, Text } from "../theme";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "../theme";
 
 export type GlProjectCardProps = GlCardProps & {
     projectImageUrl: string;

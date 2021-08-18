@@ -4,7 +4,7 @@ import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
 import ReactMarkdown from "react-markdown";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "../theme";
 
 const useStyles = makeStyles()(theme => ({
     "root": {

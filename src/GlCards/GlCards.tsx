@@ -3,7 +3,7 @@ import { memo } from "react";
 import type { ReactNode } from "react";
 import { Text } from "../theme";
 import { makeStyles } from "../theme";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "../theme";
 import { useRef, useEffect, useState } from "react";
 
 export type GlCardsProps = {

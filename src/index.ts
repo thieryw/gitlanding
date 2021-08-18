@@ -22,5 +22,6 @@ export * from "./utils/GlImage";
 export * from "./utils/GlLogo";
 export * from "./GlReviewSlider/GlReviewSlider";
 export * from "./GlTemplate";
-export * from "./GlSection/GlSection";
+export * from "./GlArticle";
+export * from "./GlIllustration";
 export * from "./GlHeader/GlHeader";

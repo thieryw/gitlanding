@@ -12,7 +12,7 @@ import { GlGithubStarCount } from "./GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import { useClickAway } from "powerhooks";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "../theme";
 
 export type GlHeaderProps = {
     className?: string;

@@ -5,7 +5,7 @@ import { useSplashScreen } from "onyxia-ui";
 import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "./theme";
 
 //window.visualViewport.height
 

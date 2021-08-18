@@ -13,6 +13,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import Brightness1RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
+import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 
 import { useThemeBase as useTheme } from "onyxia-ui/lib/ThemeProvider";
 
@@ -41,3 +42,8 @@ export const { IconButton } = createIconButton({ Icon });
 export const { Button } = createButton({ Icon });
 
 export const { Text } = createText({ useTheme });
+
+export const breakpointsValues = {
+    ...defaultBreakpointsValues,
+    "lg+": 1440 as const,
+};
