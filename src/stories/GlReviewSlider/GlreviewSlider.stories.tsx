@@ -8,7 +8,6 @@ import youtubeIconUrl from "../assets/svg/youtube.svg";
 import example2ImageUrl from "../assets/img/example2.jpeg";
 import example3ImageUrl from "../assets/img/example3.jpeg";
 import example4ImageUrl from "../assets/img/example4.jpeg";
-import { css } from "tss-react";
 import { GlSlide } from "../../GlReviewSlider/GlSlide";
 
 const { getStory, meta } = getStoryFactory({
@@ -67,11 +66,6 @@ export const VueReviewSlider = getStory({
 
 export const VueImageSlider = getStory({
     "title": "Image Slider Example",
-    "className": css({
-        "& img": {
-            "width": "100%",
-        },
-    }),
     "sliderContent": [example2ImageUrl, example3ImageUrl, example4ImageUrl].map(
         (image, index) => (
             <GlSlide>

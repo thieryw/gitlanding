@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.0.75",
+    "version": "0.0.76",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -44,21 +44,21 @@
     "keywords": [],
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
-        "react": "*"
-    },
-    "optionalDependencies": {
-        "@types/react": "*"
+        "react": "^16.8.0 || ^17.0.0",
+        "@types/react": "^16.8.0 || ^17.0.0"
     },
     "dependencies": {
-        "@material-ui/core": "^4.12.2",
+        "@material-ui/core": "next",
+        "@emotion/react": "^11.4.1",
+        "@emotion/styled": "^11.3.0",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.9.17",
+        "onyxia-ui": "^0.10.1",
         "powerhooks": "^0.7.1",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",
         "react-svg": "^13.0.4",
         "tsafe": "^0.4.1",
-        "tss-react": "^0.4.1",
+        "tss-react": "^0.7.2",
         "typeface-work-sans": "^1.1.13",
         "react-github-btn": "^1.2.0",
         "framer-motion": "^4.1.17"

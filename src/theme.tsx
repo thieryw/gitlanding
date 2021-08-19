@@ -14,8 +14,9 @@ import DehazeIcon from "@material-ui/icons/Dehaze";
 import Brightness1RoundedIcon from "@material-ui/icons/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
+import { useStyles } from "onyxia-ui/lib/ThemeProvider";
 
-import { useThemeBase as useTheme } from "onyxia-ui/lib/ThemeProvider";
+const useTheme = () => useStyles().theme;
 
 export { useTheme };
 

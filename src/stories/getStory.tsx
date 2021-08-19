@@ -12,7 +12,7 @@ import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
 import {
     ThemeProviderDefault as ThemeProvider,
     Text,
-    useTheme,
+    //useTheme,
 } from "../theme";
 import { id } from "tsafe/id";
 import "onyxia-ui/assets/fonts/work-sans.css";
@@ -93,7 +93,7 @@ export function getStoryFactory<Props>(params: {
             [targetWindowInnerWidth, chromeFontSize],
         );
 
-        const theme = useTheme();
+        //const theme = useTheme();
 
         return (
             <>
@@ -105,7 +105,7 @@ export function getStoryFactory<Props>(params: {
                             },
                             "body": {
                                 "padding": `0 !important`,
-                                "backgroundColor": `${theme.colors.useCases.surfaces.surface1} !important`,
+                                //"backgroundColor": `${theme.colors.useCases.surfaces.surface1} !important`,
                             },
                         }}
                     />
