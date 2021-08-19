@@ -111,6 +111,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
                             href={link.href}
                             onClick={link.onClick}
                             className={classes.link}
+                            underline="hover"
                         >
                             {link.title}
                         </Link>

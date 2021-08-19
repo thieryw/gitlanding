@@ -16,9 +16,9 @@ import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
 
-const useTheme = () => useStyles().theme;
-
-export { useTheme };
+export const { useTheme } = {
+    useTheme: () => useStyles().theme,
+};
 
 export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({
     "getTypographyDesc": params => ({

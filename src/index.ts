@@ -9,7 +9,6 @@ export * from "./GlCards/GlProjectCard";
 
 export * from "./GlCards/GlProjectCard";
 export * from "./utils/GlCode";
-export * from "./GlHeader/GlDarkModeSwitch";
 export * from "./utils/GlArrow";
 export * from "./GlFooter";
 export * from "./GlFooter/GlFooterBottomDiv";

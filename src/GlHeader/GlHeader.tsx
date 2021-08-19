@@ -3,16 +3,15 @@
 import Link from "@material-ui/core/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
-
 import { memo } from "react";
 import { makeStyles, Text } from "../theme";
 import type { ReactNode } from "react";
-import { GlDarkModeSwitch } from "./GlDarkModeSwitch";
 import { GlGithubStarCount } from "./GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./GlGithubStarCount";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import { useClickAway } from "powerhooks";
 import { breakpointsValues } from "../theme";
+import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
 
 export type GlHeaderProps = {
     className?: string;
@@ -172,7 +171,11 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             <div className={classes.links}>
                 {links.map(({ link, label }) => (
                     <div className={classes.linkWrapper} key={label}>
-                        <Link className={classes.link} {...link}>
+                        <Link
+                            underline="hover"
+                            className={classes.link}
+                            {...link}
+                        >
                             {label}
                         </Link>
                     </div>
@@ -188,7 +191,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <GlDarkModeSwitch
+                <DarkModeSwitch
                     className={classes.githubStarAndDarkModeSwitch}
                 />
             )}
