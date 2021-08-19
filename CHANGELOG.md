@@ -1,3 +1,11 @@
+### **0.0.76** (2021-08-19)  
+  
+- update  
+- GlMetricCard added badge like background  
+- GlCards layout corrections  
+- update  
+- update hero    
+  
 ### **0.0.75** (2021-08-16)  
   
 - bump version  
