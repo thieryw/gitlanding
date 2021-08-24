@@ -1,3 +1,8 @@
+### **0.0.78** (2021-08-24)  
+  
+- bump version  
+- update onyxia-ui    
+  
 ### **0.0.77** (2021-08-19)  
   
 - update    
