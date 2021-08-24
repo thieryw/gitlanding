@@ -28,7 +28,10 @@ const useStyles = makeStyles<{
         "width": "100%",
     },
     "textAndImageWrapper": {
-        "padding": theme.spacing(5, 0),
+        "padding": theme.spacing({
+            "topBottom": 5,
+            "rightLeft": 0,
+        }),
         "display": "flex",
         "flexDirection":
             theme.windowInnerWidth >= breakpointsValues.md

@@ -32,9 +32,10 @@ const useStyles = makeStyles()(theme => ({
         "position": "relative",
         "overflow": "auto",
         "scrollBehavior": "smooth",
-        "padding": theme.spacing(
-            0,
-            (() => {
+
+        "padding": theme.spacing({
+            "topBottom": 0,
+            "rightLeft": (() => {
                 if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
                     return 7;
                 }
@@ -45,7 +46,7 @@ const useStyles = makeStyles()(theme => ({
 
                 return 4;
             })(),
-        ),
+        }),
     },
 }));
 

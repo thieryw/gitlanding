@@ -16,10 +16,6 @@ import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
 
-export const { useTheme } = {
-    useTheme: () => useStyles().theme,
-};
-
 export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({
     "getTypographyDesc": params => ({
         ...defaultGetTypographyDesc(params),
@@ -27,7 +23,15 @@ export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({
     }),
 });
 
+export function useTheme() {
+    const { theme } = useStyles();
+
+    return theme;
+}
+
 export const { makeStyles } = createMakeStyles({ useTheme });
+
+export const { Text } = createText({ useTheme });
 
 export const { Icon } = createIcon({
     "brightness4": Brightness4Icon,
@@ -41,8 +45,6 @@ export const { Icon } = createIcon({
 export const { IconButton } = createIconButton({ Icon });
 
 export const { Button } = createButton({ Icon });
-
-export const { Text } = createText({ useTheme });
 
 export const breakpointsValues = {
     ...defaultBreakpointsValues,

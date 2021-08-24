@@ -37,20 +37,18 @@ const useStyles = makeStyles<{
         "display": "flex",
         "alignItems": "center",
         "width": "100%",
-        "padding": theme.spacing(
-            3,
-            (() => {
+        "padding": theme.spacing({
+            "topBottom": 3,
+            "rightLeft": (() => {
                 if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
                     return 7;
                 }
-
                 if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
                     return 6;
                 }
-
                 return 4;
             })(),
-        ),
+        }),
         "flexWrap": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return undefined;
@@ -124,7 +122,11 @@ const useStyles = makeStyles<{
         })(),
     },
     "githubStarAndDarkModeSwitch": {
-        "margin": theme.spacing(0, 2),
+        //"margin": theme.spacing(0, 2),
+        "margin": theme.spacing({
+            "topBottom": 0,
+            "rightLeft": 2,
+        }),
     },
 }));
 

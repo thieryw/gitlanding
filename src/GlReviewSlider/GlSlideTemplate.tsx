@@ -34,7 +34,10 @@ const useStyles = makeStyles()(theme => ({
                 return theme.spacing(5);
             }
 
-            return theme.spacing(1, 5);
+            return theme.spacing({
+                "topBottom": 1,
+                "rightLeft": 5,
+            });
         })(),
     },
     "signature": {

@@ -107,7 +107,10 @@ const useStyles = makeStyles<
     },
     "body": {
         ...theme.typography.variants["body 1"].style,
-        "margin": theme.spacing(4, 0),
+        "margin": theme.spacing({
+            "topBottom": 4,
+            "rightLeft": 0,
+        }),
         "color": theme.colors.useCases.typography.textSecondary,
     },
     "buttonWrapper": {
