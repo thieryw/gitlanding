@@ -138,12 +138,15 @@ export const GlArticle = memo((props: GlArticleProps) => {
         buttonLink,
     } = props;
 
-    const { classes, cx } = useStyles(illustrationPosition ?? "right");
+    const { classes, cx, theme } = useStyles(illustrationPosition ?? "right");
     const [textAnimationProps] = useState<GlAnimatedOnScrollProps>(() => {
         return {
             "initial": {
                 "x": (() => {
-                    const value = 300;
+                    const value =
+                        theme.windowInnerWidth >= breakpointsValues.lg
+                            ? 300
+                            : 150;
                     switch (illustrationPosition) {
                         case "left":
                             return value;
@@ -153,18 +156,18 @@ export const GlArticle = memo((props: GlArticleProps) => {
                             return -value;
                     }
                 })(),
-                "opacity": 0,
+                //"opacity": 0,
             },
             "animate": {
                 "x": 0,
-                "opacity": 1,
+                //"opacity": 1,
             },
             "transition": {
                 "duration": 1,
                 "type": "tween",
                 "ease": "easeOut",
             },
-            "rootMargin": "0px 0px -150px 0px",
+            //"rootMargin": "0px 0px -150px 0px",
         };
     });
 
