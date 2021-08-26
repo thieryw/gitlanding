@@ -1,3 +1,10 @@
+### **0.0.79** (2021-08-26)  
+  
+- bump version  
+- GlArticle correction for small screen  
+- GlMetricCard remove lineHeight on number that was ausing bugs  
+- GlArticle animation    
+  
 ### **0.0.78** (2021-08-24)  
   
 - bump version  
