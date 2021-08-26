@@ -1,9 +1,11 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles, Text } from "./theme";
 import { breakpointsValues } from "./theme";
 import ReactMarkdown from "react-markdown";
 import { GlButton } from "./utils/GlButton";
+import { GlAnimatedOnScroll } from "./GlAnimatedOnScroll";
+import type { GlAnimatedOnScrollProps } from "./GlAnimatedOnScroll";
 
 export type GlArticleProps = {
     className?: string;
@@ -136,35 +138,86 @@ export const GlArticle = memo((props: GlArticleProps) => {
         buttonLink,
     } = props;
 
-    const { classes, cx } = useStyles(illustrationPosition ?? "right");
+    const { classes, cx, theme } = useStyles(illustrationPosition ?? "right");
+    const [textAnimationProps] = useState<GlAnimatedOnScrollProps>(() => {
+        return {
+            "initial": {
+                "x": (() => {
+                    const value =
+                        theme.windowInnerWidth >= breakpointsValues.lg
+                            ? 300
+                            : 150;
+                    switch (illustrationPosition) {
+                        case "left":
+                            return value;
+                        case "right":
+                            return -value;
+                        default:
+                            return -value;
+                    }
+                })(),
+                //"opacity": 0,
+            },
+            "animate": {
+                "x": 0,
+                //"opacity": 1,
+            },
+            "transition": {
+                "duration": 1,
+                "type": "tween",
+                "ease": "easeOut",
+            },
+            //"rootMargin": "0px 0px -150px 0px",
+        };
+    });
 
     return (
         <section className={cx(classes.root, className)}>
             <article className={classes.article}>
-                {title && <Text typo="page heading">{title}</Text>}
+                {title && (
+                    <GlAnimatedOnScroll {...textAnimationProps}>
+                        <Text typo="page heading">{title}</Text>
+                    </GlAnimatedOnScroll>
+                )}
                 {body && (
-                    <ReactMarkdown className={classes.body}>
-                        {body}
-                    </ReactMarkdown>
+                    <GlAnimatedOnScroll {...textAnimationProps}>
+                        <ReactMarkdown className={classes.body}>
+                            {body}
+                        </ReactMarkdown>
+                    </GlAnimatedOnScroll>
                 )}
                 {buttonLabel && (
-                    <div className={classes.buttonWrapper}>
-                        <GlButton
-                            className={classes.button}
-                            type="submit"
-                            href={buttonLink?.href}
-                            onClick={buttonLink?.onClick}
-                            variant="secondary"
-                        >
-                            {buttonLabel}
-                        </GlButton>
-                    </div>
+                    <GlAnimatedOnScroll {...textAnimationProps}>
+                        <div className={classes.buttonWrapper}>
+                            <GlButton
+                                className={classes.button}
+                                type="submit"
+                                href={buttonLink?.href}
+                                onClick={buttonLink?.onClick}
+                                variant="secondary"
+                            >
+                                {buttonLabel}
+                            </GlButton>
+                        </div>
+                    </GlAnimatedOnScroll>
                 )}
             </article>
 
-            <aside className={classes.illustrationWrapper}>
-                {illustration}
-            </aside>
+            <GlAnimatedOnScroll
+                initial={{
+                    "opacity": 0,
+                }}
+                animate={{
+                    "opacity": 1,
+                }}
+                transition={{
+                    "delay": 1,
+                    "duration": 0.5,
+                }}
+                className={classes.illustrationWrapper}
+            >
+                <aside>{illustration}</aside>
+            </GlAnimatedOnScroll>
         </section>
     );
 });
