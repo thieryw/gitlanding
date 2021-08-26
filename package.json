@@ -17,7 +17,9 @@
         "format": "npm run _format -- --write",
         "format:check": "npm run _format -- --list-different",
         "storybook": "start-storybook -s public",
-        "build-storybook": "build-storybook -s public"
+        "build-storybook": "build-storybook -s public",
+        "yarn_link": "ts-node src/bin/yarn_link.ts",
+        "start_vanilla": "yarn yarn_link && cd src/test/vanilla && yarn start"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -37,6 +39,7 @@
     "files": [
         "src/",
         "!src/test/",
+        "!src/bin/",
         "dist/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo"
@@ -52,7 +55,7 @@
         "@emotion/react": "^11.4.1",
         "@emotion/styled": "^11.3.0",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.12.2",
+        "onyxia-ui": "^0.12.6",
         "powerhooks": "^0.7.1",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",
@@ -88,6 +91,10 @@
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
         "react-svg": "^13.0.4",
-        "typescript": "4.2.2"
+        "typescript": "4.2.2",
+        "ts-node": "^10.2.1"
+    },
+    "resolutions": {
+        "babel-loader": "8.1.0"
     }
 }

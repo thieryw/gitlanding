@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 
-import { createThemeProvider, defaultGetTypographyDesc } from "onyxia-ui";
+import { createThemeProvider } from "onyxia-ui";
 import { createMakeStyles } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
@@ -16,12 +16,7 @@ import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
 
-export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({
-    "getTypographyDesc": params => ({
-        ...defaultGetTypographyDesc(params),
-        "fontFamily": '"Work Sans", sans-serif',
-    }),
-});
+export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({});
 
 export function useTheme() {
     const { theme } = useStyles();

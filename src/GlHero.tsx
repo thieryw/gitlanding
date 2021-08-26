@@ -126,6 +126,8 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
+            console.log("on hidden");
+
             animationProps.textAnimate = {
                 "x": 1,
                 "opacity": 1,

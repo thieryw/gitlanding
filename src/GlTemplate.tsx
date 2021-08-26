@@ -15,7 +15,7 @@ export type GlTemplateProps = {
     splashScreenLogoFillColor?: string;
     children?: ReactNode;
     ThemeProvider?: ComponentType<{
-        splashScreen: NonNullable<ThemeProviderProps["splashScreen"]>;
+        splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: JSX.Element;
     }>;
 };
@@ -99,12 +99,15 @@ export const GlTemplate = memo((props: GlTemplateProps) => {
         children
     ) : (
         <ThemeProvider
-            splashScreen={{
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                "Logo": SplashScreenLogo as any,
-                "fillColor": splashScreenLogoFillColor,
-                "minimumDisplayDuration": 0,
-            }}
+            splashScreen={
+                SplashScreenLogo === undefined
+                    ? undefined
+                    : {
+                          "Logo": SplashScreenLogo,
+                          "fillColor": splashScreenLogoFillColor,
+                          "minimumDisplayDuration": 0,
+                      }
+            }
         >
             {children}
         </ThemeProvider>
