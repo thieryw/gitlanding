@@ -60,7 +60,6 @@ const useStyles = makeStyles()(theme => ({
 
             return {
                 "fontSize": "52px",
-                "lineHeight": "60px",
             };
         })(),
     },
