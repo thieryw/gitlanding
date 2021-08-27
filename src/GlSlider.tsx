@@ -1,9 +1,9 @@
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
-import { makeStyles, Text } from "../theme";
-import { useConstCallback } from "powerhooks/useConstCallback";
-import { Icon } from "../theme";
+import { makeStyles, Text } from "./theme";
+import { Icon } from "./theme";
+import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -40,25 +40,40 @@ const useStyles = makeStyles()(theme => ({
             "transform": "scale(1.2)",
         },
     },
+    "slide": {
+        "position": "relative",
+        "minWidth": "100%",
+        "display": "flex",
+        "justifyContent": "center",
+        "overflow": "hidden",
+        ...theme.spacing.rightLeft("padding", 4),
+    },
 }));
 
-export type GlReviewSliderProps = {
-    sliderContent: ReactNode;
+export type GlSliderProps = {
     className?: string;
     title?: string;
-    children?: ReactNode;
+    slides?: ReactNode[];
 };
 
-export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
-    const { sliderContent, className, children, title } = props;
+export const GlSlider = memo((props: GlSliderProps) => {
+    const { className, slides, title } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
 
-    const onClickPrev = useConstCallback(
-        () => emblaApi && emblaApi.scrollPrev(),
-    );
-    const onClickNext = useConstCallback(
-        () => emblaApi && emblaApi.scrollNext(),
+    const onClickFactory = useCallbackFactory(
+        ([direction]: ["left" | "right"]) => {
+            if (emblaApi === undefined) {
+                return;
+            }
+            switch (direction) {
+                case "left":
+                    emblaApi.scrollPrev();
+                    break;
+                case "right":
+                    emblaApi.scrollNext();
+            }
+        },
     );
 
     const { classes, cx } = useStyles();
@@ -74,18 +89,22 @@ export const GlReviewSlider = memo((props: GlReviewSliderProps) => {
                 <Icon
                     iconId="arrowBackIos"
                     className={classes.arrows}
-                    onClick={onClickPrev}
+                    onClick={onClickFactory("left")}
                 />
                 <div className={classes.viewport} ref={emblaRef}>
-                    <div className={classes.container}>{sliderContent}</div>
+                    <div className={classes.container}>
+                        {slides !== undefined &&
+                            slides.map(slide => (
+                                <div className={classes.slide}>{slide}</div>
+                            ))}
+                    </div>
                 </div>
                 <Icon
                     iconId="arrowForwardIos"
                     className={classes.arrows}
-                    onClick={onClickNext}
+                    onClick={onClickFactory("right")}
                 />
             </div>
-            {children}
         </section>
     );
 });

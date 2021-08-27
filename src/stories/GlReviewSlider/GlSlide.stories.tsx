@@ -1,11 +1,11 @@
 import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlSlideTemplate } from "../../GlReviewSlider/GlSlideTemplate";
+import { GlReviewSlide } from "../../GlReviewSlide";
 import redditIconUrl from "../assets/svg/reddit.svg";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { GlSlideTemplate },
+    "wrappedComponent": { GlReviewSlide },
 });
 
 export default meta;

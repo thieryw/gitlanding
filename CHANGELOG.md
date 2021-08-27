@@ -1,3 +1,14 @@
+### **0.0.82** (2021-08-27)  
+  
+- update version  
+- update version  
+- GlCards corrected layout  
+- update GlSlider  
+- bump version  
+- GlArticle correction for small screen  
+- GlMetricCard remove lineHeight on number that was ausing bugs  
+- GlArticle animation    
+  
 ### **0.0.80** (2021-08-26)  
   
 - Creating a test project    

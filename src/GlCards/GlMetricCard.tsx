@@ -18,10 +18,12 @@ const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
         "display": "flex",
-        "gap": theme.spacing(4),
         "justifyContent": "space-between",
         "flexDirection": "column",
-        "padding": theme.spacing(3),
+        "padding": theme.spacing({
+            "rightLeft": 3,
+            "topBottom": 4,
+        }),
         "zIndex": 1,
         "margin": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.lg) {
@@ -49,6 +51,7 @@ const useStyles = makeStyles()(theme => ({
         "justifyContent": "center",
         "alignItems": "center",
         "gap": theme.spacing(2),
+        "marginBottom": theme.spacing(4),
     },
 
     "headingMetric": {
@@ -80,6 +83,7 @@ const useStyles = makeStyles()(theme => ({
     },
     "buttonWrapper": {
         "textAlign": "center",
+        "marginTop": theme.spacing(4),
     },
 }));
 
