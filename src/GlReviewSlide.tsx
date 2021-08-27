@@ -1,10 +1,9 @@
-import { makeStyles, Text } from "../theme";
-import { GlSlide } from "./GlSlide";
+import { makeStyles, Text } from "./theme";
 import { memo } from "react";
-import { GlLogo } from "../utils/GlLogo";
+import { GlLogo } from "./utils/GlLogo";
 import Paper from "@material-ui/core/Paper";
 import ReactMarkdown from "react-markdown";
-import { breakpointsValues } from "../theme";
+import { breakpointsValues } from "./theme";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -81,7 +80,7 @@ const useStyles = makeStyles()(theme => ({
     },
 }));
 
-export type GlSlideTemplateProps = {
+export type GlReviewSlideProps = {
     /**
      * you can use markdown between back ticks.
      */
@@ -96,30 +95,28 @@ export type GlSlideTemplateProps = {
     className?: string;
 };
 
-export const GlSlideTemplate = memo((props: GlSlideTemplateProps) => {
+export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     const { descriptionMd, className, signature, logoUrl } = props;
 
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
 
     return (
-        <GlSlide className={className}>
-            <Paper className={classes.root}>
-                {logoUrl !== undefined && (
-                    <GlLogo logoUrl={logoUrl} className={classes.logo} />
+        <Paper className={cx(classes.root, className)}>
+            {logoUrl !== undefined && (
+                <GlLogo logoUrl={logoUrl} className={classes.logo} />
+            )}
+            <div>
+                {descriptionMd !== undefined && (
+                    <ReactMarkdown className={classes.paragraph}>
+                        {descriptionMd}
+                    </ReactMarkdown>
                 )}
-                <div>
-                    {descriptionMd !== undefined && (
-                        <ReactMarkdown className={classes.paragraph}>
-                            {descriptionMd}
-                        </ReactMarkdown>
-                    )}
-                    {signature !== undefined && (
-                        <Text typo="body 2" className={classes.signature}>
-                            {signature}
-                        </Text>
-                    )}
-                </div>
-            </Paper>
-        </GlSlide>
+                {signature !== undefined && (
+                    <Text typo="body 2" className={classes.signature}>
+                        {signature}
+                    </Text>
+                )}
+            </div>
+        </Paper>
     );
 });

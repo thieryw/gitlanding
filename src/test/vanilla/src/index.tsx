@@ -26,6 +26,7 @@ import kubernetesPngUrl from "./assets/illustrations/kubernetes.png";
 import webinairePngUrl from "./assets/illustrations/webinaire.png";
 
 function App() {
+    console.log("ok");
     return (
         <GlTemplate
             //SplashScreenLogo={ReactComponent}
@@ -48,6 +49,7 @@ function App() {
                     ]}
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
+                    githubButtonSize="large"
                 />
             }
         >
