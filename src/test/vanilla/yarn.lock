@@ -5708,14 +5708,14 @@ github-buttons@^2.8.0:
   integrity sha512-s3I3D3d0lNIflVBRFHsCoIkNfSZqBO6ivzWjNdoefBf+7TPMLgXiFoezr8M6SABiYCjZ8UXB3sIxa+ZxTKmWHw==
 
 "gitlanding@file:../../../dist":
-  version "0.0.78"
+  version "0.0.80"
   dependencies:
     "@emotion/react" "^11.4.1"
     "@emotion/styled" "^11.3.0"
     "@material-ui/core" next
     embla-carousel "^4.1.5"
     framer-motion "^4.1.17"
-    onyxia-ui "^0.12.5"
+    onyxia-ui "^0.12.6"
     powerhooks "^0.7.1"
     react-code-blocks "^0.0.8"
     react-github-btn "^1.2.0"
@@ -8372,10 +8372,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.12.5:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.12.5.tgz#c878127313e174315922a62dbf1157ece66d1770"
-  integrity sha512-f72rSt/td2ObQMVLhNFphfNJDftifEtgT2WsXqSBXF0Pl/v4HHZq0Uu8/+uUfNsvFhkENWMC2fokriMZdrjKSw==
+onyxia-ui@^0.12.6:
+  version "0.12.6"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.12.6.tgz#a4ad08c991265e1227b721c752ce9b6e327d9d14"
+  integrity sha512-aNfN3MD3mQwzSnEIlPDa+Dv/88AA6UXhCDAx2BoPpZALYRkc9jH0DGENDqB0ws1CQ0x/4CjvsyOIHmBHhVTDHQ==
   dependencies:
     "@emotion/react" "^11.4.1"
     "@emotion/styled" "^11.3.0"

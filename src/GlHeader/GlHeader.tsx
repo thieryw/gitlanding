@@ -39,15 +39,7 @@ const useStyles = makeStyles<{
         "width": "100%",
         "padding": theme.spacing({
             "topBottom": 3,
-            "rightLeft": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
-                    return 7;
-                }
-                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
-                    return 6;
-                }
-                return 4;
-            })(),
+            "rightLeft": 0,
         }),
         "flexWrap": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.md) {
