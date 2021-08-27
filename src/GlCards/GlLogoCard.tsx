@@ -20,7 +20,10 @@ const useStyles = makeStyles<{
     overlapIcons: boolean;
 }>()((theme, { numberOfIcons, overlapIcons }) => ({
     "root": {
-        "padding": theme.spacing(3),
+        "padding": theme.spacing({
+            "rightLeft": 3,
+            "topBottom": 4,
+        }),
         "boxShadow": theme.shadows[1],
         "display": "flex",
         "flexDirection": "column",
@@ -77,14 +80,14 @@ const useStyles = makeStyles<{
         "gridRow": 1 / 2,
     },
     "title": {
-        "marginTop": theme.spacing(3),
+        "marginTop": theme.spacing(4),
     },
     "paragraph": {
-        "marginTop": theme.spacing(3),
+        "marginTop": theme.spacing(4),
     },
     "textWrapper": {
         "textAlign": "center",
-        "marginBottom": theme.spacing(3),
+        "marginBottom": theme.spacing(4),
     },
 }));
 
