@@ -6,8 +6,9 @@ import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { breakpointsValues } from "./theme";
-
-//window.visualViewport.height
+import backgroundWaveDarkUrl from "./assets/svg/backgroundWaveDark.svg";
+import backgroundWaveLightUrl from "./assets/svg/backgroundWaveLight.svg";
+import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlTemplateProps = {
     header?: ReactNode;
@@ -20,35 +21,47 @@ export type GlTemplateProps = {
     }>;
 };
 
-const useStyles = makeStyles()(theme => ({
-    "root": {
-        "height": "100%",
-        "display": "flex",
-        "flexDirection": "column",
-        "overflow": "hidden",
-    },
-    "scrollWrapper": {
-        "flex": 1,
-        "position": "relative",
-        "overflow": "auto",
-        "scrollBehavior": "smooth",
+const useStyles = makeStyles<{ scrollWrapperHeight: number }>()(
+    (theme, { scrollWrapperHeight }) => ({
+        "root": {
+            "height": "100%",
+            "display": "flex",
+            "flexDirection": "column",
+            "overflow": "hidden",
+        },
+        "scrollWrapper": {
+            "flex": 1,
+            "position": "relative",
+            "overflow": "auto",
+            "scrollBehavior": "smooth",
+        },
+        "waveBackground": {
+            "backgroundImage": `url(${
+                theme.isDarkModeEnabled
+                    ? backgroundWaveDarkUrl
+                    : backgroundWaveLightUrl
+            })`,
+            "backgroundSize":
+                theme.windowInnerWidth > 1920 ? "contain" : "auto",
+            "backgroundRepeat": "no-repeat",
+            "backgroundPositionY": scrollWrapperHeight * 0.7,
+            "padding": theme.spacing({
+                "topBottom": 0,
+                "rightLeft": (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
+                        return 7;
+                    }
 
-        "padding": theme.spacing({
-            "topBottom": 0,
-            "rightLeft": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
-                    return 7;
-                }
+                    if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
+                        return 6;
+                    }
 
-                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
-                    return 6;
-                }
-
-                return 4;
-            })(),
-        }),
-    },
-}));
+                    return 4;
+                })(),
+            }),
+        },
+    }),
+);
 
 const GlTemplateInner = memo(
     (
@@ -70,12 +83,19 @@ const GlTemplateInner = memo(
             }, []);
         }
 
-        const { classes } = useStyles();
+        const {
+            domRect: { height: scrollWrapperHeight },
+            ref: scrollWrapperRef,
+        } = useDomRect();
+
+        const { classes } = useStyles({ scrollWrapperHeight });
 
         return (
             <div className={classes.root}>
                 {header}
-                <div className={classes.scrollWrapper}>{children}</div>
+                <div className={classes.scrollWrapper} ref={scrollWrapperRef}>
+                    <div className={classes.waveBackground}>{children}</div>
+                </div>
             </div>
         );
     },

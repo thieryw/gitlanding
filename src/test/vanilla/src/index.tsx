@@ -56,7 +56,6 @@ function App() {
                 subTitle={"Hero subtitle"}
                 imageSrc={heroHeaderPngUrl}
             />
-
             <GlCards>
                 <GlMetricCard
                     number={129}
