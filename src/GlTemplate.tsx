@@ -30,7 +30,8 @@ const useStyles = makeStyles()(theme => ({
     "scrollWrapper": {
         "flex": 1,
         "position": "relative",
-        "overflow": "auto",
+        "overflowY": "auto",
+        "overflowX": "hidden",
         "scrollBehavior": "smooth",
 
         "padding": theme.spacing({
