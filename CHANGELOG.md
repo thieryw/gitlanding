@@ -1,3 +1,9 @@
+### **0.0.84** (2021-08-28)  
+  
+- update version  
+- update headerWrapper position to fixed instead of absolute  
+- GlTemplate fixed horizontal scroll bug    
+  
 ### **0.0.83** (2021-08-27)  
   
 - Smart menu poc    
