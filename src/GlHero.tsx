@@ -56,7 +56,6 @@ const useStyles = makeStyles<{
     "textWrapper": {
         "display": "flex",
         "flexDirection": "column",
-        "flex": 1.5,
         ...(() => {
             const value = theme.spacing(4);
             if (theme.windowInnerWidth >= breakpointsValues.md) {
@@ -72,7 +71,23 @@ const useStyles = makeStyles<{
     },
 
     "imageWrapper": {
-        "flex": 2,
+        ...(theme.windowInnerWidth >= breakpointsValues.md
+            ? {
+                  "height": (theme.windowInnerWidth / 100) * 35,
+              }
+            : {
+                  "height": undefined,
+                  "width": "100%",
+              }),
+    },
+
+    "image": {
+        ...(theme.windowInnerWidth >= breakpointsValues.md
+            ? {
+                  "width": "auto",
+                  "height": "100%",
+              }
+            : {}),
     },
 
     "backgroundDiv": {
@@ -126,8 +141,6 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            console.log("on hidden");
-
             animationProps.textAnimate = {
                 "x": 1,
                 "opacity": 1,
@@ -199,7 +212,11 @@ export const GlHero = memo((props: GlHeroProps) => {
                             "duration": 0.5,
                         }}
                     >
-                        <GlImage url={imageSrc} alt="hero image" />
+                        <GlImage
+                            className={classes.image}
+                            url={imageSrc}
+                            alt="hero image"
+                        />
                     </motion.div>
                 )}
             </div>

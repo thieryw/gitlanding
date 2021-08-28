@@ -156,18 +156,17 @@ export const GlArticle = memo((props: GlArticleProps) => {
                             return -value;
                     }
                 })(),
-                //"opacity": 0,
+                "opacity": 0,
             },
             "animate": {
                 "x": 0,
-                //"opacity": 1,
+                "opacity": 1,
             },
             "transition": {
                 "duration": 1,
                 "type": "tween",
                 "ease": "easeOut",
             },
-            //"rootMargin": "0px 0px -150px 0px",
         };
     });
 
