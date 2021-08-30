@@ -14,15 +14,10 @@ export type GlHeroProps = {
     subTitle?: string;
     className?: string;
     imageSrc?: string;
-    backgroundImageSrcLight?: string;
-    backgroundImageSrcDark?: string;
     children?: ReactNode;
 };
 
-const useStyles = makeStyles<{
-    backgroundImageSrcLight: GlHeroProps["backgroundImageSrcLight"];
-    backgroundImageSrcDark: GlHeroProps["backgroundImageSrcDark"];
-}>()((theme, { backgroundImageSrcLight, backgroundImageSrcDark }) => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
         "width": "100%",
@@ -56,6 +51,8 @@ const useStyles = makeStyles<{
     "textWrapper": {
         "display": "flex",
         "flexDirection": "column",
+        "flex": 1,
+        "height": (theme.windowInnerWidth / 100) * 40,
         ...(() => {
             const value = theme.spacing(4);
             if (theme.windowInnerWidth >= breakpointsValues.md) {
@@ -71,41 +68,7 @@ const useStyles = makeStyles<{
     },
 
     "imageWrapper": {
-        ...(theme.windowInnerWidth >= breakpointsValues.md
-            ? {
-                  "height": (theme.windowInnerWidth / 100) * 35,
-              }
-            : {
-                  "height": undefined,
-                  "width": "100%",
-              }),
-    },
-
-    "image": {
-        ...(theme.windowInnerWidth >= breakpointsValues.md
-            ? {
-                  "width": "auto",
-                  "height": "100%",
-              }
-            : {}),
-    },
-
-    "backgroundDiv": {
-        "background": `url(${
-            theme.isDarkModeEnabled
-                ? backgroundImageSrcDark
-                : backgroundImageSrcLight
-        })`,
-        "backgroundRepeat": "no-repeat",
-        "backgroundSize": "cover",
-        "backgroundPosition": "center",
-        "width": "100vw",
-        "height": "100%",
-        "position": "absolute",
-        "top": 0,
-        "left": -theme.spacing(7),
-        "zIndex": -1,
-        "filter": theme.isDarkModeEnabled ? "brightness(0.8)" : undefined,
+        "flex": 1.5,
     },
 }));
 
@@ -122,22 +85,11 @@ const animationProps = {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const {
-        title,
-        subTitle,
-        className,
-        backgroundImageSrcLight,
-        backgroundImageSrcDark,
-        imageSrc,
-        children,
-    } = props;
+    const { title, subTitle, className, imageSrc, children } = props;
 
     const [, reRender] = useReducer(x => x + 1, 0);
 
-    const { classes, cx } = useStyles({
-        backgroundImageSrcLight,
-        backgroundImageSrcDark,
-    });
+    const { classes, cx } = useStyles();
 
     useSplashScreen({
         "onHidden": () => {
@@ -159,7 +111,6 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     return (
         <section className={cx(classes.root, className)}>
-            <div className={classes.backgroundDiv}></div>
             <div className={classes.textAndImageWrapper}>
                 {(title !== undefined || subTitle !== undefined) && (
                     <div className={classes.textWrapper}>
@@ -212,11 +163,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             "duration": 0.5,
                         }}
                     >
-                        <GlImage
-                            className={classes.image}
-                            url={imageSrc}
-                            alt="hero image"
-                        />
+                        <GlImage url={imageSrc} alt="hero image" />
                     </motion.div>
                 )}
             </div>
