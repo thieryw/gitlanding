@@ -20,13 +20,15 @@ export type GlTemplateProps = {
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: JSX.Element;
     }>;
+    headerPosition: "top" | "fixed" | "fixed with auto-hide";
 };
 
 const useStyles = makeStyles<{
     headerHeight: number;
     rootWidth: number;
     isHeaderVisible: boolean;
-}>()((theme, { headerHeight, rootWidth, isHeaderVisible }) => {
+    headerPosition: "fixed" | "top";
+}>()((theme, { headerHeight, rootWidth, isHeaderVisible, headerPosition }) => {
     const paddingRightLeft = theme.spacing(
         (() => {
             if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
@@ -43,29 +45,62 @@ const useStyles = makeStyles<{
 
     return {
         "root": {
-            "visibility":
-                headerHeight === 0 || rootWidth === 0 ? "hidden" : "visible",
             "height": "100%",
-            "flexDirection": "column",
-            "overflow": "auto",
-            "scrollBehavior": "smooth",
+            ...(() => {
+                switch (headerPosition) {
+                    case "fixed":
+                        return {
+                            "visibility":
+                                headerHeight === 0 || rootWidth === 0
+                                    ? "hidden"
+                                    : "visible",
+                        } as const;
+                    case "top":
+                        return {
+                            "overflow": "auto",
+                            "scrollBehavior": "smooth",
+                        } as const;
+                }
+            })(),
         },
         "headerWrapper": {
-            "position": "fixed",
             ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            "width": rootWidth,
-            "zIndex": 1000,
-            "transition": "top 350ms",
-            "top": isHeaderVisible ? 0 : -headerHeight,
-            "backgroundColor": changeColorOpacity({
-                "color": theme.colors.useCases.surfaces.background,
-                "opacity": 0.94,
-            }),
+            ...(() => {
+                switch (headerPosition) {
+                    case "fixed":
+                        return {
+                            "zIndex": 1000,
+                            "position": "fixed",
+                            "width": rootWidth,
+                            "transition": "top 350ms",
+                            "top": isHeaderVisible ? 0 : -headerHeight,
+                            "backgroundColor": changeColorOpacity({
+                                "color":
+                                    theme.colors.useCases.surfaces.background,
+                                "opacity": 0.94,
+                            }),
+                        } as const;
+                    case "top":
+                        return {};
+                }
+            })(),
         },
         "childrenWrapper": {
-            "marginTop": headerHeight,
             ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            "overflowX": "hidden",
+            ...(() => {
+                switch (headerPosition) {
+                    case "fixed":
+                        return {
+                            "paddingTop": headerHeight,
+                            "height": "100%",
+                            "zIndex": 1,
+                            "overflow": "auto",
+                            "scrollBehavior": "smooth",
+                        } as const;
+                    case "top":
+                        return {};
+                }
+            })(),
         },
     };
 });
@@ -76,7 +111,8 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, children, isThemeProvidedOutside } = props;
+        const { header, isThemeProvidedOutside, headerPosition, children } =
+            props;
 
         {
             const { hideRootSplashScreen } = useSplashScreen();
@@ -95,7 +131,7 @@ const GlTemplateInner = memo(
             domRect: { height: headerHeight },
         } = useDomRect();
         const {
-            ref: rootRef,
+            ref: childrenWrapperRef,
             domRect: { width: rootWidth },
         } = useDomRect();
 
@@ -105,10 +141,23 @@ const GlTemplateInner = memo(
             rootWidth,
             headerHeight,
             isHeaderVisible,
+            "headerPosition": (() => {
+                switch (headerPosition) {
+                    case "fixed":
+                    case "fixed with auto-hide":
+                        return "fixed";
+                    case "top":
+                        return "top";
+                }
+            })(),
         });
 
         useElementEvt(
             ({ ctx, element }) => {
+                if (headerPosition !== "fixed with auto-hide") {
+                    return;
+                }
+
                 let previousScrollTop = 0;
 
                 Evt.from(ctx, element, "scroll").attach(e => {
@@ -123,16 +172,21 @@ const GlTemplateInner = memo(
                     previousScrollTop = scrollTop;
                 });
             },
-            rootRef,
-            [headerHeight],
+            childrenWrapperRef,
+            [headerHeight, headerPosition],
         );
 
         return (
-            <div className={classes.root} ref={rootRef}>
+            <div className={classes.root}>
                 <div className={classes.headerWrapper} ref={headerWrapperRef}>
                     {header}
                 </div>
-                <div className={classes.childrenWrapper}>{children}</div>
+                <div
+                    className={classes.childrenWrapper}
+                    ref={childrenWrapperRef}
+                >
+                    {children}
+                </div>
             </div>
         );
     },

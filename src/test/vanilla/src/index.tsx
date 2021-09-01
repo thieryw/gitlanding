@@ -51,6 +51,7 @@ function App() {
                     githubButtonSize="large"
                 />
             }
+            headerPosition="fixed with auto-hide"
         >
             <GlHero
                 title="Hero title"
