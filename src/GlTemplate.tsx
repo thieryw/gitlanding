@@ -49,8 +49,6 @@ const useStyles = makeStyles<{
                 headerHeight === 0 || rootWidth === 0 ? "hidden" : "visible",
             "height": "100%",
             "flexDirection": "column",
-            "overflow": "auto",
-            "scrollBehavior": "smooth",
         },
         "headerWrapper": {
             "position": "fixed",
@@ -65,9 +63,11 @@ const useStyles = makeStyles<{
             }),
         },
         "childrenWrapper": {
-            "marginTop": headerHeight,
+            "paddingTop": headerHeight,
             ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            "overflowX": "hidden",
+            "overflow": "auto",
+            "height": "100%",
+            "scrollBehavior": "smooth",
         },
     };
 });
@@ -97,7 +97,7 @@ const GlTemplateInner = memo(
             domRect: { height: headerHeight },
         } = useDomRect();
         const {
-            ref: rootRef,
+            ref: childrenWrapperRef,
             domRect: { width: rootWidth },
         } = useDomRect();
 
@@ -127,16 +127,21 @@ const GlTemplateInner = memo(
                     previousScrollTop = scrollTop;
                 });
             },
-            rootRef,
+            childrenWrapperRef,
             [headerHeight],
         );
 
         return (
-            <div className={classes.root} ref={rootRef}>
+            <div className={classes.root}>
                 <div className={classes.headerWrapper} ref={headerWrapperRef}>
                     {header}
                 </div>
-                <div className={classes.childrenWrapper}>{children}</div>
+                <div
+                    className={classes.childrenWrapper}
+                    ref={childrenWrapperRef}
+                >
+                    {children}
+                </div>
             </div>
         );
     },
