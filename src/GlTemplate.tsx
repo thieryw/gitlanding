@@ -20,7 +20,7 @@ export type GlTemplateProps = {
     children?: ReactNode;
     ThemeProvider?: ComponentType<{
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
-        children: JSX.Element;
+        children: ReactNode;
     }>;
     headerBehavior: "always visible" | "only visible at the top" | "smart";
 };
@@ -192,7 +192,8 @@ const GlTemplateInner = memo(
                 <div
                     className={cx(
                         classes.childrenWrapper,
-                        headerBehavior !== "only visible at the top",
+                        headerBehavior !== "only visible at the top" &&
+                            scrollableDivClassName,
                     )}
                     ref={childrenWrapperRef}
                 >
