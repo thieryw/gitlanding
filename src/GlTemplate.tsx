@@ -11,7 +11,7 @@ import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 
-export const evtScroll = Evt.create<Event>();
+export const scrollableDivClassName = "GlScrollable";
 
 export type GlTemplateProps = {
     header?: ReactNode;
@@ -22,7 +22,7 @@ export type GlTemplateProps = {
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: JSX.Element;
     }>;
-    headerPosition: "top" | "fixed" | "fixed with auto-hide";
+    headerBehavior: "always visible" | "only visible at the top" | "smart";
 };
 
 const useStyles = makeStyles<{
@@ -113,7 +113,7 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, isThemeProvidedOutside, headerPosition, children } =
+        const { header, isThemeProvidedOutside, headerBehavior, children } =
             props;
 
         {
@@ -139,24 +139,24 @@ const GlTemplateInner = memo(
 
         const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
-        const { classes } = useStyles({
+        const { classes, cx } = useStyles({
             rootWidth,
             headerHeight,
             isHeaderVisible,
             "headerPosition": (() => {
-                switch (headerPosition) {
-                    case "fixed":
-                    case "fixed with auto-hide":
-                        return "fixed";
-                    case "top":
+                switch (headerBehavior) {
+                    case "only visible at the top":
                         return "top";
+                    case "always visible":
+                    case "smart":
+                        return "fixed";
                 }
             })(),
         });
 
         useElementEvt(
             ({ ctx, element }) => {
-                if (headerPosition !== "fixed with auto-hide") {
+                if (headerBehavior !== "smart") {
                     return;
                 }
 
@@ -164,8 +164,6 @@ const GlTemplateInner = memo(
 
                 Evt.from(ctx, element, "scroll").attach(e => {
                     const scrollTop = (e as any).target.scrollTop;
-
-                    evtScroll.post(e);
 
                     setIsHeaderVisible(
                         scrollTop < previousScrollTop
@@ -177,16 +175,25 @@ const GlTemplateInner = memo(
                 });
             },
             childrenWrapperRef,
-            [headerHeight, headerPosition],
+            [headerHeight, headerBehavior],
         );
 
         return (
-            <div className={classes.root}>
+            <div
+                className={cx(
+                    classes.root,
+                    headerBehavior === "only visible at the top" &&
+                        scrollableDivClassName,
+                )}
+            >
                 <div className={classes.headerWrapper} ref={headerWrapperRef}>
                     {header}
                 </div>
                 <div
-                    className={classes.childrenWrapper}
+                    className={cx(
+                        classes.childrenWrapper,
+                        headerBehavior !== "only visible at the top",
+                    )}
                     ref={childrenWrapperRef}
                 >
                     {children}
