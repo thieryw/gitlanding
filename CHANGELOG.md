@@ -1,3 +1,13 @@
+### **0.0.86** (2021-09-01)  
+  
+- update version  
+- count up animation for metric card  
+- remove evtScroll  
+- GlTemplate: Enable to customize header position  
+- Better zIndexes  
+- GlTemplate: Better header and scroll behaviour  
+- update version    
+  
 ### **0.0.85** (2021-08-31)  
   
 - Update tss-react onyxia-ui and powerhooks  
