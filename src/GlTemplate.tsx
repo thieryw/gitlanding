@@ -11,8 +11,6 @@ import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 
-export const evtScroll = Evt.create<Event>();
-
 export type GlTemplateProps = {
     header?: ReactNode;
     SplashScreenLogo?: ComponentType<{ className: string }>;
@@ -115,8 +113,6 @@ const GlTemplateInner = memo(
 
                 Evt.from(ctx, element, "scroll").attach(e => {
                     const scrollTop = (e as any).target.scrollTop;
-
-                    evtScroll.post(e);
 
                     setIsHeaderVisible(
                         scrollTop < previousScrollTop
