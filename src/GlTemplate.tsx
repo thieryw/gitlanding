@@ -54,7 +54,7 @@ const useStyles = makeStyles<{
             "position": "fixed",
             ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
             "width": rootWidth,
-            "zIndex": 1000,
+            "zIndex": 2,
             "transition": "top 350ms",
             "top": isHeaderVisible ? 0 : -headerHeight,
             "backgroundColor": changeColorOpacity({
@@ -68,6 +68,7 @@ const useStyles = makeStyles<{
             "overflow": "auto",
             "height": "100%",
             "scrollBehavior": "smooth",
+            "zIndex": 1,
         },
     };
 });
