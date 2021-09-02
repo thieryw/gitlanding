@@ -88,6 +88,7 @@ const useStyles = makeStyles<{
             })(),
         },
         "childrenWrapper": {
+            "overflowX": "hidden",
             ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
             ...(() => {
                 switch (headerPosition) {
@@ -96,7 +97,7 @@ const useStyles = makeStyles<{
                             "paddingTop": headerHeight,
                             "height": "100%",
                             "zIndex": 1,
-                            "overflow": "auto",
+                            "overflowY": "auto",
                             "scrollBehavior": "smooth",
                         } as const;
                     case "top":
