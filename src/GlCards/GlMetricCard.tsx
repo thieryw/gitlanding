@@ -13,7 +13,7 @@ export type GlMetricCardProps = GlCardProps & {
     iconUrl?: string;
     subHeading?: string;
     buttonLabel?: string;
-    hasNumberCountAnimation?: boolean;
+    isNumberAnimated?: boolean;
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -55,19 +55,6 @@ const useStyles = makeStyles()(theme => ({
         "gap": theme.spacing(2),
         "marginBottom": theme.spacing(4),
     },
-
-    "headingMetric": {
-        "fontSize": "86px",
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                return {};
-            }
-
-            return {
-                "fontSize": "52px",
-            };
-        })(),
-    },
     "icon": {
         "borderRadius": "50%",
         "padding": theme.spacing(2),
@@ -97,34 +84,18 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         number,
         className,
         link,
-        hasNumberCountAnimation,
+        isNumberAnimated,
     } = props;
     const { classes, cx, theme } = useStyles();
-
-    const numberAnimation = (() => {
-        if (!hasNumberCountAnimation) {
-            return;
-        }
-
-        return useNumberCountUpAnimation({
-            "intervalMs": 25,
-            number,
-        });
-    })();
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
             <div className={classes.heading}>
                 {number !== undefined && (
-                    <Text
-                        className={classes.headingMetric}
-                        typo="display heading"
-                        ref={numberAnimation?.ref ?? undefined}
-                    >
-                        {numberAnimation
-                            ? numberAnimation.renderedNumber
-                            : number}
-                    </Text>
+                    <Number
+                        isNumberAnimated={isNumberAnimated ?? false}
+                        number={number}
+                    />
                 )}
 
                 {iconUrl !== undefined && (
@@ -157,3 +128,53 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         </GlCard>
     );
 });
+
+const { Number } = (() => {
+    type Props = {
+        number: number;
+        isNumberAnimated: boolean;
+    };
+
+    const useStyles = makeStyles()(theme => ({
+        "root": {
+            "fontSize": "86px",
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                    return {};
+                }
+
+                return {
+                    "fontSize": "52px",
+                };
+            })(),
+        },
+    }));
+
+    const Number = memo((props: Props) => {
+        const { isNumberAnimated, number } = props;
+        const numberAnimation = (() => {
+            if (!isNumberAnimated) {
+                return;
+            }
+
+            return useNumberCountUpAnimation({
+                "intervalMs": 25,
+                number,
+            });
+        })();
+
+        const { classes } = useStyles();
+
+        return (
+            <Text
+                className={classes.root}
+                typo="display heading"
+                ref={numberAnimation?.ref ?? undefined}
+            >
+                {numberAnimation ? numberAnimation.renderedNumber : number}
+            </Text>
+        );
+    });
+
+    return { Number };
+})();
