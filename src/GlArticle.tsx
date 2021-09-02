@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles, Text } from "./theme";
 import { breakpointsValues } from "./theme";
@@ -18,6 +18,7 @@ export type GlArticleProps = {
     };
     illustrationPosition?: "left" | "right";
     illustration?: ReactNode;
+    hasAnimation?: boolean;
 };
 
 const useStyles = makeStyles<
@@ -136,83 +137,57 @@ export const GlArticle = memo((props: GlArticleProps) => {
         title,
         className,
         buttonLink,
+        hasAnimation,
     } = props;
 
-    const { classes, cx, theme } = useStyles(illustrationPosition ?? "right");
-    const [textAnimationProps] = useState<GlAnimatedOnScrollProps>(() => {
-        return {
-            "initial": {
-                "x": (() => {
-                    const value =
-                        theme.windowInnerWidth >= breakpointsValues.lg
-                            ? 300
-                            : 150;
-                    switch (illustrationPosition) {
-                        case "left":
-                            return value;
-                        case "right":
-                            return -value;
-                        default:
-                            return -value;
-                    }
-                })(),
-                "opacity": 0,
-            },
-            "animate": {
-                "x": 0,
-                "opacity": 1,
-            },
-            "transition": {
-                "duration": 1,
-                "type": "tween",
-                "ease": "easeOut",
-            },
-        };
-    });
+    const { classes, cx } = useStyles(illustrationPosition ?? "right");
 
     return (
         <section className={cx(classes.root, className)}>
             <article className={classes.article}>
                 {title && (
-                    <GlAnimatedOnScroll {...textAnimationProps}>
+                    <GlAnimatedOnScroll
+                        {...getAnimationProps({
+                            "componentToAnimate": "title",
+                            "hasAnimation": hasAnimation ?? false,
+                            illustrationPosition,
+                        })}
+                    >
                         <Text typo="page heading">{title}</Text>
                     </GlAnimatedOnScroll>
                 )}
                 {body && (
-                    <GlAnimatedOnScroll {...textAnimationProps}>
+                    <GlAnimatedOnScroll
+                        {...getAnimationProps({
+                            "componentToAnimate": "body",
+                            "hasAnimation": hasAnimation ?? false,
+                        })}
+                    >
                         <ReactMarkdown className={classes.body}>
                             {body}
                         </ReactMarkdown>
                     </GlAnimatedOnScroll>
                 )}
                 {buttonLabel && (
-                    <GlAnimatedOnScroll {...textAnimationProps}>
-                        <div className={classes.buttonWrapper}>
-                            <GlButton
-                                className={classes.button}
-                                type="submit"
-                                href={buttonLink?.href}
-                                onClick={buttonLink?.onClick}
-                                variant="secondary"
-                            >
-                                {buttonLabel}
-                            </GlButton>
-                        </div>
-                    </GlAnimatedOnScroll>
+                    <div className={classes.buttonWrapper}>
+                        <GlButton
+                            className={classes.button}
+                            type="submit"
+                            href={buttonLink?.href}
+                            onClick={buttonLink?.onClick}
+                            variant="secondary"
+                        >
+                            {buttonLabel}
+                        </GlButton>
+                    </div>
                 )}
             </article>
 
             <GlAnimatedOnScroll
-                initial={{
-                    "opacity": 0,
-                }}
-                animate={{
-                    "opacity": 1,
-                }}
-                transition={{
-                    "delay": 1,
-                    "duration": 0.5,
-                }}
+                {...getAnimationProps({
+                    "componentToAnimate": "illustration",
+                    "hasAnimation": hasAnimation ?? false,
+                })}
                 className={classes.illustrationWrapper}
             >
                 <aside>{illustration}</aside>
@@ -220,3 +195,78 @@ export const GlArticle = memo((props: GlArticleProps) => {
         </section>
     );
 });
+
+const { getAnimationProps } = (() => {
+    type Params = {
+        componentToAnimate: "body" | "illustration" | "title";
+        hasAnimation: boolean;
+        illustrationPosition?: "left" | "right";
+    };
+
+    function getAnimationProps(params: Params): GlAnimatedOnScrollProps {
+        const { componentToAnimate, hasAnimation, illustrationPosition } =
+            params;
+
+        if (!hasAnimation) {
+            console.log("ok");
+            return {};
+        }
+
+        const textTransitionParameters = {
+            "ease": "easeOut",
+            "duration": 0.5,
+            "delay": 0.3,
+        };
+        switch (componentToAnimate) {
+            case "body":
+                return {
+                    "initial": {
+                        "opacity": 0,
+                    },
+                    "animate": {
+                        "opacity": 1,
+                    },
+                    "transition": textTransitionParameters,
+                };
+            case "title":
+                return {
+                    "initial": {
+                        "opacity": 0,
+                        "x": (() => {
+                            const value = 100;
+                            switch (illustrationPosition) {
+                                case "left":
+                                    return value;
+                                default:
+                                    return -value;
+                            }
+                        })(),
+                    },
+
+                    "animate": {
+                        "opacity": 1,
+                        "x": 0,
+                    },
+                    "transition": textTransitionParameters,
+                };
+            case "illustration":
+                return {
+                    "initial": {
+                        "rotateY": "15deg",
+                        "rotateX": "15deg",
+                    },
+                    "animate": {
+                        "rotateY": 0,
+                        "rotateX": 0,
+                    },
+                    "transition": {
+                        "delay": 1,
+                        "duration": 1,
+                        "ease": "easeOut",
+                    },
+                };
+        }
+    }
+
+    return { getAnimationProps };
+})();
