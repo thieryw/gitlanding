@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
-import type { RefObject } from "react";
+import type { RefObject, Dispatch, SetStateAction } from "react";
 
-export type Params = {
+export type UseNumberCountUpAnimationParams = {
     number: number | undefined;
     intervalMs: number;
 };
 
 export function useNumberCountUpAnimation<T extends HTMLElement = any>(
-    params: Params,
+    params: UseNumberCountUpAnimationParams,
 ): {
     renderedNumber: number;
     ref: RefObject<T>;
@@ -17,7 +17,39 @@ export function useNumberCountUpAnimation<T extends HTMLElement = any>(
 
     const ref = useRef<T>(null);
 
-    function animate() {
+    useEffect(() => {
+        if (!ref.current) {
+            animate({
+                number,
+                intervalMs,
+                setRenderedNumber,
+            });
+            return;
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            if (!entries[0].isIntersecting) {
+                return;
+            }
+
+            animate({ number, intervalMs, setRenderedNumber });
+            observer.unobserve(entries[0].target);
+        });
+
+        observer.observe(ref.current);
+    }, [number]);
+
+    return { renderedNumber, ref };
+}
+
+const { animate } = (() => {
+    type Params = UseNumberCountUpAnimationParams & {
+        setRenderedNumber: Dispatch<SetStateAction<number>>;
+    };
+
+    function animate(params: Params) {
+        const { intervalMs, number, setRenderedNumber } = params;
+
         if (number === undefined) {
             return;
         }
@@ -35,23 +67,5 @@ export function useNumberCountUpAnimation<T extends HTMLElement = any>(
         }, intervalMs);
     }
 
-    useEffect(() => {
-        if (!ref.current) {
-            animate();
-            return;
-        }
-
-        const observer = new IntersectionObserver(entries => {
-            if (!entries[0].isIntersecting) {
-                return;
-            }
-
-            animate();
-            observer.unobserve(entries[0].target);
-        });
-
-        observer.observe(ref.current);
-    }, [number]);
-
-    return { renderedNumber, ref };
-}
+    return { animate };
+})();
