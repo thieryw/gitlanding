@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles, Text } from "./theme";
 import { breakpointsValues } from "./theme";
@@ -142,6 +142,74 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     const { classes, cx } = useStyles(illustrationPosition ?? "right");
 
+    const getAnimationProps = useMemo(() => {
+        return function (params: {
+            componentToAnimate: "body" | "title" | "illustration";
+        }): GlAnimatedOnScrollProps {
+            const { componentToAnimate } = params;
+
+            if (!hasAnimation) {
+                console.log("ok");
+                return {};
+            }
+
+            const textTransitionParameters = {
+                "ease": "easeOut",
+                "duration": 0.5,
+                "delay": 0.3,
+            };
+            switch (componentToAnimate) {
+                case "body":
+                    return {
+                        "initial": {
+                            "opacity": 0,
+                        },
+                        "animate": {
+                            "opacity": 1,
+                        },
+                        "transition": textTransitionParameters,
+                    };
+                case "title":
+                    return {
+                        "initial": {
+                            "opacity": 0,
+                            "x": (() => {
+                                const value = 100;
+                                switch (illustrationPosition) {
+                                    case "left":
+                                        return value;
+                                    default:
+                                        return -value;
+                                }
+                            })(),
+                        },
+
+                        "animate": {
+                            "opacity": 1,
+                            "x": 0,
+                        },
+                        "transition": textTransitionParameters,
+                    };
+                case "illustration":
+                    return {
+                        "initial": {
+                            "rotateY": "15deg",
+                            "rotateX": "15deg",
+                        },
+                        "animate": {
+                            "rotateY": 0,
+                            "rotateX": 0,
+                        },
+                        "transition": {
+                            "delay": 1,
+                            "duration": 1,
+                            "ease": "easeOut",
+                        },
+                    };
+            }
+        };
+    }, []);
+
     return (
         <section className={cx(classes.root, className)}>
             <article className={classes.article}>
@@ -149,8 +217,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     <GlAnimatedOnScroll
                         {...getAnimationProps({
                             "componentToAnimate": "title",
-                            "hasAnimation": hasAnimation ?? false,
-                            illustrationPosition,
                         })}
                     >
                         <Text typo="page heading">{title}</Text>
@@ -160,7 +226,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     <GlAnimatedOnScroll
                         {...getAnimationProps({
                             "componentToAnimate": "body",
-                            "hasAnimation": hasAnimation ?? false,
                         })}
                     >
                         <ReactMarkdown className={classes.body}>
@@ -186,7 +251,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
             <GlAnimatedOnScroll
                 {...getAnimationProps({
                     "componentToAnimate": "illustration",
-                    "hasAnimation": hasAnimation ?? false,
                 })}
                 className={classes.illustrationWrapper}
             >
@@ -195,78 +259,3 @@ export const GlArticle = memo((props: GlArticleProps) => {
         </section>
     );
 });
-
-const { getAnimationProps } = (() => {
-    type Params = {
-        componentToAnimate: "body" | "illustration" | "title";
-        hasAnimation: boolean;
-        illustrationPosition?: "left" | "right";
-    };
-
-    function getAnimationProps(params: Params): GlAnimatedOnScrollProps {
-        const { componentToAnimate, hasAnimation, illustrationPosition } =
-            params;
-
-        if (!hasAnimation) {
-            console.log("ok");
-            return {};
-        }
-
-        const textTransitionParameters = {
-            "ease": "easeOut",
-            "duration": 0.5,
-            "delay": 0.3,
-        };
-        switch (componentToAnimate) {
-            case "body":
-                return {
-                    "initial": {
-                        "opacity": 0,
-                    },
-                    "animate": {
-                        "opacity": 1,
-                    },
-                    "transition": textTransitionParameters,
-                };
-            case "title":
-                return {
-                    "initial": {
-                        "opacity": 0,
-                        "x": (() => {
-                            const value = 100;
-                            switch (illustrationPosition) {
-                                case "left":
-                                    return value;
-                                default:
-                                    return -value;
-                            }
-                        })(),
-                    },
-
-                    "animate": {
-                        "opacity": 1,
-                        "x": 0,
-                    },
-                    "transition": textTransitionParameters,
-                };
-            case "illustration":
-                return {
-                    "initial": {
-                        "rotateY": "15deg",
-                        "rotateX": "15deg",
-                    },
-                    "animate": {
-                        "rotateY": 0,
-                        "rotateX": 0,
-                    },
-                    "transition": {
-                        "delay": 1,
-                        "duration": 1,
-                        "ease": "easeOut",
-                    },
-                };
-        }
-    }
-
-    return { getAnimationProps };
-})();
