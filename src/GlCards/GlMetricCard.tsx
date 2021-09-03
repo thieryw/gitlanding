@@ -14,6 +14,7 @@ export type GlMetricCardProps = GlCardProps & {
     subHeading?: string;
     buttonLabel?: string;
     isNumberAnimated?: boolean;
+    timeIntervalBetweenNumbersMs?: number;
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -85,6 +86,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         className,
         link,
         isNumberAnimated,
+        timeIntervalBetweenNumbersMs,
     } = props;
     const { classes, cx, theme } = useStyles();
 
@@ -95,6 +97,9 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                     <Number
                         isNumberAnimated={isNumberAnimated ?? false}
                         number={number}
+                        timeIntervalBetweenNumbersMs={
+                            timeIntervalBetweenNumbersMs ?? 25
+                        }
                     />
                 )}
 
@@ -130,10 +135,12 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
 });
 
 const { Number } = (() => {
-    type Props = {
-        number: number;
-        isNumberAnimated: boolean;
-    };
+    type Props = Required<
+        Pick<
+            GlMetricCardProps,
+            "number" | "isNumberAnimated" | "timeIntervalBetweenNumbersMs"
+        >
+    >;
 
     const useStyles = makeStyles()(theme => ({
         "root": {
@@ -151,27 +158,19 @@ const { Number } = (() => {
     }));
 
     const Number = memo((props: Props) => {
-        const { isNumberAnimated, number } = props;
-        const numberAnimation = (() => {
-            if (!isNumberAnimated) {
-                return;
-            }
+        const { isNumberAnimated, number, timeIntervalBetweenNumbersMs } =
+            props;
 
-            return useNumberCountUpAnimation({
-                "intervalMs": 25,
-                number,
-            });
-        })();
+        const { ref, renderedNumber } = useNumberCountUpAnimation({
+            "intervalMs": timeIntervalBetweenNumbersMs,
+            number,
+        });
 
         const { classes } = useStyles();
 
         return (
-            <Text
-                className={classes.root}
-                typo="display heading"
-                ref={numberAnimation?.ref ?? undefined}
-            >
-                {numberAnimation ? numberAnimation.renderedNumber : number}
+            <Text className={classes.root} typo="display heading" ref={ref}>
+                {isNumberAnimated ? renderedNumber : number}
             </Text>
         );
     });
