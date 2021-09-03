@@ -47,24 +47,33 @@ const { animate } = (() => {
         setRenderedNumber: Dispatch<SetStateAction<number>>;
     };
 
-    function animate(params: Params) {
+    const awaitDelay = (params: { delayMs: number }) =>
+        new Promise<void>(resolve => setTimeout(resolve, params.delayMs));
+
+    async function animate(params: Params) {
         const { intervalMs, number, setRenderedNumber } = params;
 
         if (number === undefined) {
             return;
         }
 
-        let count = 0;
+        let currentIntervalMs = intervalMs;
 
-        const interval = setInterval(() => {
-            if (count === number) {
-                clearInterval(interval);
-                return;
-            }
+        for (let count = 0; count <= number; count++) {
+            await awaitDelay({
+                "delayMs": (() => {
+                    if (
+                        (number < 40 && count <= number - 7) ||
+                        (number >= 40 && count <= number - 14)
+                    ) {
+                        return currentIntervalMs;
+                    }
 
-            count++;
+                    return (currentIntervalMs += 10);
+                })(),
+            });
             setRenderedNumber(count);
-        }, intervalMs);
+        }
     }
 
     return { animate };
