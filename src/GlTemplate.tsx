@@ -13,6 +13,21 @@ import { changeColorOpacity } from "onyxia-ui";
 
 export const scrollableDivClassName = "GlScrollable";
 
+export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
+
+export namespace HeaderOptions {
+    export type Fixed = {
+        position: "fixed";
+        isRetracted: boolean | "smart";
+    };
+
+    export type TopOfPage = {
+        position: "top of page";
+        isRetracted: boolean;
+        doDelegateScroll: boolean;
+    };
+}
+
 export type GlTemplateProps = {
     header?: ReactNode;
     SplashScreenLogo?: ComponentType<{ className: string }>;
@@ -22,91 +37,123 @@ export type GlTemplateProps = {
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: ReactNode;
     }>;
-    headerBehavior: "always visible" | "only visible at the top" | "smart";
+    headerOptions: HeaderOptions;
 };
 
 const useStyles = makeStyles<{
     headerHeight: number;
     rootWidth: number;
-    isHeaderVisible: boolean;
-    headerPosition: "fixed" | "top";
-}>()((theme, { headerHeight, rootWidth, isHeaderVisible, headerPosition }) => {
-    const paddingRightLeft = theme.spacing(
-        (() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
-                return 7;
-            }
-
-            if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
-                return 6;
-            }
-
-            return 4;
-        })(),
-    );
-
-    return {
-        "root": {
-            "height": "100%",
-            ...(() => {
-                switch (headerPosition) {
-                    case "fixed":
-                        return {
-                            "visibility":
-                                headerHeight === 0 || rootWidth === 0
-                                    ? "hidden"
-                                    : "visible",
-                        } as const;
-                    case "top":
-                        return {
-                            "overflow": "auto",
-                            "scrollBehavior": "smooth",
-                        } as const;
-                }
-            })(),
+    isHeaderRetracted: boolean;
+    headerPosition: "fixed" | "top of page";
+    doDelegateScroll: boolean;
+}>()(
+    (
+        theme,
+        {
+            headerHeight,
+            rootWidth,
+            isHeaderRetracted,
+            headerPosition,
+            doDelegateScroll,
         },
-        "headerWrapper": {
-            ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            ...(() => {
-                switch (headerPosition) {
-                    case "fixed":
-                        return {
-                            "zIndex": 1000,
-                            "position": "fixed",
-                            "width": rootWidth,
-                            "transition": "top 350ms",
-                            "top": isHeaderVisible ? 0 : -headerHeight,
-                            "backgroundColor": changeColorOpacity({
-                                "color":
-                                    theme.colors.useCases.surfaces.background,
-                                "opacity": 0.94,
-                            }),
-                        } as const;
-                    case "top":
-                        return {};
+    ) => {
+        const paddingRightLeft = theme.spacing(
+            (() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
+                    return 7;
                 }
-            })(),
-        },
-        "childrenWrapper": {
-            "overflowX": "hidden",
-            ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            ...(() => {
-                switch (headerPosition) {
-                    case "fixed":
-                        return {
-                            "paddingTop": headerHeight,
-                            "height": "100%",
-                            "zIndex": 1,
-                            "overflowY": "auto",
-                            "scrollBehavior": "smooth",
-                        } as const;
-                    case "top":
-                        return {};
+
+                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
+                    return 6;
                 }
+
+                return 4;
             })(),
-        },
-    };
-});
+        );
+
+        return {
+            "root": {
+                "height": "100%",
+                ...(() => {
+                    switch (headerPosition) {
+                        case "fixed":
+                            return {
+                                "visibility":
+                                    headerHeight === 0 || rootWidth === 0
+                                        ? "hidden"
+                                        : "visible",
+                            } as const;
+                        case "top of page":
+                            return doDelegateScroll
+                                ? ({
+                                      "display": "flex",
+                                      "flexDirection": "column",
+                                  } as const)
+                                : ({
+                                      "overflow": "auto",
+                                      "scrollBehavior": "smooth",
+                                  } as const);
+                    }
+                })(),
+            },
+            "headerWrapper": {
+                ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
+                ...(() => {
+                    switch (headerPosition) {
+                        case "fixed":
+                            return {
+                                "zIndex": 1000,
+                                "position": "fixed",
+                                "width": rootWidth,
+                                "transition": "top 350ms",
+                                "top": !isHeaderRetracted ? 0 : -headerHeight,
+                                "backgroundColor": changeColorOpacity({
+                                    "color":
+                                        theme.colors.useCases.surfaces
+                                            .background,
+                                    "opacity": 0.94,
+                                }),
+                            } as const;
+                        case "top of page":
+                            return {
+                                "height":
+                                    headerHeight === 0
+                                        ? undefined
+                                        : isHeaderRetracted
+                                        ? 0
+                                        : headerHeight,
+                                "overflow": "hidden",
+                                "transition": "height 250ms",
+                            } as const;
+                    }
+                })(),
+            },
+            "childrenWrapper": {
+                "overflowX": "hidden",
+                ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
+                ...(() => {
+                    switch (headerPosition) {
+                        case "fixed":
+                            return {
+                                "paddingTop": headerHeight,
+                                "height": "100%",
+                                "zIndex": 1,
+                                "overflowY": "auto",
+                                "scrollBehavior": "smooth",
+                            } as const;
+                        case "top of page":
+                            return doDelegateScroll
+                                ? ({
+                                      "flex": 1,
+                                      "overflow": "hidden",
+                                  } as const)
+                                : {};
+                    }
+                })(),
+            },
+        };
+    },
+);
 
 const GlTemplateInner = memo(
     (
@@ -114,7 +161,7 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, isThemeProvidedOutside, headerBehavior, children } =
+        const { header, isThemeProvidedOutside, headerOptions, children } =
             props;
 
         {
@@ -138,26 +185,25 @@ const GlTemplateInner = memo(
             domRect: { width: rootWidth },
         } = useDomRect();
 
-        const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+        const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
         const { classes, cx } = useStyles({
             rootWidth,
             headerHeight,
-            isHeaderVisible,
-            "headerPosition": (() => {
-                switch (headerBehavior) {
-                    case "only visible at the top":
-                        return "top";
-                    case "always visible":
-                    case "smart":
-                        return "fixed";
-                }
-            })(),
+            "isHeaderRetracted":
+                headerOptions.isRetracted === "smart"
+                    ? !isSmartHeaderVisible
+                    : headerOptions.isRetracted,
+            "headerPosition": headerOptions.position,
+            "doDelegateScroll":
+                headerOptions.position === "fixed"
+                    ? false
+                    : headerOptions.doDelegateScroll,
         });
 
         useElementEvt(
             ({ ctx, element }) => {
-                if (headerBehavior !== "smart") {
+                if (headerOptions.isRetracted !== "smart") {
                     return;
                 }
 
@@ -166,7 +212,7 @@ const GlTemplateInner = memo(
                 Evt.from(ctx, element, "scroll").attach(e => {
                     const scrollTop = (e as any).target.scrollTop;
 
-                    setIsHeaderVisible(
+                    setIsSmartHeaderVisible(
                         scrollTop < previousScrollTop
                             ? true
                             : scrollTop <= headerHeight,
@@ -176,26 +222,24 @@ const GlTemplateInner = memo(
                 });
             },
             childrenWrapperRef,
-            [headerHeight, headerBehavior],
+            [headerHeight, headerOptions.isRetracted],
         );
 
         return (
             <div
                 className={cx(
                     classes.root,
-                    headerBehavior === "only visible at the top" &&
-                        scrollableDivClassName,
+                    headerOptions.position === "top of page" &&
+                        headerOptions.doDelegateScroll
+                        ? undefined
+                        : scrollableDivClassName,
                 )}
             >
-                <div className={classes.headerWrapper} ref={headerWrapperRef}>
-                    {header}
+                <div className={classes.headerWrapper}>
+                    <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={cx(
-                        classes.childrenWrapper,
-                        headerBehavior !== "only visible at the top" &&
-                            scrollableDivClassName,
-                    )}
+                    className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
                 >
                     {children}

@@ -51,7 +51,11 @@ function App() {
                     githubButtonSize="large"
                 />
             }
-            headerBehavior="smart"
+            headerOptions={{
+                "position": "top of page",
+                "isRetracted": false,
+                "doDelegateScroll": false,
+            }}
         >
             <GlHero
                 title="Hero title"
