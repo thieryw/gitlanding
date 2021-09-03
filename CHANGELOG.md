@@ -1,3 +1,9 @@
+### **0.0.89** (2021-09-03)  
+  
+- update version  
+- GlMetricCard refactor  
+- modified number animation to have an ease out effect    
+  
 ### **0.0.88** (2021-09-02)  
   
 - update version  
