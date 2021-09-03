@@ -149,7 +149,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
             const { componentToAnimate } = params;
 
             if (!hasAnimation) {
-                console.log("ok");
                 return {};
             }
 
