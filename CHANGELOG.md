@@ -1,3 +1,12 @@
+### **0.0.88** (2021-09-02)  
+  
+- update version  
+- GlArticle refactor  
+- GlArticle change animation  
+- GlTemplate fixed horizontal scroll bug  
+- GlMetricCard , put the number title in its own component to avoid the entire card being re rendred during the number animation  
+- externalized animate function in useNumberCountAnimation    
+  
 ### **0.0.87** (2021-09-01)  
   
   
