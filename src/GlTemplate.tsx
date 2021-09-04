@@ -97,6 +97,11 @@ const useStyles = makeStyles<{
                 })(),
             },
             "headerWrapper": {
+                "border": "1px solid white",
+                "margin": theme.spacing({
+                    "topBottom": 3,
+                    "rightLeft": 0,
+                }),
                 ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
                 ...(() => {
                     switch (headerPosition) {
@@ -116,12 +121,23 @@ const useStyles = makeStyles<{
                             } as const;
                         case "top of page":
                             return {
-                                "height":
-                                    headerHeight === 0
-                                        ? undefined
-                                        : isHeaderRetracted
-                                        ? 0
-                                        : headerHeight,
+                                ...(() => {
+                                    const height =
+                                        headerHeight === 0
+                                            ? undefined
+                                            : isHeaderRetracted
+                                            ? 0
+                                            : headerHeight;
+
+                                    return {
+                                        height,
+                                        ...(height !== 0
+                                            ? {}
+                                            : {
+                                                  "marginTop": 0,
+                                              }),
+                                    };
+                                })(),
                                 "overflow": "hidden",
                                 "transition": "height 250ms",
                             } as const;

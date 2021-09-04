@@ -37,10 +37,6 @@ const useStyles = makeStyles<{
         "display": "flex",
         "alignItems": "center",
         "width": "100%",
-        "padding": theme.spacing({
-            "topBottom": 3,
-            "rightLeft": 0,
-        }),
         "flexWrap": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return undefined;
