@@ -1,3 +1,7 @@
+### **0.0.94** (2021-09-04)  
+  
+- Fix previous release    
+  
 ### **0.0.93** (2021-09-04)  
   
 - Remove header border    
