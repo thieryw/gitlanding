@@ -37,7 +37,7 @@ export type GlTemplateProps = {
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: ReactNode;
     }>;
-    headerOptions: HeaderOptions;
+    headerOptions?: HeaderOptions;
 };
 
 const useStyles = makeStyles<{
@@ -161,8 +161,15 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, isThemeProvidedOutside, headerOptions, children } =
-            props;
+        const {
+            header,
+            isThemeProvidedOutside,
+            headerOptions = {
+                "position": "fixed",
+                "isRetracted": false,
+            },
+            children,
+        } = props;
 
         {
             const { hideRootSplashScreen } = useSplashScreen();
