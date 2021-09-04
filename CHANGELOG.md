@@ -1,3 +1,7 @@
+### **0.0.95** (2021-09-04)  
+  
+- Fix previous build    
+  
 ### **0.0.94** (2021-09-04)  
   
 - Fix previous release    
