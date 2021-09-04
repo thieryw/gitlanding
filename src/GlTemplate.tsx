@@ -108,8 +108,6 @@ const useStyles = makeStyles<{
                     "rightLeft": `${paddingRightLeft}px`,
                     "topBottom": `${paddingTopBottom}px`,
                 }),
-                //...theme.spacing.topBottom("padding", `${paddingTopBottom}px`),
-                //...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
@@ -208,7 +206,8 @@ const GlTemplateInner = memo(
                     return {
                         ...headerOptions,
                         "isRetracted": headerOptions.isRetracted ?? false,
-                        "doDelegateScroll": false,
+                        "doDelegateScroll":
+                            headerOptions.doDelegateScroll ?? false,
                     };
             }
         })();
