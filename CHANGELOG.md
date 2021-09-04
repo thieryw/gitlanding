@@ -1,3 +1,7 @@
+### **0.0.93** (2021-09-04)  
+  
+- Remove header border    
+  
 ### **0.0.92** (2021-09-04)  
   
 - Leave a space when the header is retracted    
