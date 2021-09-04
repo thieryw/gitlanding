@@ -18,13 +18,16 @@ export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 export namespace HeaderOptions {
     export type Fixed = {
         position: "fixed";
-        isRetracted: boolean | "smart";
+        /** Default false */
+        isRetracted?: boolean | "smart";
     };
 
     export type TopOfPage = {
         position: "top of page";
-        isRetracted: boolean;
-        doDelegateScroll: boolean;
+        /** Default false */
+        isRetracted?: boolean;
+        /** Default false */
+        doDelegateScroll?: boolean;
     };
 }
 
@@ -71,6 +74,10 @@ const useStyles = makeStyles<{
             })(),
         );
 
+        const paddingTopBottom = theme.spacing(3);
+
+        const headerHeightPlusMargin = headerHeight + 2 * paddingTopBottom;
+
         return {
             "root": {
                 "height": "100%",
@@ -97,11 +104,12 @@ const useStyles = makeStyles<{
                 })(),
             },
             "headerWrapper": {
-                "margin": theme.spacing({
-                    "topBottom": 3,
-                    "rightLeft": 0,
+                "padding": theme.spacing({
+                    "rightLeft": `${paddingRightLeft}px`,
+                    "topBottom": `${paddingTopBottom}px`,
                 }),
-                ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
+                //...theme.spacing.topBottom("padding", `${paddingTopBottom}px`),
+                //...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
@@ -110,7 +118,9 @@ const useStyles = makeStyles<{
                                 "position": "fixed",
                                 "width": rootWidth,
                                 "transition": "top 350ms",
-                                "top": !isHeaderRetracted ? 0 : -headerHeight,
+                                "top": !isHeaderRetracted
+                                    ? 0
+                                    : -headerHeightPlusMargin,
                                 "backgroundColor": changeColorOpacity({
                                     "color":
                                         theme.colors.useCases.surfaces
@@ -126,7 +136,7 @@ const useStyles = makeStyles<{
                                             ? undefined
                                             : isHeaderRetracted
                                             ? 0
-                                            : headerHeight;
+                                            : headerHeightPlusMargin;
 
                                     return {
                                         height,
@@ -150,7 +160,7 @@ const useStyles = makeStyles<{
                     switch (headerPosition) {
                         case "fixed":
                             return {
-                                "paddingTop": headerHeight,
+                                "paddingTop": headerHeightPlusMargin,
                                 "height": "100%",
                                 "zIndex": 1,
                                 "overflowY": "auto",
@@ -176,15 +186,32 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const {
-            header,
-            isThemeProvidedOutside,
-            headerOptions = {
-                "position": "fixed",
-                "isRetracted": false,
-            },
-            children,
-        } = props;
+        const { header, isThemeProvidedOutside, children } = props;
+
+        const headerOptions: Required<HeaderOptions> = (() => {
+            const { headerOptions } = props;
+
+            if (headerOptions === undefined) {
+                return {
+                    "position": "fixed",
+                    "isRetracted": false,
+                } as const;
+            }
+
+            switch (headerOptions.position) {
+                case "fixed":
+                    return {
+                        ...headerOptions,
+                        "isRetracted": headerOptions.isRetracted ?? false,
+                    };
+                case "top of page":
+                    return {
+                        ...headerOptions,
+                        "isRetracted": headerOptions.isRetracted ?? false,
+                        "doDelegateScroll": false,
+                    };
+            }
+        })();
 
         {
             const { hideRootSplashScreen } = useSplashScreen();
