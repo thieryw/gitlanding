@@ -1,3 +1,7 @@
+### **0.0.92** (2021-09-04)  
+  
+- Leave a space when the header is retracted    
+  
 ### **0.0.91** (2021-09-04)  
   
 - Make header option optional    
