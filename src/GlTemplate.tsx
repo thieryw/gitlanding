@@ -97,7 +97,6 @@ const useStyles = makeStyles<{
                 })(),
             },
             "headerWrapper": {
-                "border": "1px solid white",
                 "margin": theme.spacing({
                     "topBottom": 3,
                     "rightLeft": 0,
