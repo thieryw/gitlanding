@@ -17,20 +17,10 @@ export type GlProjectCardProps = GlCardProps & {
 };
 
 const useStyles = makeStyles<
-    Pick<
-        GlProjectCardProps,
-        "projectImageUrl" | "badgeBackgroundColor" | "badgeColor"
-    >
->()((theme, { projectImageUrl, badgeBackgroundColor, badgeColor }) => ({
+    Pick<GlProjectCardProps, "badgeBackgroundColor" | "badgeColor">
+>()((theme, { badgeBackgroundColor, badgeColor }) => ({
     "root": {
         "display": "flex",
-        "minHeight": (() => {
-            if (theme.windowInnerWidth >= 1650) {
-                return 591;
-            }
-
-            return 412;
-        })(),
         "flexDirection": "column",
         "overflow": "hidden",
         "margin": (() => {
@@ -60,19 +50,21 @@ const useStyles = makeStyles<
     },
 
     "header": {
+        "position": "relative",
         "flex": 1,
         "width": "100%",
         "margin": 0,
-        "background": `url(${projectImageUrl}) no-repeat center`,
-        "backgroundSize": "cover",
     },
-    "buttonWrapper": {
-        "display": "flex",
-        "justifyContent": "flex-end",
-        "padding": theme.spacing(2),
+    "projectImage": {
+        "width": "100%",
+        "height": "100%",
+        "objectFit": "cover",
     },
+
     "badge": {
-        "alignSelf": "right",
+        "position": "absolute",
+        "top": theme.spacing(3),
+        "right": theme.spacing(3),
         "border": "none",
         "backgroundColor": badgeBackgroundColor ?? undefined,
         "color": (() => {
@@ -99,7 +91,6 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     } = props;
 
     const { classes, cx } = useStyles({
-        projectImageUrl,
         badgeColor,
         badgeBackgroundColor,
     });
@@ -107,19 +98,22 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
             <div className={classes.header}>
-                <div className={classes.buttonWrapper}>
-                    {badgeLabel !== undefined && (
-                        <GlButton
-                            type="submit"
-                            className={classes.badge}
-                            variant="ternary"
-                            href={link?.href}
-                            onClick={link?.onClick}
-                        >
-                            {badgeLabel}
-                        </GlButton>
-                    )}
-                </div>
+                <img
+                    className={classes.projectImage}
+                    src={projectImageUrl}
+                    alt="project image"
+                />
+                {badgeLabel !== undefined && (
+                    <GlButton
+                        type="submit"
+                        className={classes.badge}
+                        variant="ternary"
+                        href={link?.href}
+                        onClick={link?.onClick}
+                    >
+                        {badgeLabel}
+                    </GlButton>
+                )}
             </div>
             <div className={classes.footer}>
                 <Text typo="object heading" className={classes.footerH5}>
