@@ -41,6 +41,7 @@ const useStyles = makeStyles<
             return undefined;
         })(),
         "alignItems": "center",
+        "justifyContent": "center",
         "& code": {
             "width": 0,
         },
@@ -122,9 +123,6 @@ const useStyles = makeStyles<
     },
     "button": {
         "alignSelf": "right",
-    },
-    "illustrationWrapper": {
-        "flex": 1,
     },
 }));
 
@@ -251,7 +249,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 {...getAnimationProps({
                     "componentToAnimate": "illustration",
                 })}
-                className={classes.illustrationWrapper}
             >
                 <aside>{illustration}</aside>
             </GlAnimatedOnScroll>

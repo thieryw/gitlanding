@@ -28,6 +28,8 @@ const useStyles = makeStyles()(theme => ({
             "rightLeft": 0,
         }),
         "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
         "flexDirection":
             theme.windowInnerWidth >= breakpointsValues.md
                 ? undefined
@@ -52,7 +54,14 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "flexDirection": "column",
         "flex": 1,
-        "height": (theme.windowInnerWidth / 100) * 40,
+        "maxWidth": 1000,
+        "minHeight": (() => {
+            if (theme.windowInnerWidth <= breakpointsValues.xl) {
+                return (theme.windowInnerWidth / 100) * 40;
+            }
+
+            return 800;
+        })(),
         ...(() => {
             const value = theme.spacing(4);
             if (theme.windowInnerWidth >= breakpointsValues.md) {
@@ -69,6 +78,7 @@ const useStyles = makeStyles()(theme => ({
 
     "imageWrapper": {
         "flex": 1.5,
+        "maxWidth": 1000,
     },
 }));
 
