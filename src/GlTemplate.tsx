@@ -141,12 +141,17 @@ const useStyles = makeStyles<{
                                         ...(height !== 0
                                             ? {}
                                             : {
-                                                  "marginTop": 0,
+                                                  ...theme.spacing.topBottom(
+                                                      "padding",
+                                                      0,
+                                                  ),
                                               }),
                                     };
                                 })(),
                                 "overflow": "hidden",
-                                "transition": "height 250ms",
+                                "transition": ["height", "padding"]
+                                    .map(prop => `${prop} 250ms`)
+                                    .join(", "),
                             } as const;
                     }
                 })(),

@@ -51,15 +51,16 @@ function App() {
                     githubButtonSize="large"
                 />
             }
-            /*
             headerOptions={{
                 "position": "fixed",
-                "isRetracted": "smart",
+                //"isRetracted": "smart",
+                "isRetracted": true,
             }}
-            */
+            /*
             headerOptions={{
                 "position": "top of page",
             }}
+            */
         >
             <GlHero
                 title="Hero title"
