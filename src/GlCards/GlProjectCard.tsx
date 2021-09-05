@@ -9,14 +9,19 @@ import { breakpointsValues } from "../theme";
 export type GlProjectCardProps = GlCardProps & {
     projectImageUrl: string;
     badgeLabel?: string;
+    badgeColor?: string;
+    badgeBackgroundColor?: string;
     title: string;
     subtitle: string;
     date?: string;
 };
 
-const useStyles = makeStyles<{
-    projectImageUrl: string;
-}>()((theme, { projectImageUrl }) => ({
+const useStyles = makeStyles<
+    Pick<
+        GlProjectCardProps,
+        "projectImageUrl" | "badgeBackgroundColor" | "badgeColor"
+    >
+>()((theme, { projectImageUrl, badgeBackgroundColor, badgeColor }) => ({
     "root": {
         "display": "flex",
         "minHeight": (() => {
@@ -66,7 +71,18 @@ const useStyles = makeStyles<{
         "justifyContent": "flex-end",
         "padding": theme.spacing(2),
     },
-    "badge": { "alignSelf": "right" },
+    "badge": {
+        "alignSelf": "right",
+        "border": "none",
+        "backgroundColor": badgeBackgroundColor ?? undefined,
+        "color": (() => {
+            if (badgeColor !== undefined) {
+                return `${badgeColor} !important`;
+            }
+
+            return undefined;
+        })(),
+    },
 }));
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
@@ -78,9 +94,15 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         title,
         badgeLabel,
         link,
+        badgeBackgroundColor,
+        badgeColor,
     } = props;
 
-    const { classes, cx } = useStyles({ projectImageUrl });
+    const { classes, cx } = useStyles({
+        projectImageUrl,
+        badgeColor,
+        badgeBackgroundColor,
+    });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
@@ -90,6 +112,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                         <GlButton
                             type="submit"
                             className={classes.badge}
+                            variant="ternary"
                             href={link?.href}
                             onClick={link?.onClick}
                         >
