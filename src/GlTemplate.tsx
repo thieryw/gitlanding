@@ -141,10 +141,7 @@ const useStyles = makeStyles<{
                                         ...(height !== 0
                                             ? {}
                                             : {
-                                                  ...theme.spacing.topBottom(
-                                                      "padding",
-                                                      0,
-                                                  ),
+                                                  "paddingBottom": 0,
                                               }),
                                     };
                                 })(),
