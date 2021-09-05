@@ -1,3 +1,10 @@
+### **0.0.99** (2021-09-05)  
+  
+- update version  
+- GlProjectCard using an img for the header and applying object fit to avoid having to set a minimum height on the hole component  
+- GlProjectCard styled badge  
+- fixed image scale on large screen    
+  
 ### **0.0.98** (2021-09-05)  
   
 - update gitlanding    
