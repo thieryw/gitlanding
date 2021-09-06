@@ -55,7 +55,7 @@
         "@emotion/react": "^11.4.1",
         "@emotion/styled": "^11.3.0",
         "embla-carousel": "^4.1.5",
-        "onyxia-ui": "^0.12.9",
+        "onyxia-ui": "^0.13.0",
         "powerhooks": "^0.7.3",
         "react-code-blocks": "^0.0.8",
         "react-markdown": "^5.0.3",
