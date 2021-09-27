@@ -19,7 +19,6 @@ import rocketPngUrl from "./assets/collaborative_tools/rocket-chat.png";
 import drawioPngUrl from "./assets/collaborative_tools/drawio.png";
 import ballonPngUrl from "./assets/collaborative_tools/balloon.png";
 import plusPngUrl from "./assets/collaborative_tools/+.png";
-import contributionPngUrl from "./assets/illustrations/contribution.png";
 import dataVisuPngUrl from "./assets/illustrations/datavisualisation.png";
 import pokemonPngUrl from "./assets/illustrations/pokemon.png";
 import kubernetesPngUrl from "./assets/illustrations/kubernetes.png";
@@ -53,8 +52,8 @@ function App() {
             }
             headerOptions={{
                 "position": "fixed",
-                //"isRetracted": "smart",
-                "isRetracted": true,
+                "isRetracted": "smart",
+                //"isRetracted": true,
             }}
             /*
             headerOptions={{
@@ -75,6 +74,8 @@ function App() {
                     iconUrl={catalogIconUrl}
                     buttonLabel="Button label"
                     link={{ "href": "https://example.com" }}
+                    isNumberAnimated={true}
+                    timeIntervalBetweenNumbersMs={4}
                 />
                 <GlMetricCard
                     number={19}
@@ -82,6 +83,7 @@ function App() {
                     iconUrl={trainingIconUrl}
                     buttonLabel="Button label"
                     link={{ "href": "https://example.com" }}
+                    isNumberAnimated={true}
                 />
                 <GlMetricCard
                     number={200}
@@ -89,6 +91,8 @@ function App() {
                     iconUrl={trainingIconUrl}
                     buttonLabel="Button label"
                     link={{ "href": "https://example.com" }}
+                    isNumberAnimated={true}
+                    timeIntervalBetweenNumbersMs={4}
                 />
             </GlCards>
 
@@ -102,6 +106,7 @@ function App() {
                 illustration={
                     <GlIllustration type="image" url={datalabPngUrl} />
                 }
+                hasAnimation={true}
             />
 
             <GlCards title="Cards title">
@@ -148,9 +153,20 @@ function App() {
                     "href": "https://explorer.com",
                 }}
                 illustration={
-                    <GlIllustration type="image" url={contributionPngUrl} />
+                    <GlIllustration
+                        type="code"
+                        language="typescript"
+                        hasDecorativeVsCodeButtons={true}
+                        text={[
+                            "function sum(x: number, y: number){\n",
+                            "   return x + y;\n",
+                            "}\n",
+                            "console.log(sum(12, 14));",
+                        ].join("")}
+                    />
                 }
                 illustrationPosition="left"
+                hasAnimation={true}
             />
 
             <GlCards title="Cards title">
@@ -162,6 +178,7 @@ function App() {
                     link={{
                         "href": "https://example.com",
                     }}
+                    badgeLabel="badge label"
                 />
                 <GlProjectCard
                     projectImageUrl={pokemonPngUrl}
@@ -171,6 +188,7 @@ function App() {
                     link={{
                         "href": "https://example.com",
                     }}
+                    badgeLabel="badge label"
                 />
                 <GlProjectCard
                     projectImageUrl={kubernetesPngUrl}
@@ -180,6 +198,7 @@ function App() {
                     link={{
                         "href": "https://example.com",
                     }}
+                    badgeLabel="badge label"
                 />
                 <GlProjectCard
                     projectImageUrl={webinairePngUrl}
@@ -189,6 +208,7 @@ function App() {
                     link={{
                         "href": "https://example.com",
                     }}
+                    badgeLabel="badge label"
                 />
             </GlCards>
         </GlTemplate>
