@@ -9,6 +9,7 @@ import type { GlAnimatedOnScrollProps } from "./GlAnimatedOnScroll";
 
 export type GlArticleProps = {
     className?: string;
+    id?: string;
     title?: string;
     body?: string;
     buttonLabel?: string;
@@ -29,18 +30,19 @@ const useStyles = makeStyles<
         "flexDirection": (() => {
             if (
                 illustrationPosition === "left" &&
-                theme.windowInnerWidth >= breakpointsValues.md
+                theme.windowInnerWidth >= breakpointsValues.sm
             ) {
                 return "row-reverse";
             }
 
-            if (theme.windowInnerWidth < breakpointsValues.md) {
+            if (theme.windowInnerWidth < breakpointsValues.sm) {
                 return "column";
             }
 
             return undefined;
         })(),
-        "alignItems": "center",
+        "alignItems":
+            theme.windowInnerWidth < breakpointsValues.sm ? "left" : "center",
         "justifyContent": "center",
         "& code": {
             "width": 0,
@@ -74,6 +76,10 @@ const useStyles = makeStyles<
         "display": "flex",
         "flexDirection": "column",
         "textAlign": "left",
+        "marginBottom":
+            theme.windowInnerWidth >= breakpointsValues.sm
+                ? undefined
+                : theme.spacing(8),
         "width": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.xl) {
                 return 412;
@@ -83,7 +89,7 @@ const useStyles = makeStyles<
                 return 311;
             }
 
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+            if (theme.windowInnerWidth >= breakpointsValues.sm) {
                 return 270;
             }
 
@@ -134,6 +140,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
         illustrationPosition,
         title,
         className,
+        id,
         buttonLink,
         hasAnimation,
     } = props;
@@ -208,7 +215,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
     }, []);
 
     return (
-        <section className={cx(classes.root, className)}>
+        <section id={id} className={cx(classes.root, className)}>
             <article className={classes.article}>
                 {title && (
                     <GlAnimatedOnScroll
