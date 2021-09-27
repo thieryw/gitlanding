@@ -23,8 +23,8 @@ const useStyles = makeStyles<{
     },
     "vsCodeButtons": {
         "position": "absolute",
-        "top": theme.spacing(-2),
-        "left": theme.spacing(1),
+        "top": -theme.spacing(3),
+        "left": theme.spacing(2),
     },
 }));
 
