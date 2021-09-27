@@ -30,23 +30,20 @@ const useStyles = makeStyles<
         "flexDirection": (() => {
             if (
                 illustrationPosition === "left" &&
-                theme.windowInnerWidth >= breakpointsValues.sm
+                theme.windowInnerWidth >= breakpointsValues.md
             ) {
                 return "row-reverse";
             }
 
-            if (theme.windowInnerWidth < breakpointsValues.sm) {
+            if (theme.windowInnerWidth < breakpointsValues.md) {
                 return "column";
             }
 
             return undefined;
         })(),
         "alignItems":
-            theme.windowInnerWidth < breakpointsValues.sm ? "left" : "center",
+            theme.windowInnerWidth < breakpointsValues.md ? "left" : "center",
         "justifyContent": "center",
-        "& code": {
-            "width": 0,
-        },
 
         ...(() => {
             const value = theme.spacing(7);
@@ -77,7 +74,7 @@ const useStyles = makeStyles<
         "flexDirection": "column",
         "textAlign": "left",
         "marginBottom":
-            theme.windowInnerWidth >= breakpointsValues.sm
+            theme.windowInnerWidth >= breakpointsValues.md
                 ? undefined
                 : theme.spacing(8),
         "width": (() => {
@@ -89,7 +86,7 @@ const useStyles = makeStyles<
                 return 311;
             }
 
-            if (theme.windowInnerWidth >= breakpointsValues.sm) {
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return 270;
             }
 
@@ -129,6 +126,25 @@ const useStyles = makeStyles<
     },
     "button": {
         "alignSelf": "right",
+    },
+    "aside": {
+        ...(theme.windowInnerWidth >= breakpointsValues.md
+            ? {
+                  ...(() => {
+                      const value = theme.spacing(8);
+                      switch (illustrationPosition) {
+                          case "left":
+                              return {
+                                  "marginRight": value,
+                              };
+                          case "right":
+                              return {
+                                  "marginLeft": value,
+                              };
+                      }
+                  })(),
+              }
+            : {}),
     },
 }));
 
@@ -257,7 +273,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     "componentToAnimate": "illustration",
                 })}
             >
-                <aside>{illustration}</aside>
+                <aside className={classes.aside}>{illustration}</aside>
             </GlAnimatedOnScroll>
         </section>
     );
