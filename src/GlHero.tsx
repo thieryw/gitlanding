@@ -7,14 +7,13 @@ import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
-import { breakpointsValues } from "onyxia-ui";
+import { breakpointsValues } from "./theme";
 
 export type GlHeroProps = {
     title?: string;
     subTitle?: string;
     className?: string;
     imageSrc?: string;
-    children?: ReactNode;
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -28,12 +27,11 @@ const useStyles = makeStyles()(theme => ({
             "rightLeft": 0,
         }),
         "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "flexDirection":
-            theme.windowInnerWidth >= breakpointsValues.md
-                ? undefined
-                : "column",
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "flexDirection": "column",
+              }
+            : {}),
     },
 
     "title": {
@@ -43,7 +41,7 @@ const useStyles = makeStyles()(theme => ({
         "marginTop": theme.spacing(4),
         "maxWidth": 650,
         ...(() => {
-            if (theme.windowInnerWidth >= 1440) {
+            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
                 return undefined;
             }
             return theme.typography.variants["body 1"].style;
@@ -55,13 +53,6 @@ const useStyles = makeStyles()(theme => ({
         "flexDirection": "column",
         "flex": 1,
         "maxWidth": 1000,
-        "minHeight": (() => {
-            if (theme.windowInnerWidth <= breakpointsValues.xl) {
-                return (theme.windowInnerWidth / 100) * 40;
-            }
-
-            return 800;
-        })(),
         ...(() => {
             const value = theme.spacing(4);
             if (theme.windowInnerWidth >= breakpointsValues.md) {
@@ -95,7 +86,7 @@ const animationProps = {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { title, subTitle, className, imageSrc, children } = props;
+    const { title, subTitle, className, imageSrc } = props;
 
     const [, reRender] = useReducer(x => x + 1, 0);
 
@@ -173,11 +164,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                             "duration": 0.5,
                         }}
                     >
-                        <GlImage url={imageSrc} alt="hero image" />
+                        <GlImage height={800} url={imageSrc} alt="hero image" />
                     </motion.div>
                 )}
             </div>
-            {children}
         </section>
     );
 });
