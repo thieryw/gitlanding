@@ -16,62 +16,80 @@ export type GlHeroProps = {
     imageSrc?: string;
 };
 
-const useStyles = makeStyles()(theme => ({
-    "root": {
-        "position": "relative",
-        "width": "100%",
-    },
-    "textAndImageWrapper": {
-        "padding": theme.spacing({
-            "topBottom": 5,
-            "rightLeft": 0,
-        }),
-        "display": "flex",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "flexDirection": "column",
-              }
-            : {}),
-    },
+const useStyles = makeStyles<{ hasOnlyText: boolean }>()(
+    (theme, { hasOnlyText }) => ({
+        "root": {
+            "position": "relative",
+            "width": "100%",
+        },
+        "textAndImageWrapper": {
+            "padding": theme.spacing({
+                "topBottom": 5,
+                "rightLeft": 0,
+            }),
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "flexDirection": "column",
+                      "alignItems": "left",
+                  }
+                : {}),
+        },
 
-    "title": {
-        "marginBottom": theme.spacing(4),
-    },
-    "subtitle": {
-        "marginTop": theme.spacing(4),
-        "maxWidth": 650,
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return undefined;
-            }
-            return theme.typography.variants["body 1"].style;
-        })(),
-    },
+        "title": {
+            "marginBottom": theme.spacing(4),
+        },
+        "subtitle": {
+            "marginTop": theme.spacing(4),
+            "maxWidth": 650,
+            "color": theme.colors.useCases.typography.textSecondary,
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                    return undefined;
+                }
+                return theme.typography.variants["body 1"].style;
+            })(),
+        },
 
-    "textWrapper": {
-        "display": "flex",
-        "flexDirection": "column",
-        "flex": 1,
-        "maxWidth": 1000,
-        ...(() => {
-            const value = theme.spacing(4);
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+        "textWrapper": {
+            "textAlign":
+                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                    ? "center"
+                    : undefined,
+            "display": "flex",
+            "alignItems": hasOnlyText ? "center" : undefined,
+            "flexDirection": "column",
+            "flex": 1,
+            "maxWidth": 1000,
+            ...(() => {
+                const value = theme.spacing(7);
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {
+                        "marginRight": hasOnlyText ? undefined : value,
+                    };
+                }
+
                 return {
-                    "marginRight": value,
+                    "marginBottom": value,
                 };
-            }
+            })(),
+        },
 
-            return {
-                "marginBottom": value,
-            };
-        })(),
-    },
+        "imageWrapper": {
+            "flex": 1.5,
+            "maxWidth": 800,
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "maxWidth": breakpointsValues.md,
+                  }
+                : {}),
 
-    "imageWrapper": {
-        "flex": 1.5,
-        "maxWidth": 1000,
-    },
-}));
+            "boxShadow": theme.shadows[1],
+        },
+    }),
+);
 
 const animationProps = {
     "textInitial": {
@@ -90,7 +108,9 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const [, reRender] = useReducer(x => x + 1, 0);
 
-    const { classes, cx } = useStyles();
+    const { classes, cx } = useStyles({
+        "hasOnlyText": imageSrc === undefined,
+    });
 
     useSplashScreen({
         "onHidden": () => {
