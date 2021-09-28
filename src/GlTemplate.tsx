@@ -159,6 +159,9 @@ const useStyles = makeStyles<{
             },
             "childrenAndFooterWrapper": {
                 "overflowX": "hidden",
+                "display": "flex",
+                "flexDirection": "column",
+                "justifyContent": "space-between",
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
