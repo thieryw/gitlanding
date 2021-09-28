@@ -1,3 +1,15 @@
+## **0.1.0** (2021-09-27)  
+  
+- bump version  
+- update  
+- update test project  
+- corrected decorative vs code buttons  
+- corrections for code blocks display  
+- optimize to avoid content reflow  
+- add id  
+- add id plus better mobile layout by aligning text on the right  
+- change height to minHeight for image to solve display bugs    
+  
 ### **0.0.103** (2021-09-14)  
   
 - Update onyxia-ui and tss-react    
