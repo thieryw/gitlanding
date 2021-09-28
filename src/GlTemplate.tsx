@@ -33,6 +33,7 @@ export namespace HeaderOptions {
 
 export type GlTemplateProps = {
     header?: ReactNode;
+    footer?: ReactNode;
     SplashScreenLogo?: ComponentType<{ className: string }>;
     splashScreenLogoFillColor?: string;
     children?: ReactNode;
@@ -154,8 +155,10 @@ const useStyles = makeStyles<{
                 })(),
             },
             "childrenWrapper": {
-                "overflowX": "hidden",
                 ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
+            },
+            "childrenAndFooterWrapper": {
+                "overflowX": "hidden",
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
@@ -186,7 +189,7 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, isThemeProvidedOutside, children } = props;
+        const { header, isThemeProvidedOutside, children, footer } = props;
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -289,10 +292,11 @@ const GlTemplateInner = memo(
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={classes.childrenWrapper}
+                    className={classes.childrenAndFooterWrapper}
                     ref={childrenWrapperRef}
                 >
-                    {children}
+                    <div className={classes.childrenWrapper}>{children}</div>
+                    <div>{footer}</div>
                 </div>
             </div>
         );
