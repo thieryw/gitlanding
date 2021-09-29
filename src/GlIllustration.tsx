@@ -3,6 +3,7 @@ import type { GlImageProps } from "./utils/GlImage";
 import { GlCode } from "./utils/GlCode";
 import type { GlCodeProps } from "./utils/GlCode";
 import { memo } from "react";
+import { makeStyles } from "./theme";
 
 export declare namespace GlIllustrationProps {
     export type Illustration = Illustration.Code | Illustration.Image;
@@ -13,12 +14,28 @@ export declare namespace GlIllustrationProps {
     }
 }
 
-export type GlIllustrationProps = GlIllustrationProps.Illustration;
+export type GlIllustrationProps = {
+    hasShadow?: boolean;
+} & GlIllustrationProps.Illustration;
+
+const useStyles = makeStyles<{ hasShadow: boolean }>()(
+    (theme, { hasShadow }) => ({
+        "root": {
+            "boxShadow": !hasShadow
+                ? undefined
+                : (theme.custom.shadow as string),
+        },
+    }),
+);
 
 export const GlIllustration = memo((props: GlIllustrationProps) => {
-    const { className } = props;
+    const { className, hasShadow } = props;
+
+    const { classes, cx } = useStyles({
+        "hasShadow": hasShadow ?? false,
+    });
     return (
-        <aside className={className}>
+        <aside className={cx(classes.root, className)}>
             {props.type === "image" ? (
                 <GlImage
                     url={props.url}
