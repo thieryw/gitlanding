@@ -1,3 +1,13 @@
+### **0.1.2** (2021-09-29)  
+  
+- bump version  
+- update  
+- added custom shadow in theme  
+- section divider  
+- added shadow option  
+- add link to section bellow button  
+- readjust image width    
+  
 ### **0.1.1** (2021-09-28)  
   
 - bump version  
