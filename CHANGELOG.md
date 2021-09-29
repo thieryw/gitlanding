@@ -1,3 +1,10 @@
+### **0.1.1** (2021-09-28)  
+  
+- bump version  
+- making footer stick to the bottom if the page does not have much content  
+- added footer  
+- hero adjustments    
+  
 ## **0.1.0** (2021-09-27)  
   
 - bump version  
