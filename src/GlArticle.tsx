@@ -22,9 +22,9 @@ export type GlArticleProps = {
     hasAnimation?: boolean;
 };
 
-const useStyles = makeStyles<
-    NonNullable<GlArticleProps["illustrationPosition"]>
->()((theme, illustrationPosition) => ({
+const useStyles = makeStyles<{
+    illustrationPosition: "left" | "right";
+}>()((theme, { illustrationPosition }) => ({
     "root": {
         "display": "flex",
         "flexDirection": (() => {
@@ -143,6 +143,7 @@ const useStyles = makeStyles<
                               };
                       }
                   })(),
+                  "maxWidth": 800,
               }
             : {}),
     },
@@ -161,7 +162,9 @@ export const GlArticle = memo((props: GlArticleProps) => {
         hasAnimation,
     } = props;
 
-    const { classes, cx } = useStyles(illustrationPosition ?? "right");
+    const { classes, cx } = useStyles({
+        "illustrationPosition": illustrationPosition ?? "right",
+    });
 
     const getAnimationProps = useMemo(() => {
         return function (params: {
