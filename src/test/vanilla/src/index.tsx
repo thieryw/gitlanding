@@ -27,7 +27,6 @@ import webinairePngUrl from "./assets/illustrations/webinaire.png";
 function App() {
     return (
         <GlTemplate
-            //SplashScreenLogo={ReactComponent}
             header={
                 <GlHeader
                     title="Header title"
@@ -53,13 +52,7 @@ function App() {
             headerOptions={{
                 "position": "fixed",
                 "isRetracted": "smart",
-                //"isRetracted": true,
             }}
-            /*
-            headerOptions={{
-                "position": "top of page",
-            }}
-            */
         >
             <GlHero
                 title="Hero title"
