@@ -8,88 +8,99 @@ import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "./theme";
+import { GlArrow } from "./utils/GlArrow";
 
 export type GlHeroProps = {
     title?: string;
     subTitle?: string;
     className?: string;
     imageSrc?: string;
+    hasLinkToSectionBellow?: boolean;
+    linkToSectionBellowId?: string;
+    hasImageShadow?: boolean;
 };
 
-const useStyles = makeStyles<{ hasOnlyText: boolean }>()(
-    (theme, { hasOnlyText }) => ({
-        "root": {
-            "position": "relative",
-            "width": "100%",
-        },
-        "textAndImageWrapper": {
-            "padding": theme.spacing({
-                "topBottom": 5,
-                "rightLeft": 0,
-            }),
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "center",
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "flexDirection": "column",
-                      "alignItems": "left",
-                  }
-                : {}),
-        },
+const useStyles = makeStyles<{
+    hasOnlyText: boolean;
+    hasImageShadow: boolean;
+}>()((theme, { hasOnlyText, hasImageShadow }) => ({
+    "root": {
+        "position": "relative",
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+    },
+    "textAndImageWrapper": {
+        "padding": theme.spacing({
+            "topBottom": 5,
+            "rightLeft": 0,
+        }),
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "flexDirection": "column",
+                  "alignItems": "left",
+              }
+            : {}),
+        "marginBottom": theme.spacing(6),
+    },
 
-        "title": {
-            "marginBottom": theme.spacing(4),
-        },
-        "subtitle": {
-            "marginTop": theme.spacing(4),
-            "maxWidth": 650,
-            "color": theme.colors.useCases.typography.textSecondary,
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                    return undefined;
-                }
-                return theme.typography.variants["body 1"].style;
-            })(),
-        },
+    "title": {
+        "marginBottom": theme.spacing(4),
+    },
+    "subtitle": {
+        "marginTop": theme.spacing(4),
+        "maxWidth": 650,
+        "color": theme.colors.useCases.typography.textSecondary,
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                return undefined;
+            }
+            return theme.typography.variants["body 1"].style;
+        })(),
+    },
 
-        "textWrapper": {
-            "textAlign":
-                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                    ? "center"
-                    : undefined,
-            "display": "flex",
-            "alignItems": hasOnlyText ? "center" : undefined,
-            "flexDirection": "column",
-            "flex": 1,
-            "maxWidth": 1000,
-            ...(() => {
-                const value = theme.spacing(7);
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return {
-                        "marginRight": hasOnlyText ? undefined : value,
-                    };
-                }
-
+    "textWrapper": {
+        "textAlign":
+            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                ? "center"
+                : undefined,
+        "display": "flex",
+        "alignItems": hasOnlyText ? "center" : undefined,
+        "flexDirection": "column",
+        "flex": 1,
+        "maxWidth": 1000,
+        ...(() => {
+            const value = theme.spacing(7);
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return {
-                    "marginBottom": value,
+                    "marginRight": hasOnlyText ? undefined : value,
                 };
-            })(),
-        },
+            }
 
-        "imageWrapper": {
-            "flex": 1.5,
-            "maxWidth": 800,
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "maxWidth": breakpointsValues.md,
-                  }
-                : {}),
+            return {
+                "marginBottom": value,
+            };
+        })(),
+    },
 
-            "boxShadow": theme.shadows[1],
-        },
-    }),
-);
+    "imageWrapper": {
+        "flex": 1.5,
+        "maxWidth": 800,
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "maxWidth": breakpointsValues.md,
+              }
+            : {}),
+
+        "boxShadow": !hasImageShadow
+            ? undefined
+            : (theme.custom.shadow as string),
+    },
+}));
 
 const animationProps = {
     "textInitial": {
@@ -104,12 +115,21 @@ const animationProps = {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { title, subTitle, className, imageSrc } = props;
+    const {
+        title,
+        subTitle,
+        className,
+        imageSrc,
+        hasLinkToSectionBellow,
+        linkToSectionBellowId,
+        hasImageShadow,
+    } = props;
 
     const [, reRender] = useReducer(x => x + 1, 0);
 
     const { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
+        "hasImageShadow": hasImageShadow ?? false,
     });
 
     useSplashScreen({
@@ -188,6 +208,19 @@ export const GlHero = memo((props: GlHeroProps) => {
                     </motion.div>
                 )}
             </div>
+            {hasLinkToSectionBellow && (
+                <GlArrow
+                    direction="down"
+                    hasCircularBorder={true}
+                    link={
+                        !linkToSectionBellowId
+                            ? undefined
+                            : {
+                                  "href": `#${linkToSectionBellowId}`,
+                              }
+                    }
+                />
+            )}
         </section>
     );
 });
