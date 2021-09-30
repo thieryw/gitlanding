@@ -8,7 +8,7 @@ description: >-
 
 ### Procedure
 
-1\) Create a new empty branch on the repository you want to showcase.
+**1\) Create a new empty branch on the repository you want to showcase.**
 
 Open a terminal and cd to your repository, then enter the following command:
 
@@ -16,13 +16,13 @@ Open a terminal and cd to your repository, then enter the following command:
 git checkout --orphan homepage && git rm -rf .
 ```
 
-2\) Create a React app in your new branch.
+**2\) Create a React app in your new branch.**
 
 ```bash
 yarn create react-app . --template typescript
 ```
 
-3\) Use github action to automate the publishing of your react app to github pages.
+**3\) Use github action to automate the publishing of your react app to github pages.**
 
 At the root of your new branch, create the following files: `.github/workflows/deploy.yaml` ; by pasting the following command:
 
@@ -57,11 +57,37 @@ jobs:
 
 ```
 
-4\) Add a homepage property at the top of your package.json file:
+**4\) Add a homepage property at the top of your package.json file:**
+
+```javascript
+"homepage": "https://YOUR-GITHUB-USER-NAME.github.io/YOUR-REPOSITORY-NAME/"
+```
+
+**5\) Commit and push your changes.**
 
 ```bash
-  "homepage": "https://gitname.github.io/your-repositary-name/"
+git add .
 ```
+
+```bash
+git commit -am "deploy to github pages"
+```
+
+```bash
+git push --set-upstream origin homepage
+```
+
+You can check that the github actions have been completed by going to the actions tab in your github repository: `https://github.com/YOUR-USER-NAME/YOUR-REPO-NAME/actions/.`
+
+This is what you should see:
+
+![](.gitbook/assets/gh-action.png)
+
+**Finally for the deployment to be complete**
+
+Go to the pages tab in the settings of your repository: `https://github.com/YOUR-GITHUB-USER-NAME/YOUR-REPO-NAME/settings/pages` and under `source`, set the branch to `gh-pages`
+
+![](.gitbook/assets/ghpages.png)
 
 
 
