@@ -13,7 +13,5 @@ You can quickly publish a simple webpage that looks good out of the box and then
 
 Thanks to [onyxia-ui](https://github.com/garronej/onyxia-ui), your projects visual theme is fully customisable, allowing you to change the default palette, typography, etc...
 
-{% page-ref page="getting-started.md" %}
-
 
 
