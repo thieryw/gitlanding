@@ -1,4 +1,4 @@
-import { CodeBlock, dracula } from "react-code-blocks";
+import { CodeBlock, railscast } from "react-code-blocks";
 import { memo } from "react";
 import { makeStyles } from "../theme";
 
@@ -6,25 +6,25 @@ const colors = {
     "tomatoRed": "#f85b52",
     "goldenRoad": "#e1bb2a",
     "limeGreen": "#54bd2b",
-    "darkslategray": "#282a36",
+    "darkslategray": "#232323",
 };
 
 const useStyles = makeStyles<{
     hasDecorativeVsCodeButtons: boolean;
-}>()((theme, { hasDecorativeVsCodeButtons }) => ({
+}>()((...[, { hasDecorativeVsCodeButtons }]) => ({
     "root": {
         ...(hasDecorativeVsCodeButtons
             ? {
                   "position": "relative",
-                  "borderTop": `solid ${colors.darkslategray} 24px`,
-                  "borderRadius": 3,
+                  "paddingTop": 24,
+                  "backgroundColor": colors.darkslategray,
               }
             : {}),
     },
     "vsCodeButtons": {
         "position": "absolute",
-        "top": -theme.spacing(3),
-        "left": theme.spacing(2),
+        "top": 0,
+        "left": 0,
     },
 }));
 
@@ -59,7 +59,7 @@ export const GlCode = memo((props: GlCodeProps) => {
                 language={language}
                 showLineNumbers={showLineNumbers}
                 text={text}
-                theme={dracula}
+                theme={railscast}
             />
         </div>
     );
@@ -68,8 +68,19 @@ export const GlCode = memo((props: GlCodeProps) => {
 const { VsCodeButtons } = (() => {
     const useStyles = makeStyles()(theme => ({
         "root": {
+            "width": "100%",
+            "height": 24,
+        },
+        "buttons": {
             "display": "flex",
             "gap": theme.spacing(1),
+            ...(() => {
+                const value = theme.spacing(2);
+                return {
+                    "marginTop": value,
+                    "marginLeft": value,
+                };
+            })(),
         },
         "icon": {
             ...(() => {
@@ -93,8 +104,12 @@ const { VsCodeButtons } = (() => {
         const { classes, cx, css } = useStyles();
         return (
             <div className={cx(classes.root, className)}>
-                {[colors.tomatoRed, colors.goldenRoad, colors.limeGreen].map(
-                    color => {
+                <div className={cx(classes.buttons)}>
+                    {[
+                        colors.tomatoRed,
+                        colors.goldenRoad,
+                        colors.limeGreen,
+                    ].map(color => {
                         return (
                             <div
                                 className={cx(
@@ -106,8 +121,8 @@ const { VsCodeButtons } = (() => {
                                 key={color}
                             ></div>
                         );
-                    },
-                )}
+                    })}
+                </div>
             </div>
         );
     });
