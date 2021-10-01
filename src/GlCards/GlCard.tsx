@@ -20,7 +20,7 @@ export type GlCardProps = {
     className?: string;
     children?: ReactNode;
     link?: {
-        href?: string;
+        href: string;
         onClick?: () => void;
     };
 };
