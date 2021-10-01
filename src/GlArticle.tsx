@@ -24,7 +24,9 @@ export type GlArticleProps = {
 
 const useStyles = makeStyles<{
     illustrationPosition: "left" | "right";
-}>()((theme, { illustrationPosition }) => ({
+    hasIllustration: boolean;
+    hasArticle: boolean;
+}>()((theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
     "root": {
         "display": "flex",
         "flexDirection": (() => {
@@ -55,7 +57,7 @@ const useStyles = makeStyles<{
         })(),
         ...(() => {
             const value = theme.spacing(8);
-            if (theme.windowInnerWidth < breakpointsValues.lg) {
+            if (theme.windowInnerWidth < breakpointsValues.lg || !hasArticle) {
                 return undefined;
             }
             if (illustrationPosition === "left") {
@@ -73,11 +75,21 @@ const useStyles = makeStyles<{
         "display": "flex",
         "flexDirection": "column",
         "textAlign": "left",
-        "marginBottom":
-            theme.windowInnerWidth >= breakpointsValues.md
-                ? undefined
-                : theme.spacing(8),
+        "marginBottom": (() => {
+            if (
+                theme.windowInnerWidth >= breakpointsValues.md ||
+                !hasIllustration
+            ) {
+                return undefined;
+            }
+
+            return theme.spacing(8);
+        })(),
         "width": (() => {
+            if (!hasIllustration) {
+                return undefined;
+            }
+
             if (theme.windowInnerWidth >= breakpointsValues.xl) {
                 return 412;
             }
@@ -98,7 +110,10 @@ const useStyles = makeStyles<{
                 theme.windowInnerWidth >= breakpointsValues.lg
                     ? theme.spacing(9)
                     : theme.spacing(5);
-            if (theme.windowInnerWidth < breakpointsValues.md) {
+            if (
+                theme.windowInnerWidth < breakpointsValues.md ||
+                !hasIllustration
+            ) {
                 return undefined;
             }
             if (illustrationPosition === "left") {
@@ -131,6 +146,9 @@ const useStyles = makeStyles<{
         ...(theme.windowInnerWidth >= breakpointsValues.md
             ? {
                   ...(() => {
+                      if (!hasArticle) {
+                          return undefined;
+                      }
                       const value = theme.spacing(8);
                       switch (illustrationPosition) {
                           case "left":
@@ -164,6 +182,11 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     const { classes, cx } = useStyles({
         "illustrationPosition": illustrationPosition ?? "right",
+        "hasIllustration": illustration !== undefined,
+        "hasArticle":
+            title !== undefined ||
+            body !== undefined ||
+            buttonLabel !== undefined,
     });
 
     const getAnimationProps = useMemo(() => {
@@ -235,41 +258,45 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     return (
         <section id={id} className={cx(classes.root, className)}>
-            <article className={classes.article}>
-                {title && (
-                    <GlAnimatedOnScroll
-                        {...getAnimationProps({
-                            "componentToAnimate": "title",
-                        })}
-                    >
-                        <Text typo="page heading">{title}</Text>
-                    </GlAnimatedOnScroll>
-                )}
-                {body && (
-                    <GlAnimatedOnScroll
-                        {...getAnimationProps({
-                            "componentToAnimate": "body",
-                        })}
-                    >
-                        <ReactMarkdown className={classes.body}>
-                            {body}
-                        </ReactMarkdown>
-                    </GlAnimatedOnScroll>
-                )}
-                {buttonLabel && (
-                    <div className={classes.buttonWrapper}>
-                        <GlButton
-                            className={classes.button}
-                            type="submit"
-                            href={buttonLink?.href}
-                            onClick={buttonLink?.onClick}
-                            variant="secondary"
+            {(title !== undefined ||
+                body !== undefined ||
+                buttonLabel !== undefined) && (
+                <article className={classes.article}>
+                    {title && (
+                        <GlAnimatedOnScroll
+                            {...getAnimationProps({
+                                "componentToAnimate": "title",
+                            })}
                         >
-                            {buttonLabel}
-                        </GlButton>
-                    </div>
-                )}
-            </article>
+                            <Text typo="page heading">{title}</Text>
+                        </GlAnimatedOnScroll>
+                    )}
+                    {body && (
+                        <GlAnimatedOnScroll
+                            {...getAnimationProps({
+                                "componentToAnimate": "body",
+                            })}
+                        >
+                            <ReactMarkdown className={classes.body}>
+                                {body}
+                            </ReactMarkdown>
+                        </GlAnimatedOnScroll>
+                    )}
+                    {buttonLabel && (
+                        <div className={classes.buttonWrapper}>
+                            <GlButton
+                                className={classes.button}
+                                type="submit"
+                                href={buttonLink?.href}
+                                onClick={buttonLink?.onClick}
+                                variant="secondary"
+                            >
+                                {buttonLabel}
+                            </GlButton>
+                        </div>
+                    )}
+                </article>
+            )}
 
             <GlAnimatedOnScroll
                 {...getAnimationProps({
