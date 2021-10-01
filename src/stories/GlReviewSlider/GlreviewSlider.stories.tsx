@@ -5,9 +5,6 @@ import { GlReviewSlide } from "../../GlReviewSlide";
 import twitterIconUrl from "../assets/svg/twitter.svg";
 import redditIconUrl from "../assets/svg/reddit.svg";
 import youtubeIconUrl from "../assets/svg/youtube.svg";
-import example2ImageUrl from "../assets/img/example2.jpeg";
-import example3ImageUrl from "../assets/img/example3.jpeg";
-import example4ImageUrl from "../assets/img/example4.jpeg";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
@@ -17,10 +14,10 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const VueReviewSlider = getStory({
-    "title": "Review Slider Example",
+    "title": "Review Slider Title",
     "slides": [
         <GlReviewSlide
-            signature="John Doe"
+            signature="Signature"
             descriptionMd={[
                 "Lorem ipsum dolor sit amet, consectetur ",
                 `adipiscing elit. **Cras** vel nibh mi. `,
@@ -33,7 +30,7 @@ export const VueReviewSlider = getStory({
             logoUrl={twitterIconUrl}
         />,
         <GlReviewSlide
-            signature="Martin Ford"
+            signature="Signature"
             descriptionMd={[
                 "Lorem ipsum dolor sit amet, consectetur ",
                 `adipiscing elit. **Cras** vel nibh mi. `,
@@ -46,7 +43,7 @@ export const VueReviewSlider = getStory({
             logoUrl={youtubeIconUrl}
         />,
         <GlReviewSlide
-            signature="Robin Hood"
+            signature="Signature"
             descriptionMd={[
                 "Lorem ipsum dolor sit amet, consectetur ",
                 `adipiscing elit. **Cras** vel nibh mi. `,
@@ -58,14 +55,5 @@ export const VueReviewSlider = getStory({
             ].join("")}
             logoUrl={redditIconUrl}
         />,
-    ],
-});
-
-export const VueImageSlider = getStory({
-    "title": "Image Slider Example",
-    "slides": [
-        <img src={example2ImageUrl} />,
-        <img src={example3ImageUrl} />,
-        <img src={example4ImageUrl} />,
     ],
 });

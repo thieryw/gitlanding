@@ -12,18 +12,18 @@ export default meta;
 
 /* spell-checker: disable */
 const props: GlHeaderProps = {
-    "title": "Lorem Ipsum",
+    "title": <h2>Project Logo</h2>,
     "links": [
         {
-            "label": "Gloria",
+            "label": "Link 1 label",
             "link": { "href": "#" },
         },
         {
-            "label": "In Excelsis",
+            "label": "Link 2 label",
             "link": { "href": "#" },
         },
         {
-            "label": "Deo",
+            "label": "Link 3 label",
             "link": { "href": "#" },
         },
     ],

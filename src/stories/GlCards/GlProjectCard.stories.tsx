@@ -1,7 +1,7 @@
 import { GlProjectCard } from "../../GlCards/GlProjectCard";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "../getStory";
-import ExampleImgUrl from "../assets/img/example.png";
+import ExampleImgUrl from "../assets/img/thumbnail1.png";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
@@ -13,9 +13,9 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const Vue = getStory({
-    "badgeLabel": "Lorem Ipsum",
-    "title": "gloria in excelsis deo",
-    "subtitle": "et in terra pax homínibus bonae voluntátis",
+    "badgeLabel": "Badge Label",
+    "title": "Title",
+    "subtitle": "SubTitle",
     "projectImageUrl": ExampleImgUrl,
-    "date": "22/10/1334",
+    "date": "22/10/2021",
 });

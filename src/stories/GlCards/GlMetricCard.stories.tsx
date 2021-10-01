@@ -15,6 +15,6 @@ export default meta;
 export const Vue = getStory({
     "number": 13,
     "iconUrl": twitterImgUrl,
-    "subHeading": "Lorem Ipsum",
+    "subHeading": "Sub Heading",
     "buttonLabel": "Button",
 });
