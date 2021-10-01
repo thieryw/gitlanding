@@ -15,8 +15,7 @@ export type GlHeroProps = {
     subTitle?: string;
     className?: string;
     imageSrc?: string;
-    hasLinkToSectionBellow?: boolean;
-    linkToSectionBellowId?: string;
+    linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
 };
 
@@ -120,8 +119,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         subTitle,
         className,
         imageSrc,
-        hasLinkToSectionBellow,
-        linkToSectionBellowId,
+        linkToSectionBelowId,
         hasImageShadow,
     } = props;
 
@@ -208,17 +206,13 @@ export const GlHero = memo((props: GlHeroProps) => {
                     </motion.div>
                 )}
             </div>
-            {hasLinkToSectionBellow && (
+            {linkToSectionBelowId !== undefined && (
                 <GlArrow
                     direction="down"
                     hasCircularBorder={true}
-                    link={
-                        !linkToSectionBellowId
-                            ? undefined
-                            : {
-                                  "href": `#${linkToSectionBellowId}`,
-                              }
-                    }
+                    link={{
+                        "href": `#${linkToSectionBelowId}`,
+                    }}
                 />
             )}
         </section>
