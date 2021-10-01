@@ -7,12 +7,9 @@ description: >-
 
 # What is gitlanding
 
-Gitlanding helps you create a beautiful landing page for your GitHub projects. Start from a blank CRA project, import some `gitlanding` components, publish on GitHub page, you are done. `gitlanding` Components looks good out of the box and are also highly customizable.
+Gitlanding is 100% open source and is intended for developers to easily show case there github projects.
 
-When it comes to creating landing pages there are hundreds of option to choose from.  
-You could pick a theme you like from Jekyll. You could create a wordpress or again create page using [GitPages](https://gitpages.app/). The problem with all these solutions is that if your project grows you will need to incorporate features like internationalisation, routing, and maybe some advanced logic that may end up forcing you start over and create a React website from scratch.
-
-The approach of `gitlanding` is to provide you with a way to to create a good looking page in minutes and enable you to customize it and add features along the way as your project grows.
+You can quickly publish a simple webpage that looks good out of the box and then, scale towards a more complex website with a routing system and translation engine, for example.
 
 Thanks to [onyxia-ui](https://github.com/garronej/onyxia-ui), your projects visual theme is fully customisable, allowing you to change the default palette, typography, etc...
 
