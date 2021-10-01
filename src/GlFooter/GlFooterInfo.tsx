@@ -4,13 +4,10 @@ import { validatePhoneNumber } from "../tools/validatePhoneNumber";
 import Link from "@material-ui/core/Link";
 import { makeStyles, Text } from "../theme";
 
-import type { ReactNode } from "react";
-
 export type GlFooterInfoProps = {
     className?: string;
     email?: string;
     phoneNumber?: string;
-    children?: ReactNode;
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -35,7 +32,7 @@ const useStyles = makeStyles()(theme => ({
 }));
 
 export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
-    const { email, phoneNumber, className, children } = props;
+    const { email, phoneNumber, className } = props;
 
     if (email !== undefined && !validateEmail(email)) {
         throw new Error("email entered as prop is not valid!");
@@ -58,8 +55,6 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
             {phoneNumber !== undefined && (
                 <Text typo="body 2">{phoneNumber}</Text>
             )}
-
-            {children}
         </div>
     );
 });
