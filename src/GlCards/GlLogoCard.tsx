@@ -38,6 +38,7 @@ const useStyles = makeStyles<{
         })(),
     },
     "iconWrapper": {
+        "marginRight": overlapIcons ? theme.spacing(3) + 5 : undefined,
         "display": "grid",
         "columnGap": theme.spacing(2),
         "gridTemplateColumns": (() => {
@@ -76,8 +77,6 @@ const useStyles = makeStyles<{
                 },
             };
         })(),
-
-        "gridRow": 1 / 2,
     },
     "title": {
         "marginTop": theme.spacing(4),
