@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
 import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "../theme";
+import ReactMarkDown from "react-markdown";
+import { GlFooterInfo } from "./GlFooterInfo";
 
 type Link = {
     href: string;
@@ -13,8 +14,9 @@ export type GlFooterProps = {
     className?: string;
     iconLinks?: (Link & { iconUrl: string })[];
     links?: (Link & { title: string })[];
-    info?: ReactNode;
-    bottomDiv?: ReactNode;
+    bottomDivContent?: string;
+    email?: string;
+    phoneNumber?: string;
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -73,10 +75,25 @@ const useStyles = makeStyles()(theme => ({
         "marginTop": theme.spacing(3),
         "marginBottom": theme.spacing(3),
     },
+    "bottomDiv": {
+        "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
+        "marginTop": theme.spacing(3),
+        "width": "100%",
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+    },
 }));
 
 export const GlFooter = memo((props: GlFooterProps) => {
-    const { bottomDiv, className, info, iconLinks, links } = props;
+    const {
+        bottomDivContent,
+        className,
+        email,
+        phoneNumber,
+        iconLinks,
+        links,
+    } = props;
 
     const { classes, cx } = useStyles();
 
@@ -119,9 +136,15 @@ export const GlFooter = memo((props: GlFooterProps) => {
                 </div>
             )}
 
-            {info}
+            {(email !== undefined || phoneNumber !== undefined) && (
+                <GlFooterInfo email={email} phoneNumber={phoneNumber} />
+            )}
 
-            {bottomDiv}
+            {bottomDivContent !== undefined && (
+                <div className={classes.bottomDiv}>
+                    <ReactMarkDown>{bottomDivContent}</ReactMarkDown>
+                </div>
+            )}
         </footer>
     );
 });
