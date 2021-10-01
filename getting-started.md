@@ -6,16 +6,6 @@ description: >-
 
 # Getting started
 
-**To see a concrete example of a Gitlanding project**
-
-```bash
-git clone https://github.com/thieryw/gl-landing-page
-```
-
-```bash
-yarn install && yarn start
-```
-
 ### Procedure
 
 **1\) Create a new empty branch on the repository you want to showcase.**
@@ -42,8 +32,6 @@ mkdir -p .github/workflows && touch $_/deploy.yaml
 
 Now you must paste the following **ci** in the `deploy.yaml` file:
 
-These actions will be triggered every time you push new content to your repositary so that every time you update the content of your website, the changes will be automaticaly deployed.
-
 ```yaml
 on:
   push:
@@ -66,7 +54,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: npx -y -p gh-pages@3.1.0 gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
-
 
 ```
 
@@ -101,12 +88,6 @@ This is what you should see:
 Go to the pages tab in the settings of your repository: `https://github.com/YOUR-GITHUB-USER-NAME/YOUR-REPO-NAME/settings/pages` and under `source`, set the branch to `gh-pages`
 
 ![](.gitbook/assets/ghpages.png)
-
-Now that your site is published you can start making your landing page:
-
-```bash
-yarn add gitlanding
-```
 
 
 
