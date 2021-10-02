@@ -8,6 +8,7 @@ import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlLogoCard } from "gitlanding/GlCards/GlLogoCard";
 import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
+import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import heroHeaderPngUrl from "./assets/illustrations/heroHeader.png";
 import catalogIconUrl from "./assets/svg/Catalog.svg";
 import trainingIconUrl from "./assets/svg/Trainings2.svg";
@@ -102,6 +103,7 @@ function App() {
                 }
                 hasAnimation={true}
             />
+            <GlSectionDivider variant="primary" />
 
             <GlCards title="Cards title">
                 <GlLogoCard

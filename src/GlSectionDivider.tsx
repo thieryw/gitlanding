@@ -3,6 +3,7 @@ import { makeStyles } from "./theme";
 
 export type GlSectionDividerProps = {
     className?: string;
+    variant?: "primary" | "secondary";
 };
 
 const useStyles = makeStyles()(theme => ({
@@ -10,7 +11,17 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "justifyContent": "center",
     },
-    "divider": {
+    "primary": {
+        "position": "relative",
+        "backgroundColor": theme.colors.useCases.typography.textSecondary,
+        "height": 1,
+        "width": "80%",
+        "margin": theme.spacing({
+            "topBottom": 7,
+            "rightLeft": 0,
+        }),
+    },
+    "secondary": {
         "position": "relative",
         "height": 1,
         "width": "80%",
@@ -31,13 +42,18 @@ const useStyles = makeStyles()(theme => ({
 }));
 
 export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
-    const { className } = props;
+    const { className, variant } = props;
 
     const { classes, cx } = useStyles();
 
     return (
         <div className={classes.root}>
-            <div className={cx(classes.divider, className)}></div>
+            <div
+                className={cx(
+                    variant === "primary" ? classes.primary : classes.secondary,
+                    className,
+                )}
+            ></div>
         </div>
     );
 });
