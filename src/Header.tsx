@@ -30,7 +30,7 @@ export const Header = memo(()=>{
 			{
 				"label": "STORYBOOK",
 				"link": {
-					"href": "https://sb.gitlanding.dev"
+        "href": "https://www.gitlanding.dev/storybook"
 				}
 			}
 		]

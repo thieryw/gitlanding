@@ -43,7 +43,7 @@ ReactDOM.render(
               },
               {
                 "title": "Storybook",
-                "href": "https://sb.gitlanding.dev"
+                "href": "https://www.gitlanding.dev/storybook"
               }
             ]
           }
