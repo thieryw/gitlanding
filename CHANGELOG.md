@@ -1,3 +1,16 @@
+## **0.2.0** (2021-10-02)  
+  
+- bump version  
+- update storybook  
+- change theme and make it look nicer  
+- delete this useless component  
+- omited children from props  
+- correct api  
+- correct logo layout  
+- set href to non optional in link  
+- api correction  
+- layout adjustments    
+  
 ### **0.1.2** (2021-09-29)  
   
 - bump version  
