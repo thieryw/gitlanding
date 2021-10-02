@@ -18,15 +18,14 @@ Let's see how to setup a landing page for a repo of your choosing. \`
 git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --template typescript
 mkdir -p .github/workflows
-wget https://www.gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
+wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # This next command will set the homepage to 
 # "https://USERNAME.github.io/REPO" in your package.json
 node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
 git add -A
 git commit -m "Initial commit"
+git push --set-upstream origin landingpage
 ```
-
-### \*\*\*\*
 
 You can check that the github actions have been completed by going to the actions tab in your github repository: `https://github.com/YOUR-USER-NAME/YOUR-REPO-NAME/actions/.`
 
