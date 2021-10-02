@@ -1,8 +1,8 @@
 ---
-description: Create your landingpage with GitLanding
+description: Create your landing page with Gitlanding
 ---
 
-# Using GitLanding
+# Using Gitlanding
 
 {% hint style="info" %}
 You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)
