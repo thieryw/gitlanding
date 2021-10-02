@@ -1,2 +1,0 @@
-# Using your own theme
-
