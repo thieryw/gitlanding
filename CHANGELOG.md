@@ -1,3 +1,8 @@
+## **0.3.0** (2021-10-02)  
+  
+- update  
+- Deploy storybook under a subdir    
+  
 ## **0.2.0** (2021-10-02)  
   
 - bump version  
