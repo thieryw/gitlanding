@@ -6,6 +6,7 @@ import { sectionName } from "./sectionName";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlHeader },
+    "defaultWidth": 1400,
 });
 
 export default meta;

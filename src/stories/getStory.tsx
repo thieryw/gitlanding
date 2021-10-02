@@ -9,11 +9,7 @@ import {
     useWindowInnerSize,
 } from "onyxia-ui";
 import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
-import {
-    ThemeProviderDefault as ThemeProvider,
-    Text,
-    //useTheme,
-} from "../theme";
+import { ThemeProviderDefault as ThemeProvider, Text } from "../theme";
 import { id } from "tsafe/id";
 import "onyxia-ui/assets/fonts/work-sans.css";
 import { GlobalStyles } from "tss-react";
@@ -24,8 +20,14 @@ export function getStoryFactory<Props>(params: {
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
     /** https://storybook.js.org/docs/react/essentials/controls */
     argTypes?: Partial<Record<keyof Props, ArgType>>;
+    defaultWidth?: number;
 }) {
-    const { sectionName, wrappedComponent, argTypes = {} } = params;
+    const {
+        sectionName,
+        wrappedComponent,
+        argTypes = {},
+        defaultWidth,
+    } = params;
 
     const Component: React.ComponentType<Props> = Object.entries(
         wrappedComponent,
@@ -93,8 +95,6 @@ export function getStoryFactory<Props>(params: {
             [targetWindowInnerWidth, chromeFontSize],
         );
 
-        //const theme = useTheme();
-
         return (
             <>
                 {
@@ -131,7 +131,7 @@ export function getStoryFactory<Props>(params: {
 
         out.args = {
             "darkMode": false,
-            "width": 0,
+            "width": defaultWidth ?? 0,
             "targetWindowInnerWidth": 0,
             "chromeFontSize": "Medium (Recommended)",
             ...props,

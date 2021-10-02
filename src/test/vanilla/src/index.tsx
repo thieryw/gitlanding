@@ -55,7 +55,7 @@ function App() {
             }}
         >
             <GlHero
-                title="Hero title"
+                title="Le Zizi et le Pipi sont vraiment des choses admirable"
                 subTitle={"Hero subtitle"}
                 imageSrc={heroHeaderPngUrl}
             />
