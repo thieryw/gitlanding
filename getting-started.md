@@ -6,6 +6,8 @@ description: >-
 
 # Getting started
 
+
+
 {% hint style="success" %}
 Before getting started you might want to checkout a repo whith a gitlanding page setup. For example [the landingpage of GitLangind itself](https://www.gitlanding.dev/).
 

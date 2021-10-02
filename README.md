@@ -1,20 +1,24 @@
 ---
 description: >-
-  A collection of React components orchestrated by onyxia-ui that enables the
-  creation of a stylish landing page for open source projects in a matter of
-  minutes.
+  Seting up a landing page for a repo of your choosing using GitHub Pages and
+  create-react-app.
 ---
 
-# What is gitlanding
+# Getting started
 
-Gitlanding helps you create a beautiful landing page for your GitHub projects. Start from a blank CRA project, import some `gitlanding` components, publish on GitHub page, you are done. `gitlanding` Components looks good out of the box and are also highly customizable.
+Before getting started you might want to checkout a repo whith a gitlanding page setup. For example the landingpage of GitLangind itself. The code of the website lies on a dedicated branch of the GitLanding repo. The file that are actally served by GitHub Page lies on the gh\_page branch and is put there using this GitHub Action.
 
-When it comes to creating landing pages there are hundreds of option to choose from.  
-You could pick a theme you like from Jekyll. You could create a wordpress or again create page using [GitPages](https://gitpages.app/). The problem with all these solutions is that if your project grows you will need to incorporate features like internationalisation, routing, and maybe some advanced logic that may end up forcing you start over and create a React website from scratch.
+## first cd in your project
 
-The approach of `gitlanding` is to provide you with a way to to create a good looking page in minutes and enable you to customize it and add features along the way as your project grows.
+git checkout --orphan landingpage && git rm -rf . yarn create react-app . --template typescript mkdir -p .github/workflows wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 
-Thanks to [onyxia-ui](https://github.com/garronej/onyxia-ui), your projects visual theme is fully customisable, allowing you to change the default palette, typography, etc...
+## This next command will set the homepage to
 
+## "[https://USERNAME.github.io/REPO](https://USERNAME.github.io/REPO)" in your package.json
 
+node -e 'require\("fs"\).writeFileSync\("package.json",JSON.stringify\({...require\("./package.json"\), "homepage": \(\(\)=&gt;{ const \[r, u\]= `${require("child_process").execSync("git remote get-url origin")}`.replace\(/\r?\n$/, ""\).split\("/"\).reverse\(\); return `https://${u}.github.io/${r}`; }\)\(\)},null,2\)\)' git add -A git commit -m "Initial commit" git push --set-upstream origin landingpage Next you'll have to enable GitHub page in your repo. It's in settings &gt; pages . You may need to wait a few minutes for the initial gh-pages branche to be created by your GitHub Action workflow .github/workflows/deploy.yaml
+
+If all went as expected you page should be up and running
+
+Your now ready to start customizing this page with GitLanding
 
