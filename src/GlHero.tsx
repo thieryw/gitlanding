@@ -27,7 +27,6 @@ const useStyles = makeStyles<{
         "width": "100%",
         "display": "flex",
         "flexDirection": "column",
-        //"alignItems": "center",
     },
     "textAndImageWrapper": {
         "padding": theme.spacing({
@@ -93,6 +92,11 @@ const useStyles = makeStyles<{
                   "maxWidth": breakpointsValues.md,
               }
             : {}),
+    },
+
+    "arrowWrapper": {
+        "display": "flex",
+        "justifyContent": "center",
     },
 }));
 
@@ -206,13 +210,15 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             </div>
             {linkToSectionBelowId !== undefined && (
-                <GlArrow
-                    direction="down"
-                    hasCircularBorder={true}
-                    link={{
-                        "href": `#${linkToSectionBelowId}`,
-                    }}
-                />
+                <div className={classes.arrowWrapper}>
+                    <GlArrow
+                        direction="down"
+                        hasCircularBorder={true}
+                        link={{
+                            "href": `#${linkToSectionBelowId}`,
+                        }}
+                    />
+                </div>
             )}
         </section>
     );

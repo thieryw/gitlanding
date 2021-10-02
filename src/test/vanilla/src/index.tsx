@@ -58,9 +58,10 @@ function App() {
                 title="Hero Title"
                 subTitle={"Hero subtitle"}
                 imageSrc={heroHeaderPngUrl}
+                linkToSectionBelowId="firstSection"
             />
 
-            <GlCards>
+            <GlCards id="firstSection">
                 <GlMetricCard
                     number={129}
                     subHeading="Metric card subHeading"
