@@ -39,5 +39,14 @@ If all went as expected you page should be up and running
 
 ![](.gitbook/assets/react-app-screen-shot.png)
 
+{% hint style="info" %}
+Later on you will probably want to use your own domain name. For that you'll have to.
+
+1. [Configure the DNS](https://user-images.githubusercontent.com/39378411/135731113-660804da-060d-4c60-b4d5-8b944fe00a5d.png)
+2. [Remove the `hostname` file from your `package.json`](https://github.com/thieryw/crispy-octo-bassoon/blob/431679969c454772605d2d16ad69290559a43cba/package.json#L39)\`\`
+3. [Create a `CNAME` file in your `public/` directory](https://github.com/thieryw/gitlanding/blob/landingpage/public/CNAME)
+4. [Update your GitHub Pages configuration](https://user-images.githubusercontent.com/39378411/135731497-b1f0bb1b-413d-4aae-bc8e-6d77174aae41.png)
+{% endhint %}
+
 Your now ready to start customizing this page with `Gitlanding.`
 

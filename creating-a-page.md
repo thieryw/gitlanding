@@ -5,7 +5,7 @@ description: Create your landing page with Gitlanding
 # Using Gitlanding
 
 {% hint style="info" %}
-You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)
+You can preview the components in [Storybook](https://www.gitlanding.dev/storybook) 
 {% endhint %}
 
 {% hint style="info" %}
