@@ -1,15 +1,14 @@
 import { GlImage } from "./utils/GlImage";
 import type { GlImageProps } from "./utils/GlImage";
-import { GlCode } from "./utils/GlCode";
-import type { GlCodeProps } from "./utils/GlCode";
+import { GlCodeBlock } from "./GlCodeBlock";
+import type { GlCodeBlockProps } from "./GlCodeBlock";
 import { memo } from "react";
-import { makeStyles } from "./theme";
 
 export declare namespace GlIllustrationProps {
     export type Illustration = Illustration.Code | Illustration.Image;
 
     export namespace Illustration {
-        type Code = { type: "code" } & GlCodeProps;
+        type Code = { type: "code" } & GlCodeBlockProps;
         type Image = { type: "image" } & GlImageProps;
     }
 }
@@ -18,32 +17,20 @@ export type GlIllustrationProps = {
     hasShadow?: boolean;
 } & GlIllustrationProps.Illustration;
 
-const useStyles = makeStyles<{ hasShadow: boolean }>()(
-    (theme, { hasShadow }) => ({
-        "root": {
-            "boxShadow": !hasShadow
-                ? undefined
-                : (theme.custom.shadow as string),
-        },
-    }),
-);
-
 export const GlIllustration = memo((props: GlIllustrationProps) => {
     const { className, hasShadow } = props;
 
-    const { classes, cx } = useStyles({
-        "hasShadow": hasShadow ?? false,
-    });
     return (
-        <aside className={cx(classes.root, className)}>
+        <aside className={className}>
             {props.type === "image" ? (
                 <GlImage
                     url={props.url}
                     alt={props.alt}
                     className={props.className}
+                    hasShadow={hasShadow}
                 />
             ) : (
-                <GlCode
+                <GlCodeBlock
                     text={props.text}
                     language={props.language}
                     showLineNumbers={props.showLineNumbers}
@@ -51,6 +38,7 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
                         props.hasDecorativeVsCodeButtons
                     }
                     className={props.className}
+                    hasShadow={hasShadow}
                 />
             )}
         </aside>

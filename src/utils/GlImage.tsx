@@ -9,22 +9,26 @@ export type GlImageProps = {
     alt?: string;
     width?: number;
     height?: number;
+    hasShadow?: boolean;
 };
 
-const useStyles = makeStyles<{ isImageLoaded: boolean }>()(
-    (...[, { isImageLoaded }]) => ({
+const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>()(
+    (theme, { isImageLoaded, hasShadow }) => ({
         "root": {
             "position": "relative",
             "width": isImageLoaded ? "100%" : undefined,
             "height": isImageLoaded ? "auto" : undefined,
             "objectFit": "cover",
             "verticalAlign": "middle",
+            "boxShadow": !hasShadow
+                ? undefined
+                : (theme.custom.shadow as string),
         },
     }),
 );
 
 export const GlImage = memo((props: GlImageProps) => {
-    const { className, url, alt, height, width } = props;
+    const { className, url, alt, height, width, hasShadow } = props;
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const onLoad = useConstCallback(() => {
@@ -33,6 +37,7 @@ export const GlImage = memo((props: GlImageProps) => {
 
     const { classes, cx } = useStyles({
         isImageLoaded,
+        "hasShadow": hasShadow ?? false,
     });
     return (
         <img

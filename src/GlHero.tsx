@@ -21,8 +21,7 @@ export type GlHeroProps = {
 
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
-    hasImageShadow: boolean;
-}>()((theme, { hasOnlyText, hasImageShadow }) => ({
+}>()((theme, { hasOnlyText }) => ({
     "root": {
         "position": "relative",
         "width": "100%",
@@ -94,10 +93,6 @@ const useStyles = makeStyles<{
                   "maxWidth": breakpointsValues.md,
               }
             : {}),
-
-        "boxShadow": !hasImageShadow
-            ? undefined
-            : (theme.custom.shadow as string),
     },
 }));
 
@@ -127,7 +122,6 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
-        "hasImageShadow": hasImageShadow ?? false,
     });
 
     useSplashScreen({
@@ -202,7 +196,12 @@ export const GlHero = memo((props: GlHeroProps) => {
                             "duration": 0.5,
                         }}
                     >
-                        <GlImage height={800} url={imageSrc} alt="hero image" />
+                        <GlImage
+                            hasShadow={hasImageShadow}
+                            height={800}
+                            url={imageSrc}
+                            alt="hero image"
+                        />
                     </motion.div>
                 )}
             </div>

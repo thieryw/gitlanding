@@ -1,6 +1,6 @@
 import { CodeBlock, railscast } from "react-code-blocks";
 import { memo } from "react";
-import { makeStyles } from "../theme";
+import { makeStyles } from "./theme";
 
 const colors = {
     "tomatoRed": "#f85b52",
@@ -11,7 +11,8 @@ const colors = {
 
 const useStyles = makeStyles<{
     hasDecorativeVsCodeButtons: boolean;
-}>()((...[, { hasDecorativeVsCodeButtons }]) => ({
+    hasShadow: boolean;
+}>()((theme, { hasDecorativeVsCodeButtons, hasShadow }) => ({
     "root": {
         ...(hasDecorativeVsCodeButtons
             ? {
@@ -20,6 +21,7 @@ const useStyles = makeStyles<{
                   "backgroundColor": colors.darkslategray,
               }
             : {}),
+        "boxShadow": !hasShadow ? undefined : (theme.custom.shadow as string),
     },
     "vsCodeButtons": {
         "position": "absolute",
@@ -28,25 +30,28 @@ const useStyles = makeStyles<{
     },
 }));
 
-export type GlCodeProps = {
+export type GlCodeBlockProps = {
     className?: string;
     text?: string;
     language?: string;
     showLineNumbers?: boolean;
     hasDecorativeVsCodeButtons?: boolean;
+    hasShadow?: boolean;
 };
 
-export const GlCode = memo((props: GlCodeProps) => {
+export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
     const {
         className,
         language,
         showLineNumbers,
         text,
         hasDecorativeVsCodeButtons,
+        hasShadow,
     } = props;
 
     const { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
+        "hasShadow": hasShadow ?? false,
     });
 
     return (

@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a href="https://sb.gitlanding.dev">Storybook</a>
+  <a href="https://www.gitlanding.dev/storybook">Storybook</a>
 </p>
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects.

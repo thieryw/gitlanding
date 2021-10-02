@@ -11,4 +11,5 @@ export * from "./GlTemplate";
 export * from "./GlArticle";
 export * from "./GlIllustration";
 export * from "./GlHeader";
-export * from "./GlSectionDivider"; //
+export * from "./GlSectionDivider";
+export * from "./GlCodeBlock";
