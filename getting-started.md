@@ -1,16 +1,16 @@
+---
+description: >-
+  Seting up a landing page for a repo of your choosing using GitHub Pages and
+  create-react-app.
+---
+
 # Getting started
 
-## A concrete setup example
+{% hint style="success" %}
+Before getting started you might want to checkout a repo whith a gitlanding page setup. For example [the landingpage of GitLangind itself](https://www.gitlanding.dev/).
 
-Before getting started you might want to checkout a repo whith a gitlanding page setup. For example [the landingpage of GitLangind itself](https://www.gitlanding.dev).
-
-The code of the website lies on a [dedicated branch](https://github.com/thieryw/gitlanding/tree/landingpage) of the [GitLanding repo](https://github.com/thieryw/gitlanding). The file that are actally served by [GitHub Page](https://pages.github.com/) lies on the [`gh_page`](https://github.com/thieryw/gitlanding/tree/gh-pages) branch and is put there using [this GitHub Action](https://github.com/thieryw/gitlanding/blob/335fb7d73e1b6458d897ccc1fe5a87ed618b7026/.github/workflows/deploy-on-gh-pages.yml#L21).
-
-## Step-by-step guide
-
-Let's see how to setup a landing page for a repo of your choosing. \`
-
-### **Create a new empty branch on the repository you want to showcase.**
+The code of the website lies on a [dedicated branch](https://github.com/thieryw/gitlanding/tree/landingpage) of the [GitLanding repo](https://github.com/thieryw/gitlanding). The file that are actally served by [GitHub Page](https://pages.github.com/) lies on the [`gh_page`](https://github.com/thieryw/gitlanding/tree/gh-pages) branch and is put there using [this GitHub Action](https://github.com/thieryw/gitlanding/blob/eb85ca1fea7ce0ce21837d1e0ba7a6bb1a784b19/.github/workflows/deploy.yml#L21).
+{% endhint %}
 
 ```bash
 # first cd in your project
