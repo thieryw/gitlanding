@@ -17,7 +17,6 @@ Let's see how to setup a landing page for a repo of your choosing. \`
 
 git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --template typescript
-mkdir -p .github/workflows && touch $_/deploy.yaml
 mkdir -p .github/workflows
 wget https://www.gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # This next command will set the homepage to 
