@@ -27,23 +27,17 @@ git commit -m "Initial commit"
 git push --set-upstream origin landingpage
 ```
 
-You can check that the github actions have been completed by going to the actions tab in your github repository: `https://github.com/YOUR-USER-NAME/YOUR-REPO-NAME/actions/.`
+Next you'll have to enable GitHub page in your repo.  It's in _settings &gt; pages_ .
 
-This is what you should see:
+{% hint style="info" %}
+You may need to wait a few minutes for the initial gh-pages branche to be created by your GitHub Action workflow .github/workflows/deploy.yaml
+{% endhint %}
 
-![](.gitbook/assets/gh-action.png)
+![https://github.com/USERNAME/REPO/settings/pages](.gitbook/assets/gh-page-screenshot.png)
 
-### **Finally for the deployment to be complete**
+If all went as expected you page should be up and running
 
-Go to the pages tab in the settings of your repository: `https://github.com/YOUR-GITHUB-USER-NAME/YOUR-REPO-NAME/settings/pages` and under `source`, set the branch to `gh-pages`
+![](.gitbook/assets/react-app-screen-shot.png)
 
-![](.gitbook/assets/ghpages.png)
-
-Now that your site is published you can start making your landing page:
-
-```bash
-yarn add gitlanding
-```
-
-
+Your now ready to start customizing this page with `GitLanding`
 
