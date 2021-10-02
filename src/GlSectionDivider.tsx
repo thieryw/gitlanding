@@ -50,7 +50,9 @@ export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
         <div className={classes.root}>
             <div
                 className={cx(
-                    variant === "primary" ? classes.primary : classes.secondary,
+                    variant === "secondary"
+                        ? classes.secondary
+                        : classes.primary,
                     className,
                 )}
             ></div>
