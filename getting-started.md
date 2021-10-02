@@ -1,81 +1,33 @@
----
-description: >-
-  In this guide I will show you how to set up a new branch on your project with
-  a React app and gitlanding installed, and host it for free on github pages.
----
-
 # Getting started
 
-### Procedure
+## A concrete setup example
 
-**1\) Create a new empty branch on the repository you want to showcase.**
+Before getting started you might want to checkout a repo whith a gitlanding page setup. For example [the landingpage of GitLangind itself](https://www.gitlanding.dev).
 
-Open a terminal and cd to your repository, then enter the following command:
+The code of the website lies on a [dedicated branch](https://github.com/thieryw/gitlanding/tree/landingpage) of the [GitLanding repo](https://github.com/thieryw/gitlanding). The file that are actally served by [GitHub Page](https://pages.github.com/) lies on the [`gh_page`](https://github.com/thieryw/gitlanding/tree/gh-pages) branch and is put there using [this GitHub Action](https://github.com/thieryw/gitlanding/blob/335fb7d73e1b6458d897ccc1fe5a87ed618b7026/.github/workflows/deploy-on-gh-pages.yml#L21).
+
+## Step-by-step guide
+
+Let's see how to setup a landing page for a repo of your choosing. \`
+
+### **Create a new empty branch on the repository you want to showcase.**
 
 ```bash
-git checkout --orphan homepage && git rm -rf .
-```
+# first cd in your project
 
-**2\) Create a React app in your new branch.**
-
-```bash
+git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --template typescript
-```
-
-**3\) Use github action to automate the publishing of your react app to github pages.**
-
-At the root of your new branch, create the following files: `.github/workflows/deploy.yaml` ; by pasting the following command:
-
-```bash
 mkdir -p .github/workflows && touch $_/deploy.yaml
+mkdir -p .github/workflows
+wget https://www.gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
+# This next command will set the homepage to 
+# "https://USERNAME.github.io/REPO" in your package.json
+node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
+git add -A
+git commit -m "Initial commit"
 ```
 
-Now you must paste the following **ci** in the `deploy.yaml` file:
-
-```yaml
-on:
-  push:
-    branches:
-      - homepage #the name of the branch from witch you want to deploy
-
-jobs:
-
-  deploy_on_gh_pages:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.3
-      with:
-        node-version: '15'
-    - run: |
-        yarn install --frozen-lockfile
-        yarn build
-    - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npx -y -p gh-pages@3.1.0 gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
-
-```
-
-**4\) Add a homepage property at the top of your package.json file:**
-
-```javascript
-"homepage": "https://YOUR-GITHUB-USER-NAME.github.io/YOUR-REPOSITORY-NAME/"
-```
-
-**5\) Commit and push your changes.**
-
-```bash
-git add .
-```
-
-```bash
-git commit -am "deploy to github pages"
-```
-
-```bash
-git push --set-upstream origin homepage
-```
+### \*\*\*\*
 
 You can check that the github actions have been completed by going to the actions tab in your github repository: `https://github.com/YOUR-USER-NAME/YOUR-REPO-NAME/actions/.`
 
@@ -83,11 +35,17 @@ This is what you should see:
 
 ![](.gitbook/assets/gh-action.png)
 
-**Finally for the deployment to be complete**
+### **Finally for the deployment to be complete**
 
 Go to the pages tab in the settings of your repository: `https://github.com/YOUR-GITHUB-USER-NAME/YOUR-REPO-NAME/settings/pages` and under `source`, set the branch to `gh-pages`
 
 ![](.gitbook/assets/ghpages.png)
+
+Now that your site is published you can start making your landing page:
+
+```bash
+yarn add gitlanding
+```
 
 
 
