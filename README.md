@@ -27,10 +27,10 @@ git commit -m "Initial commit"
 git push --set-upstream origin landingpage
 ```
 
-Next you'll have to enable GitHub page in your repo.  It's in _settings &gt; pages_ .
+Next you'll have to enable GitHub page in your repo.  It's in your repo GitHub page &gt; _settings &gt; pages_ .
 
 {% hint style="info" %}
-You may need to wait a few minutes for the initial gh-pages branche to be created by your GitHub Action workflow .github/workflows/deploy.yaml
+You may need to wait a few minutes for the initial gh-pages branche to be created by your GitHub Action workflow `.github/workflows/deploy.yaml`
 {% endhint %}
 
 ![https://github.com/USERNAME/REPO/settings/pages](.gitbook/assets/gh-page-screenshot.png)
