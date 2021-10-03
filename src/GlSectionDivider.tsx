@@ -13,7 +13,7 @@ const useStyles = makeStyles()(theme => ({
     },
     "primary": {
         "position": "relative",
-        "backgroundColor": theme.colors.useCases.typography.textSecondary,
+        "backgroundColor": theme.colors.useCases.typography.textTertiary,
         "height": 1,
         "width": "60%",
         "margin": theme.spacing({
@@ -36,7 +36,7 @@ const useStyles = makeStyles()(theme => ({
             "left": "5%",
             "width": "90%",
             "height": 1,
-            "background": `linear-gradient(to right, transparent, ${theme.colors.useCases.typography.textPrimary}, transparent)`,
+            "background": `linear-gradient(to right, transparent, ${theme.colors.useCases.typography.textTertiary}, transparent)`,
         },
     },
 }));
