@@ -24,14 +24,16 @@ import dataVisuPngUrl from "./assets/illustrations/datavisualisation.png";
 import pokemonPngUrl from "./assets/illustrations/pokemon.png";
 import kubernetesPngUrl from "./assets/illustrations/kubernetes.png";
 import webinairePngUrl from "./assets/illustrations/webinaire.png";
+import { GlLogo } from "gitlanding/utils/GlLogo";
+import CatalogSvgUrl from "./assets/svg/Catalog.svg";
 
 function App() {
     return (
         <GlTemplate
             header={
                 <GlHeader
-                    title={<p>title</p>}
-                    titleDark={<p>dark Big</p>}
+                    title={<GlLogo logoUrl={CatalogSvgUrl} />}
+                    titleDark={<GlLogo logoUrl={ballonPngUrl} />}
                     titleSmallScreen={<p>small</p>}
                     titleSmallScreenDark={<p>small dark</p>}
                     links={[
