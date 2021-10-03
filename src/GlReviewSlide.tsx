@@ -92,18 +92,23 @@ export type GlReviewSlideProps = {
      * depending on the dark mode being active.
      */
     logoUrl?: string;
+    logoFill?: string;
     className?: string;
 };
 
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
-    const { descriptionMd, className, signature, logoUrl } = props;
+    const { descriptionMd, className, signature, logoUrl, logoFill } = props;
 
     const { classes, cx } = useStyles();
 
     return (
         <Paper className={cx(classes.root, className)}>
             {logoUrl !== undefined && (
-                <GlLogo logoUrl={logoUrl} className={classes.logo} />
+                <GlLogo
+                    fill={logoFill}
+                    logoUrl={logoUrl}
+                    className={classes.logo}
+                />
             )}
             <div>
                 {descriptionMd !== undefined && (

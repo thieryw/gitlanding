@@ -1,19 +1,24 @@
 import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
-import { useEffect, useCallback, useMemo } from "react";
+import { useEffect, useCallback, useMemo, memo } from "react";
 import { symToStr } from "tsafe/symToStr";
 import {
     useIsDarkModeEnabled,
     chromeFontSizesFactors,
     breakpointsValues,
-    useWindowInnerSize,
 } from "onyxia-ui";
+import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
 import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
-import { ThemeProviderDefault as ThemeProvider, Text } from "../theme";
+import {
+    ThemeProviderDefault as ThemeProvider,
+    Text,
+    useTheme,
+} from "../theme";
 import { id } from "tsafe/id";
 import "onyxia-ui/assets/fonts/work-sans.css";
 import { GlobalStyles } from "tss-react";
 import { objectKeys } from "tsafe/objectKeys";
+import type { ReactNode } from "react";
 
 export function getStoryFactory<Props>(params: {
     sectionName: string;
@@ -96,33 +101,13 @@ export function getStoryFactory<Props>(params: {
         );
 
         return (
-            <>
-                {
-                    <GlobalStyles
-                        styles={{
-                            "html": {
-                                "font-size": "100% !important",
-                            },
-                            "body": {
-                                "padding": `0 !important`,
-                                //"backgroundColor": `${theme.colors.useCases.surfaces.surface1} !important`,
-                            },
-                        }}
-                    />
-                }
-                <ThemeProvider getViewPortConfig={getViewPortConfig}>
-                    <ScreenSize />
-                    <div
-                        style={{
-                            "width": width || undefined,
-                            "border": "1px dotted grey",
-                            "display": "inline-block",
-                        }}
-                    >
-                        <Component {...(props as any)} />
-                    </div>
-                </ThemeProvider>
-            </>
+            <ThemeProvider getViewPortConfig={getViewPortConfig}>
+                <ContentWrapper
+                    width={width}
+                    ScreenSize={ScreenSize}
+                    Component={<Component {...(props as any)} />}
+                />
+            </ThemeProvider>
         );
     };
 
@@ -184,3 +169,45 @@ export function logCallbacks<T extends string>(
 
     return out;
 }
+
+const { ContentWrapper } = (() => {
+    type Props = {
+        ScreenSize: () => JSX.Element;
+        width: number;
+        Component: ReactNode;
+    };
+
+    const ContentWrapper = memo((props: Props) => {
+        const { Component, ScreenSize, width } = props;
+
+        const theme = useTheme();
+
+        return (
+            <>
+                <GlobalStyles
+                    styles={{
+                        "html": {
+                            "font-size": "100% !important",
+                        },
+                        "body": {
+                            "padding": `0 !important`,
+                            "backgroundColor": `${theme.colors.useCases.surfaces.background} !important`,
+                        },
+                    }}
+                />
+                <ScreenSize />
+                <div
+                    style={{
+                        "width": width || undefined,
+                        "border": "1px dotted grey",
+                        "display": "inline-block",
+                    }}
+                >
+                    {Component}
+                </div>
+            </>
+        );
+    });
+
+    return { ContentWrapper };
+})();

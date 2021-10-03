@@ -1,19 +1,21 @@
-import { GlHeader } from "../../GlHeader/GlHeader";
-import type { GlHeaderProps } from "../../GlHeader/GlHeader";
-import { getStoryFactory } from "../getStory";
+import { GlHeader } from "../GlHeader";
+import type { GlHeaderProps } from "../GlHeader";
+import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
+import githubLogoPng from "./assets/img/github.png";
+import { GlLogo } from "../utils/GlLogo";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlHeader },
-    "defaultWidth": 1400,
+    "defaultWidth": 1200,
 });
 
 export default meta;
 
 /* spell-checker: disable */
 const props: GlHeaderProps = {
-    "title": <h2>Project Logo</h2>,
+    "title": <GlLogo logoUrl={githubLogoPng} />,
     "links": [
         {
             "label": "Link 1 label",

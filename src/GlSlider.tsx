@@ -46,7 +46,10 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "justifyContent": "center",
         "overflow": "hidden",
-        ...theme.spacing.rightLeft("padding", 4),
+        "padding": theme.spacing({
+            "rightLeft": 4,
+            "topBottom": 4,
+        }),
     },
 }));
 

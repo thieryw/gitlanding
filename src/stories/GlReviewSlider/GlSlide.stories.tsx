@@ -6,6 +6,7 @@ import redditIconUrl from "../assets/svg/reddit.svg";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlReviewSlide },
+    "defaultWidth": 1200,
 });
 
 export default meta;

@@ -4,13 +4,13 @@ import Link from "@material-ui/core/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { memo } from "react";
-import { makeStyles, Text } from "../theme";
+import { makeStyles, Text } from "./theme";
 import type { ReactNode } from "react";
-import { GlGithubStarCount } from "./GlGithubStarCount";
-import type { GlGithubStarCountProps } from "./GlGithubStarCount";
+import { GlGithubStarCount } from "./utils/GlGithubStarCount";
+import type { GlGithubStarCountProps } from "./utils/GlGithubStarCount";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import { useClickAway } from "powerhooks";
-import { breakpointsValues } from "../theme";
+import { breakpointsValues } from "./theme";
 import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
 
 export type GlHeaderProps = {
@@ -110,7 +110,6 @@ const useStyles = makeStyles<{
         })(),
     },
     "githubStarAndDarkModeSwitch": {
-        //"margin": theme.spacing(0, 2),
         "margin": theme.spacing({
             "topBottom": 0,
             "rightLeft": 2,

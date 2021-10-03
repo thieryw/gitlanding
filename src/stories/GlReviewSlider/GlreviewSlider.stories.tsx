@@ -9,6 +9,7 @@ import youtubeIconUrl from "../assets/svg/youtube.svg";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlSlider },
+    "defaultWidth": 1200,
 });
 
 export default meta;

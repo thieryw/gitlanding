@@ -6,6 +6,7 @@ import redditSvg from "../assets/svg/reddit.svg";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlLogo },
+    "defaultWidth": 50,
 });
 
 export default meta;
