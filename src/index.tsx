@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {GlTemplate} from "gitlanding/GlTemplate";
-import {Header} from "./Header";
+import {GlHeader} from "gitlanding/GlHeader";
+import {GlLogo} from "gitlanding/utils/GlLogo";
 import {GlHero} from "gitlanding/GlHero";
 import heroImageUrl from "./assets/img/hero-image.png";
 import {GlArticle} from "gitlanding/GlArticle"
@@ -15,7 +16,8 @@ import onyxiaLogoSrc from "./assets/svg/OnyxiaLogo.svg";
 import tsafePngSrc from "./assets/img/tsafe.png";
 import exampleRouteGif from "./assets/img/with-route-example.gif";
 import onyxiaPng from "./assets/img/onyxia-ui.png";
-
+import logoPng from "./assets/svg/logo.png";
+import materialUiPngUrl from "./assets/img/material-ui.png";
 
 
 ReactDOM.render(
@@ -27,7 +29,29 @@ ReactDOM.render(
         "isRetracted": "smart"
 
       }}
-      header={<Header />}
+      header={<GlHeader
+        links={[
+          {
+            "label": "GITHUB",
+            "link": { "href": "https://github.com/thieryw/gitlanding" },
+          },
+          {
+            "label": "DOCUMENTATION",
+            "link": { "href": "https://docs.gitlanding.dev/" },
+          },
+          {
+            "label": "STORYBOOK",
+            "link": {
+              "href": "https://www.gitlanding.dev/storybook"
+            }
+          }
+        ]}
+        title={<GlLogo logoUrl={logoPng}/>}
+        enableDarkModeSwitch={true}
+			  githubRepoUrl="https://github.com/thieryw/gitlanding"
+			  githubButtonSize="large"
+        isCollapsible={true}
+      />}
       footer={
 
         <GlFooter
@@ -59,7 +83,7 @@ ReactDOM.render(
         hasImageShadow={true}
       />
 
-      <GlArticle 
+      <GlArticle
         id="sectionBellow"
         title="You are looking at a page created with Gitlanding"
         illustrationPosition="left"
@@ -68,7 +92,7 @@ ReactDOM.render(
 See the documentation for a quick setup guide.
 `}
         illustration={
-          <GlIllustration 
+          <GlIllustration
             type="image"
             url={exampleGif}
             hasShadow={true}
@@ -82,6 +106,23 @@ See the documentation for a quick setup guide.
       />
       <GlSectionDivider />
 
+      <GlArticle 
+        illustration={<GlIllustration 
+          type="image"
+          hasShadow={true}
+          url={materialUiPngUrl}
+        />}
+        title="100 % compatible with Material Ui"
+        body={`Gitlanding uses a customized version of the **Material Ui** theme, and is fully compatible with Material Ui version 5, witch gives you the liberty of using any one of its components within a Gitlanding page.`}
+        buttonLabel="Material UI docs"
+        buttonLink={{
+          "href":"https://mui.com/getting-started/usage/"
+        }}
+        hasAnimation={true}
+      />
+
+      <GlSectionDivider />
+
       <GlArticle
         title="Build as your project grows"
         body={`**Gitlanding** is imported in react projects witch means that you can start with a simple landing page and evolve towards a more complex website.
@@ -89,7 +130,7 @@ For example you might want to have a routing system put in place. And you can ev
         `}
         hasAnimation={true}
         illustration={
-          <GlIllustration 
+          <GlIllustration
             type="image"
             url={exampleRouteGif}
             hasShadow={true}
@@ -99,16 +140,15 @@ For example you might want to have a routing system put in place. And you can ev
         buttonLink={{
           "href": "https://www.sspcloud.fr/"
         }}
+        illustrationPosition="left"
 
       />
 
       <GlSectionDivider />
 
-      <GlArticle 
+      <GlArticle
         title="Highly Customizable"
-        body={`Gitlanding uses a fully customizable ui toolkit
-that gives you the possibility of easily changing or adding to the theme.
-For example you may want to use your own color set or typography.
+        body={`Gitlanding uses a fully customizable ui toolkit based on Material Ui that gives you the possibility of easily changing or adding to the theme. For example you may want to use your own color set or typography.
 
 To find out more about **Onyxia-ui** follow the link bellow.
 
@@ -123,7 +163,6 @@ To find out more about **Onyxia-ui** follow the link bellow.
             url={onyxiaPng}
           />
         }
-        illustrationPosition="left"
         hasAnimation={true}
       />
 
