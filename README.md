@@ -10,7 +10,10 @@
     <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a href="https://www.gitlanding.dev/storybook">Storybook</a>
+  <a>Landing page</a>&nbsp&nbsp
+  <a href="https://www.gitlanding.dev/storybook">Storybook</a>&nbsp&nbsp
+  <a href="">Docs</a>
+  
 </p>
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects.
@@ -39,10 +42,7 @@ Website using gitlanding.
 
 -   [SSPCloud.fr](https://www.sspcloud.fr), [Source code](https://github.com/InseeFrLab/www.sspcloud.fr)
 
-# Documentation
-
-At this point the project is mainly documented by a demo CRA project that you can find here.  
-To experiment with run:
+# Dev
 
 ```bash
 git clone https://github.com/thieryw/gitlanding && cd gitlanding
@@ -51,6 +51,6 @@ yarn build
 yarn start_vanilla
 ```
 
-Then edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
+Edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
 
-You can also browse the [Storybook](https://sb.gitlanding.dev) website to see what components are available.
+You can also browse the [Storybook](https://gitlanding.dev/storybook) website to see what components are available.
