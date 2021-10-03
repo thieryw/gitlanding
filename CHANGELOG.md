@@ -1,3 +1,9 @@
+### **0.3.7** (2021-10-03)  
+  
+- bump version  
+- modify section divider color  
+- update readme    
+  
 ### **0.3.6** (2021-10-03)  
   
 - bump version  
