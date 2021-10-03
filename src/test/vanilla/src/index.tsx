@@ -103,7 +103,7 @@ function App() {
                 }
                 hasAnimation={true}
             />
-            <GlSectionDivider variant="primary" />
+            <GlSectionDivider />
 
             <GlCards title="Cards title">
                 <GlLogoCard
