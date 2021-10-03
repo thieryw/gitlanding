@@ -30,7 +30,10 @@ function App() {
         <GlTemplate
             header={
                 <GlHeader
-                    title="Header title"
+                    title={<p>title</p>}
+                    titleDark={<p>dark Big</p>}
+                    titleSmallScreen={<p>small</p>}
+                    titleSmallScreenDark={<p>small dark</p>}
                     links={[
                         {
                             "label": "link 1",
