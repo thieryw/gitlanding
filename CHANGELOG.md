@@ -1,3 +1,8 @@
+### **0.3.6** (2021-10-03)  
+  
+- bump version  
+- reduce section divider width    
+  
 ### **0.3.5** (2021-10-03)  
   
 - update    
