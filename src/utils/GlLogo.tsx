@@ -2,9 +2,23 @@ import { ReactSVG } from "react-svg";
 import { memo } from "react";
 import { makeStyles } from "../theme";
 
+type GlLogoProps = {
+    logoUrl: string;
+    className?: string;
+    fill?: string;
+    width?: number;
+    height?: number;
+};
+
 const useStyles = makeStyles<{
     fill: string | undefined;
-}>()((theme, { fill }) => ({
+    width: number | undefined;
+    height: number | undefined;
+}>()((theme, { fill, height, width }) => ({
+    "root": {
+        width,
+        height,
+    },
     "svg": {
         "& svg": {
             "fill": fill ?? theme.colors.useCases.typography.textPrimary,
@@ -14,20 +28,17 @@ const useStyles = makeStyles<{
     },
 }));
 
-type GlLogoProps = {
-    logoUrl: string;
-    className?: string;
-    fill?: string;
-};
-
 export const GlLogo = memo((props: GlLogoProps) => {
-    const { className, logoUrl, fill } = props;
+    const { className, logoUrl, fill, height, width } = props;
 
-    const { classes, cx } = useStyles({ fill });
+    const { classes, cx } = useStyles({ fill, width, height });
 
     return logoUrl.endsWith(".svg") ? (
-        <ReactSVG src={logoUrl} className={cx(classes.svg, className)} />
+        <ReactSVG
+            src={logoUrl}
+            className={cx(classes.root, classes.svg, className)}
+        />
     ) : (
-        <img src={logoUrl} className={className} alt="logo" />
+        <img src={logoUrl} className={cx(classes.root, className)} alt="logo" />
     );
 });
