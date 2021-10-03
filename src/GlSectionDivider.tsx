@@ -15,7 +15,7 @@ const useStyles = makeStyles()(theme => ({
         "position": "relative",
         "backgroundColor": theme.colors.useCases.typography.textSecondary,
         "height": 1,
-        "width": "80%",
+        "width": "60%",
         "margin": theme.spacing({
             "topBottom": 7,
             "rightLeft": 0,
@@ -24,7 +24,7 @@ const useStyles = makeStyles()(theme => ({
     "secondary": {
         "position": "relative",
         "height": 1,
-        "width": "80%",
+        "width": "60%",
         "margin": theme.spacing({
             "topBottom": 7,
             "rightLeft": 0,
