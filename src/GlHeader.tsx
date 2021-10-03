@@ -16,6 +16,9 @@ import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
 export type GlHeaderProps = {
     className?: string;
     title: ReactNode;
+    titleDark?: ReactNode;
+    titleSmallScreen?: ReactNode;
+    titleSmallScreenDark?: ReactNode;
     links: {
         label: string;
         link: {
@@ -125,6 +128,9 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         enableDarkModeSwitch,
         githubButtonSize,
         githubRepoUrl,
+        titleDark,
+        titleSmallScreen,
+        titleSmallScreenDark,
     } = props;
 
     const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
@@ -140,7 +146,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setIsMenuUnfolded(false);
     });
 
-    const { classes, cx } = useStyles({
+    const { classes, cx, theme } = useStyles({
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
     });
@@ -153,7 +159,27 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                         <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
-                    <div>{title}</div>
+                    <div>
+                        {((): ReactNode => {
+                            if (
+                                theme.windowInnerWidth >= breakpointsValues.md
+                            ) {
+                                if (theme.isDarkModeEnabled) {
+                                    return titleDark ?? title;
+                                }
+                                return title;
+                            }
+
+                            if (theme.isDarkModeEnabled) {
+                                return (
+                                    titleSmallScreenDark ??
+                                    titleSmallScreen ??
+                                    title
+                                );
+                            }
+                            return titleSmallScreen ?? title;
+                        })()}
+                    </div>
                 )}
             </div>
 
