@@ -1,3 +1,9 @@
+### **0.3.8** (2021-10-03)  
+  
+- bump version  
+- test header title options  
+- header title options for dark mode and screen width    
+  
 ### **0.3.7** (2021-10-03)  
   
 - bump version  
