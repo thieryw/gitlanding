@@ -112,11 +112,11 @@ See the documentation for a quick setup guide.
           hasShadow={true}
           url={materialUiPngUrl}
         />}
-        title="100 % compatible with Material Ui"
-        body={`Gitlanding uses a customized version of the **Material Ui** theme, and is fully compatible with Material Ui version 5, witch gives you the liberty of using any one of its components within a Gitlanding page.`}
-        buttonLabel="Material UI docs"
+        title="Material UI"
+        body={`Gitlanding uses a custom version of the **Material UI** theme, so you can use any of MUI's components within a Gitlanding page.`}
+        buttonLabel="Learn more"
         buttonLink={{
-          "href":"https://mui.com/getting-started/usage/"
+          "href":"https://docs.gitlanding.dev/customization"
         }}
         hasAnimation={true}
       />
@@ -148,14 +148,10 @@ For example you might want to have a routing system put in place. And you can ev
 
       <GlArticle
         title="Highly Customizable"
-        body={`Gitlanding uses a fully customizable ui toolkit based on Material Ui that gives you the possibility of easily changing or adding to the theme. For example you may want to use your own color set or typography.
-
-To find out more about **Onyxia-ui** follow the link bellow.
-
-        `}
-        buttonLabel="Onyxia-ui"
+        body={`Gitlanding uses a fully customizable ui toolkit based on Material Ui that gives you the possibility of easily changing or adding to the theme. For example you may want to use your own color set or typography.`}
+        buttonLabel="Learn more"
         buttonLink={{
-          "href": "https://github.com/garronej/onyxia-ui"
+          "href": "https://docs.gitlanding.dev/customization"
         }}
         illustration={
           <GlIllustration
