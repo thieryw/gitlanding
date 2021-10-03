@@ -18,6 +18,7 @@ import exampleRouteGif from "./assets/img/with-route-example.gif";
 import onyxiaPng from "./assets/img/onyxia-ui.png";
 import logoPng from "./assets/svg/logo.png";
 import materialUiPngUrl from "./assets/img/material-ui.png";
+import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 
 
 ReactDOM.render(
@@ -179,12 +180,22 @@ For example you might want to have a routing system put in place. And you can ev
 
         <GlLogoCard
           title="Tsafe"
-          paragraph="A collection of utilities to step up your TypeScript game"
+          paragraph="A collection of utilities to step up your TypeScript game."
           iconUrls={[tsafePngSrc]}
           buttonLabel="View project"
           link={{
             "href": "https://github.com/garronej/tsafe"
           }}
+        />
+
+        <GlLogoCard 
+          title="Powerhooks"
+          paragraph="A collection of essential React hooks."
+          buttonLabel="View project"
+          link={{
+            "href": "https://www.powerhooks.dev/"
+          }}
+          iconUrls={[powerhooksLogoSrc]}
         />
       </GlCards>
 
