@@ -118,6 +118,9 @@ const useStyles = makeStyles<{
             "rightLeft": 2,
         }),
     },
+    "titleInner": {
+        "display": "flex",
+    },
 }));
 
 export const GlHeader = memo((props: GlHeaderProps) => {
@@ -155,11 +158,11 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         <header className={cx(classes.root, className)}>
             <div className={classes.title}>
                 {typeof title === "string" ? (
-                    <div>
+                    <div className={classes.titleInner}>
                         <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
-                    <div>
+                    <div className={classes.titleInner}>
                         {((): ReactNode => {
                             if (
                                 theme.windowInnerWidth >= breakpointsValues.md
