@@ -1,3 +1,8 @@
+### **0.3.11** (2021-10-04)  
+  
+- bump version  
+- corect logo bug on safari    
+  
 ### **0.3.10** (2021-10-04)  
   
 - bump version  
