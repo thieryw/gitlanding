@@ -16,7 +16,8 @@ import onyxiaLogoSrc from "./assets/svg/OnyxiaLogo.svg";
 import tsafePngSrc from "./assets/img/tsafe.png";
 import exampleRouteGif from "./assets/img/with-route-example.gif";
 import onyxiaPng from "./assets/img/onyxia-ui.png";
-import logoPng from "./assets/svg/logo.png";
+import logoPng from "./assets/img/logo.png";
+import logoSmallPng from "./assets/img/logo-small.png";
 import materialUiPngUrl from "./assets/img/material-ui.png";
 import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 
@@ -47,7 +48,8 @@ ReactDOM.render(
             }
           }
         ]}
-        title={<GlLogo logoUrl={logoPng}/>}
+        title={<GlLogo logoUrl={logoPng} width={200}/>}
+        titleSmallScreen={<GlLogo logoUrl={logoSmallPng} width={80}/>}
         enableDarkModeSwitch={true}
 			  githubRepoUrl="https://github.com/thieryw/gitlanding"
 			  githubButtonSize="large"
