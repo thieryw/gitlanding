@@ -1,3 +1,9 @@
+### **0.3.9** (2021-10-04)  
+  
+- bumb version  
+- test GlLogo  
+- GlLogo added width and height    
+  
 ### **0.3.8** (2021-10-03)  
   
 - bump version  
