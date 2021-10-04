@@ -1,3 +1,12 @@
+### **0.3.12** (2021-10-04)  
+  
+- bump version  
+- test mp4  
+- article with mp4 story  
+- adjust layout for mp4  
+- include the possibilty to give an mp4 as props, better than gifs by far  
+- update readme picture    
+  
 ### **0.3.11** (2021-10-04)  
   
 - bump version  
