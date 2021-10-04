@@ -23,3 +23,8 @@ declare module "*.jpeg" {
     const _default: string;
     export default _default;
 }
+
+declare module "*.mp4" {
+    const _default: string;
+    export default _default;
+}

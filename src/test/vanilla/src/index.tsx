@@ -12,7 +12,6 @@ import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import heroHeaderPngUrl from "./assets/illustrations/heroHeader.png";
 import catalogIconUrl from "./assets/svg/Catalog.svg";
 import trainingIconUrl from "./assets/svg/Trainings2.svg";
-import datalabPngUrl from "./assets/illustrations/datalab.png";
 import gitlabPngUrl from "./assets/collaborative_tools/gitlab.png";
 import githubPngUrl from "./assets/collaborative_tools/github.png";
 import tchapPngUrl from "./assets/collaborative_tools/tchap.png";
@@ -26,6 +25,7 @@ import kubernetesPngUrl from "./assets/illustrations/kubernetes.png";
 import webinairePngUrl from "./assets/illustrations/webinaire.png";
 import { GlLogo } from "gitlanding/utils/GlLogo";
 import logoPng from "./assets/img/logo.png";
+import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 
 function App() {
     return (
@@ -103,9 +103,7 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={
-                    <GlIllustration type="image" url={datalabPngUrl} />
-                }
+                illustration={<GlIllustration type="image" url={sspcloudMp4} />}
                 hasAnimation={true}
             />
             <GlSectionDivider />
