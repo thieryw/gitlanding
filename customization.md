@@ -14,3 +14,9 @@ You can also checkout [`onyxai-ui`](https://github.com/garronej/onyxia-ui), the 
 
 Note also that you can import any [Material-ui v5](https://mui.com/) component in your GitLanding project. They will fit in nicely and blend in with your theme. 
 
+### Using a custom font
+
+{% hint style="success" %}
+[This commit on the example project will show you how it is done](https://github.com/thieryw/crispy-octo-bassoon/commit/acc255a743ca47922cd1e18ba7fde40c86906e5e).
+{% endhint %}
+
