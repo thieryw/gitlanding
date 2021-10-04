@@ -3,6 +3,7 @@ import type { GlImageProps } from "./utils/GlImage";
 import { GlCodeBlock } from "./GlCodeBlock";
 import type { GlCodeBlockProps } from "./GlCodeBlock";
 import { memo } from "react";
+import { makeStyles } from "./theme";
 
 export declare namespace GlIllustrationProps {
     export type Illustration = Illustration.Code | Illustration.Image;
@@ -17,16 +18,28 @@ export type GlIllustrationProps = {
     hasShadow?: boolean;
 } & GlIllustrationProps.Illustration;
 
+const useStyles = makeStyles()({
+    "root": {
+        "position": "relative",
+    },
+
+    "content": {
+        "width": "100%",
+    },
+});
+
 export const GlIllustration = memo((props: GlIllustrationProps) => {
     const { className, hasShadow } = props;
 
+    const { classes, cx } = useStyles();
+
     return (
-        <aside className={className}>
+        <div className={cx(classes.root, className)}>
             {props.type === "image" ? (
                 <GlImage
                     url={props.url}
                     alt={props.alt}
-                    className={props.className}
+                    className={cx(classes.content, props.className)}
                     hasShadow={hasShadow}
                 />
             ) : (
@@ -37,10 +50,10 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
                     hasDecorativeVsCodeButtons={
                         props.hasDecorativeVsCodeButtons
                     }
-                    className={props.className}
+                    className={cx(classes.content, props.className)}
                     hasShadow={hasShadow}
                 />
             )}
-        </aside>
+        </div>
     );
 });

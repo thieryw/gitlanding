@@ -85,6 +85,7 @@ const useStyles = makeStyles<{
     },
 
     "imageWrapper": {
+        "position": "relative",
         "flex": 1.5,
         "maxWidth": 800,
         ...(theme.windowInnerWidth < breakpointsValues.md
@@ -92,6 +93,9 @@ const useStyles = makeStyles<{
                   "maxWidth": breakpointsValues.md,
               }
             : {}),
+    },
+    "image": {
+        "width": "100%",
     },
 
     "arrowWrapper": {
@@ -201,8 +205,9 @@ export const GlHero = memo((props: GlHeroProps) => {
                         }}
                     >
                         <GlImage
+                            className={classes.image}
                             hasShadow={hasImageShadow}
-                            height={800}
+                            height={imageSrc.endsWith(".mp4") ? undefined : 800}
                             url={imageSrc}
                             alt="hero image"
                         />
