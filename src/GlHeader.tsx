@@ -120,6 +120,7 @@ const useStyles = makeStyles<{
     },
     "titleInner": {
         "display": "flex",
+        "alignItems": "center",
     },
 }));
 
