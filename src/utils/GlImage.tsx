@@ -5,7 +5,7 @@ import { useConstCallback } from "powerhooks";
 
 export type GlImageProps = {
     className?: string;
-    url?: string;
+    url: string;
     alt?: string;
     width?: number;
     height?: number;
@@ -39,7 +39,7 @@ export const GlImage = memo((props: GlImageProps) => {
         isImageLoaded,
         "hasShadow": hasShadow ?? false,
     });
-    return (
+    return !url.endsWith(".mp4") ? (
         <img
             onLoad={onLoad}
             className={cx(classes.root, className)}
@@ -48,5 +48,17 @@ export const GlImage = memo((props: GlImageProps) => {
             width={width}
             height={height}
         />
+    ) : (
+        <video
+            width={width}
+            height={height}
+            className={cx(classes.root, className)}
+            autoPlay={true}
+            muted={true}
+            loop={true}
+        >
+            <source src={url} type="video/mp4" />
+            Your browser does not support HTML video.
+        </video>
     );
 });
