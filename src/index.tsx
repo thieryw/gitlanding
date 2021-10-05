@@ -8,18 +8,18 @@ import heroImageUrl from "./assets/img/hero-image.png";
 import {GlArticle} from "gitlanding/GlArticle"
 import {GlIllustration} from "gitlanding/GlIllustration"
 import {GlFooter} from "gitlanding/GlFooter";
-import exampleGif from "./assets/img/example.gif";
 import {GlSectionDivider} from "gitlanding/GlSectionDivider";
 import {GlCards} from "gitlanding/GlCards"
 import {GlLogoCard} from "gitlanding/GlCards/GlLogoCard";
 import onyxiaLogoSrc from "./assets/svg/OnyxiaLogo.svg";
 import tsafePngSrc from "./assets/img/tsafe.png";
-import exampleRouteGif from "./assets/img/with-route-example.gif";
 import onyxiaPng from "./assets/img/onyxia-ui.png";
 import logoPng from "./assets/img/logo.png";
 import logoSmallPng from "./assets/img/logo-small.png";
 import materialUiPngUrl from "./assets/img/material-ui.png";
 import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
+import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
+import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 
 
 ReactDOM.render(
@@ -97,7 +97,7 @@ See the documentation for a quick setup guide.
         illustration={
           <GlIllustration
             type="image"
-            url={exampleGif}
+            url={sspcloudMp4}
             hasShadow={true}
           />
         }
@@ -135,7 +135,7 @@ For example you might want to have a routing system put in place. And you can ev
         illustration={
           <GlIllustration
             type="image"
-            url={exampleRouteGif}
+            url={sspcloudRouteMp4}
             hasShadow={true}
           />
         }
