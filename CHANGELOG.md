@@ -1,3 +1,8 @@
+### **0.3.13** (2021-10-05)  
+  
+- bump version  
+- remove padding right left on GlTemplate children wrapper and set it on the sections, addedpadding right left to the theme    
+  
 ### **0.3.12** (2021-10-04)  
   
 - bump version  
