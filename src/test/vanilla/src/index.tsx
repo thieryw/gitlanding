@@ -15,7 +15,7 @@ import catalogIconUrl from "./assets/svg/Catalog.svg";
 import trainingIconUrl from "./assets/svg/Trainings2.svg";
 import gitlabPngUrl from "./assets/collaborative_tools/gitlab.png";
 import githubPngUrl from "./assets/collaborative_tools/github.png";
-import tchapPngUrl from "./assets/collaborative_tools/tchap.png";
+//import tchapPngUrl from "./assets/collaborative_tools/tchap.png";
 import rocketPngUrl from "./assets/collaborative_tools/rocket-chat.png";
 import drawioPngUrl from "./assets/collaborative_tools/drawio.png";
 import ballonPngUrl from "./assets/collaborative_tools/balloon.png";
@@ -27,6 +27,7 @@ import webinairePngUrl from "./assets/illustrations/webinaire.png";
 import { GlLogo } from "gitlanding/utils/GlLogo";
 import logoPng from "./assets/img/logo.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
+import gitlandingLogo from "./assets/img/gitlanding-logo.png";
 
 function App() {
     return (
@@ -141,7 +142,7 @@ function App() {
                 <GlLogoCard
                     title="Logo card title"
                     paragraph="Logo card paragraph"
-                    iconUrls={[tchapPngUrl]}
+                    iconUrls={[gitlandingLogo]}
                     buttonLabel="Button label"
                     link={{
                         "href": "https://explorer.com",

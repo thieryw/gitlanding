@@ -69,7 +69,6 @@ const useStyles = makeStyles<{
 
             return {
                 "width": value,
-                "height": value,
                 "fill": theme.colors.palette.focus.main,
                 "& svg": {
                     "width": value,
