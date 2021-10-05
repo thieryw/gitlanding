@@ -9,6 +9,7 @@ import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlLogoCard } from "gitlanding/GlCards/GlLogoCard";
 import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
+import { GlFooter } from "gitlanding/GlFooter";
 import heroHeaderPngUrl from "./assets/illustrations/heroHeader.png";
 import catalogIconUrl from "./assets/svg/Catalog.svg";
 import trainingIconUrl from "./assets/svg/Trainings2.svg";
@@ -30,6 +31,25 @@ import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 function App() {
     return (
         <GlTemplate
+            footer={
+                <GlFooter
+                    links={[
+                        {
+                            "title": "link 1",
+                            "href": "http://www.example.com",
+                        },
+                        {
+                            "title": "link 2",
+                            "href": "http://www.example.com",
+                        },
+                        {
+                            "title": "link 3",
+                            "href": "http://www.example.com",
+                        },
+                    ]}
+                    bottomDivContent="M I T licence"
+                />
+            }
             header={
                 <GlHeader
                     title={<GlLogo logoUrl={logoPng} width={200} />}

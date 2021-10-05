@@ -5,7 +5,6 @@ import { useSplashScreen } from "onyxia-ui";
 import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
-import { breakpointsValues } from "./theme";
 import { useDomRect } from "onyxia-ui";
 import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
@@ -61,20 +60,6 @@ const useStyles = makeStyles<{
             doDelegateScroll,
         },
     ) => {
-        const paddingRightLeft = theme.spacing(
-            (() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
-                    return 7;
-                }
-
-                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
-                    return 6;
-                }
-
-                return 4;
-            })(),
-        );
-
         const paddingTopBottom = theme.spacing(3);
 
         const headerHeightPlusMargin = headerHeight + 2 * paddingTopBottom;
@@ -106,7 +91,7 @@ const useStyles = makeStyles<{
             },
             "headerWrapper": {
                 "padding": theme.spacing({
-                    "rightLeft": `${paddingRightLeft}px`,
+                    "rightLeft": `${theme.paddingRightLeft}px`,
                     "topBottom": `${paddingTopBottom}px`,
                 }),
                 ...(() => {
@@ -154,9 +139,7 @@ const useStyles = makeStyles<{
                     }
                 })(),
             },
-            "childrenWrapper": {
-                ...theme.spacing.rightLeft("padding", `${paddingRightLeft}px`),
-            },
+
             "childrenAndFooterWrapper": {
                 "overflowX": "hidden",
                 "display": "flex",
@@ -298,8 +281,8 @@ const GlTemplateInner = memo(
                     className={classes.childrenAndFooterWrapper}
                     ref={childrenWrapperRef}
                 >
-                    <div className={classes.childrenWrapper}>{children}</div>
-                    <div>{footer}</div>
+                    <div>{children}</div>
+                    {footer}
                 </div>
             </div>
         );

@@ -23,7 +23,24 @@ export function useTheme() {
         "shadow": "5px 5px 23px 5px rgba(0,0,0,0.51)",
     };
 
-    return theme;
+    const out = {
+        ...theme,
+        "paddingRightLeft": theme.spacing(
+            (() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg"]) {
+                    return 7;
+                }
+
+                if (theme.windowInnerWidth >= breakpointsValues["sm"]) {
+                    return 6;
+                }
+
+                return 4;
+            })(),
+        ),
+    };
+
+    return out;
 }
 
 export const { makeStyles } = createMakeStyles({ useTheme });

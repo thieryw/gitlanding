@@ -28,6 +28,9 @@ const useStyles = makeStyles<{
     hasArticle: boolean;
 }>()((theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
     "root": {
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+    },
+    "contentWrapper": {
         "display": "flex",
         "flexDirection": (() => {
             if (
@@ -258,53 +261,55 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     return (
         <section id={id} className={cx(classes.root, className)}>
-            {(title !== undefined ||
-                body !== undefined ||
-                buttonLabel !== undefined) && (
-                <article className={classes.article}>
-                    {title && (
-                        <GlAnimatedOnScroll
-                            {...getAnimationProps({
-                                "componentToAnimate": "title",
-                            })}
-                        >
-                            <Text typo="page heading">{title}</Text>
-                        </GlAnimatedOnScroll>
-                    )}
-                    {body && (
-                        <GlAnimatedOnScroll
-                            {...getAnimationProps({
-                                "componentToAnimate": "body",
-                            })}
-                        >
-                            <ReactMarkdown className={classes.body}>
-                                {body}
-                            </ReactMarkdown>
-                        </GlAnimatedOnScroll>
-                    )}
-                    {buttonLabel && (
-                        <div className={classes.buttonWrapper}>
-                            <GlButton
-                                className={classes.button}
-                                type="submit"
-                                href={buttonLink?.href}
-                                onClick={buttonLink?.onClick}
-                                variant="secondary"
+            <div className={classes.contentWrapper}>
+                {(title !== undefined ||
+                    body !== undefined ||
+                    buttonLabel !== undefined) && (
+                    <article className={classes.article}>
+                        {title && (
+                            <GlAnimatedOnScroll
+                                {...getAnimationProps({
+                                    "componentToAnimate": "title",
+                                })}
                             >
-                                {buttonLabel}
-                            </GlButton>
-                        </div>
-                    )}
-                </article>
-            )}
+                                <Text typo="page heading">{title}</Text>
+                            </GlAnimatedOnScroll>
+                        )}
+                        {body && (
+                            <GlAnimatedOnScroll
+                                {...getAnimationProps({
+                                    "componentToAnimate": "body",
+                                })}
+                            >
+                                <ReactMarkdown className={classes.body}>
+                                    {body}
+                                </ReactMarkdown>
+                            </GlAnimatedOnScroll>
+                        )}
+                        {buttonLabel && (
+                            <div className={classes.buttonWrapper}>
+                                <GlButton
+                                    className={classes.button}
+                                    type="submit"
+                                    href={buttonLink?.href}
+                                    onClick={buttonLink?.onClick}
+                                    variant="secondary"
+                                >
+                                    {buttonLabel}
+                                </GlButton>
+                            </div>
+                        )}
+                    </article>
+                )}
 
-            <GlAnimatedOnScroll
-                {...getAnimationProps({
-                    "componentToAnimate": "illustration",
-                })}
-            >
-                <aside className={classes.aside}>{illustration}</aside>
-            </GlAnimatedOnScroll>
+                <GlAnimatedOnScroll
+                    {...getAnimationProps({
+                        "componentToAnimate": "illustration",
+                    })}
+                >
+                    <aside className={classes.aside}>{illustration}</aside>
+                </GlAnimatedOnScroll>
+            </div>
         </section>
     );
 });

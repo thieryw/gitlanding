@@ -14,6 +14,7 @@ const useStyles = makeStyles()(theme => ({
                 "marginBottom": value,
             };
         })(),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
     },
     "heading": {
         "textAlign": "center",
