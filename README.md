@@ -48,5 +48,5 @@ Later on you will probably want to use your own domain name. For that you'll hav
 4. [Update your GitHub Pages configuration](https://user-images.githubusercontent.com/39378411/135731497-b1f0bb1b-413d-4aae-bc8e-6d77174aae41.png)
 {% endhint %}
 
-Your now ready to start customizing this page with `Gitlanding.`
+Your now ready to start customizing this page with `Gitlanding`.
 
