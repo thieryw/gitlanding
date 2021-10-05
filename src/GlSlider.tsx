@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { makeStyles, Text } from "./theme";
@@ -58,18 +58,35 @@ export type GlSliderProps = {
     className?: string;
     title?: string;
     slides?: ReactNode[];
+    autoPlayTimeInterval?: number;
 };
 
 export const GlSlider = memo((props: GlSliderProps) => {
-    const { className, slides, title } = props;
-
+    const { className, slides, title, autoPlayTimeInterval } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
+    const evtHasArrowBeenPressedRef = useRef(false);
+
+    useEffect(() => {
+        if (autoPlayTimeInterval === undefined || emblaApi === undefined) {
+            return;
+        }
+
+        const interval = setInterval(() => {
+            if (evtHasArrowBeenPressedRef.current) {
+                clearInterval(interval);
+                return;
+            }
+            emblaApi.scrollNext();
+        }, autoPlayTimeInterval);
+    }, [autoPlayTimeInterval, emblaApi]);
 
     const onClickFactory = useCallbackFactory(
         ([direction]: ["left" | "right"]) => {
             if (emblaApi === undefined) {
                 return;
             }
+            evtHasArrowBeenPressedRef.current = true;
+
             switch (direction) {
                 case "left":
                     emblaApi.scrollPrev();
@@ -98,8 +115,10 @@ export const GlSlider = memo((props: GlSliderProps) => {
                 <div className={classes.viewport} ref={emblaRef}>
                     <div className={classes.container}>
                         {slides !== undefined &&
-                            slides.map(slide => (
-                                <div className={classes.slide}>{slide}</div>
+                            slides.map((slide, index) => (
+                                <div key={index} className={classes.slide}>
+                                    {slide}
+                                </div>
                             ))}
                     </div>
                 </div>
