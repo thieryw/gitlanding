@@ -1,3 +1,8 @@
+### **0.3.14** (2021-10-05)  
+  
+- bump version  
+- remove height from logo on logo card    
+  
 ### **0.3.13** (2021-10-05)  
   
 - bump version  
