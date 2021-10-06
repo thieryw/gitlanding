@@ -1,3 +1,8 @@
+### **0.3.16** (2021-10-06)  
+  
+- update  
+- handle unexpected behavior on window blur GlSlider    
+  
 ### **0.3.15** (2021-10-05)  
   
 - bump version  
