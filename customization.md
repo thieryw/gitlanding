@@ -20,3 +20,11 @@ Note also that you can import any [Material-ui v5](https://mui.com/) component i
 [This commit on the example project will show you how it is done](https://github.com/thieryw/crispy-octo-bassoon/commit/acc255a743ca47922cd1e18ba7fde40c86906e5e).
 {% endhint %}
 
+## Changing the favicon and adding meta tags.
+
+{% hint style="success" %}
+[See commit on the example project](https://github.com/thieryw/crispy-octo-bassoon/commit/8b027fafe229e09561da2513347817f83e4bd064)
+{% endhint %}
+
+
+
