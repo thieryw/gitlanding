@@ -234,7 +234,7 @@ function App() {
             </GlCards>
             <GlSlider
                 slides={["slide 1", "slide2", "slide3"]}
-                autoPlayTimeInterval={3000}
+                autoPlayTimeInterval={3}
             />
         </GlTemplate>
     );
