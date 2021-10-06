@@ -1,3 +1,10 @@
+## **0.4.0** (2021-10-06)  
+  
+- bump version  
+- test slider  
+- remove the padding from header wrapper in GlTemplate and put it in the component its self  
+- GlSlider stop auto play while individual slide is beeing draged    
+  
 ### **0.3.16** (2021-10-06)  
   
 - update  
