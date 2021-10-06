@@ -4,6 +4,7 @@ import { useEmblaCarousel } from "embla-carousel/react";
 import { makeStyles, Text } from "./theme";
 import { Icon } from "./theme";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
+import { useConstCallback } from "powerhooks/useConstCallback";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles()(theme => ({
     },
     "heading": {
         "textAlign": "center",
-        "marginBottom": theme.spacing(10),
+        "marginBottom": theme.spacing(7),
     },
     "sliderWrapper": {
         "position": "relative",
@@ -85,7 +86,11 @@ export const GlSlider = memo((props: GlSliderProps) => {
     }, []);
 
     useEffect(() => {
-        if (autoPlayTimeInterval === undefined || emblaApi === undefined) {
+        if (
+            autoPlayTimeInterval === undefined ||
+            autoPlayTimeInterval === 0 ||
+            emblaApi === undefined
+        ) {
             return;
         }
 
@@ -95,7 +100,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
                 return;
             }
             emblaApi.scrollNext();
-        }, autoPlayTimeInterval);
+        }, autoPlayTimeInterval * 1000);
     }, [autoPlayTimeInterval, emblaApi, isPlaying.current]);
 
     const onClickFactory = useCallbackFactory(
@@ -119,6 +124,11 @@ export const GlSlider = memo((props: GlSliderProps) => {
         },
     );
 
+    const onMouseDown = useConstCallback(() => {
+        isPlaying.current = false;
+        forceUpdate();
+    });
+
     const { classes, cx } = useStyles();
 
     return (
@@ -138,7 +148,11 @@ export const GlSlider = memo((props: GlSliderProps) => {
                     <div className={classes.container}>
                         {slides !== undefined &&
                             slides.map((slide, index) => (
-                                <div key={index} className={classes.slide}>
+                                <div
+                                    onMouseDown={onMouseDown}
+                                    key={index}
+                                    className={classes.slide}
+                                >
                                     {slide}
                                 </div>
                             ))}
