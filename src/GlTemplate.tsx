@@ -90,10 +90,6 @@ const useStyles = makeStyles<{
                 })(),
             },
             "headerWrapper": {
-                "padding": theme.spacing({
-                    "rightLeft": `${theme.paddingRightLeft}px`,
-                    "topBottom": `${paddingTopBottom}px`,
-                }),
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":

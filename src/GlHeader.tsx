@@ -47,6 +47,10 @@ const useStyles = makeStyles<{
 
             return "wrap";
         })(),
+        "padding": theme.spacing({
+            "rightLeft": `${theme.paddingRightLeft}px`,
+            "topBottom": `${theme.spacing(3)}px`,
+        }),
     },
     "title": {
         "display": "flex",
