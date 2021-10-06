@@ -22,8 +22,12 @@ Note also that you can import any [Material-ui v5](https://mui.com/) component i
 
 ## Changing the favicon and adding meta tags.
 
+{% hint style="info" %}
+Check out [Metatags.io](https://metatags.io/) to generate some default meta tags.
+{% endhint %}
+
 {% hint style="success" %}
-[See commit on the example project](https://github.com/thieryw/crispy-octo-bassoon/commit/8b027fafe229e09561da2513347817f83e4bd064)
+[See commit on the example project](https://github.com/thieryw/crispy-octo-bassoon/commit/8b027fafe229e09561da2513347817f83e4bd064).
 {% endhint %}
 
 
