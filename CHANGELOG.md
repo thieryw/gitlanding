@@ -1,3 +1,8 @@
+### **0.3.15** (2021-10-05)  
+  
+- bump version  
+- slider autoplay function    
+  
 ### **0.3.14** (2021-10-05)  
   
 - bump version  
