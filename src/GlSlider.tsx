@@ -1,9 +1,11 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useReducer } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { makeStyles, Text } from "./theme";
 import { Icon } from "./theme";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
+import { useEvt } from "evt/hooks/useEvt";
+import { Evt } from "evt";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -64,7 +66,23 @@ export type GlSliderProps = {
 export const GlSlider = memo((props: GlSliderProps) => {
     const { className, slides, title, autoPlayTimeInterval } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
-    const evtHasArrowBeenPressedRef = useRef(false);
+    const isPlaying = useRef(true);
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+    useEvt(ctx => {
+        if (autoPlayTimeInterval === undefined) {
+            return;
+        }
+        new Map([
+            ["blur", false],
+            ["focus", true],
+        ]).forEach((value, key) => {
+            Evt.from(ctx, window, key).attach(() => {
+                isPlaying.current = value;
+                forceUpdate();
+            });
+        });
+    }, []);
 
     useEffect(() => {
         if (autoPlayTimeInterval === undefined || emblaApi === undefined) {
@@ -72,20 +90,24 @@ export const GlSlider = memo((props: GlSliderProps) => {
         }
 
         const interval = setInterval(() => {
-            if (evtHasArrowBeenPressedRef.current) {
+            if (!isPlaying.current) {
                 clearInterval(interval);
                 return;
             }
             emblaApi.scrollNext();
         }, autoPlayTimeInterval);
-    }, [autoPlayTimeInterval, emblaApi]);
+    }, [autoPlayTimeInterval, emblaApi, isPlaying.current]);
 
     const onClickFactory = useCallbackFactory(
         ([direction]: ["left" | "right"]) => {
             if (emblaApi === undefined) {
                 return;
             }
-            evtHasArrowBeenPressedRef.current = true;
+
+            if (autoPlayTimeInterval !== undefined) {
+                isPlaying.current = false;
+                forceUpdate();
+            }
 
             switch (direction) {
                 case "left":

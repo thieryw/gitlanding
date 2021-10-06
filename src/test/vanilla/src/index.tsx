@@ -28,6 +28,7 @@ import { GlLogo } from "gitlanding/utils/GlLogo";
 import logoPng from "./assets/img/logo.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import gitlandingLogo from "./assets/img/gitlanding-logo.png";
+import { GlSlider } from "gitlanding/GlSlider";
 
 function App() {
     return (
@@ -231,6 +232,10 @@ function App() {
                     badgeLabel="badge label"
                 />
             </GlCards>
+            <GlSlider
+                slides={["slide 1", "slide2", "slide3"]}
+                autoPlayTimeInterval={3000}
+            />
         </GlTemplate>
     );
 }
