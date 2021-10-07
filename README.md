@@ -50,3 +50,27 @@ Later on you will probably want to use your own domain name. For that you'll hav
 
 Your now ready to start customizing this page with `Gitlanding`.
 
+## Changing the favicon
+
+{% hint style="info" %}
+you can generate an apropriate favicon on [realfavicongenerator](https://realfavicongenerator.net/).
+{% endhint %}
+
+![](.gitbook/assets/screenshot-2021-10-07-at-02.02.42.png)
+
+{% hint style="warning" %}
+Set the path of the favicon files illustrated below
+{% endhint %}
+
+![](.gitbook/assets/screenshot-2021-10-07-at-02.08.02.png)
+
+Paste the generated assests at the root of the `public` folder of you repository.
+
+![](.gitbook/assets/screenshot-2021-10-07-at-02.46.11.png)
+
+{% hint style="success" %}
+[Paste the generated code in the head of your index.html file](https://github.com/thieryw/crispy-octo-bassoon/commit/43fb081d28ce5959dadc4bdf285ed19791276487)
+{% endhint %}
+
+
+
