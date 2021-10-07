@@ -72,5 +72,17 @@ Paste the generated assests at the root of the `public` folder of you repository
 [Paste the generated code in the head of your index.html file](https://github.com/thieryw/crispy-octo-bassoon/commit/43fb081d28ce5959dadc4bdf285ed19791276487)
 {% endhint %}
 
+## Adding Meta Tags
 
+{% hint style="info" %}
+[Click for more information on `meta tags`](https://www.wordstream.com/meta-tags#:~:text=Meta%20tags%20are%20snippets%20of,a%20web%20page%20is%20about.)
+{% endhint %}
+
+Put a preview image at the root of your public directory for the social media cards.
+
+![](.gitbook/assets/preview-2-.jpg)
+
+{% hint style="success" %}
+Now add the `meta tags` in the `head` of your `index.html` file. [Checkout  this commit for our example.](https://github.com/thieryw/crispy-octo-bassoon/commit/143c6ac0a920896c4493b9ef6ab8233f0c7db95b)
+{% endhint %}
 
