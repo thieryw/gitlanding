@@ -1,3 +1,10 @@
+### **0.4.2** (2021-10-09)  
+  
+- bump version  
+- improved animation on GlArticle with other variant  
+- useIntersectionObserver hook, handy for triggering animations  
+- deleted animatedOnscroll component    
+  
 ### **0.4.1** (2021-10-09)  
   
 - bump version  
