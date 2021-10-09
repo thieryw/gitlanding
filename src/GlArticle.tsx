@@ -1,11 +1,12 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useReducer } from "react";
 import type { ReactNode } from "react";
 import { makeStyles, Text } from "./theme";
 import { breakpointsValues } from "./theme";
 import ReactMarkdown from "react-markdown";
 import { GlButton } from "./utils/GlButton";
-import { GlAnimatedOnScroll } from "./GlAnimatedOnScroll";
-import type { GlAnimatedOnScrollProps } from "./GlAnimatedOnScroll";
+import { motion } from "framer-motion";
+import { useIntersectionObserver } from "./tools/useIntersectionObserver";
+import { assert } from "tsafe";
 
 export type GlArticleProps = {
     className?: string;
@@ -28,7 +29,7 @@ export type GlArticleProps = {
     };
     illustrationPosition?: "left" | "right";
     illustration?: ReactNode;
-    hasAnimation?: boolean;
+    animationVariant?: "primary" | "secondary";
 };
 
 const useStyles = makeStyles<{
@@ -189,9 +190,11 @@ export const GlArticle = memo((props: GlArticleProps) => {
         className,
         id,
         buttonLink,
-        hasAnimation,
+        animationVariant,
         classes: classesProp,
     } = props;
+
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
 
     const { classes, cx } = useStyles({
         "illustrationPosition": illustrationPosition ?? "right",
@@ -202,72 +205,120 @@ export const GlArticle = memo((props: GlArticleProps) => {
             buttonLabel !== undefined,
     });
 
-    const getAnimationProps = useMemo(() => {
-        return function (params: {
-            componentToAnimate: "body" | "title" | "illustration";
-        }): GlAnimatedOnScrollProps {
-            const { componentToAnimate } = params;
-
-            if (!hasAnimation) {
-                return {};
-            }
-
-            const textTransitionParameters = {
+    const textTransitionParameters = useMemo(() => {
+        return (
+            animationVariant && {
                 "ease": "easeOut",
                 "duration": 0.5,
                 "delay": 0.3,
-            };
-            switch (componentToAnimate) {
-                case "body":
-                    return {
-                        "initial": {
-                            "opacity": 0,
-                        },
-                        "animate": {
-                            "opacity": 1,
-                        },
-                        "transition": textTransitionParameters,
-                    };
-                case "title":
-                    return {
-                        "initial": {
-                            "opacity": 0,
-                            "x": (() => {
-                                const value = 100;
-                                switch (illustrationPosition) {
-                                    case "left":
-                                        return value;
-                                    default:
-                                        return -value;
-                                }
-                            })(),
-                        },
-
-                        "animate": {
-                            "opacity": 1,
-                            "x": 0,
-                        },
-                        "transition": textTransitionParameters,
-                    };
-                case "illustration":
-                    return {
-                        "initial": {
-                            "rotateY": "15deg",
-                            "rotateX": "15deg",
-                        },
-                        "animate": {
-                            "rotateY": 0,
-                            "rotateX": 0,
-                        },
-                        "transition": {
-                            "delay": 1,
-                            "duration": 1,
-                            "ease": "easeOut",
-                        },
-                    };
             }
-        };
+        );
     }, []);
+
+    const illustrationAnimationProps = useMemo(() => {
+        return (
+            animationVariant && {
+                "initial": (() => {
+                    switch (animationVariant) {
+                        case "secondary":
+                            return {
+                                "rotateY": "15deg",
+                                "rotateX": "15deg",
+                            };
+                        default:
+                            return {
+                                "opacity": 0,
+                                "x":
+                                    illustrationPosition === "left"
+                                        ? -100
+                                        : 100,
+                            };
+                    }
+                })(),
+
+                "animate": {},
+                "transition": {
+                    "delay": 1,
+                    "duration": 1,
+                    "ease": "easeOut",
+                },
+            }
+        );
+    }, []);
+
+    const titleAnimationProps = useMemo(() => {
+        return (
+            animationVariant && {
+                "initial": {
+                    "opacity": 0,
+                    "x": (() => {
+                        const value = 100;
+                        switch (illustrationPosition) {
+                            case "left":
+                                return value;
+                            default:
+                                return -value;
+                        }
+                    })(),
+                },
+                "animate": {},
+                "transition": textTransitionParameters,
+            }
+        );
+    }, []);
+
+    const bodyAnimationProps = useMemo(() => {
+        return (
+            animationVariant && {
+                "initial": {
+                    "opacity": 0,
+                },
+                "animate": {},
+                "transition": textTransitionParameters,
+            }
+        );
+    }, []);
+
+    const { ref } = useIntersectionObserver({
+        "callback": ({ observer, entry }) => {
+            if (animationVariant === undefined) {
+                observer.unobserve(entry.target);
+                return;
+            }
+
+            assert(
+                illustrationAnimationProps !== undefined &&
+                    titleAnimationProps !== undefined &&
+                    bodyAnimationProps !== undefined,
+            );
+
+            if (entry.isIntersecting) {
+                illustrationAnimationProps.animate = (() => {
+                    switch (animationVariant) {
+                        case "secondary":
+                            return {
+                                "rotateX": 0,
+                                "rotateY": 0,
+                            };
+                        default:
+                            return {
+                                "opacity": 1,
+                                "x": 0,
+                            };
+                    }
+                })();
+                titleAnimationProps.animate = {
+                    "opacity": 1,
+                    "x": 0,
+                };
+                bodyAnimationProps.animate = {
+                    "opacity": 1,
+                };
+                observer.unobserve(entry.target);
+                forceUpdate();
+            }
+        },
+    });
 
     return (
         <section id={id} className={cx(classes.root, className)}>
@@ -284,25 +335,17 @@ export const GlArticle = memo((props: GlArticleProps) => {
                         className={cx(classes.article, classesProp?.article)}
                     >
                         {title && (
-                            <GlAnimatedOnScroll
-                                {...getAnimationProps({
-                                    "componentToAnimate": "title",
-                                })}
-                            >
+                            <motion.div {...titleAnimationProps}>
                                 <Text
                                     className={classesProp?.title}
                                     typo="page heading"
                                 >
                                     {title}
                                 </Text>
-                            </GlAnimatedOnScroll>
+                            </motion.div>
                         )}
                         {body && (
-                            <GlAnimatedOnScroll
-                                {...getAnimationProps({
-                                    "componentToAnimate": "body",
-                                })}
-                            >
+                            <motion.div {...bodyAnimationProps} ref={ref}>
                                 <ReactMarkdown
                                     className={cx(
                                         classes.body,
@@ -311,7 +354,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                                 >
                                     {body}
                                 </ReactMarkdown>
-                            </GlAnimatedOnScroll>
+                            </motion.div>
                         )}
                         {buttonLabel && (
                             <div
@@ -337,11 +380,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     </article>
                 )}
 
-                <GlAnimatedOnScroll
-                    {...getAnimationProps({
-                        "componentToAnimate": "illustration",
-                    })}
-                >
+                <motion.div {...illustrationAnimationProps}>
                     <aside
                         className={cx(
                             classes.aside,
@@ -350,7 +389,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     >
                         {illustration}
                     </aside>
-                </GlAnimatedOnScroll>
+                </motion.div>
             </div>
         </section>
     );
