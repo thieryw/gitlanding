@@ -1,3 +1,8 @@
+### **0.4.1** (2021-10-09)  
+  
+- bump version  
+- added classes property on section components    
+  
 ## **0.4.0** (2021-10-06)  
   
 - bump version  
