@@ -12,6 +12,15 @@ type Link = {
 
 export type GlFooterProps = {
     className?: string;
+    classes?: {
+        iconsLinks?: string;
+        iconWrapper?: string;
+        icon?: string;
+        links?: string;
+        link?: string;
+        info?: string;
+        bottomDiv?: string;
+    };
     iconLinks?: (Link & { iconUrl: string })[];
     links?: (Link & { title: string })[];
     bottomDivContent?: string;
@@ -93,6 +102,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
         phoneNumber,
         iconLinks,
         links,
+        classes: classesProp,
     } = props;
 
     const { classes, cx } = useStyles();
@@ -100,7 +110,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
     return (
         <footer className={cx(classes.root, className)}>
             {iconLinks !== undefined && (
-                <div className={classes.icons}>
+                <div className={cx(classes.icons, classesProp?.iconsLinks)}>
                     {iconLinks.map((iconLink, index) => (
                         <div
                             key={index}
@@ -110,9 +120,10 @@ export const GlFooter = memo((props: GlFooterProps) => {
                                     (window.location.href =
                                         iconLink.href ?? "#"))
                             }
+                            className={classesProp?.iconWrapper}
                         >
                             <GlLogo
-                                className={classes.icon}
+                                className={cx(classes.icon, classesProp?.icon)}
                                 logoUrl={iconLink.iconUrl}
                             />
                         </div>
@@ -121,13 +132,13 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {links !== undefined && (
-                <div className={classes.links}>
+                <div className={cx(classes.links, classesProp?.links)}>
                     {links.map((link, index) => (
                         <Link
                             key={index}
                             href={link.href}
                             onClick={link.onClick}
-                            className={classes.link}
+                            className={cx(classes.link, classesProp?.link)}
                             underline="hover"
                         >
                             {link.title}
@@ -137,11 +148,15 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {(email !== undefined || phoneNumber !== undefined) && (
-                <GlFooterInfo email={email} phoneNumber={phoneNumber} />
+                <GlFooterInfo
+                    className={classesProp?.info}
+                    email={email}
+                    phoneNumber={phoneNumber}
+                />
             )}
 
             {bottomDivContent !== undefined && (
-                <div className={classes.bottomDiv}>
+                <div className={cx(classes.bottomDiv, classesProp?.bottomDiv)}>
                     <ReactMarkDown>{bottomDivContent}</ReactMarkDown>
                 </div>
             )}

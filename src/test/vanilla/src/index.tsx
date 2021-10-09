@@ -29,8 +29,29 @@ import logoPng from "./assets/img/logo.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import gitlandingLogo from "./assets/img/gitlanding-logo.png";
 import { GlSlider } from "gitlanding/GlSlider";
+import { createMakeStyles } from "tss-react";
+
+const { makeStyles } = createMakeStyles({ "useTheme": () => {} });
+
+const useStyles = makeStyles()({
+    "hero": {
+        "border": "solid red 3px",
+    },
+
+    "linkToSectionBelow": {
+        "border": "solid red 3px",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        ":before": {
+            "content": `"See More"`,
+        },
+    },
+});
 
 function App() {
+    const { classes } = useStyles();
+
     return (
         <GlTemplate
             footer={
@@ -83,6 +104,16 @@ function App() {
             }}
         >
             <GlHero
+                classes={{
+                    "image": classes.hero,
+                    "imageWrapper": classes.hero,
+                    "linkToSectionBelow": classes.hero,
+                    "linkToSectionBelowWrapper": classes.linkToSectionBelow,
+                    "subtitle": classes.hero,
+                    "textAndImageWrapper": classes.hero,
+                    "title": classes.hero,
+                    "titleAndSubTitleWrapper": classes.hero,
+                }}
                 title="Hero Title"
                 subTitle={"Hero subtitle"}
                 imageSrc={heroHeaderPngUrl}

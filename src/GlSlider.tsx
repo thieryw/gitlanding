@@ -59,13 +59,28 @@ const useStyles = makeStyles()(theme => ({
 
 export type GlSliderProps = {
     className?: string;
+    classes?: {
+        title?: string;
+        sliderWrapper?: string;
+        prev?: string;
+        next?: string;
+        sliderViewport?: string;
+        slideContainer?: string;
+        slide?: string;
+    };
     title?: string;
     slides?: ReactNode[];
     autoPlayTimeInterval?: number;
 };
 
 export const GlSlider = memo((props: GlSliderProps) => {
-    const { className, slides, title, autoPlayTimeInterval } = props;
+    const {
+        className,
+        slides,
+        title,
+        autoPlayTimeInterval,
+        classes: classesProp,
+    } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
     const isPlaying = useRef(true);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -134,24 +149,46 @@ export const GlSlider = memo((props: GlSliderProps) => {
     return (
         <section className={cx(classes.root, className)}>
             {title !== undefined && (
-                <Text className={classes.heading} typo="page heading">
+                <Text
+                    className={cx(classes.heading, classesProp?.title)}
+                    typo="page heading"
+                >
                     {title}
                 </Text>
             )}
-            <div className={classes.sliderWrapper}>
+            <div
+                className={cx(
+                    classes.sliderWrapper,
+                    classesProp?.sliderWrapper,
+                )}
+            >
                 <Icon
                     iconId="arrowBackIos"
-                    className={classes.arrows}
+                    className={cx(classes.arrows, classesProp?.prev)}
                     onClick={onClickFactory("left")}
                 />
-                <div className={classes.viewport} ref={emblaRef}>
-                    <div className={classes.container}>
+                <div
+                    className={cx(
+                        classes.viewport,
+                        classesProp?.sliderViewport,
+                    )}
+                    ref={emblaRef}
+                >
+                    <div
+                        className={cx(
+                            classes.container,
+                            classesProp?.slideContainer,
+                        )}
+                    >
                         {slides !== undefined &&
                             slides.map((slide, index) => (
                                 <div
                                     onMouseDown={onMouseDown}
                                     key={index}
-                                    className={classes.slide}
+                                    className={cx(
+                                        classes.slide,
+                                        classesProp?.slide,
+                                    )}
                                 >
                                     {slide}
                                 </div>
@@ -160,7 +197,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
                 </div>
                 <Icon
                     iconId="arrowForwardIos"
-                    className={classes.arrows}
+                    className={cx(classes.arrows, classesProp?.next)}
                     onClick={onClickFactory("right")}
                 />
             </div>

@@ -8,6 +8,10 @@ import { useRef, useEffect, useState } from "react";
 
 export type GlCardsProps = {
     className?: string;
+    classes?: {
+        title?: string;
+        cardWrapper?: string;
+    };
     id?: string;
     title?: string;
     children?: ReactNode;
@@ -70,7 +74,7 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
 );
 
 export const GlCards = memo((props: GlCardsProps) => {
-    const { title, children, className, id } = props;
+    const { title, children, className, id, classes: classesProp } = props;
     const ref = useRef<HTMLDivElement>(null);
 
     const [numberOfCards, setNumberOfCards] = useState(0);
@@ -88,11 +92,17 @@ export const GlCards = memo((props: GlCardsProps) => {
     return (
         <section id={id} className={cx(classes.root, className)}>
             {title && (
-                <Text className={classes.title} typo="page heading">
+                <Text
+                    className={cx(classes.title, classesProp?.title)}
+                    typo="page heading"
+                >
                     {title}
                 </Text>
             )}
-            <div ref={ref} className={classes.cards}>
+            <div
+                ref={ref}
+                className={cx(classes.cards, classesProp?.cardWrapper)}
+            >
                 {children}
             </div>
         </section>

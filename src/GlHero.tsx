@@ -17,6 +17,16 @@ export type GlHeroProps = {
     imageSrc?: string;
     linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
+    classes?: {
+        titleAndSubTitleWrapper?: string;
+        title?: string;
+        subtitle?: string;
+        imageWrapper?: string;
+        image?: string;
+        textAndImageWrapper?: string;
+        linkToSectionBelowWrapper?: string;
+        linkToSectionBelow?: string;
+    };
 };
 
 const useStyles = makeStyles<{
@@ -126,6 +136,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         imageSrc,
         linkToSectionBelowId,
         hasImageShadow,
+        classes: classesProp,
     } = props;
 
     const [, reRender] = useReducer(x => x + 1, 0);
@@ -154,9 +165,19 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     return (
         <section className={cx(classes.root, className)}>
-            <div className={classes.textAndImageWrapper}>
+            <div
+                className={cx(
+                    classes.textAndImageWrapper,
+                    classesProp?.textAndImageWrapper,
+                )}
+            >
                 {(title !== undefined || subTitle !== undefined) && (
-                    <div className={classes.textWrapper}>
+                    <div
+                        className={cx(
+                            classes.textWrapper,
+                            classesProp?.titleAndSubTitleWrapper,
+                        )}
+                    >
                         {title !== undefined && (
                             <motion.div
                                 variants={animationProps}
@@ -168,7 +189,12 @@ export const GlHero = memo((props: GlHeroProps) => {
                                     "ease": "easeOut",
                                 }}
                             >
-                                <HeroText className={classes.title}>
+                                <HeroText
+                                    className={cx(
+                                        classes.title,
+                                        classesProp?.title,
+                                    )}
+                                >
                                     {title}
                                 </HeroText>
                             </motion.div>
@@ -186,7 +212,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                             >
                                 <Text
                                     typo="subtitle"
-                                    className={classes.subtitle}
+                                    className={cx(
+                                        classes.subtitle,
+                                        classesProp?.subtitle,
+                                    )}
                                 >
                                     {subTitle}
                                 </Text>
@@ -197,7 +226,10 @@ export const GlHero = memo((props: GlHeroProps) => {
 
                 {imageSrc !== undefined && (
                     <motion.div
-                        className={classes.imageWrapper}
+                        className={cx(
+                            classes.imageWrapper,
+                            classesProp?.imageWrapper,
+                        )}
                         variants={animationProps}
                         initial="imageInitial"
                         animate="imageAnimate"
@@ -207,7 +239,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                         }}
                     >
                         <GlImage
-                            className={classes.image}
+                            className={cx(classes.image, classes.image)}
                             hasShadow={hasImageShadow}
                             height={imageSrc.endsWith(".mp4") ? undefined : 800}
                             url={imageSrc}
@@ -217,8 +249,14 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             </div>
             {linkToSectionBelowId !== undefined && (
-                <div className={classes.arrowWrapper}>
+                <div
+                    className={cx(
+                        classes.arrowWrapper,
+                        classesProp?.linkToSectionBelowWrapper,
+                    )}
+                >
                     <GlArrow
+                        className={classesProp?.linkToSectionBelow}
                         direction="down"
                         hasCircularBorder={true}
                         link={{

@@ -15,6 +15,16 @@ import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
 
 export type GlHeaderProps = {
     className?: string;
+    classes?: {
+        title?: string;
+        titleInner?: string;
+        links?: string;
+        linkWrapper?: string;
+        link?: string;
+        githubStar?: string;
+        darkModeSwitch?: string;
+        unfoldButton?: string;
+    };
     title: ReactNode;
     titleDark?: ReactNode;
     titleSmallScreen?: ReactNode;
@@ -139,6 +149,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         titleDark,
         titleSmallScreen,
         titleSmallScreenDark,
+        classes: classesProp,
     } = props;
 
     const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
@@ -161,13 +172,23 @@ export const GlHeader = memo((props: GlHeaderProps) => {
 
     return (
         <header className={cx(classes.root, className)}>
-            <div className={classes.title}>
+            <div className={cx(classes.title, classesProp?.title)}>
                 {typeof title === "string" ? (
-                    <div className={classes.titleInner}>
+                    <div
+                        className={cx(
+                            classes.titleInner,
+                            classesProp?.titleInner,
+                        )}
+                    >
                         <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
-                    <div className={classes.titleInner}>
+                    <div
+                        className={cx(
+                            classes.titleInner,
+                            classesProp?.titleInner,
+                        )}
+                    >
                         {((): ReactNode => {
                             if (
                                 theme.windowInnerWidth >= breakpointsValues.md
@@ -191,12 +212,18 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 )}
             </div>
 
-            <div className={classes.links}>
+            <div className={cx(classes.links, classesProp?.links)}>
                 {links.map(({ link, label }) => (
-                    <div className={classes.linkWrapper} key={label}>
+                    <div
+                        className={cx(
+                            classes.linkWrapper,
+                            classesProp?.linkWrapper,
+                        )}
+                        key={label}
+                    >
                         <Link
                             underline="hover"
-                            className={classes.link}
+                            className={cx(classes.link, classesProp?.link)}
                             {...link}
                         >
                             {label}
@@ -209,20 +236,26 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 <GlGithubStarCount
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
-                    className={classes.githubStarAndDarkModeSwitch}
+                    className={cx(
+                        classes.githubStarAndDarkModeSwitch,
+                        classesProp?.githubStar,
+                    )}
                 />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
                 <DarkModeSwitch
-                    className={classes.githubStarAndDarkModeSwitch}
+                    className={cx(
+                        classes.githubStarAndDarkModeSwitch,
+                        classesProp?.darkModeSwitch,
+                    )}
                 />
             )}
 
             <FormatListBulletedIcon
                 ref={rootRef}
                 onClick={unfoldLinks}
-                className={classes.unfoldIcon}
+                className={cx(classes.unfoldIcon, classesProp?.unfoldButton)}
             />
         </header>
     );

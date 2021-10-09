@@ -9,6 +9,15 @@ import type { GlAnimatedOnScrollProps } from "./GlAnimatedOnScroll";
 
 export type GlArticleProps = {
     className?: string;
+    classes?: {
+        contentWrapper?: string;
+        article?: string;
+        title?: string;
+        body?: string;
+        buttonWrapper?: string;
+        button?: string;
+        illustrationWrapper?: string;
+    };
     id?: string;
     title?: string;
     body?: string;
@@ -181,6 +190,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
         id,
         buttonLink,
         hasAnimation,
+        classes: classesProp,
     } = props;
 
     const { classes, cx } = useStyles({
@@ -261,18 +271,30 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     return (
         <section id={id} className={cx(classes.root, className)}>
-            <div className={classes.contentWrapper}>
+            <div
+                className={cx(
+                    classes.contentWrapper,
+                    classesProp?.contentWrapper,
+                )}
+            >
                 {(title !== undefined ||
                     body !== undefined ||
                     buttonLabel !== undefined) && (
-                    <article className={classes.article}>
+                    <article
+                        className={cx(classes.article, classesProp?.article)}
+                    >
                         {title && (
                             <GlAnimatedOnScroll
                                 {...getAnimationProps({
                                     "componentToAnimate": "title",
                                 })}
                             >
-                                <Text typo="page heading">{title}</Text>
+                                <Text
+                                    className={classesProp?.title}
+                                    typo="page heading"
+                                >
+                                    {title}
+                                </Text>
                             </GlAnimatedOnScroll>
                         )}
                         {body && (
@@ -281,15 +303,28 @@ export const GlArticle = memo((props: GlArticleProps) => {
                                     "componentToAnimate": "body",
                                 })}
                             >
-                                <ReactMarkdown className={classes.body}>
+                                <ReactMarkdown
+                                    className={cx(
+                                        classes.body,
+                                        classesProp?.body,
+                                    )}
+                                >
                                     {body}
                                 </ReactMarkdown>
                             </GlAnimatedOnScroll>
                         )}
                         {buttonLabel && (
-                            <div className={classes.buttonWrapper}>
+                            <div
+                                className={cx(
+                                    classes.buttonWrapper,
+                                    classesProp?.buttonWrapper,
+                                )}
+                            >
                                 <GlButton
-                                    className={classes.button}
+                                    className={cx(
+                                        classes.button,
+                                        classesProp?.button,
+                                    )}
                                     type="submit"
                                     href={buttonLink?.href}
                                     onClick={buttonLink?.onClick}
@@ -307,7 +342,14 @@ export const GlArticle = memo((props: GlArticleProps) => {
                         "componentToAnimate": "illustration",
                     })}
                 >
-                    <aside className={classes.aside}>{illustration}</aside>
+                    <aside
+                        className={cx(
+                            classes.aside,
+                            classesProp?.illustrationWrapper,
+                        )}
+                    >
+                        {illustration}
+                    </aside>
                 </GlAnimatedOnScroll>
             </div>
         </section>
