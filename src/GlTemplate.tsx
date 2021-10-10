@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
@@ -49,6 +49,7 @@ const useStyles = makeStyles<{
     isHeaderRetracted: boolean;
     headerPosition: "fixed" | "top of page";
     doDelegateScroll: boolean;
+    firstChildClassName: string | null | undefined;
 }>()(
     (
         theme,
@@ -58,6 +59,7 @@ const useStyles = makeStyles<{
             isHeaderRetracted,
             headerPosition,
             doDelegateScroll,
+            firstChildClassName,
         },
     ) => {
         const paddingTopBottom = theme.spacing(3);
@@ -128,9 +130,6 @@ const useStyles = makeStyles<{
                                     };
                                 })(),
                                 "overflow": "hidden",
-                                "transition": ["height", "padding"]
-                                    .map(prop => `${prop} 250ms`)
-                                    .join(", "),
                             } as const;
                     }
                 })(),
@@ -145,7 +144,12 @@ const useStyles = makeStyles<{
                     switch (headerPosition) {
                         case "fixed":
                             return {
-                                "paddingTop": headerHeightPlusMargin,
+                                [`& .${firstChildClassName}`]: {
+                                    "paddingTop": headerHeightPlusMargin,
+                                },
+                                "paddingTop":
+                                    firstChildClassName ??
+                                    headerHeightPlusMargin,
                                 "height": "100%",
                                 "zIndex": 1,
                                 "overflowY": "auto",
@@ -172,6 +176,7 @@ const GlTemplateInner = memo(
         },
     ) => {
         const { header, isThemeProvidedOutside, children, footer } = props;
+        const childrenRef = useRef<HTMLDivElement>(null);
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -234,6 +239,8 @@ const GlTemplateInner = memo(
                 headerOptions.position === "fixed"
                     ? false
                     : headerOptions.doDelegateScroll,
+            "firstChildClassName":
+                childrenRef.current?.firstElementChild?.className,
         });
 
         useElementEvt(
@@ -277,7 +284,7 @@ const GlTemplateInner = memo(
                     className={classes.childrenAndFooterWrapper}
                     ref={childrenWrapperRef}
                 >
-                    <div>{children}</div>
+                    <div ref={childrenRef}>{children}</div>
                     {footer}
                 </div>
             </div>
