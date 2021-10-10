@@ -1,3 +1,8 @@
+### **0.4.4** (2021-10-10)  
+  
+- bump version  
+- correct glHeader so that the hero is behind when position is fixed    
+  
 ### **0.4.3** (2021-10-10)  
   
 - bump version  
