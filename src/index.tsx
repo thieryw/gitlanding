@@ -101,7 +101,7 @@ See the documentation for a quick setup guide.
             hasShadow={true}
           />
         }
-        hasAnimation={true}
+        animationVariant="secondary"
         buttonLabel="Documentation"
         buttonLink={{
           "href": "https://docs.gitlanding.dev/getting-started"
@@ -121,7 +121,7 @@ See the documentation for a quick setup guide.
         buttonLink={{
           "href":"https://docs.gitlanding.dev/customization"
         }}
-        hasAnimation={true}
+        animationVariant="primary"
       />
 
       <GlSectionDivider />
@@ -131,7 +131,7 @@ See the documentation for a quick setup guide.
         body={`**Gitlanding** is imported in react projects witch means that you can start with a simple landing page and evolve towards a more complex website.
 For example you might want to have a routing system put in place. And you can even throw in an translation engine if this is your requirement. Each Gitlanding component can be imported and used individually for a specific need.
         `}
-        hasAnimation={true}
+        animationVariant="secondary"
         illustration={
           <GlIllustration
             type="image"
@@ -162,7 +162,7 @@ For example you might want to have a routing system put in place. And you can ev
             url={onyxiaPng}
           />
         }
-        hasAnimation={true}
+        animationVariant="primary"
       />
 
 
