@@ -7,6 +7,7 @@ import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
+import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
@@ -109,7 +110,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
             return;
         }
 
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
             if (!isPlaying.current) {
                 clearInterval(interval);
                 return;
@@ -117,6 +118,21 @@ export const GlSlider = memo((props: GlSliderProps) => {
             emblaApi.scrollNext();
         }, autoPlayTimeInterval * 1000);
     }, [autoPlayTimeInterval, emblaApi, isPlaying.current]);
+
+    const { ref } = useIntersectionObserver({
+        "callback": useConstCallback(({ entry, observer }) => {
+            if (
+                autoPlayTimeInterval === undefined ||
+                autoPlayTimeInterval === 0
+            ) {
+                observer.unobserve(entry.target);
+                return;
+            }
+
+            isPlaying.current = entry.isIntersecting;
+            forceUpdate();
+        }),
+    });
 
     const onClickFactory = useCallbackFactory(
         ([direction]: ["left" | "right"]) => {
@@ -147,7 +163,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
     const { classes, cx } = useStyles();
 
     return (
-        <section className={cx(classes.root, className)}>
+        <section ref={ref} className={cx(classes.root, className)}>
             {title !== undefined && (
                 <Text
                     className={cx(classes.heading, classesProp?.title)}
