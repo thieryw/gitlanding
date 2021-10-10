@@ -1,3 +1,8 @@
+### **0.4.3** (2021-10-10)  
+  
+- bump version  
+- modified GlSlider to autoplay only when it is in view port    
+  
 ### **0.4.2** (2021-10-09)  
   
 - bump version  
