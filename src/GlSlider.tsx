@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useReducer } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { makeStyles, Text } from "./theme";
@@ -82,9 +82,10 @@ export const GlSlider = memo((props: GlSliderProps) => {
         autoPlayTimeInterval,
         classes: classesProp,
     } = props;
+
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
-    const isPlaying = useRef(true);
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const interval = useRef<NodeJS.Timeout>();
 
     useEvt(ctx => {
         if (autoPlayTimeInterval === undefined) {
@@ -95,8 +96,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
             ["focus", true],
         ]).forEach((value, key) => {
             Evt.from(ctx, window, key).attach(() => {
-                isPlaying.current = value;
-                forceUpdate();
+                setIsPlaying(value);
             });
         });
     }, []);
@@ -110,14 +110,17 @@ export const GlSlider = memo((props: GlSliderProps) => {
             return;
         }
 
-        const interval = setInterval(async () => {
-            if (!isPlaying.current) {
-                clearInterval(interval);
-                return;
+        if (!isPlaying) {
+            if (interval.current !== undefined) {
+                clearInterval(interval.current);
             }
+            return;
+        }
+
+        interval.current = setInterval(async () => {
             emblaApi.scrollNext();
         }, autoPlayTimeInterval * 1000);
-    }, [autoPlayTimeInterval, emblaApi, isPlaying.current]);
+    }, [autoPlayTimeInterval, emblaApi, isPlaying]);
 
     const { ref } = useIntersectionObserver({
         "callback": useConstCallback(({ entry, observer }) => {
@@ -128,9 +131,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
                 observer.unobserve(entry.target);
                 return;
             }
-
-            isPlaying.current = entry.isIntersecting;
-            forceUpdate();
+            setIsPlaying(entry.isIntersecting);
         }),
     });
 
@@ -141,8 +142,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
             }
 
             if (autoPlayTimeInterval !== undefined) {
-                isPlaying.current = false;
-                forceUpdate();
+                setIsPlaying(false);
             }
 
             switch (direction) {
@@ -156,8 +156,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
     );
 
     const onMouseDown = useConstCallback(() => {
-        isPlaying.current = false;
-        forceUpdate();
+        setIsPlaying(false);
     });
 
     const { classes, cx } = useStyles();
