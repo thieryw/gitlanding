@@ -18,7 +18,6 @@ const useStyles = makeStyles()(theme => ({
 
             return "column";
         })(),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
     },
     "paragraph": {
         ...theme.typography.variants["body 1"].style,

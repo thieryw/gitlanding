@@ -28,10 +28,6 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
                     "marginBottom": value,
                 };
             })(),
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
         },
         "title": {
             "textAlign": "center",

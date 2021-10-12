@@ -43,6 +43,7 @@ const useStyles = makeStyles()(theme => ({
                 "paddingTop": value,
             };
         })(),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
     },
     "icon": {
         "transition": "transform 200ms",

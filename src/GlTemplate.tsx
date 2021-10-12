@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useRef } from "react";
+import { useEffect, useState, memo } from "react";
 import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
@@ -49,7 +49,7 @@ const useStyles = makeStyles<{
     isHeaderRetracted: boolean;
     headerPosition: "fixed" | "top of page";
     doDelegateScroll: boolean;
-    firstChildClassName: string | null | undefined;
+    hasChildren: boolean;
 }>()(
     (
         theme,
@@ -59,7 +59,7 @@ const useStyles = makeStyles<{
             isHeaderRetracted,
             headerPosition,
             doDelegateScroll,
-            firstChildClassName,
+            hasChildren,
         },
     ) => {
         const paddingTopBottom = theme.spacing(3);
@@ -129,27 +129,50 @@ const useStyles = makeStyles<{
                                               }),
                                     };
                                 })(),
+                                "transition": ["height", "padding"]
+                                    .map(prop => `${prop} 250ms`)
+                                    .join(", "),
                                 "overflow": "hidden",
                             } as const;
                     }
                 })(),
             },
 
+            "footerWrapper": {
+                "marginTop": "auto",
+                "width": rootWidth,
+                "position": "relative",
+                "left": -theme.paddingRightLeft,
+            },
             "childrenAndFooterWrapper": {
                 "overflowX": "hidden",
                 "display": "flex",
                 "flexDirection": "column",
-                "justifyContent": "space-between",
+                ...(hasChildren
+                    ? {
+                          "& > :first-child": {
+                              "paddingTop":
+                                  headerPosition === "fixed"
+                                      ? headerHeightPlusMargin
+                                      : undefined,
+                              "width": rootWidth,
+                              "position": "relative",
+                              "left": -theme.paddingRightLeft,
+                              ...theme.spacing.rightLeft(
+                                  "padding",
+                                  `${theme.paddingRightLeft}px`,
+                              ),
+                          },
+                      }
+                    : {}),
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
                             return {
-                                [`& .${firstChildClassName}`]: {
-                                    "paddingTop": headerHeightPlusMargin,
-                                },
-                                "paddingTop":
-                                    firstChildClassName ??
-                                    headerHeightPlusMargin,
                                 "height": "100%",
                                 "zIndex": 1,
                                 "overflowY": "auto",
@@ -176,7 +199,6 @@ const GlTemplateInner = memo(
         },
     ) => {
         const { header, isThemeProvidedOutside, children, footer } = props;
-        const childrenRef = useRef<HTMLDivElement>(null);
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -239,8 +261,7 @@ const GlTemplateInner = memo(
                 headerOptions.position === "fixed"
                     ? false
                     : headerOptions.doDelegateScroll,
-            "firstChildClassName":
-                childrenRef.current?.firstElementChild?.className,
+            "hasChildren": children !== undefined,
         });
 
         useElementEvt(
@@ -284,8 +305,10 @@ const GlTemplateInner = memo(
                     className={classes.childrenAndFooterWrapper}
                     ref={childrenWrapperRef}
                 >
-                    <div ref={childrenRef}>{children}</div>
-                    {footer}
+                    {children !== undefined && children}
+                    {footer !== undefined && (
+                        <div className={classes.footerWrapper}>{footer}</div>
+                    )}
                 </div>
             </div>
         );

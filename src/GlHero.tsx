@@ -38,7 +38,6 @@ const useStyles = makeStyles<{
         "display": "flex",
         "flexDirection": "column",
         "paddingBottom": theme.spacing(7),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
     },
     "textAndImageWrapper": {
         "padding": theme.spacing({

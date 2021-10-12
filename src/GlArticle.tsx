@@ -37,9 +37,6 @@ const useStyles = makeStyles<{
     hasIllustration: boolean;
     hasArticle: boolean;
 }>()((theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
-    "root": {
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-    },
     "contentWrapper": {
         "display": "flex",
         "flexDirection": (() => {
@@ -321,7 +318,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
     });
 
     return (
-        <section id={id} className={cx(classes.root, className)}>
+        <section id={id} className={className}>
             <div
                 className={cx(
                     classes.contentWrapper,
