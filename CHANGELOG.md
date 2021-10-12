@@ -1,3 +1,8 @@
+### **0.4.5** (2021-10-11)  
+  
+- bump version  
+- corrected autoplay bug onBlur    
+  
 ### **0.4.4** (2021-10-10)  
   
 - bump version  
