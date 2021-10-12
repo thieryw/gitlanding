@@ -1,3 +1,8 @@
+### **0.4.6** (2021-10-12)  
+  
+- bump version  
+- put padding on gltemplate children and reorganized footer and children layout so as to avoid scroll problemes    
+  
 ### **0.4.5** (2021-10-11)  
   
 - bump version  
