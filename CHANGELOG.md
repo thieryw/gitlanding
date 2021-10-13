@@ -1,3 +1,10 @@
+### **0.4.8** (2021-10-13)  
+  
+- bump version  
+- update onyxia-ui, tss, powerhooks, tsafe and mui  
+- GlTemplate make children prop mandatory  
+- addapt header for responsive spacings    
+  
 ### **0.4.7** (2021-10-13)  
   
 - bump version  
