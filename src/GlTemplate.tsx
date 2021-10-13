@@ -35,7 +35,7 @@ export type GlTemplateProps = {
     footer?: ReactNode;
     SplashScreenLogo?: ComponentType<{ className: string }>;
     splashScreenLogoFillColor?: string;
-    children?: ReactNode;
+    children: ReactNode;
     ThemeProvider?: ComponentType<{
         splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
         children: ReactNode;
@@ -138,11 +138,9 @@ const useStyles = makeStyles<{
 
             "footerWrapper": {
                 "marginTop": "auto",
-                "& > :first-child": {
-                    "position": "relative",
-                    "width": rootWidth,
-                    "left": -theme.paddingRightLeft,
-                },
+                "position": "relative",
+                "width": rootWidth,
+                "left": -theme.paddingRightLeft,
             },
             "childrenWrapper": {
                 "display": "flex",
