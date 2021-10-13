@@ -15,8 +15,8 @@ import {
     useTheme,
 } from "../theme";
 import { id } from "tsafe/id";
-import "onyxia-ui/assets/fonts/work-sans.css";
-import { GlobalStyles } from "tss-react";
+import "onyxia-ui/assets/fonts/WorkSans/font.css";
+import { GlobalStyles } from "tss-react/compat";
 import { objectKeys } from "tsafe/objectKeys";
 import type { ReactNode } from "react";
 

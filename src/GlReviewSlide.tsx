@@ -1,7 +1,7 @@
 import { makeStyles, Text } from "./theme";
 import { memo } from "react";
 import { GlLogo } from "./utils/GlLogo";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import ReactMarkdown from "react-markdown";
 import { breakpointsValues } from "./theme";
 

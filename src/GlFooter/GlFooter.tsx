@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 import { makeStyles } from "../theme";
 import ReactMarkDown from "react-markdown";
 import { GlFooterInfo } from "./GlFooterInfo";

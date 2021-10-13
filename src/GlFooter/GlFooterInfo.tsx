@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { validateEmail } from "../tools/validateEmail";
 import { validatePhoneNumber } from "../tools/validatePhoneNumber";
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 import { makeStyles, Text } from "../theme";
 
 export type GlFooterInfoProps = {

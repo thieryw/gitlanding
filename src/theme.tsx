@@ -1,16 +1,16 @@
 /* eslint-disable no-irregular-whitespace */
 
 import { createThemeProvider } from "onyxia-ui";
-import { createMakeStyles } from "tss-react";
+import { createMakeStyles } from "tss-react/compat";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
 import { createButton } from "onyxia-ui/Button";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import DehazeIcon from "@material-ui/icons/Dehaze";
-import Brightness1RoundedIcon from "@material-ui/icons/Brightness1Rounded";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import Brightness1RoundedIcon from "@mui/icons-material/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
