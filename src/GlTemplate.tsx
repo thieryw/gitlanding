@@ -49,7 +49,6 @@ const useStyles = makeStyles<{
     isHeaderRetracted: boolean;
     headerPosition: "fixed" | "top of page";
     doDelegateScroll: boolean;
-    hasChildren: boolean;
 }>()(
     (
         theme,
@@ -59,11 +58,9 @@ const useStyles = makeStyles<{
             isHeaderRetracted,
             headerPosition,
             doDelegateScroll,
-            hasChildren,
         },
     ) => {
         const paddingTopBottom = theme.spacing(3);
-
         const headerHeightPlusMargin = headerHeight + 2 * paddingTopBottom;
 
         return {
@@ -92,6 +89,7 @@ const useStyles = makeStyles<{
                 })(),
             },
             "headerWrapper": {
+                ...theme.spacing.topBottom("padding", `${paddingTopBottom}px`),
                 ...(() => {
                     switch (headerPosition) {
                         case "fixed":
@@ -129,10 +127,10 @@ const useStyles = makeStyles<{
                                               }),
                                     };
                                 })(),
+                                "overflow": "hidden",
                                 "transition": ["height", "padding"]
                                     .map(prop => `${prop} 250ms`)
                                     .join(", "),
-                                "overflow": "hidden",
                             } as const;
                     }
                 })(),
@@ -140,31 +138,29 @@ const useStyles = makeStyles<{
 
             "footerWrapper": {
                 "marginTop": "auto",
-                "width": rootWidth,
-                "position": "relative",
-                "left": -theme.paddingRightLeft,
+                "& > :first-child": {
+                    "position": "relative",
+                    "width": rootWidth,
+                    "left": -theme.paddingRightLeft,
+                },
             },
-            "childrenAndFooterWrapper": {
-                "overflowX": "hidden",
+            "childrenWrapper": {
                 "display": "flex",
                 "flexDirection": "column",
-                ...(hasChildren
-                    ? {
-                          "& > :first-child": {
-                              "paddingTop":
-                                  headerPosition === "fixed"
-                                      ? headerHeightPlusMargin
-                                      : undefined,
-                              "width": rootWidth,
-                              "position": "relative",
-                              "left": -theme.paddingRightLeft,
-                              ...theme.spacing.rightLeft(
-                                  "padding",
-                                  `${theme.paddingRightLeft}px`,
-                              ),
-                          },
-                      }
-                    : {}),
+                "overflowX": "hidden",
+                "& > :first-child": {
+                    "position": "relative",
+                    "paddingTop":
+                        headerPosition === "fixed"
+                            ? headerHeightPlusMargin
+                            : undefined,
+                    "width": rootWidth,
+                    "left": -theme.paddingRightLeft,
+                    ...theme.spacing.rightLeft(
+                        "padding",
+                        `${theme.paddingRightLeft}px`,
+                    ),
+                },
                 ...theme.spacing.rightLeft(
                     "padding",
                     `${theme.paddingRightLeft}px`,
@@ -261,7 +257,6 @@ const GlTemplateInner = memo(
                 headerOptions.position === "fixed"
                     ? false
                     : headerOptions.doDelegateScroll,
-            "hasChildren": children !== undefined,
         });
 
         useElementEvt(
@@ -302,13 +297,11 @@ const GlTemplateInner = memo(
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={classes.childrenAndFooterWrapper}
+                    className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
                 >
-                    {children !== undefined && children}
-                    {footer !== undefined && (
-                        <div className={classes.footerWrapper}>{footer}</div>
-                    )}
+                    {children}
+                    <div className={classes.footerWrapper}>{footer}</div>
                 </div>
             </div>
         );
