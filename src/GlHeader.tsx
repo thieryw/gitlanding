@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { memo } from "react";
@@ -8,10 +8,11 @@ import { makeStyles, Text } from "./theme";
 import type { ReactNode } from "react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
 import type { GlGithubStarCountProps } from "./utils/GlGithubStarCount";
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useClickAway } from "powerhooks";
 import { breakpointsValues } from "./theme";
 import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
+import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlHeaderProps = {
     className?: string;
@@ -45,95 +46,111 @@ export type GlHeaderProps = {
 const useStyles = makeStyles<{
     isMenuUnfolded: boolean;
     numberOfLinks: number;
-}>()((theme, { isMenuUnfolded, numberOfLinks }) => ({
-    "root": {
-        "display": "flex",
-        "alignItems": "center",
-        "width": "100%",
-        "flexWrap": (() => {
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
-                return undefined;
-            }
+    linkHeight: number;
+}>()((theme, { isMenuUnfolded, numberOfLinks, linkHeight }) => {
+    const linkMarginTopBottom = theme.spacing(3);
 
-            return "wrap";
-        })(),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-    },
-    "title": {
-        "display": "flex",
-        "flex": 1,
-        "marginRight": theme.spacing(2),
-    },
-    "links": {
-        "display": "flex",
-        "transition": "height 300ms",
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+    return {
+        "root": {
+            "display": "flex",
+            "alignItems": "center",
+            "width": "100%",
+            "flexWrap": (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return undefined;
+                }
+
+                return "wrap";
+            })(),
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+        },
+        "title": {
+            "display": "flex",
+            "flex": 1,
+            "marginRight": theme.spacing(2),
+        },
+        "links": {
+            "display": "flex",
+            "transition": "height 300ms",
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {
+                        "flexWrap": "wrap",
+                    } as const;
+                }
+
                 return {
-                    "flexWrap": "wrap",
+                    "order": 123,
+                    "flex": "100%",
+                    "flexDirection": "column",
+                    "height": (() => {
+                        if (isMenuUnfolded) {
+                            return (
+                                (linkHeight + linkMarginTopBottom * 2) *
+                                    numberOfLinks +
+                                10
+                            );
+                        }
+                        return 0;
+                    })(),
+                    "overflow": "hidden",
+                    "flexWrap": "nowrap",
+                    "marginTop": theme.spacing(2),
                 } as const;
-            }
+            })(),
+        },
+        "linkWrapper": {
+            ...(theme.windowInnerWidth >= breakpointsValues.md
+                ? {
+                      ...(() => {
+                          const value = theme.spacing(4);
+                          return {
+                              ...theme.spacing.rightLeft(
+                                  "margin",
+                                  `${value}px`,
+                              ),
+                          };
+                      })(),
+                  }
+                : {
+                      ...theme.spacing.topBottom(
+                          "margin",
+                          `${linkMarginTopBottom}px`,
+                      ),
+                  }),
+        },
 
-            return {
-                "order": 123,
-                "flex": "100%",
-                "flexDirection": "column",
-                "gap": theme.spacing(2),
-                "height": isMenuUnfolded
-                    ? (21 + theme.spacing(2)) * numberOfLinks
-                    : 0,
-                "overflow": "hidden",
-                "flexWrap": "nowrap",
-                "marginTop": theme.spacing(2),
-            } as const;
-        })(),
-    },
-    "linkWrapper": {
-        ...(() => {
-            const leftRight = theme.spacing(4);
-            const topBottom = theme.spacing(1);
-            return {
-                "marginRight": leftRight,
-                "marginTop": topBottom,
-                "marginBottom": topBottom,
-                "marginLeft": (() => {
-                    if (theme.windowInnerWidth >= breakpointsValues.md) {
-                        return leftRight;
-                    }
+        "link": {
+            "color": theme.colors.useCases.typography.textPrimary,
+            "whiteSpace": "nowrap",
+            ...theme.typography.variants["body 1"].style,
+        },
+        "unfoldIcon": {
+            "cursor": "pointer",
+            "marginLeft": theme.spacing(2),
+            "display": (() => {
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return "none";
+                }
 
-                    return 0;
-                })(),
-            };
-        })(),
-    },
-
-    "link": {
-        "color": theme.colors.useCases.typography.textPrimary,
-        "whiteSpace": "nowrap",
-        ...theme.typography.variants["body 1"].style,
-    },
-    "unfoldIcon": {
-        "cursor": "pointer",
-        "marginLeft": theme.spacing(2),
-        "display": (() => {
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
-                return "none";
-            }
-
-            return "flex";
-        })(),
-    },
-    "githubStarAndDarkModeSwitch": {
-        "margin": theme.spacing({
-            "topBottom": 0,
-            "rightLeft": 2,
-        }),
-    },
-    "titleInner": {
-        "display": "flex",
-        "alignItems": "center",
-    },
-}));
+                return "flex";
+            })(),
+        },
+        "githubStarAndDarkModeSwitch": {
+            "margin": theme.spacing({
+                "topBottom": 0,
+                "rightLeft": 2,
+            }),
+        },
+        "titleInner": {
+            "display": "flex",
+            "alignItems": "center",
+        },
+    };
+});
 
 export const GlHeader = memo((props: GlHeaderProps) => {
     const {
@@ -162,9 +179,15 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setIsMenuUnfolded(false);
     });
 
+    const {
+        ref: linkRef,
+        domRect: { height: linkHeight },
+    } = useDomRect();
+
     const { classes, cx, theme } = useStyles({
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
+        linkHeight,
     });
 
     return (
@@ -210,8 +233,9 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             </div>
 
             <div className={cx(classes.links, classesProp?.links)}>
-                {links.map(({ link, label }) => (
+                {links.map(({ link, label }, index) => (
                     <div
+                        ref={index === 0 ? linkRef : undefined}
                         className={cx(
                             classes.linkWrapper,
                             classesProp?.linkWrapper,
