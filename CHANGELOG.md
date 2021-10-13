@@ -1,3 +1,8 @@
+### **0.4.7** (2021-10-13)  
+  
+- bump version  
+- Corrections for GlTemplate    
+  
 ### **0.4.6** (2021-10-12)  
   
 - bump version  
