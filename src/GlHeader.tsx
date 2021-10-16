@@ -11,7 +11,7 @@ import type { GlGithubStarCountProps } from "./utils/GlGithubStarCount";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useClickAway } from "powerhooks";
 import { breakpointsValues } from "./theme";
-import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
+import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlHeaderProps = {
@@ -265,7 +265,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <DarkModeSwitch
+                <GlDarkModeSwitch
                     className={cx(
                         classes.githubStarAndDarkModeSwitch,
                         classesProp?.darkModeSwitch,

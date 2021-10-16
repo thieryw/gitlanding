@@ -29,8 +29,18 @@ import logoPng from "./assets/img/logo.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import gitlandingLogo from "./assets/img/gitlanding-logo.png";
 import { GlSlider } from "gitlanding/GlSlider";
+import { makeStyles } from "gitlanding/theme";
+import { ThemeProviderDefault } from "gitlanding/theme";
+import { GlDarkModeSwitch } from "gitlanding/utils/GlDarkModeSwitch";
+
+const useStyles = makeStyles()(() => ({
+    "hero": {
+        "backgroundColor": "blue",
+    },
+}));
 
 function App() {
+    const { classes } = useStyles();
     return (
         <GlTemplate
             footer={
@@ -53,7 +63,11 @@ function App() {
                 />
             }
             header={
-                <GlHeader
+                <div>
+                    <div>other header</div>
+                    <GlDarkModeSwitch />
+                </div>
+                /*<GlHeader
                     title={<GlLogo logoUrl={logoPng} width={200} />}
                     titleDark={<GlLogo logoUrl={ballonPngUrl} />}
                     titleSmallScreen={<p>small</p>}
@@ -74,8 +88,8 @@ function App() {
                     ]}
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
-                    githubButtonSize="large"
-                />
+                    githubButtonSize="large"*
+                />*/
             }
             headerOptions={{
                 "position": "fixed",
@@ -83,6 +97,7 @@ function App() {
             }}
         >
             <GlHero
+                className={classes.hero}
                 title="Hero Title"
                 subTitle={"Hero subtitle"}
                 imageSrc={heroHeaderPngUrl}
@@ -240,4 +255,9 @@ function App() {
     );
 }
 
-render(<App />, document.getElementById("root"));
+render(
+    <ThemeProviderDefault>
+        <App />
+    </ThemeProviderDefault>,
+    document.getElementById("root"),
+);
