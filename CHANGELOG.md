@@ -1,3 +1,9 @@
+### **0.4.9** (2021-10-16)  
+  
+- bump version  
+- export dark Mode switch  
+- update dependencys    
+  
 ### **0.4.8** (2021-10-13)  
   
 - bump version  
