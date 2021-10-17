@@ -2,76 +2,17 @@ import { render } from "react-dom";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHeader } from "gitlanding/GlHeader";
 import { GlHero } from "gitlanding/GlHero";
-import { GlCards } from "gitlanding/GlCards";
-import { GlMetricCard } from "gitlanding/GlCards/GlMetricCard";
 import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
-import { GlLogoCard } from "gitlanding/GlCards/GlLogoCard";
-import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
-import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlFooter } from "gitlanding/GlFooter";
-import heroHeaderPngUrl from "./assets/illustrations/heroHeader.png";
-import catalogIconUrl from "./assets/svg/Catalog.svg";
-import trainingIconUrl from "./assets/svg/Trainings2.svg";
-import gitlabPngUrl from "./assets/collaborative_tools/gitlab.png";
-import githubPngUrl from "./assets/collaborative_tools/github.png";
-//import tchapPngUrl from "./assets/collaborative_tools/tchap.png";
-import rocketPngUrl from "./assets/collaborative_tools/rocket-chat.png";
-import drawioPngUrl from "./assets/collaborative_tools/drawio.png";
-import ballonPngUrl from "./assets/collaborative_tools/balloon.png";
-import plusPngUrl from "./assets/collaborative_tools/+.png";
-import dataVisuPngUrl from "./assets/illustrations/datavisualisation.png";
-import pokemonPngUrl from "./assets/illustrations/pokemon.png";
-import kubernetesPngUrl from "./assets/illustrations/kubernetes.png";
-import webinairePngUrl from "./assets/illustrations/webinaire.png";
-import { GlLogo } from "gitlanding/utils/GlLogo";
-import logoPng from "./assets/img/logo.png";
-import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
-import gitlandingLogo from "./assets/img/gitlanding-logo.png";
-import { GlSlider } from "gitlanding/GlSlider";
-import { makeStyles } from "gitlanding/theme";
-import { ThemeProviderDefault } from "gitlanding/theme";
-import { GlDarkModeSwitch } from "gitlanding/utils/GlDarkModeSwitch";
-
-const useStyles = makeStyles()(() => ({
-    "hero": {
-        "backgroundColor": "blue",
-    },
-}));
+import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 
 function App() {
-    const { classes } = useStyles();
     return (
         <GlTemplate
-            footer={
-                <GlFooter
-                    links={[
-                        {
-                            "title": "link 1",
-                            "href": "http://www.example.com",
-                        },
-                        {
-                            "title": "link 2",
-                            "href": "http://www.example.com",
-                        },
-                        {
-                            "title": "link 3",
-                            "href": "http://www.example.com",
-                        },
-                    ]}
-                    bottomDivContent="M I T licence"
-                />
-            }
             header={
-                <div>
-                    <div>other header</div>
-                    <GlDarkModeSwitch />
-                </div>
-                /*<GlHeader
-                    title={<GlLogo logoUrl={logoPng} width={200} />}
-                    titleDark={<GlLogo logoUrl={ballonPngUrl} />}
-                    titleSmallScreen={<p>small</p>}
-                    titleSmallScreenDark={<p>small dark</p>}
+                <GlHeader
+                    title="Header title"
                     links={[
                         {
                             "label": "link 1",
@@ -88,50 +29,61 @@ function App() {
                     ]}
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
-                    githubButtonSize="large"*
-                />*/
+                    githubButtonSize="large"
+                />
             }
             headerOptions={{
                 "position": "fixed",
                 "isRetracted": "smart",
             }}
+            footer={
+                <GlFooter
+                    bottomDivContent="Licence M I T"
+                    email="email@email.com"
+                    phoneNumber="+33545345676"
+                    links={[
+                        {
+                            "href": "https://example.com",
+                            "title": "link 1",
+                        },
+                        {
+                            "href": "https://example.com",
+                            "title": "link 2",
+                        },
+                        {
+                            "href": "https://example.com",
+                            "title": "link 3",
+                        },
+                    ]}
+                />
+            }
         >
             <GlHero
-                className={classes.hero}
-                title="Hero Title"
+                title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc={heroHeaderPngUrl}
+                imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 linkToSectionBelowId="firstSection"
             />
 
-            <GlCards id="firstSection">
-                <GlMetricCard
-                    number={129}
-                    subHeading="Metric card subHeading"
-                    iconUrl={catalogIconUrl}
-                    buttonLabel="Button label"
-                    link={{ "href": "https://example.com" }}
-                    isNumberAnimated={true}
-                    timeIntervalBetweenNumbersMs={4}
-                />
-                <GlMetricCard
-                    number={19}
-                    subHeading="Metric card subHeading"
-                    iconUrl={trainingIconUrl}
-                    buttonLabel="Button label"
-                    link={{ "href": "https://example.com" }}
-                    isNumberAnimated={true}
-                />
-                <GlMetricCard
-                    number={200}
-                    subHeading="Metric card subHeading"
-                    iconUrl={trainingIconUrl}
-                    buttonLabel="Button label"
-                    link={{ "href": "https://example.com" }}
-                    isNumberAnimated={true}
-                    timeIntervalBetweenNumbersMs={4}
-                />
-            </GlCards>
+            <GlArticle
+                id="firstSection"
+                title="Article title"
+                body="Article body"
+                buttonLabel="Article Button label"
+                buttonLink={{
+                    "href": "https://example.com",
+                }}
+                illustration={
+                    <GlIllustration
+                        type="image"
+                        url="https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png"
+                    />
+                }
+                animationVariant="primary"
+                illustrationPosition="left"
+            />
+
+            <GlSectionDivider />
 
             <GlArticle
                 title="Article title"
@@ -140,124 +92,16 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={<GlIllustration type="image" url={sspcloudMp4} />}
-                animationVariant="secondary"
-            />
-            <GlSectionDivider />
-
-            <GlCards title="Cards title">
-                <GlLogoCard
-                    title="Logo card title"
-                    paragraph="Logo card paragraph"
-                    iconUrls={[gitlabPngUrl, githubPngUrl]}
-                    buttonLabel="Button label"
-                    link={{
-                        "href": "https://explorer.com",
-                    }}
-                />
-                <GlLogoCard
-                    title="Logo card title"
-                    paragraph="Logo card paragraph"
-                    iconUrls={[gitlandingLogo]}
-                    buttonLabel="Button label"
-                    link={{
-                        "href": "https://explorer.com",
-                    }}
-                />
-                <GlLogoCard
-                    title="Logo card title"
-                    paragraph="Logo card paragraph"
-                    iconUrls={[
-                        rocketPngUrl,
-                        drawioPngUrl,
-                        ballonPngUrl,
-                        plusPngUrl,
-                    ]}
-                    buttonLabel="Button label"
-                    overlapIcons={true}
-                    link={{
-                        "href": "https://explorer.com",
-                    }}
-                />
-            </GlCards>
-
-            <GlArticle
-                title="Article title"
-                body="Article body"
-                buttonLabel="Button label"
-                buttonLink={{
-                    "href": "https://explorer.com",
-                }}
                 illustration={
                     <GlIllustration
-                        type="code"
-                        language="typescript"
-                        hasDecorativeVsCodeButtons={true}
-                        text={[
-                            "function sum(x: number, y: number){\n",
-                            "   return x + y;\n",
-                            "}\n",
-                            "console.log(sum(12, 14));",
-                        ].join("")}
+                        type="image"
+                        url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png"
                     />
                 }
-                illustrationPosition="left"
-                animationVariant="primary"
-            />
-
-            <GlCards title="Cards title">
-                <GlProjectCard
-                    projectImageUrl={dataVisuPngUrl}
-                    title="Project card title"
-                    subtitle="Project card subtitle"
-                    date="01/04/2021"
-                    link={{
-                        "href": "https://example.com",
-                    }}
-                    badgeLabel="badge label"
-                />
-                <GlProjectCard
-                    projectImageUrl={pokemonPngUrl}
-                    title="Project card title"
-                    subtitle="Project card subtitle"
-                    date="15/01/2021"
-                    link={{
-                        "href": "https://example.com",
-                    }}
-                    badgeLabel="badge label"
-                />
-                <GlProjectCard
-                    projectImageUrl={kubernetesPngUrl}
-                    title="Project card title"
-                    subtitle="Project card subtitle"
-                    date="25/03/2021"
-                    link={{
-                        "href": "https://example.com",
-                    }}
-                    badgeLabel="badge label"
-                />
-                <GlProjectCard
-                    projectImageUrl={webinairePngUrl}
-                    title="Project card title"
-                    subtitle="Project card subtitle"
-                    date="15/11/2020"
-                    link={{
-                        "href": "https://example.com",
-                    }}
-                    badgeLabel="badge label"
-                />
-            </GlCards>
-            <GlSlider
-                slides={["slide 1", "slide2", "slide3"]}
-                autoPlayTimeInterval={3}
+                animationVariant="secondary"
             />
         </GlTemplate>
     );
 }
 
-render(
-    <ThemeProviderDefault>
-        <App />
-    </ThemeProviderDefault>,
-    document.getElementById("root"),
-);
+render(<App />, document.getElementById("root"));
