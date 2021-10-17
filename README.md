@@ -61,9 +61,7 @@ You're now ready to start customizing this page with `Gitlanding`.
 
 ## Adding Meta Tags
 
-{% hint style="info" %}
-[Click for more information on `meta tags`](https://www.wordstream.com/meta-tags#:\~:text=Meta%20tags%20are%20snippets%20of,a%20web%20page%20is%20about.)
-{% endhint %}
+![](<.gitbook/assets/Screenshot 2021-10-17 at 12.07.53.png>)
 
 Put a preview image at the root of your public directory for the social media cards.
 
