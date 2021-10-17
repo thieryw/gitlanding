@@ -30,6 +30,7 @@ function App() {
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
                     githubButtonSize="large"
+                    showGithubStarCount
                 />
             }
             headerOptions={{

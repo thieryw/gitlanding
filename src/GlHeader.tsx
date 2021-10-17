@@ -40,6 +40,7 @@ export type GlHeaderProps = {
     enableDarkModeSwitch?: boolean;
     githubRepoUrl?: GlGithubStarCountProps["repoUrl"];
     githubButtonSize?: GlGithubStarCountProps["size"];
+    showGithubStarCount?: GlGithubStarCountProps["showCount"];
     isCollapsible?: boolean;
 };
 
@@ -164,6 +165,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         titleSmallScreen,
         titleSmallScreenDark,
         classes: classesProp,
+        showGithubStarCount,
     } = props;
 
     const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
@@ -257,6 +259,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 <GlGithubStarCount
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
+                    showCount={showGithubStarCount}
                     className={cx(
                         classes.githubStarAndDarkModeSwitch,
                         classesProp?.githubStar,

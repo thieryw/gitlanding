@@ -7,6 +7,7 @@ export type GlGithubStarCountProps = {
     className?: string;
     size?: "normal" | "large";
     repoUrl: string;
+    showCount?: boolean;
 };
 
 const useStyles = makeStyles()({
@@ -19,7 +20,7 @@ const useStyles = makeStyles()({
 });
 
 export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
-    const { repoUrl, size, className } = props;
+    const { repoUrl, size, className, showCount } = props;
 
     const { classes, cx } = useStyles();
 
@@ -43,6 +44,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
                 ].join("\n")}
                 data-icon="octicon-star"
                 data-size={size === "large" ? size : ""}
+                data-show-count={`${showCount ?? false}`}
             >
                 Star
             </GithubBtn>
