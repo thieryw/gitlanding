@@ -12,8 +12,16 @@ You can preview the components in [Storybook](https://www.gitlanding.dev/storybo
 If you have bootstraped your page using `create-react-app` there is a[ lot of things](https://github.com/thieryw/crispy-octo-bassoon/commit/431679969c454772605d2d16ad69290559a43cba) you can delete. 
 {% endhint %}
 
-```text
-yarn add gitlanding
+```
+yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks
+```
+
+{% hint style="info" %}
+If you want to use icons from [mui](https://mui.com/components/material-icons/)
+{% endhint %}
+
+```
+yarn add @mui/icons-material
 ```
 
 Copy paste the the following skeletton in `src/index.tsx`,  run `yarn start` and start hacking around🚀
@@ -97,7 +105,7 @@ function App() {
         illustration={
           <GlIllustration type="image" url="https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png" />
         }
-        hasAnimation={true}
+        animationVariant="primary"
         illustrationPosition="left"
       />
 
@@ -113,7 +121,7 @@ function App() {
         illustration={
           <GlIllustration type="image" url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png" />
         }
-        hasAnimation={true}
+        animationVariant="secondary"
       />
 
     </GlTemplate>
@@ -128,4 +136,3 @@ Host your assets by placing them [in a dedicated directory in your `src` folder]
 {% endhint %}
 
 ####  
-
