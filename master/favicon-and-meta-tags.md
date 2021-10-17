@@ -10,7 +10,7 @@
 ### Adding Meta Tags
 
 1. Create the public/preview.(png | jpg) image from [this template](https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png).
-2. Consult [this commit](https://github.com/thieryw/crispy-octo-bassoon/commit/178dc8eb7f079607de96153825e14715f2210f7e) to view the code to add in the `<head>` of your `public/index.html` file.
+2. Consult [this commit ](https://github.com/thieryw/crispy-octo-bassoon/commit/02c52f0477e0348339ac6d4d2b434a6bde2711cc)to view the code to add in the `<head>` of your `public/index.html` file.
 
 {% hint style="info" %}
 You can use [metatags.io](https://metatags.io) to generate your metatags but you must change the default url they provide to` %PUBLIC_URL%`.
