@@ -16,14 +16,6 @@ If you have bootstraped your page using `create-react-app` there is a[ lot of th
 yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks
 ```
 
-{% hint style="info" %}
-If you want to use icons from [mui](https://mui.com/components/material-icons/)
-{% endhint %}
-
-```
-yarn add @mui/icons-material
-```
-
 Copy paste the the following skeletton in `src/index.tsx`,  run `yarn start` and start hacking around🚀
 
 ```typescript

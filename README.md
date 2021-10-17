@@ -39,34 +39,4 @@ If all went as expected you page should be up and running
 
 ![](.gitbook/assets/react-app-screen-shot.png)
 
-{% hint style="info" %}
-Later on, you will probably want to use your own domain name. For that, you'll have to.
-
-1. [Configure the DNS](https://user-images.githubusercontent.com/39378411/135731113-660804da-060d-4c60-b4d5-8b944fe00a5d.png)
-2. [Remove the `hostname` file from your `package.json`](https://github.com/thieryw/crispy-octo-bassoon/blob/431679969c454772605d2d16ad69290559a43cba/package.json#L39)``
-3. [Create a `CNAME` file in your `public/` directory](https://github.com/thieryw/gitlanding/blob/landingpage/public/CNAME)
-4. [Update your GitHub Pages configuration](https://user-images.githubusercontent.com/39378411/135731497-b1f0bb1b-413d-4aae-bc8e-6d77174aae41.png)
-{% endhint %}
-
-{% hint style="info" %}
-For changing the favicon (the little logo in your browser tab)
-
-1. Navigate to [realfavicongenerator.net](https://realfavicongenerator.net) and upload your image.
-2. In the option set a [custom path](https://user-images.githubusercontent.com/6702424/137597391-1d0d5b26-0f5b-4d8d-8d29-46d874c4f4e0.png): `%PUBLIC_URL%/favicon`
-3. Insert [the code generated for you](https://user-images.githubusercontent.com/6702424/137597436-4f85641e-16a3-4cb9-8c4f-5fd4baf8effc.png) in the `<head>` of your `public/index.html` file
-4. Create the `public/favicon directory and extract the zip file there.`
-{% endhint %}
-
 You're now ready to start customizing this page with `Gitlanding`.
-
-## Adding Meta Tags
-
-![](<.gitbook/assets/Screenshot 2021-10-17 at 12.07.53.png>)
-
-Put a preview image at the root of your public directory for the social media cards.
-
-![](.gitbook/assets/preview-2-.jpg)
-
-{% hint style="success" %}
-Now add the `meta tags` in the `head` of your `index.html` file. [Checkout  this commit for our example.](https://github.com/thieryw/crispy-octo-bassoon/commit/143c6ac0a920896c4493b9ef6ab8233f0c7db95b)
-{% endhint %}
