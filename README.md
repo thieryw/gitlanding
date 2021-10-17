@@ -10,9 +10,7 @@
     <img src="https://img.shields.io/npm/l/gitlanding">
 </p>
 <p align="center">
-  <a>Landing page</a>&nbsp&nbsp
-  <a href="https://www.gitlanding.dev/storybook">Storybook</a>&nbsp&nbsp
-  <a href="">Docs</a>
+  <a href="https://www.gitlanding.dev/">Landing page</a> - <a href="https://www.gitlanding.dev/storybook">Storybook</a> - <a href="">Docs</a>
   
 </p>
 
@@ -41,6 +39,18 @@ minutes and enable you to customize it and add feature along the way as your pro
 Website using gitlanding.
 
 -   [SSPCloud.fr](https://www.sspcloud.fr), [Source code](https://github.com/InseeFrLab/www.sspcloud.fr)
+-   [powerhooks.dev](https://www.powerhooks.dev/)
+-   [tsafe.dev](https://www.tsafe.dev/)
+
+# Quick start
+
+```bash
+yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks
+# If you plan on using icons from: https://mui.com/components/material-icons/
+yarn add @mui/icons-material
+```
+
+-   [Find out how to publish a Gitlanding page on Github pages](https://docs.gitlanding.dev/)
 
 # Dev
 
