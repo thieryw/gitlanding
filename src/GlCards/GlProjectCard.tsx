@@ -17,8 +17,11 @@ export type GlProjectCardProps = GlCardProps & {
 };
 
 const useStyles = makeStyles<
-    Pick<GlProjectCardProps, "badgeBackgroundColor" | "badgeColor">
->()((theme, { badgeBackgroundColor, badgeColor }) => ({
+    Pick<
+        GlProjectCardProps,
+        "badgeBackgroundColor" | "badgeColor" | "projectImageUrl"
+    >
+>()((theme, { badgeBackgroundColor, badgeColor, projectImageUrl }) => ({
     "root": {
         "display": "flex",
         "flexDirection": "column",
@@ -54,11 +57,11 @@ const useStyles = makeStyles<
         "flex": 1,
         "width": "100%",
         "margin": 0,
-    },
-    "projectImage": {
-        "width": "100%",
-        "minHeight": "100%",
-        "objectFit": "cover",
+        "background": `url("${projectImageUrl}")`,
+        "backgroundSize": "cover",
+        "backgroundPosition": "center",
+        "height": 0,
+        "paddingTop": "96%",
     },
 
     "badge": {
@@ -93,16 +96,12 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     const { classes, cx } = useStyles({
         badgeColor,
         badgeBackgroundColor,
+        projectImageUrl,
     });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
             <div className={classes.header}>
-                <img
-                    className={classes.projectImage}
-                    src={projectImageUrl}
-                    alt="project image"
-                />
                 {badgeLabel !== undefined && (
                     <GlButton
                         type="submit"

@@ -75,13 +75,16 @@ const useStyles = makeStyles()(theme => ({
     },
     "link": {
         "color": theme.colors.useCases.typography.textPrimary,
+        "margin": theme.spacing({
+            "rightLeft": 2,
+            "topBottom": 2,
+        }),
     },
     "links": {
         "display": "flex",
         "flexDirection": "row",
         "flexWrap": "wrap",
         "justifyContent": "center",
-        "gap": theme.spacing(4),
         "marginTop": theme.spacing(3),
         "marginBottom": theme.spacing(3),
     },

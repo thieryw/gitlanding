@@ -16,7 +16,6 @@ const useStyles = makeStyles()(theme => ({
         "flexDirection": "column",
         "alignItems": "center",
         "justifyContent": "center",
-        "gap": theme.spacing(1),
         ...(() => {
             const value = theme.spacing(4);
 
@@ -28,6 +27,7 @@ const useStyles = makeStyles()(theme => ({
     },
     "email": {
         "color": theme.colors.useCases.typography.textSecondary,
+        "marginBottom": theme.spacing(1),
     },
 }));
 

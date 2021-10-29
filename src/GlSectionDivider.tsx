@@ -10,25 +10,18 @@ const useStyles = makeStyles()(theme => ({
     "root": {
         "display": "flex",
         "justifyContent": "center",
+        ...theme.spacing.topBottom("padding", `${theme.spacing(7)}px`),
     },
     "primary": {
         "position": "relative",
         "backgroundColor": theme.colors.useCases.typography.textTertiary,
         "height": 1,
         "width": "60%",
-        "margin": theme.spacing({
-            "topBottom": 7,
-            "rightLeft": 0,
-        }),
     },
     "secondary": {
         "position": "relative",
         "height": 1,
         "width": "60%",
-        "margin": theme.spacing({
-            "topBottom": 7,
-            "rightLeft": 0,
-        }),
         ":before": {
             "content": `""`,
             "position": "absolute",

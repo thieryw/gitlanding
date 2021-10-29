@@ -6,6 +6,12 @@ import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
+import { GlCards } from "gitlanding/GlCards";
+import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
+import dataVisuPng from "./assets/illustrations/datavisualisation.png";
+import pokemon from "./assets/illustrations/pokemon.png";
+import webinaire from "./assets/illustrations/webinaire.png";
+import kubernetes from "./assets/illustrations/kubernetes.png";
 
 function App() {
     return (
@@ -101,6 +107,33 @@ function App() {
                 }
                 animationVariant="secondary"
             />
+            <GlSectionDivider />
+            <GlCards>
+                <GlProjectCard
+                    projectImageUrl={dataVisuPng}
+                    title="title"
+                    subtitle="subtitle"
+                    badgeLabel="badge label"
+                />
+                <GlProjectCard
+                    projectImageUrl={kubernetes}
+                    title="title"
+                    subtitle="subtitle sdf qsmdlkfj qsdlkj qsdflkjqsmdl qsdflkjqsdml sfslkjsdflkj sdfmlqkj"
+                    badgeLabel="badge label"
+                />
+                <GlProjectCard
+                    projectImageUrl={pokemon}
+                    title="title"
+                    subtitle="subtitle"
+                    badgeLabel="badge label"
+                />
+                <GlProjectCard
+                    projectImageUrl={webinaire}
+                    title="title"
+                    subtitle="subtitle"
+                    badgeLabel="badge label"
+                />
+            </GlCards>
         </GlTemplate>
     );
 }

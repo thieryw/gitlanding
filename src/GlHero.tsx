@@ -35,8 +35,6 @@ const useStyles = makeStyles<{
     "root": {
         "position": "relative",
         "width": "100%",
-        "display": "flex",
-        "flexDirection": "column",
         "paddingBottom": theme.spacing(7),
     },
     "textAndImageWrapper": {
