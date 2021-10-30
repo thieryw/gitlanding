@@ -1,3 +1,8 @@
+### **0.4.12** (2021-10-30)  
+  
+- bump version  
+- export scrollable div Id    
+  
 ### **0.4.11** (2021-10-29)  
   
 - bump version  
