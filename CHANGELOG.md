@@ -1,3 +1,8 @@
+### **0.4.11** (2021-10-29)  
+  
+- bump version  
+- applie corrections for safari    
+  
 ### **0.4.10** (2021-10-17)  
   
 - bump version  
