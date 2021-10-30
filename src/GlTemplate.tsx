@@ -282,21 +282,19 @@ const GlTemplateInner = memo(
         );
 
         return (
-            <div
-                id={
-                    headerOptions.position === "top of page" &&
-                    headerOptions.doDelegateScroll
-                        ? undefined
-                        : scrollableDivId
-                }
-                className={classes.root}
-            >
+            <div className={classes.root}>
                 <div className={classes.headerWrapper}>
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
                     className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
+                    id={
+                        headerOptions.position === "top of page" &&
+                        headerOptions.doDelegateScroll
+                            ? undefined
+                            : scrollableDivId
+                    }
                 >
                     {children}
                     <div className={classes.footerWrapper}>{footer}</div>
