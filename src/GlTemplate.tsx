@@ -10,7 +10,7 @@ import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 
-export const scrollableDivClassName = "GlScrollable";
+export const scrollableDivId = "GlScrollable";
 
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 
@@ -243,7 +243,7 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        const { classes, cx } = useStyles({
+        const { classes } = useStyles({
             rootWidth,
             headerHeight,
             "isHeaderRetracted":
@@ -283,13 +283,13 @@ const GlTemplateInner = memo(
 
         return (
             <div
-                className={cx(
-                    classes.root,
+                id={
                     headerOptions.position === "top of page" &&
-                        headerOptions.doDelegateScroll
+                    headerOptions.doDelegateScroll
                         ? undefined
-                        : scrollableDivClassName,
-                )}
+                        : scrollableDivId
+                }
+                className={classes.root}
             >
                 <div className={classes.headerWrapper}>
                     <div ref={headerWrapperRef}>{header}</div>
