@@ -1,3 +1,8 @@
+### **0.4.14** (2021-11-08)  
+  
+- update version  
+- added classes props on GlTemplate    
+  
 ### **0.4.13** (2021-10-30)  
   
 - bump version  
