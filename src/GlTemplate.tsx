@@ -11,7 +11,6 @@ import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 
 export const scrollableDivId = "GlScrollable";
-
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 
 export namespace HeaderOptions {
@@ -41,6 +40,12 @@ export type GlTemplateProps = {
         children: ReactNode;
     }>;
     headerOptions?: HeaderOptions;
+    className?: string;
+    classes?: {
+        headerWrapper?: string;
+        childrenWrapper?: string;
+        footerWrapper?: string;
+    };
 };
 
 const useStyles = makeStyles<{
@@ -192,7 +197,14 @@ const GlTemplateInner = memo(
             isThemeProvidedOutside: boolean;
         },
     ) => {
-        const { header, isThemeProvidedOutside, children, footer } = props;
+        const {
+            header,
+            isThemeProvidedOutside,
+            children,
+            footer,
+            className,
+            classes: classesProp,
+        } = props;
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -243,7 +255,7 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        const { classes } = useStyles({
+        const { classes, cx } = useStyles({
             rootWidth,
             headerHeight,
             "isHeaderRetracted":
@@ -282,12 +294,20 @@ const GlTemplateInner = memo(
         );
 
         return (
-            <div className={classes.root}>
-                <div className={classes.headerWrapper}>
+            <div className={cx(classes.root, className)}>
+                <div
+                    className={cx(
+                        classes.headerWrapper,
+                        classesProp?.headerWrapper,
+                    )}
+                >
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={classes.childrenWrapper}
+                    className={cx(
+                        classes.childrenWrapper,
+                        classesProp?.childrenWrapper,
+                    )}
                     ref={childrenWrapperRef}
                     id={
                         headerOptions.position === "top of page" &&
@@ -297,7 +317,14 @@ const GlTemplateInner = memo(
                     }
                 >
                     {children}
-                    <div className={classes.footerWrapper}>{footer}</div>
+                    <div
+                        className={cx(
+                            classes.footerWrapper,
+                            classesProp?.footerWrapper,
+                        )}
+                    >
+                        {footer}
+                    </div>
                 </div>
             </div>
         );
