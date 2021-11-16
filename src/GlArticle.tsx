@@ -1,6 +1,6 @@
 import { memo, useMemo, useReducer } from "react";
 import type { ReactNode } from "react";
-import { makeStyles, Text } from "./theme";
+import { makeStyles } from "./theme";
 import { breakpointsValues } from "./theme";
 import ReactMarkdown from "react-markdown";
 import { GlButton } from "./utils/GlButton";
@@ -188,12 +188,14 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     >
                         {title && (
                             <motion.div {...titleAnimationProps}>
-                                <Text
-                                    className={classesProp?.title}
-                                    typo="page heading"
+                                <ReactMarkdown
+                                    className={cx(
+                                        classes.title,
+                                        classesProp?.title,
+                                    )}
                                 >
                                     {title}
-                                </Text>
+                                </ReactMarkdown>
                             </motion.div>
                         )}
                         {body && (
@@ -295,6 +297,9 @@ const useStyles = makeStyles<{
                 "paddingLeft": value,
             };
         })(),
+    },
+    "title": {
+        ...theme.typography.variants["page heading"].style,
     },
     "article": {
         "display": "flex",
