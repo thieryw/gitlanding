@@ -19,11 +19,8 @@ export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({});
 
 export function useTheme() {
     const { theme } = useStyles();
-    theme.custom = {
-        "shadow": "5px 5px 23px 5px rgba(0,0,0,0.51)",
-    };
 
-    const out = {
+    return {
         ...theme,
         "paddingRightLeft": theme.spacing(
             (() => {
@@ -38,9 +35,8 @@ export function useTheme() {
                 return 4;
             })(),
         ),
+        "customShadow": "5px 5px 23px 5px rgba(0,0,0,0.51)",
     };
-
-    return out;
 }
 
 export const { makeStyles } = createMakeStyles({ useTheme });

@@ -56,9 +56,7 @@ const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>()(
             "height": isImageLoaded ? "auto" : undefined,
             "objectFit": "cover",
             "verticalAlign": "middle",
-            "boxShadow": !hasShadow
-                ? undefined
-                : (theme.custom.shadow as string),
+            "boxShadow": !hasShadow ? undefined : theme.customShadow,
         },
     }),
 );

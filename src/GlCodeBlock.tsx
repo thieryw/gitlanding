@@ -61,7 +61,7 @@ const useStyles = makeStyles<{
                   "backgroundColor": colors.darkslategray,
               }
             : {}),
-        "boxShadow": !hasShadow ? undefined : (theme.custom.shadow as string),
+        "boxShadow": !hasShadow ? undefined : theme.customShadow,
     },
     "vsCodeButtons": {
         "position": "absolute",
