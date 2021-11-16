@@ -14,6 +14,27 @@ export type GlArrowProps = {
     };
 };
 
+export const GlArrow = memo((props: GlArrowProps) => {
+    const { className, link, direction, hasCircularBorder } = props;
+
+    const { classes, cx } = useStyles({
+        direction,
+        "hasCircularBorder": hasCircularBorder ?? false,
+    });
+
+    return (
+        <div
+            onClick={
+                link?.onClick ??
+                (() => (window.location.href = link?.href ?? "#"))
+            }
+            className={cx(classes.root, className)}
+        >
+            <ReactSVG src={downArrow} />
+        </div>
+    );
+});
+
 const useStyles = makeStyles<{
     direction: GlArrowProps["direction"];
     hasCircularBorder: boolean;
@@ -63,24 +84,3 @@ const useStyles = makeStyles<{
         },
     },
 }));
-
-export const GlArrow = memo((props: GlArrowProps) => {
-    const { className, link, direction, hasCircularBorder } = props;
-
-    const { classes, cx } = useStyles({
-        direction,
-        "hasCircularBorder": hasCircularBorder ?? false,
-    });
-
-    return (
-        <div
-            onClick={
-                link?.onClick ??
-                (() => (window.location.href = link?.href ?? "#"))
-            }
-            className={cx(classes.root, className)}
-        >
-            <ReactSVG src={downArrow} />
-        </div>
-    );
-});

@@ -28,76 +28,6 @@ export type GlFooterProps = {
     phoneNumber?: string;
 };
 
-const useStyles = makeStyles()(theme => ({
-    "root": {
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "marginTop": theme.spacing(7),
-        "backgroundColor": theme.colors.useCases.surfaces.surface2,
-        ...(() => {
-            const value = theme.spacing(4);
-
-            return {
-                "paddingTop": value,
-            };
-        })(),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-    },
-    "icon": {
-        "transition": "transform 200ms",
-        ":hover": {
-            "cursor": "pointer",
-            "transform": "scale(1.2)",
-        },
-        ...(() => {
-            const value = theme.spacing(5);
-
-            return {
-                "width": value,
-                "height": value,
-                "& svg": {
-                    "width": value,
-                    "height": value,
-                },
-            };
-        })(),
-    },
-    "icons": {
-        "display": "flex",
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-        "gap": theme.spacing(4),
-        "marginBottom": theme.spacing(3),
-        "marginTop": theme.spacing(2),
-    },
-    "link": {
-        "color": theme.colors.useCases.typography.textPrimary,
-        "margin": theme.spacing({
-            "rightLeft": 2,
-            "topBottom": 2,
-        }),
-    },
-    "links": {
-        "display": "flex",
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-        "marginTop": theme.spacing(3),
-        "marginBottom": theme.spacing(3),
-    },
-    "bottomDiv": {
-        "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
-        "marginTop": theme.spacing(3),
-        "width": "100%",
-        "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-    },
-}));
-
 export const GlFooter = memo((props: GlFooterProps) => {
     const {
         bottomDivContent,
@@ -167,3 +97,73 @@ export const GlFooter = memo((props: GlFooterProps) => {
         </footer>
     );
 });
+
+const useStyles = makeStyles()(theme => ({
+    "root": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": theme.spacing(7),
+        "backgroundColor": theme.colors.useCases.surfaces.surface2,
+        ...(() => {
+            const value = theme.spacing(4);
+
+            return {
+                "paddingTop": value,
+            };
+        })(),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+    },
+    "icon": {
+        "transition": "transform 200ms",
+        ":hover": {
+            "cursor": "pointer",
+            "transform": "scale(1.2)",
+        },
+        ...(() => {
+            const value = theme.spacing(5);
+
+            return {
+                "width": value,
+                "height": value,
+                "& svg": {
+                    "width": value,
+                    "height": value,
+                },
+            };
+        })(),
+    },
+    "icons": {
+        "display": "flex",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "gap": theme.spacing(4),
+        "marginBottom": theme.spacing(3),
+        "marginTop": theme.spacing(2),
+    },
+    "link": {
+        "color": theme.colors.useCases.typography.textPrimary,
+        "margin": theme.spacing({
+            "rightLeft": 2,
+            "topBottom": 2,
+        }),
+    },
+    "links": {
+        "display": "flex",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "marginTop": theme.spacing(3),
+        "marginBottom": theme.spacing(3),
+    },
+    "bottomDiv": {
+        "borderTop": `solid ${theme.colors.useCases.typography.textDisabled} 1px`,
+        "marginTop": theme.spacing(3),
+        "width": "100%",
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+    },
+}));

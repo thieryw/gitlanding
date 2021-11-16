@@ -15,6 +15,68 @@ export type GlLogoCardProps = GlCardProps & {
     overlapIcons?: boolean;
 };
 
+export const GlLogoCard = memo((props: GlLogoCardProps) => {
+    const {
+        className,
+        iconUrls,
+        paragraph,
+        title,
+        buttonLabel,
+        overlapIcons,
+        link,
+    } = props;
+
+    const { classes, cx, css } = useStyles({
+        "numberOfIcons": iconUrls?.length ?? 0,
+        "overlapIcons": overlapIcons ?? false,
+    });
+
+    return (
+        <GlCard link={link} className={cx(classes.root, className)}>
+            {iconUrls && (
+                <div className={classes.iconWrapper}>
+                    {iconUrls.map((url, index) => (
+                        <GlLogo
+                            className={cx(
+                                classes.icon,
+                                css({
+                                    "zIndex": iconUrls.length - index,
+                                }),
+                            )}
+                            logoUrl={url}
+                            key={index}
+                        />
+                    ))}
+                </div>
+            )}
+
+            <div className={classes.textWrapper}>
+                {title !== undefined && (
+                    <Text typo="section heading" className={classes.title}>
+                        {title}
+                    </Text>
+                )}
+                {paragraph !== undefined && (
+                    <Text typo="body 1" className={classes.paragraph}>
+                        {paragraph}
+                    </Text>
+                )}
+            </div>
+
+            {buttonLabel !== undefined && (
+                <GlButton
+                    type="submit"
+                    href={link?.href}
+                    variant="secondary"
+                    onClick={link?.onClick}
+                >
+                    {buttonLabel}
+                </GlButton>
+            )}
+        </GlCard>
+    );
+});
+
 const useStyles = makeStyles<{
     numberOfIcons: number;
     overlapIcons: boolean;
@@ -88,65 +150,3 @@ const useStyles = makeStyles<{
         "marginBottom": theme.spacing(4),
     },
 }));
-
-export const GlLogoCard = memo((props: GlLogoCardProps) => {
-    const {
-        className,
-        iconUrls,
-        paragraph,
-        title,
-        buttonLabel,
-        overlapIcons,
-        link,
-    } = props;
-
-    const { classes, cx, css } = useStyles({
-        "numberOfIcons": iconUrls?.length ?? 0,
-        "overlapIcons": overlapIcons ?? false,
-    });
-
-    return (
-        <GlCard link={link} className={cx(classes.root, className)}>
-            {iconUrls && (
-                <div className={classes.iconWrapper}>
-                    {iconUrls.map((url, index) => (
-                        <GlLogo
-                            className={cx(
-                                classes.icon,
-                                css({
-                                    "zIndex": iconUrls.length - index,
-                                }),
-                            )}
-                            logoUrl={url}
-                            key={index}
-                        />
-                    ))}
-                </div>
-            )}
-
-            <div className={classes.textWrapper}>
-                {title !== undefined && (
-                    <Text typo="section heading" className={classes.title}>
-                        {title}
-                    </Text>
-                )}
-                {paragraph !== undefined && (
-                    <Text typo="body 1" className={classes.paragraph}>
-                        {paragraph}
-                    </Text>
-                )}
-            </div>
-
-            {buttonLabel !== undefined && (
-                <GlButton
-                    type="submit"
-                    href={link?.href}
-                    variant="secondary"
-                    onClick={link?.onClick}
-                >
-                    {buttonLabel}
-                </GlButton>
-            )}
-        </GlCard>
-    );
-});

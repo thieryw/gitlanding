@@ -9,27 +9,6 @@ const colors = {
     "darkslategray": "#232323",
 };
 
-const useStyles = makeStyles<{
-    hasDecorativeVsCodeButtons: boolean;
-    hasShadow: boolean;
-}>()((theme, { hasDecorativeVsCodeButtons, hasShadow }) => ({
-    "root": {
-        ...(hasDecorativeVsCodeButtons
-            ? {
-                  "position": "relative",
-                  "paddingTop": 24,
-                  "backgroundColor": colors.darkslategray,
-              }
-            : {}),
-        "boxShadow": !hasShadow ? undefined : (theme.custom.shadow as string),
-    },
-    "vsCodeButtons": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-    },
-}));
-
 export type GlCodeBlockProps = {
     className?: string;
     text?: string;
@@ -70,35 +49,28 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
     );
 });
 
-const { VsCodeButtons } = (() => {
-    const useStyles = makeStyles()(theme => ({
-        "root": {
-            "width": "100%",
-            "height": 24,
-        },
-        "buttons": {
-            "display": "flex",
-            "gap": theme.spacing(1),
-            ...(() => {
-                const value = theme.spacing(2);
-                return {
-                    "marginTop": value,
-                    "marginLeft": value,
-                };
-            })(),
-        },
-        "icon": {
-            ...(() => {
-                const value = 14;
-                return {
-                    "width": value,
-                    "height": value,
-                };
-            })(),
-            "borderRadius": "50%",
-        },
-    }));
+const useStyles = makeStyles<{
+    hasDecorativeVsCodeButtons: boolean;
+    hasShadow: boolean;
+}>()((theme, { hasDecorativeVsCodeButtons, hasShadow }) => ({
+    "root": {
+        ...(hasDecorativeVsCodeButtons
+            ? {
+                  "position": "relative",
+                  "paddingTop": 24,
+                  "backgroundColor": colors.darkslategray,
+              }
+            : {}),
+        "boxShadow": !hasShadow ? undefined : (theme.custom.shadow as string),
+    },
+    "vsCodeButtons": {
+        "position": "absolute",
+        "top": 0,
+        "left": 0,
+    },
+}));
 
+const { VsCodeButtons } = (() => {
     type VsCodeButtonsProps = {
         className?: string;
     };
@@ -131,6 +103,34 @@ const { VsCodeButtons } = (() => {
             </div>
         );
     });
+
+    const useStyles = makeStyles()(theme => ({
+        "root": {
+            "width": "100%",
+            "height": 24,
+        },
+        "buttons": {
+            "display": "flex",
+            "gap": theme.spacing(1),
+            ...(() => {
+                const value = theme.spacing(2);
+                return {
+                    "marginTop": value,
+                    "marginLeft": value,
+                };
+            })(),
+        },
+        "icon": {
+            ...(() => {
+                const value = 14;
+                return {
+                    "width": value,
+                    "height": value,
+                };
+            })(),
+            "borderRadius": "50%",
+        },
+    }));
 
     return { VsCodeButtons };
 })();

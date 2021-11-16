@@ -18,16 +18,6 @@ export type GlIllustrationProps = {
     hasShadow?: boolean;
 } & GlIllustrationProps.Illustration;
 
-const useStyles = makeStyles()({
-    "root": {
-        "position": "relative",
-    },
-
-    "content": {
-        "width": "100%",
-    },
-});
-
 export const GlIllustration = memo((props: GlIllustrationProps) => {
     const { className, hasShadow } = props;
 
@@ -56,4 +46,14 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
             )}
         </div>
     );
+});
+
+const useStyles = makeStyles()({
+    "root": {
+        "position": "relative",
+    },
+
+    "content": {
+        "width": "100%",
+    },
 });

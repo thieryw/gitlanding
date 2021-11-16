@@ -10,6 +10,21 @@ type GlLogoProps = {
     height?: number;
 };
 
+export const GlLogo = memo((props: GlLogoProps) => {
+    const { className, logoUrl, fill, height, width } = props;
+
+    const { classes, cx } = useStyles({ fill, width, height });
+
+    return logoUrl.endsWith(".svg") ? (
+        <ReactSVG
+            src={logoUrl}
+            className={cx(classes.root, classes.svg, className)}
+        />
+    ) : (
+        <img src={logoUrl} className={cx(classes.root, className)} alt="logo" />
+    );
+});
+
 const useStyles = makeStyles<{
     fill: string | undefined;
     width: number | undefined;
@@ -27,18 +42,3 @@ const useStyles = makeStyles<{
         },
     },
 }));
-
-export const GlLogo = memo((props: GlLogoProps) => {
-    const { className, logoUrl, fill, height, width } = props;
-
-    const { classes, cx } = useStyles({ fill, width, height });
-
-    return logoUrl.endsWith(".svg") ? (
-        <ReactSVG
-            src={logoUrl}
-            className={cx(classes.root, classes.svg, className)}
-        />
-    ) : (
-        <img src={logoUrl} className={cx(classes.root, className)} alt="logo" />
-    );
-});

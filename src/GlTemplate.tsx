@@ -48,6 +48,146 @@ export type GlTemplateProps = {
     };
 };
 
+const GlTemplateInner = memo(
+    (
+        props: Omit<GlTemplateProps, "SplashScreenLogo"> & {
+            isThemeProvidedOutside: boolean;
+        },
+    ) => {
+        const {
+            header,
+            isThemeProvidedOutside,
+            children,
+            footer,
+            className,
+            classes: classesProp,
+        } = props;
+
+        const headerOptions: Required<HeaderOptions> = (() => {
+            const { headerOptions } = props;
+
+            if (headerOptions === undefined) {
+                return {
+                    "position": "fixed",
+                    "isRetracted": false,
+                } as const;
+            }
+
+            switch (headerOptions.position) {
+                case "fixed":
+                    return {
+                        ...headerOptions,
+                        "isRetracted": headerOptions.isRetracted ?? false,
+                    };
+                case "top of page":
+                    return {
+                        ...headerOptions,
+                        "isRetracted": headerOptions.isRetracted ?? false,
+                        "doDelegateScroll":
+                            headerOptions.doDelegateScroll ?? false,
+                    };
+            }
+        })();
+
+        {
+            const { hideRootSplashScreen } = useSplashScreen();
+
+            useEffect(() => {
+                if (isThemeProvidedOutside) {
+                    return;
+                }
+
+                hideRootSplashScreen();
+            }, []);
+        }
+
+        const {
+            ref: headerWrapperRef,
+            domRect: { height: headerHeight },
+        } = useDomRect();
+        const {
+            ref: childrenWrapperRef,
+            domRect: { width: rootWidth },
+        } = useDomRect();
+
+        const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
+
+        const { classes, cx } = useStyles({
+            rootWidth,
+            headerHeight,
+            "isHeaderRetracted":
+                headerOptions.isRetracted === "smart"
+                    ? !isSmartHeaderVisible
+                    : headerOptions.isRetracted,
+            "headerPosition": headerOptions.position,
+            "doDelegateScroll":
+                headerOptions.position === "fixed"
+                    ? false
+                    : headerOptions.doDelegateScroll,
+        });
+
+        useElementEvt(
+            ({ ctx, element }) => {
+                if (headerOptions.isRetracted !== "smart") {
+                    return;
+                }
+
+                let previousScrollTop = 0;
+
+                Evt.from(ctx, element, "scroll").attach(e => {
+                    const scrollTop = (e as any).target.scrollTop;
+
+                    setIsSmartHeaderVisible(
+                        scrollTop < previousScrollTop
+                            ? true
+                            : scrollTop <= headerHeight,
+                    );
+
+                    previousScrollTop = scrollTop;
+                });
+            },
+            childrenWrapperRef,
+            [headerHeight, headerOptions.isRetracted],
+        );
+
+        return (
+            <div className={cx(classes.root, className)}>
+                <div
+                    className={cx(
+                        classes.headerWrapper,
+                        classesProp?.headerWrapper,
+                    )}
+                >
+                    <div ref={headerWrapperRef}>{header}</div>
+                </div>
+                <div
+                    className={cx(
+                        classes.childrenWrapper,
+                        classesProp?.childrenWrapper,
+                    )}
+                    ref={childrenWrapperRef}
+                    id={
+                        headerOptions.position === "top of page" &&
+                        headerOptions.doDelegateScroll
+                            ? undefined
+                            : scrollableDivId
+                    }
+                >
+                    {children}
+                    <div
+                        className={cx(
+                            classes.footerWrapper,
+                            classesProp?.footerWrapper,
+                        )}
+                    >
+                        {footer}
+                    </div>
+                </div>
+            </div>
+        );
+    },
+);
+
 const useStyles = makeStyles<{
     headerHeight: number;
     rootWidth: number;
@@ -188,146 +328,6 @@ const useStyles = makeStyles<{
                 })(),
             },
         };
-    },
-);
-
-const GlTemplateInner = memo(
-    (
-        props: Omit<GlTemplateProps, "SplashScreenLogo"> & {
-            isThemeProvidedOutside: boolean;
-        },
-    ) => {
-        const {
-            header,
-            isThemeProvidedOutside,
-            children,
-            footer,
-            className,
-            classes: classesProp,
-        } = props;
-
-        const headerOptions: Required<HeaderOptions> = (() => {
-            const { headerOptions } = props;
-
-            if (headerOptions === undefined) {
-                return {
-                    "position": "fixed",
-                    "isRetracted": false,
-                } as const;
-            }
-
-            switch (headerOptions.position) {
-                case "fixed":
-                    return {
-                        ...headerOptions,
-                        "isRetracted": headerOptions.isRetracted ?? false,
-                    };
-                case "top of page":
-                    return {
-                        ...headerOptions,
-                        "isRetracted": headerOptions.isRetracted ?? false,
-                        "doDelegateScroll":
-                            headerOptions.doDelegateScroll ?? false,
-                    };
-            }
-        })();
-
-        {
-            const { hideRootSplashScreen } = useSplashScreen();
-
-            useEffect(() => {
-                if (isThemeProvidedOutside) {
-                    return;
-                }
-
-                hideRootSplashScreen();
-            }, []);
-        }
-
-        const {
-            ref: headerWrapperRef,
-            domRect: { height: headerHeight },
-        } = useDomRect();
-        const {
-            ref: childrenWrapperRef,
-            domRect: { width: rootWidth },
-        } = useDomRect();
-
-        const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
-
-        const { classes, cx } = useStyles({
-            rootWidth,
-            headerHeight,
-            "isHeaderRetracted":
-                headerOptions.isRetracted === "smart"
-                    ? !isSmartHeaderVisible
-                    : headerOptions.isRetracted,
-            "headerPosition": headerOptions.position,
-            "doDelegateScroll":
-                headerOptions.position === "fixed"
-                    ? false
-                    : headerOptions.doDelegateScroll,
-        });
-
-        useElementEvt(
-            ({ ctx, element }) => {
-                if (headerOptions.isRetracted !== "smart") {
-                    return;
-                }
-
-                let previousScrollTop = 0;
-
-                Evt.from(ctx, element, "scroll").attach(e => {
-                    const scrollTop = (e as any).target.scrollTop;
-
-                    setIsSmartHeaderVisible(
-                        scrollTop < previousScrollTop
-                            ? true
-                            : scrollTop <= headerHeight,
-                    );
-
-                    previousScrollTop = scrollTop;
-                });
-            },
-            childrenWrapperRef,
-            [headerHeight, headerOptions.isRetracted],
-        );
-
-        return (
-            <div className={cx(classes.root, className)}>
-                <div
-                    className={cx(
-                        classes.headerWrapper,
-                        classesProp?.headerWrapper,
-                    )}
-                >
-                    <div ref={headerWrapperRef}>{header}</div>
-                </div>
-                <div
-                    className={cx(
-                        classes.childrenWrapper,
-                        classesProp?.childrenWrapper,
-                    )}
-                    ref={childrenWrapperRef}
-                    id={
-                        headerOptions.position === "top of page" &&
-                        headerOptions.doDelegateScroll
-                            ? undefined
-                            : scrollableDivId
-                    }
-                >
-                    {children}
-                    <div
-                        className={cx(
-                            classes.footerWrapper,
-                            classesProp?.footerWrapper,
-                        )}
-                    >
-                        {footer}
-                    </div>
-                </div>
-            </div>
-        );
     },
 );
 

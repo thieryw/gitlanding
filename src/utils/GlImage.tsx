@@ -12,21 +12,6 @@ export type GlImageProps = {
     hasShadow?: boolean;
 };
 
-const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>()(
-    (theme, { isImageLoaded, hasShadow }) => ({
-        "root": {
-            "position": "relative",
-            "width": isImageLoaded ? "100%" : undefined,
-            "height": isImageLoaded ? "auto" : undefined,
-            "objectFit": "cover",
-            "verticalAlign": "middle",
-            "boxShadow": !hasShadow
-                ? undefined
-                : (theme.custom.shadow as string),
-        },
-    }),
-);
-
 export const GlImage = memo((props: GlImageProps) => {
     const { className, url, alt, height, width, hasShadow } = props;
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -62,3 +47,18 @@ export const GlImage = memo((props: GlImageProps) => {
         </video>
     );
 });
+
+const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>()(
+    (theme, { isImageLoaded, hasShadow }) => ({
+        "root": {
+            "position": "relative",
+            "width": isImageLoaded ? "100%" : undefined,
+            "height": isImageLoaded ? "auto" : undefined,
+            "objectFit": "cover",
+            "verticalAlign": "middle",
+            "boxShadow": !hasShadow
+                ? undefined
+                : (theme.custom.shadow as string),
+        },
+    }),
+);

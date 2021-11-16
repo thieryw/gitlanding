@@ -17,6 +17,63 @@ export type GlMetricCardProps = GlCardProps & {
     timeIntervalBetweenNumbersMs?: number;
 };
 
+export const GlMetricCard = memo((props: GlMetricCardProps) => {
+    const {
+        buttonLabel,
+        iconUrl,
+        subHeading,
+        number,
+        className,
+        link,
+        isNumberAnimated,
+        timeIntervalBetweenNumbersMs,
+    } = props;
+    const { classes, cx, theme } = useStyles();
+
+    return (
+        <GlCard link={link} className={cx(classes.root, className)}>
+            <div className={classes.heading}>
+                {number !== undefined && (
+                    <Number
+                        isNumberAnimated={isNumberAnimated ?? false}
+                        number={number}
+                        timeIntervalBetweenNumbersMs={
+                            timeIntervalBetweenNumbersMs ?? 25
+                        }
+                    />
+                )}
+
+                {iconUrl !== undefined && (
+                    <GlLogo
+                        fill={theme.colors.useCases.buttons.actionHoverPrimary}
+                        className={classes.icon}
+                        logoUrl={iconUrl}
+                    />
+                )}
+            </div>
+
+            {subHeading && (
+                <Text className={classes.subHeading} typo="subtitle">
+                    {subHeading}
+                </Text>
+            )}
+
+            {buttonLabel && (
+                <div className={classes.buttonWrapper}>
+                    <GlButton
+                        type="submit"
+                        href={link?.href}
+                        variant="secondary"
+                        onClick={link?.onClick}
+                    >
+                        {buttonLabel}
+                    </GlButton>
+                </div>
+            )}
+        </GlCard>
+    );
+});
+
 const useStyles = makeStyles()(theme => ({
     "root": {
         "position": "relative",
@@ -77,63 +134,6 @@ const useStyles = makeStyles()(theme => ({
     },
 }));
 
-export const GlMetricCard = memo((props: GlMetricCardProps) => {
-    const {
-        buttonLabel,
-        iconUrl,
-        subHeading,
-        number,
-        className,
-        link,
-        isNumberAnimated,
-        timeIntervalBetweenNumbersMs,
-    } = props;
-    const { classes, cx, theme } = useStyles();
-
-    return (
-        <GlCard link={link} className={cx(classes.root, className)}>
-            <div className={classes.heading}>
-                {number !== undefined && (
-                    <Number
-                        isNumberAnimated={isNumberAnimated ?? false}
-                        number={number}
-                        timeIntervalBetweenNumbersMs={
-                            timeIntervalBetweenNumbersMs ?? 25
-                        }
-                    />
-                )}
-
-                {iconUrl !== undefined && (
-                    <GlLogo
-                        fill={theme.colors.useCases.buttons.actionHoverPrimary}
-                        className={classes.icon}
-                        logoUrl={iconUrl}
-                    />
-                )}
-            </div>
-
-            {subHeading && (
-                <Text className={classes.subHeading} typo="subtitle">
-                    {subHeading}
-                </Text>
-            )}
-
-            {buttonLabel && (
-                <div className={classes.buttonWrapper}>
-                    <GlButton
-                        type="submit"
-                        href={link?.href}
-                        variant="secondary"
-                        onClick={link?.onClick}
-                    >
-                        {buttonLabel}
-                    </GlButton>
-                </div>
-            )}
-        </GlCard>
-    );
-});
-
 const { Number } = (() => {
     type Props = Required<
         Pick<
@@ -141,21 +141,6 @@ const { Number } = (() => {
             "number" | "isNumberAnimated" | "timeIntervalBetweenNumbersMs"
         >
     >;
-
-    const useStyles = makeStyles()(theme => ({
-        "root": {
-            "fontSize": "86px",
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                    return {};
-                }
-
-                return {
-                    "fontSize": "52px",
-                };
-            })(),
-        },
-    }));
 
     const Number = memo((props: Props) => {
         const { isNumberAnimated, number, timeIntervalBetweenNumbersMs } =
@@ -174,6 +159,21 @@ const { Number } = (() => {
             </Text>
         );
     });
+
+    const useStyles = makeStyles()(theme => ({
+        "root": {
+            "fontSize": "86px",
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                    return {};
+                }
+
+                return {
+                    "fontSize": "52px",
+                };
+            })(),
+        },
+    }));
 
     return { Number };
 })();

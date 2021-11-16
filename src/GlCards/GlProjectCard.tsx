@@ -16,6 +16,53 @@ export type GlProjectCardProps = GlCardProps & {
     date?: string;
 };
 
+export const GlProjectCard = memo((props: GlProjectCardProps) => {
+    const {
+        className,
+        date,
+        projectImageUrl,
+        subtitle,
+        title,
+        badgeLabel,
+        link,
+        badgeBackgroundColor,
+        badgeColor,
+    } = props;
+
+    const { classes, cx } = useStyles({
+        badgeColor,
+        badgeBackgroundColor,
+        projectImageUrl,
+    });
+
+    return (
+        <GlCard link={link} className={cx(classes.root, className)}>
+            <div className={classes.header}>
+                {badgeLabel !== undefined && (
+                    <GlButton
+                        type="submit"
+                        className={classes.badge}
+                        variant="ternary"
+                        href={link?.href}
+                        onClick={link?.onClick}
+                    >
+                        {badgeLabel}
+                    </GlButton>
+                )}
+            </div>
+            <div className={classes.footer}>
+                <Text typo="object heading" className={classes.footerH5}>
+                    {title}
+                </Text>
+                <Text typo="label 2" className={classes.footerH6}>
+                    {subtitle}
+                </Text>
+                {date !== undefined && <Text typo="label 2">{date}</Text>}
+            </div>
+        </GlCard>
+    );
+});
+
 const useStyles = makeStyles<
     Pick<
         GlProjectCardProps,
@@ -79,50 +126,3 @@ const useStyles = makeStyles<
         })(),
     },
 }));
-
-export const GlProjectCard = memo((props: GlProjectCardProps) => {
-    const {
-        className,
-        date,
-        projectImageUrl,
-        subtitle,
-        title,
-        badgeLabel,
-        link,
-        badgeBackgroundColor,
-        badgeColor,
-    } = props;
-
-    const { classes, cx } = useStyles({
-        badgeColor,
-        badgeBackgroundColor,
-        projectImageUrl,
-    });
-
-    return (
-        <GlCard link={link} className={cx(classes.root, className)}>
-            <div className={classes.header}>
-                {badgeLabel !== undefined && (
-                    <GlButton
-                        type="submit"
-                        className={classes.badge}
-                        variant="ternary"
-                        href={link?.href}
-                        onClick={link?.onClick}
-                    >
-                        {badgeLabel}
-                    </GlButton>
-                )}
-            </div>
-            <div className={classes.footer}>
-                <Text typo="object heading" className={classes.footerH5}>
-                    {title}
-                </Text>
-                <Text typo="label 2" className={classes.footerH6}>
-                    {subtitle}
-                </Text>
-                {date !== undefined && <Text typo="label 2">{date}</Text>}
-            </div>
-        </GlCard>
-    );
-});

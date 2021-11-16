@@ -29,102 +29,6 @@ export type GlHeroProps = {
     };
 };
 
-const useStyles = makeStyles<{
-    hasOnlyText: boolean;
-}>()((theme, { hasOnlyText }) => ({
-    "root": {
-        "position": "relative",
-        "width": "100%",
-        "paddingBottom": theme.spacing(7),
-    },
-    "textAndImageWrapper": {
-        "padding": theme.spacing({
-            "topBottom": 5,
-            "rightLeft": 0,
-        }),
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "flexDirection": "column",
-                  "alignItems": "left",
-              }
-            : {}),
-        "marginBottom": theme.spacing(6),
-    },
-
-    "title": {
-        "marginBottom": theme.spacing(4),
-    },
-    "subtitle": {
-        "marginTop": theme.spacing(4),
-        "maxWidth": 650,
-        "color": theme.colors.useCases.typography.textSecondary,
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return undefined;
-            }
-            return theme.typography.variants["body 1"].style;
-        })(),
-    },
-
-    "textWrapper": {
-        "textAlign":
-            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                ? "center"
-                : undefined,
-        "display": "flex",
-        "alignItems": hasOnlyText ? "center" : undefined,
-        "flexDirection": "column",
-        "flex": 1,
-        "maxWidth": 1000,
-        ...(() => {
-            const value = theme.spacing(7);
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
-                return {
-                    "marginRight": hasOnlyText ? undefined : value,
-                };
-            }
-
-            return {
-                "marginBottom": value,
-            };
-        })(),
-    },
-
-    "imageWrapper": {
-        "position": "relative",
-        "flex": 1.5,
-        "maxWidth": 800,
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "maxWidth": breakpointsValues.md,
-              }
-            : {}),
-    },
-    "image": {
-        "width": "100%",
-    },
-
-    "arrowWrapper": {
-        "display": "flex",
-        "justifyContent": "center",
-    },
-}));
-
-const animationProps = {
-    "textInitial": {
-        "x": -150,
-        "opacity": 0,
-    },
-    "textAnimate": {},
-    "imageInitial": {
-        "opacity": 0,
-    },
-    "imageAnimate": {},
-};
-
 export const GlHero = memo((props: GlHeroProps) => {
     const {
         title,
@@ -266,11 +170,123 @@ export const GlHero = memo((props: GlHeroProps) => {
     );
 });
 
+const useStyles = makeStyles<{
+    hasOnlyText: boolean;
+}>()((theme, { hasOnlyText }) => ({
+    "root": {
+        "position": "relative",
+        "width": "100%",
+        "paddingBottom": theme.spacing(7),
+    },
+    "textAndImageWrapper": {
+        "padding": theme.spacing({
+            "topBottom": 5,
+            "rightLeft": 0,
+        }),
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "flexDirection": "column",
+                  "alignItems": "left",
+              }
+            : {}),
+        "marginBottom": theme.spacing(6),
+    },
+
+    "title": {
+        "marginBottom": theme.spacing(4),
+    },
+    "subtitle": {
+        "marginTop": theme.spacing(4),
+        "maxWidth": 650,
+        "color": theme.colors.useCases.typography.textSecondary,
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                return undefined;
+            }
+            return theme.typography.variants["body 1"].style;
+        })(),
+    },
+
+    "textWrapper": {
+        "textAlign":
+            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                ? "center"
+                : undefined,
+        "display": "flex",
+        "alignItems": hasOnlyText ? "center" : undefined,
+        "flexDirection": "column",
+        "flex": 1,
+        "maxWidth": 1000,
+        ...(() => {
+            const value = theme.spacing(7);
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return {
+                    "marginRight": hasOnlyText ? undefined : value,
+                };
+            }
+
+            return {
+                "marginBottom": value,
+            };
+        })(),
+    },
+
+    "imageWrapper": {
+        "position": "relative",
+        "flex": 1.5,
+        "maxWidth": 800,
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "maxWidth": breakpointsValues.md,
+              }
+            : {}),
+    },
+    "image": {
+        "width": "100%",
+    },
+
+    "arrowWrapper": {
+        "display": "flex",
+        "justifyContent": "center",
+    },
+}));
+
+const animationProps = {
+    "textInitial": {
+        "x": -150,
+        "opacity": 0,
+    },
+    "textAnimate": {},
+    "imageInitial": {
+        "opacity": 0,
+    },
+    "imageAnimate": {},
+};
+
 const { HeroText } = (() => {
     type Props = {
         className?: string;
         children: NonNullable<ReactNode>;
     };
+
+    const HeroText = memo((props: Props) => {
+        const { children, className } = props;
+
+        const { classes, cx } = useStyles();
+
+        return (
+            <Text
+                className={cx(classes.root, className)}
+                htmlComponent="h1"
+                typo="body 1"
+            >
+                {children}
+            </Text>
+        );
+    });
 
     const useStyles = makeStyles()(theme => ({
         "root": {
@@ -297,22 +313,5 @@ const { HeroText } = (() => {
             })(),
         },
     }));
-
-    const HeroText = memo((props: Props) => {
-        const { children, className } = props;
-
-        const { classes, cx } = useStyles();
-
-        return (
-            <Text
-                className={cx(classes.root, className)}
-                htmlComponent="h1"
-                typo="body 1"
-            >
-                {children}
-            </Text>
-        );
-    });
-
     return { HeroText };
 })();

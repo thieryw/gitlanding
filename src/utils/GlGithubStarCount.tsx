@@ -10,15 +10,6 @@ export type GlGithubStarCountProps = {
     showCount?: boolean;
 };
 
-const useStyles = makeStyles()({
-    "root": {
-        "& span": {
-            "display": "flex",
-            "alignItems": "center",
-        },
-    },
-});
-
 export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     const { repoUrl, size, className, showCount } = props;
 
@@ -50,4 +41,13 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
             </GithubBtn>
         </div>
     );
+});
+
+const useStyles = makeStyles()({
+    "root": {
+        "& span": {
+            "display": "flex",
+            "alignItems": "center",
+        },
+    },
 });

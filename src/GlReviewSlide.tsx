@@ -5,6 +5,52 @@ import Paper from "@mui/material/Paper";
 import ReactMarkdown from "react-markdown";
 import { breakpointsValues } from "./theme";
 
+export type GlReviewSlideProps = {
+    /**
+     * you can use markdown between back ticks.
+     */
+    descriptionMd?: string;
+    signature?: string;
+    /**
+     * If you use an svg image that does not have a fill,
+     * the fill will be set to the current font color,
+     * depending on the dark mode being active.
+     */
+    logoUrl?: string;
+    logoFill?: string;
+    className?: string;
+};
+
+export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
+    const { descriptionMd, className, signature, logoUrl, logoFill } = props;
+
+    const { classes, cx } = useStyles();
+
+    return (
+        <Paper className={cx(classes.root, className)}>
+            {logoUrl !== undefined && (
+                <GlLogo
+                    fill={logoFill}
+                    logoUrl={logoUrl}
+                    className={classes.logo}
+                />
+            )}
+            <div>
+                {descriptionMd !== undefined && (
+                    <ReactMarkdown className={classes.paragraph}>
+                        {descriptionMd}
+                    </ReactMarkdown>
+                )}
+                {signature !== undefined && (
+                    <Text typo="body 2" className={classes.signature}>
+                        {signature}
+                    </Text>
+                )}
+            </div>
+        </Paper>
+    );
+});
+
 const useStyles = makeStyles()(theme => ({
     "root": {
         "display": "flex",
@@ -79,49 +125,3 @@ const useStyles = makeStyles()(theme => ({
         })(),
     },
 }));
-
-export type GlReviewSlideProps = {
-    /**
-     * you can use markdown between back ticks.
-     */
-    descriptionMd?: string;
-    signature?: string;
-    /**
-     * If you use an svg image that does not have a fill,
-     * the fill will be set to the current font color,
-     * depending on the dark mode being active.
-     */
-    logoUrl?: string;
-    logoFill?: string;
-    className?: string;
-};
-
-export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
-    const { descriptionMd, className, signature, logoUrl, logoFill } = props;
-
-    const { classes, cx } = useStyles();
-
-    return (
-        <Paper className={cx(classes.root, className)}>
-            {logoUrl !== undefined && (
-                <GlLogo
-                    fill={logoFill}
-                    logoUrl={logoUrl}
-                    className={classes.logo}
-                />
-            )}
-            <div>
-                {descriptionMd !== undefined && (
-                    <ReactMarkdown className={classes.paragraph}>
-                        {descriptionMd}
-                    </ReactMarkdown>
-                )}
-                {signature !== undefined && (
-                    <Text typo="body 2" className={classes.signature}>
-                        {signature}
-                    </Text>
-                )}
-            </div>
-        </Paper>
-    );
-});

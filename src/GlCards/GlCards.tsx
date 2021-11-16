@@ -17,6 +17,42 @@ export type GlCardsProps = {
     children?: ReactNode;
 };
 
+export const GlCards = memo((props: GlCardsProps) => {
+    const { title, children, className, id, classes: classesProp } = props;
+    const ref = useRef<HTMLDivElement>(null);
+
+    const [numberOfCards, setNumberOfCards] = useState(0);
+
+    useEffect(() => {
+        if (!ref.current) {
+            return;
+        }
+
+        setNumberOfCards(ref.current.childElementCount);
+    }, []);
+
+    const { classes, cx } = useStyles({ numberOfCards });
+
+    return (
+        <section id={id} className={cx(classes.root, className)}>
+            {title && (
+                <Text
+                    className={cx(classes.title, classesProp?.title)}
+                    typo="page heading"
+                >
+                    {title}
+                </Text>
+            )}
+            <div
+                ref={ref}
+                className={cx(classes.cards, classesProp?.cardWrapper)}
+            >
+                {children}
+            </div>
+        </section>
+    );
+});
+
 const useStyles = makeStyles<{ numberOfCards: number }>()(
     (theme, { numberOfCards }) => ({
         "root": {
@@ -68,39 +104,3 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
         },
     }),
 );
-
-export const GlCards = memo((props: GlCardsProps) => {
-    const { title, children, className, id, classes: classesProp } = props;
-    const ref = useRef<HTMLDivElement>(null);
-
-    const [numberOfCards, setNumberOfCards] = useState(0);
-
-    useEffect(() => {
-        if (!ref.current) {
-            return;
-        }
-
-        setNumberOfCards(ref.current.childElementCount);
-    }, []);
-
-    const { classes, cx } = useStyles({ numberOfCards });
-
-    return (
-        <section id={id} className={cx(classes.root, className)}>
-            {title && (
-                <Text
-                    className={cx(classes.title, classesProp?.title)}
-                    typo="page heading"
-                >
-                    {title}
-                </Text>
-            )}
-            <div
-                ref={ref}
-                className={cx(classes.cards, classesProp?.cardWrapper)}
-            >
-                {children}
-            </div>
-        </section>
-    );
-});

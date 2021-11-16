@@ -9,54 +9,6 @@ import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 
-const useStyles = makeStyles()(theme => ({
-    "root": {
-        ...(() => {
-            const value = theme.spacing(7);
-            return {
-                "marginTop": value,
-                "marginBottom": value,
-            };
-        })(),
-    },
-    "heading": {
-        "textAlign": "center",
-        "marginBottom": theme.spacing(7),
-    },
-    "sliderWrapper": {
-        "position": "relative",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-    },
-    "viewport": {
-        "overflow": "hidden",
-        "userSelect": "none",
-    },
-    "container": {
-        "display": "flex",
-        "alignItems": "center",
-    },
-
-    "arrows": {
-        "transition": "transform 300ms",
-        ":hover": {
-            "transform": "scale(1.2)",
-        },
-    },
-    "slide": {
-        "position": "relative",
-        "minWidth": "100%",
-        "display": "flex",
-        "justifyContent": "center",
-        "overflow": "hidden",
-        "padding": theme.spacing({
-            "rightLeft": 4,
-            "topBottom": 4,
-        }),
-    },
-}));
-
 export type GlSliderProps = {
     className?: string;
     classes?: {
@@ -218,3 +170,51 @@ export const GlSlider = memo((props: GlSliderProps) => {
         </section>
     );
 });
+
+const useStyles = makeStyles()(theme => ({
+    "root": {
+        ...(() => {
+            const value = theme.spacing(7);
+            return {
+                "marginTop": value,
+                "marginBottom": value,
+            };
+        })(),
+    },
+    "heading": {
+        "textAlign": "center",
+        "marginBottom": theme.spacing(7),
+    },
+    "sliderWrapper": {
+        "position": "relative",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+    },
+    "viewport": {
+        "overflow": "hidden",
+        "userSelect": "none",
+    },
+    "container": {
+        "display": "flex",
+        "alignItems": "center",
+    },
+
+    "arrows": {
+        "transition": "transform 300ms",
+        ":hover": {
+            "transform": "scale(1.2)",
+        },
+    },
+    "slide": {
+        "position": "relative",
+        "minWidth": "100%",
+        "display": "flex",
+        "justifyContent": "center",
+        "overflow": "hidden",
+        "padding": theme.spacing({
+            "rightLeft": 4,
+            "topBottom": 4,
+        }),
+    },
+}));

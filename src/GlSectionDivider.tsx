@@ -6,6 +6,25 @@ export type GlSectionDividerProps = {
     variant?: "primary" | "secondary";
 };
 
+export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
+    const { className, variant } = props;
+
+    const { classes, cx } = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <div
+                className={cx(
+                    variant === "secondary"
+                        ? classes.secondary
+                        : classes.primary,
+                    className,
+                )}
+            ></div>
+        </div>
+    );
+});
+
 const useStyles = makeStyles()(theme => ({
     "root": {
         "display": "flex",
@@ -33,22 +52,3 @@ const useStyles = makeStyles()(theme => ({
         },
     },
 }));
-
-export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
-    const { className, variant } = props;
-
-    const { classes, cx } = useStyles();
-
-    return (
-        <div className={classes.root}>
-            <div
-                className={cx(
-                    variant === "secondary"
-                        ? classes.secondary
-                        : classes.primary,
-                    className,
-                )}
-            ></div>
-        </div>
-    );
-});
