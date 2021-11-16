@@ -2,8 +2,8 @@ import { makeStyles, Text } from "./theme";
 import { memo } from "react";
 import { GlLogo } from "./utils/GlLogo";
 import Paper from "@mui/material/Paper";
-import ReactMarkdown from "react-markdown";
 import { breakpointsValues } from "./theme";
+import { Markdown } from "./tools/Markdown";
 
 export type GlReviewSlideProps = {
     /**
@@ -37,9 +37,9 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
             )}
             <div>
                 {descriptionMd !== undefined && (
-                    <ReactMarkdown className={classes.paragraph}>
+                    <Markdown className={classes.paragraph}>
                         {descriptionMd}
-                    </ReactMarkdown>
+                    </Markdown>
                 )}
                 {signature !== undefined && (
                     <Text typo="body 2" className={classes.signature}>

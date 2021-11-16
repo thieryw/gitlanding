@@ -2,8 +2,8 @@ import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@mui/material/Link";
 import { makeStyles } from "../theme";
-import ReactMarkDown from "react-markdown";
 import { GlFooterInfo } from "./GlFooterInfo";
+import { Markdown } from "../tools/Markdown";
 
 type Link = {
     href: string;
@@ -91,7 +91,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
 
             {bottomDivContent !== undefined && (
                 <div className={cx(classes.bottomDiv, classesProp?.bottomDiv)}>
-                    <ReactMarkDown>{bottomDivContent}</ReactMarkDown>
+                    <Markdown>{bottomDivContent}</Markdown>
                 </div>
             )}
         </footer>

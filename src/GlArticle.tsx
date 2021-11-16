@@ -2,11 +2,11 @@ import { memo, useMemo, useReducer } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { breakpointsValues } from "./theme";
-import ReactMarkdown from "react-markdown";
 import { GlButton } from "./utils/GlButton";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { assert } from "tsafe";
+import { Markdown } from "./tools/Markdown";
 
 export type GlArticleProps = {
     className?: string;
@@ -188,26 +188,26 @@ export const GlArticle = memo((props: GlArticleProps) => {
                     >
                         {title && (
                             <motion.div {...titleAnimationProps}>
-                                <ReactMarkdown
+                                <Markdown
                                     className={cx(
                                         classes.title,
                                         classesProp?.title,
                                     )}
                                 >
                                     {title}
-                                </ReactMarkdown>
+                                </Markdown>
                             </motion.div>
                         )}
                         {body && (
                             <motion.div {...bodyAnimationProps} ref={ref}>
-                                <ReactMarkdown
+                                <Markdown
                                     className={cx(
                                         classes.body,
                                         classesProp?.body,
                                     )}
                                 >
                                     {body}
-                                </ReactMarkdown>
+                                </Markdown>
                             </motion.div>
                         )}
                         {buttonLabel && (
