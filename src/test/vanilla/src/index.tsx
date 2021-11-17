@@ -86,8 +86,8 @@ function App() {
                         url="https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png"
                     />
                 }
-                animationVariant="primary"
                 illustrationPosition="left"
+                hasAnimation={false}
             />
 
             <GlSectionDivider />
@@ -105,7 +105,7 @@ function App() {
                         url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png"
                     />
                 }
-                animationVariant="secondary"
+                hasAnimation={true}
             />
             <GlSectionDivider />
             <GlCards>

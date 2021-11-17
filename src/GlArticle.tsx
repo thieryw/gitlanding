@@ -29,7 +29,7 @@ export type GlArticleProps = {
     };
     illustrationPosition?: "left" | "right";
     illustration?: ReactNode;
-    animationVariant?: "primary" | "secondary";
+    hasAnimation?: boolean;
 };
 
 export const GlArticle = memo((props: GlArticleProps) => {
@@ -42,7 +42,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
         className,
         id,
         buttonLink,
-        animationVariant,
+        hasAnimation,
         classes: classesProp,
     } = props;
 
@@ -58,107 +58,90 @@ export const GlArticle = memo((props: GlArticleProps) => {
     });
 
     const textTransitionParameters = useMemo(() => {
-        return (
-            animationVariant && {
-                "ease": "easeOut",
-                "duration": 0.5,
-                "delay": 0.3,
-            }
-        );
+        if (!hasAnimation || hasAnimation === undefined) {
+            return;
+        }
+        return {
+            "ease": "easeOut",
+            "duration": 0.5,
+            "delay": 0.3,
+        };
     }, []);
 
     const illustrationAnimationProps = useMemo(() => {
-        return (
-            animationVariant && {
-                "initial": (() => {
-                    switch (animationVariant) {
-                        case "secondary":
-                            return {
-                                "rotateY": "15deg",
-                                "rotateX": "15deg",
-                            };
-                        default:
-                            return {
-                                "opacity": 0,
-                                "x":
-                                    illustrationPosition === "left"
-                                        ? -100
-                                        : 100,
-                            };
-                    }
-                })(),
+        if (!hasAnimation || hasAnimation === undefined) {
+            return;
+        }
+        return {
+            "initial": (() => {
+                return {
+                    "opacity": 0,
+                    "x": illustrationPosition === "left" ? -100 : 100,
+                };
+            })(),
 
-                "animate": {},
-                "transition": {
-                    "delay": 1,
-                    "duration": 1,
-                    "ease": "easeOut",
-                },
-            }
-        );
+            "animate": {},
+            "transition": {
+                "delay": 1,
+                "duration": 1,
+                "ease": "easeOut",
+            },
+        };
     }, []);
 
     const titleAnimationProps = useMemo(() => {
-        return (
-            animationVariant && {
-                "initial": {
-                    "opacity": 0,
-                    "x": (() => {
-                        const value = 100;
-                        switch (illustrationPosition) {
-                            case "left":
-                                return value;
-                            default:
-                                return -value;
-                        }
-                    })(),
-                },
-                "animate": {},
-                "transition": textTransitionParameters,
-            }
-        );
+        if (!hasAnimation || hasAnimation === undefined) {
+            return;
+        }
+        return {
+            "initial": {
+                "opacity": 0,
+                "x": (() => {
+                    const value = 100;
+                    switch (illustrationPosition) {
+                        case "left":
+                            return value;
+                        default:
+                            return -value;
+                    }
+                })(),
+            },
+            "animate": {},
+            "transition": textTransitionParameters,
+        };
     }, []);
 
     const bodyAnimationProps = useMemo(() => {
-        return (
-            animationVariant && {
-                "initial": {
-                    "opacity": 0,
-                },
-                "animate": {},
-                "transition": textTransitionParameters,
-            }
-        );
+        if (!hasAnimation || hasAnimation === undefined) {
+            return;
+        }
+        return {
+            "initial": {
+                "opacity": 0,
+            },
+            "animate": {},
+            "transition": textTransitionParameters,
+        };
     }, []);
 
     const { ref } = useIntersectionObserver({
         "callback": ({ observer, entry }) => {
-            if (animationVariant === undefined) {
+            if (hasAnimation === undefined || !hasAnimation) {
                 observer.unobserve(entry.target);
                 return;
             }
 
             assert(
-                illustrationAnimationProps !== undefined &&
-                    titleAnimationProps !== undefined &&
-                    bodyAnimationProps !== undefined,
+                illustrationAnimationProps &&
+                    titleAnimationProps &&
+                    bodyAnimationProps,
             );
 
             if (entry.isIntersecting) {
-                illustrationAnimationProps.animate = (() => {
-                    switch (animationVariant) {
-                        case "secondary":
-                            return {
-                                "rotateX": 0,
-                                "rotateY": 0,
-                            };
-                        default:
-                            return {
-                                "opacity": 1,
-                                "x": 0,
-                            };
-                    }
-                })();
+                illustrationAnimationProps.animate = {
+                    "opacity": 1,
+                    "x": 0,
+                };
                 titleAnimationProps.animate = {
                     "opacity": 1,
                     "x": 0,

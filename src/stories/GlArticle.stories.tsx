@@ -19,7 +19,7 @@ const propsWithImage: GlArticleProps = {
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
     "buttonLabel": "Button",
     "illustration": <GlIllustration type="image" url={heroImgSrc} />,
-    "animationVariant": "primary",
+    "hasAnimation": true,
 };
 
 const propsWithMp4: GlArticleProps = {
@@ -29,7 +29,7 @@ const propsWithMp4: GlArticleProps = {
     "illustration": (
         <GlIllustration hasShadow={true} type="image" url={sspcloudMp4} />
     ),
-    "animationVariant": "secondary",
+    "hasAnimation": true,
 };
 
 const propsWithCode: GlArticleProps = {
@@ -51,7 +51,7 @@ console.log(Math.random());
 		`}
         />
     ),
-    "animationVariant": "primary",
+    "hasAnimation": true,
 };
 
 export const VueWithImage = getStory({
