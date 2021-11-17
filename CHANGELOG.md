@@ -1,3 +1,11 @@
+## **0.5.0** (2021-11-16)  
+  
+- bump version  
+- update tss-react and create a custom shadow in theme  
+- adjust React markdown so that links render with the correct theme and applied it to the components that use markdown  
+- added markdown for article titles  
+- put the tss after the component    
+  
 ### **0.4.14** (2021-11-08)  
   
 - update version  
