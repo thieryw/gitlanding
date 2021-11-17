@@ -12,6 +12,7 @@ import dataVisuPng from "./assets/illustrations/datavisualisation.png";
 import pokemon from "./assets/illustrations/pokemon.png";
 import webinaire from "./assets/illustrations/webinaire.png";
 import kubernetes from "./assets/illustrations/kubernetes.png";
+import { GlCheckList } from "gitlanding/GlCheckList";
 
 function App() {
     return (
@@ -134,6 +135,37 @@ function App() {
                     badgeLabel="badge label"
                 />
             </GlCards>
+            <GlCheckList
+                heading="Check list heading"
+                subHeading="check list subheading"
+                elements={[
+                    {
+                        "title": "Item 1",
+                        "description":
+                            "description of Item 1 sdlkj sdlfkj sdlfkj sdlfk lsdf slkj sldjf lsldkjf lsdflskj ",
+                    },
+                    {
+                        "title": "Item 2",
+                        "description": "description of Item 2",
+                    },
+                    {
+                        "title": "Item 3",
+                        "description": "description of Item 3",
+                    },
+                    {
+                        "title": "Item 4",
+                        "description": "description of Item 4",
+                    },
+                    {
+                        "title": "Item 5",
+                        "description": "description of Item 5",
+                    },
+                    {
+                        "title": "Item 6",
+                        "description": "description of Item 6",
+                    },
+                ]}
+            />
         </GlTemplate>
     );
 }
