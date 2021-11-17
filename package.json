@@ -4,14 +4,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "gitlanding": "^0.4.3",
+    "gitlanding": "^0.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "onyxia-ui": "^0.22.0",
+    "tss-react": "^2.1.0",
+    "powerhooks": "^0.11.1",
+    "@mui/material": "^5.1.1",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0"
   },
   "devDependencies": {
-
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

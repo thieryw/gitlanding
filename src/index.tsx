@@ -20,11 +20,13 @@ import materialUiPngUrl from "./assets/img/material-ui.png";
 import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
+import {ThemeProvider} from "./theme";
 
 
 ReactDOM.render(
   <React.StrictMode>
     <GlTemplate
+      ThemeProvider={ThemeProvider}
 
       headerOptions={{
         "position": "fixed",
