@@ -2,6 +2,7 @@
 import { memo, useState } from "react";
 import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks";
+import { ImageSource } from "../tools/ImageSource";
 
 export type GlImageProps = {
     className?: string;
@@ -10,10 +11,12 @@ export type GlImageProps = {
     width?: number;
     height?: number;
     hasShadow?: boolean;
+    imageSources?: ImageSource[];
 };
 
 export const GlImage = memo((props: GlImageProps) => {
-    const { className, url, alt, height, width, hasShadow } = props;
+    const { className, url, alt, height, width, hasShadow, imageSources } =
+        props;
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const onLoad = useConstCallback(() => {
@@ -25,14 +28,18 @@ export const GlImage = memo((props: GlImageProps) => {
         "hasShadow": hasShadow ?? false,
     });
     return !url.endsWith(".mp4") ? (
-        <img
-            onLoad={onLoad}
-            className={cx(classes.root, className)}
-            src={url}
-            alt={alt}
-            width={width}
-            height={height}
-        />
+        <picture>
+            {imageSources !== undefined &&
+                imageSources.map(source => <source {...source} />)}
+            <img
+                onLoad={onLoad}
+                className={cx(classes.root, className)}
+                src={url}
+                alt={alt}
+                width={width}
+                height={height}
+            />
+        </picture>
     ) : (
         <video
             width={width}

@@ -9,12 +9,14 @@ import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "./theme";
 import { GlArrow } from "./utils/GlArrow";
+import type { ImageSource } from "./tools/ImageSource";
 
 export type GlHeroProps = {
     title?: string;
     subTitle?: string;
     className?: string;
     imageSrc?: string;
+    imageSources?: ImageSource[];
     linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
     classes?: {
@@ -37,6 +39,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         imageSrc,
         linkToSectionBelowId,
         hasImageShadow,
+        imageSources,
         classes: classesProp,
     } = props;
 
@@ -145,6 +148,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             height={imageSrc.endsWith(".mp4") ? undefined : 800}
                             url={imageSrc}
                             alt="hero image"
+                            imageSources={imageSources}
                         />
                     </motion.div>
                 )}
