@@ -1,3 +1,8 @@
+### **0.5.2** (2021-11-19)  
+  
+- bump version  
+- added image source props for responsive images    
+  
 ### **0.5.1** (2021-11-17)  
   
 - bump version  
