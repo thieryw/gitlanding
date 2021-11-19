@@ -31,6 +31,9 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
                     alt={props.alt}
                     className={cx(classes.content, props.className)}
                     hasShadow={hasShadow}
+                    height={props.height}
+                    width={props.width}
+                    imageSources={props.imageSources}
                 />
             ) : (
                 <GlCodeBlock

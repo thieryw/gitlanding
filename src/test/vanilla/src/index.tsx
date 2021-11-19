@@ -13,6 +13,8 @@ import pokemon from "./assets/illustrations/pokemon.png";
 import webinaire from "./assets/illustrations/webinaire.png";
 import kubernetes from "./assets/illustrations/kubernetes.png";
 import { GlCheckList } from "gitlanding/GlCheckList";
+import webpHeroImage from "./assets/illustrations/heroHeader.webp";
+import pngHeroImage from "./assets/illustrations/heroHeader.png";
 
 function App() {
     return (
@@ -69,7 +71,17 @@ function App() {
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
+                imageSrc={pngHeroImage}
+                imageSources={[
+                    {
+                        "srcSet": webpHeroImage,
+                        "type": "image/webp",
+                    },
+                    {
+                        "srcSet": pngHeroImage,
+                        "type": "image/png",
+                    },
+                ]}
                 linkToSectionBelowId="firstSection"
             />
 
