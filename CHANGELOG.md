@@ -1,3 +1,9 @@
+### **0.5.1** (2021-11-17)  
+  
+- bump version  
+- created checklist component, tested in test project and demonstrated in storybook  
+- remove 3d animation from GlArticle and applied in storybook and testProject    
+  
 ## **0.5.0** (2021-11-16)  
   
 - bump version  
