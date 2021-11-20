@@ -20,7 +20,7 @@ import materialUiPngUrl from "./assets/img/material-ui.png";
 import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
-import {ThemeProvider} from "./theme";
+import { ThemeProvider } from "./theme";
 
 
 ReactDOM.render(
@@ -50,11 +50,11 @@ ReactDOM.render(
             }
           }
         ]}
-        title={<GlLogo logoUrl={logoPng} width={200}/>}
-        titleSmallScreen={<GlLogo logoUrl={logoSmallPng} width={80}/>}
+        title={<GlLogo logoUrl={logoPng} width={200} />}
+        titleSmallScreen={<GlLogo logoUrl={logoSmallPng} width={80} />}
         enableDarkModeSwitch={true}
-			  githubRepoUrl="https://github.com/thieryw/gitlanding"
-			  githubButtonSize="large"
+        githubRepoUrl="https://github.com/thieryw/gitlanding"
+        githubButtonSize="large"
         isCollapsible={true}
       />}
       footer={
@@ -103,7 +103,7 @@ See the documentation for a quick setup guide.
             hasShadow={true}
           />
         }
-        animationVariant="secondary"
+        hasAnimation={true}
         buttonLabel="Documentation"
         buttonLink={{
           "href": "https://docs.gitlanding.dev/getting-started"
@@ -111,8 +111,8 @@ See the documentation for a quick setup guide.
       />
       <GlSectionDivider />
 
-      <GlArticle 
-        illustration={<GlIllustration 
+      <GlArticle
+        illustration={<GlIllustration
           type="image"
           hasShadow={true}
           url={materialUiPngUrl}
@@ -121,9 +121,9 @@ See the documentation for a quick setup guide.
         body={`Gitlanding uses a custom version of the **Material UI** theme, so you can use any of MUI's components within a Gitlanding page.`}
         buttonLabel="Learn more"
         buttonLink={{
-          "href":"https://docs.gitlanding.dev/customization"
+          "href": "https://docs.gitlanding.dev/customization"
         }}
-        animationVariant="primary"
+        hasAnimation={true}
       />
 
       <GlSectionDivider />
@@ -133,7 +133,7 @@ See the documentation for a quick setup guide.
         body={`**Gitlanding** is imported in react projects witch means that you can start with a simple landing page and evolve towards a more complex website.
 For example you might want to have a routing system put in place. And you can even throw in an translation engine if this is your requirement. Each Gitlanding component can be imported and used individually for a specific need.
         `}
-        animationVariant="secondary"
+        hasAnimation={true}
         illustration={
           <GlIllustration
             type="image"
@@ -164,7 +164,7 @@ For example you might want to have a routing system put in place. And you can ev
             url={onyxiaPng}
           />
         }
-        animationVariant="primary"
+        hasAnimation={true}
       />
 
 
@@ -192,7 +192,7 @@ For example you might want to have a routing system put in place. And you can ev
           }}
         />
 
-        <GlLogoCard 
+        <GlLogoCard
           title="Powerhooks"
           paragraph="A collection of essential React hooks."
           buttonLabel="View project"
