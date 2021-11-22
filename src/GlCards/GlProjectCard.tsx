@@ -12,7 +12,7 @@ export type GlProjectCardProps = GlCardProps & {
     badgeColor?: string;
     badgeBackgroundColor?: string;
     title: string;
-    subtitle: string;
+    subtitle?: string;
     date?: string;
 };
 
@@ -54,9 +54,11 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                 <Text typo="object heading" className={classes.footerH5}>
                     {title}
                 </Text>
-                <Text typo="label 2" className={classes.footerH6}>
-                    {subtitle}
-                </Text>
+                {subtitle !== undefined && (
+                    <Text typo="label 2" className={classes.footerH6}>
+                        {subtitle}
+                    </Text>
+                )}
                 {date !== undefined && <Text typo="label 2">{date}</Text>}
             </div>
         </GlCard>
