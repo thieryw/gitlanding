@@ -23,6 +23,7 @@ export type GlSliderProps = {
     title?: string;
     slides?: ReactNode[];
     autoPlayTimeInterval?: number;
+    width?: string | number;
 };
 
 export const GlSlider = memo((props: GlSliderProps) => {
@@ -32,6 +33,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
         title,
         autoPlayTimeInterval,
         classes: classesProp,
+        width,
     } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
@@ -110,7 +112,9 @@ export const GlSlider = memo((props: GlSliderProps) => {
         setIsPlaying(false);
     });
 
-    const { classes, cx } = useStyles();
+    const { classes, cx } = useStyles({
+        width,
+    });
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>
@@ -171,8 +175,13 @@ export const GlSlider = memo((props: GlSliderProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles<{
+    width: number | string | undefined;
+}>()((theme, { width }) => ({
     "root": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
         ...(() => {
             const value = theme.spacing(7);
             return {
@@ -182,7 +191,6 @@ const useStyles = makeStyles()(theme => ({
         })(),
     },
     "heading": {
-        "textAlign": "center",
         "marginBottom": theme.spacing(7),
     },
     "sliderWrapper": {
@@ -190,6 +198,7 @@ const useStyles = makeStyles()(theme => ({
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
+        "width": width ?? "100%",
     },
     "viewport": {
         "overflow": "hidden",
