@@ -1,3 +1,12 @@
+### **0.5.4** (2021-11-22)  
+  
+- bump version  
+- update test  
+- animation for GlCheckList  
+- refactor useIntersectionObserver  
+- added width property on glSlider  
+- make project card subtitle optional    
+  
 ### **0.5.3** (2021-11-19)  
   
 - added sources props for responsive images and bump version    
