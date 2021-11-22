@@ -12,7 +12,7 @@ export function useIntersectionObserver<T extends HTMLElement = any>(params: {
 }): {
     ref: RefObject<T>;
 } {
-    const { callback, rootMargin, root, threshold } = params;
+    const { callback, ...rest } = params;
 
     const ref = useRef<T>(null);
 
@@ -24,7 +24,7 @@ export function useIntersectionObserver<T extends HTMLElement = any>(params: {
                     observer,
                 });
             },
-            { rootMargin, root, threshold },
+            { ...rest },
         );
     }, []);
 
