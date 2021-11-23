@@ -1,3 +1,8 @@
+### **0.5.5** (2021-11-23)  
+  
+- bump version  
+- key in ChecklistElement    
+  
 ### **0.5.4** (2021-11-22)  
   
 - bump version  
