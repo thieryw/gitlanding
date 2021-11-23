@@ -145,10 +145,9 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                 className={cx(classes.elements, classesProp?.elements)}
             >
                 {elements !== undefined &&
-                    elements.map(elementProps => (
-                        <motion.div variants={listItem}>
+                    elements.map((elementProps, index) => (
+                        <motion.div variants={listItem} key={index}>
                             <CheckListElement
-                                key={elementProps.description}
                                 className={classesProp?.element}
                                 classes={{
                                     "checkIcon": classesProp?.checkIcon,
