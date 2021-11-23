@@ -1,3 +1,8 @@
+### **0.5.6** (2021-11-23)  
+  
+- bumb version  
+- GlHero correct animation bug    
+  
 ### **0.5.5** (2021-11-23)  
   
 - bump version  
