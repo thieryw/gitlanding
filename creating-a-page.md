@@ -209,6 +209,7 @@ function App() {
 
       <GlCheckList
         heading="Check List Heading"
+        hasAnimation={true}
         elements={[
           {
             "title": "List element title",
@@ -264,6 +265,7 @@ function App() {
       <GlSectionDivider />
 
       <GlSlider
+        title="Review slider title"
         autoPlayTimeInterval={4}
         slides={[
           <GlReviewSlide
@@ -310,7 +312,6 @@ function App() {
 }
 
 render(<App />, document.getElementById("root"));
-
 ```
 
 {% hint style="success" %}
