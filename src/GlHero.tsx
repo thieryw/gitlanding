@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useReducer } from "react";
+import { memo, useReducer, useMemo } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -43,7 +43,40 @@ export const GlHero = memo((props: GlHeroProps) => {
         classes: classesProp,
     } = props;
 
-    const [, reRender] = useReducer(x => x + 1, 0);
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+    const textWrapperVariant = useMemo(
+        () => ({
+            "show": {},
+            "hidden": { "opacity": 0 },
+        }),
+        [],
+    );
+
+    const textVariant = useMemo(
+        () => ({
+            "show": {},
+            "hidden": {
+                "x": -150,
+                "opacity": 0,
+            },
+        }),
+        [],
+    );
+
+    const imageAnimProps = useMemo(
+        () => ({
+            "transition": {
+                "delay": 1,
+                "duration": 0.5,
+            },
+            "initial": {
+                "opacity": 0,
+            },
+            "animate": {},
+        }),
+        [],
+    );
 
     const { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
@@ -51,19 +84,27 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            animationProps.textAnimate = {
-                "x": 1,
+            textWrapperVariant.show = {
+                "transition": {
+                    "staggerChildren": 0.5,
+                },
                 "opacity": 1,
             };
 
-            animationProps.textInitial.x = 0;
-            animationProps.textInitial.opacity = 1;
+            textVariant.show = {
+                "opacity": 1,
+                "x": 0,
+                "transition": {
+                    "duration": 1,
+                    "ease": "easeOut",
+                },
+            };
 
-            animationProps.imageAnimate = {
+            imageAnimProps.animate = {
                 "opacity": 1,
             };
-            animationProps.imageInitial.opacity = 1;
-            reRender();
+
+            forceUpdate();
         },
     });
 
@@ -76,23 +117,17 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             >
                 {(title !== undefined || subTitle !== undefined) && (
-                    <div
+                    <motion.div
+                        variants={textWrapperVariant}
+                        initial="hidden"
+                        animate="show"
                         className={cx(
                             classes.textWrapper,
                             classesProp?.titleAndSubTitleWrapper,
                         )}
                     >
                         {title !== undefined && (
-                            <motion.div
-                                variants={animationProps}
-                                initial="textInitial"
-                                animate="textAnimate"
-                                transition={{
-                                    "duration": 1,
-                                    "type": "tween",
-                                    "ease": "easeOut",
-                                }}
-                            >
+                            <motion.div variants={textVariant}>
                                 <HeroText
                                     className={cx(
                                         classes.title,
@@ -104,16 +139,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             </motion.div>
                         )}
                         {subTitle !== undefined && (
-                            <motion.div
-                                variants={animationProps}
-                                initial="textInitial"
-                                animate="textAnimate"
-                                transition={{
-                                    "delay": 0.2,
-                                    "duration": 1,
-                                    "ease": "easeOut",
-                                }}
-                            >
+                            <motion.div variants={textVariant}>
                                 <Text
                                     typo="subtitle"
                                     className={cx(
@@ -125,22 +151,16 @@ export const GlHero = memo((props: GlHeroProps) => {
                                 </Text>
                             </motion.div>
                         )}
-                    </div>
+                    </motion.div>
                 )}
 
                 {imageSrc !== undefined && (
                     <motion.div
+                        {...imageAnimProps}
                         className={cx(
                             classes.imageWrapper,
                             classesProp?.imageWrapper,
                         )}
-                        variants={animationProps}
-                        initial="imageInitial"
-                        animate="imageAnimate"
-                        transition={{
-                            "delay": 1,
-                            "duration": 0.5,
-                        }}
                     >
                         <GlImage
                             className={cx(classes.image, classes.image)}
@@ -257,18 +277,6 @@ const useStyles = makeStyles<{
         "justifyContent": "center",
     },
 }));
-
-const animationProps = {
-    "textInitial": {
-        "x": -150,
-        "opacity": 0,
-    },
-    "textAnimate": {},
-    "imageInitial": {
-        "opacity": 0,
-    },
-    "imageAnimate": {},
-};
 
 const { HeroText } = (() => {
     type Props = {
