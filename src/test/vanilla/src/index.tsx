@@ -63,6 +63,7 @@ function App() {
                     ]}
                 />
             }
+            hasTopOfPageLinkButton={true}
         >
             <GlHero
                 title="Hero title"

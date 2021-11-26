@@ -9,6 +9,7 @@ import { useDomRect } from "onyxia-ui";
 import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
+import { GlLinkToTop } from "./utils/GlLinkToTop";
 
 export const scrollableDivId = "GlScrollable";
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
@@ -41,6 +42,7 @@ export type GlTemplateProps = {
     }>;
     headerOptions?: HeaderOptions;
     className?: string;
+    hasTopOfPageLinkButton?: boolean;
     classes?: {
         headerWrapper?: string;
         childrenWrapper?: string;
@@ -61,6 +63,7 @@ const GlTemplateInner = memo(
             footer,
             className,
             classes: classesProp,
+            hasTopOfPageLinkButton,
         } = props;
 
         const headerOptions: Required<HeaderOptions> = (() => {
@@ -174,6 +177,7 @@ const GlTemplateInner = memo(
                     }
                 >
                     {children}
+                    {hasTopOfPageLinkButton && <GlLinkToTop />}
                     <div
                         className={cx(
                             classes.footerWrapper,
