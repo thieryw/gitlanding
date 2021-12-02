@@ -13,3 +13,5 @@ export * from "./GlIllustration";
 export * from "./GlHeader";
 export * from "./GlSectionDivider";
 export * from "./GlCodeBlock";
+export * from "./GlCheckList";
+export * from "./GlYoutubeVideoSection";

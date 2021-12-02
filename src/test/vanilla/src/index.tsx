@@ -12,6 +12,7 @@ import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
+import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 
 function App() {
     return (
@@ -283,6 +284,13 @@ function App() {
                         signature="Signature"
                     />,
                 ]}
+            />
+
+            <GlYoutubeVideoSection
+                buttonLabel="Button Label"
+                title="Video Section Title"
+                src="https://www.youtube.com/embed/UCwL5JtR-3k"
+                hasAnimation={true}
             />
         </GlTemplate>
     );
