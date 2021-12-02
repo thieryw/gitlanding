@@ -73,6 +73,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
             }
 
             if (container === undefined || listItem === undefined) {
+                observer.unobserve(entry.target);
                 return;
             }
 
