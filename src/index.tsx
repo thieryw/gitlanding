@@ -21,6 +21,8 @@ import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 import { ThemeProvider } from "./theme";
+import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
+import { GlCheckList } from "gitlanding/GlCheckList";
 
 
 ReactDOM.render(
@@ -117,7 +119,7 @@ See the documentation for a quick setup guide.
           hasShadow={true}
           url={materialUiPngUrl}
         />}
-        title="Material UI"
+        title="Material UI integration"
         body={`Gitlanding uses a custom version of the **Material UI** theme, so you can use any of MUI's components within a Gitlanding page.`}
         buttonLabel="Learn more"
         buttonLink={{
@@ -202,6 +204,49 @@ For example you might want to have a routing system put in place. And you can ev
           iconUrls={[powerhooksLogoSrc]}
         />
       </GlCards>
+
+      <GlYoutubeVideoSection
+        buttonLabel="Documentation"
+        title="A short video to get you started"
+        src="https://www.youtube.com/embed/UCwL5JtR-3k"
+        hasAnimation={true}
+        link={{
+          "href": "https://docs.gitlanding.dev/"
+        }}
+      />
+
+      <GlSectionDivider />
+
+      <GlCheckList 
+        hasAnimation={true}
+        heading="Why Gitlanding"
+        elements={[
+          {
+            "title": "Open source",
+            "description": "gitlanding is 100% free with no paid plans or branding."
+          },
+          {
+            "title": "Easy to use",
+            "description": "Just add blocks to your index file and every thing neatly slides into place."
+          },
+          {
+            "title": "Scalable",
+            "description": "You can easily go from a simple landing page to a more complex website."
+          },
+          {
+            "title": "Performance",
+            "description": "Each generated page scores over 90 in google lighthouse."
+          },
+          {
+            "title": "Customizable",
+            "description": "Change fonts, color schemes or restyle components to your liking with ease thanks to TSS-React and Onyxia-ui."
+          },
+          {
+            "title": "Material Ui",
+            "description": "You can use any Material Ui component within a Gitlanding project"
+          }
+        ]}
+      />
 
 
     </GlTemplate>
