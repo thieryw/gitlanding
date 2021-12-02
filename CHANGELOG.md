@@ -1,3 +1,8 @@
+### **0.5.7** (2021-11-26)  
+  
+- bump version  
+- GlLinkToTop, an option that activates a button that smoothly scrolls to the top of page when clicked    
+  
 ### **0.5.6** (2021-11-23)  
   
 - bumb version  
