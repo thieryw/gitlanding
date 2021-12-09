@@ -13,3 +13,9 @@ Change one or more of the font variants in the theme provider by setting the `fo
 {% hint style="success" %}
 [This commit is an example where I change the `page heading` variant to `Playfair Display` and the `subtitle` variant to `Open Sans.`](https://github.com/thieryw/crispy-octo-bassoon/commit/7a2003d285d8f3a6b2d5391474af5cc691f03910)``
 {% endhint %}
+
+It is allsow possible to create your own custom variants.
+
+{% hint style="success" %}
+[In this commit I add a new title variant that uses Cinzel Decorative as font.](https://github.com/thieryw/crispy-octo-bassoon/commit/4d5866f7f7d61feab1e801551400765f7aa1276e)
+{% endhint %}
