@@ -1,3 +1,9 @@
+### **0.5.8** (2021-12-02)  
+  
+- bump version  
+- added youtube ifram section component  
+- unobserver if container or listItem undefined GlCheckList    
+  
 ### **0.5.7** (2021-11-26)  
   
 - bump version  
