@@ -208,7 +208,7 @@ For example you might want to have a routing system put in place. And you can ev
       <GlYoutubeVideoSection
         buttonLabel="Documentation"
         title="A short video to get you started"
-        src="https://www.youtube.com/embed/UCwL5JtR-3k"
+        src="https://www.youtube.com/embed/taDGhL0z7wc"
         hasAnimation={true}
         link={{
           "href": "https://docs.gitlanding.dev/"
