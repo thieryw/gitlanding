@@ -179,9 +179,6 @@ const useStyles = makeStyles<{
     width: number | string | undefined;
 }>()((theme, { width }) => ({
     "root": {
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "center",
         ...(() => {
             const value = theme.spacing(7);
             return {
@@ -192,6 +189,7 @@ const useStyles = makeStyles<{
     },
     "heading": {
         "marginBottom": theme.spacing(7),
+        "textAlign": "center",
     },
     "sliderWrapper": {
         "position": "relative",

@@ -64,7 +64,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
         return {
             "ease": "easeOut",
             "duration": 0.5,
-            "delay": 0.3,
         };
     }, []);
 
@@ -82,8 +81,8 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
             "animate": {},
             "transition": {
-                "delay": 1,
-                "duration": 1,
+                "delay": 0.3,
+                "duration": 0.5,
                 "ease": "easeOut",
             },
         };
@@ -153,10 +152,11 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 forceUpdate();
             }
         },
+        "threshold": 0.2,
     });
 
     return (
-        <section id={id} className={className}>
+        <section ref={ref} id={id} className={className}>
             <div
                 className={cx(
                     classes.contentWrapper,
@@ -182,7 +182,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                             </motion.div>
                         )}
                         {body && (
-                            <motion.div {...bodyAnimationProps} ref={ref}>
+                            <motion.div {...bodyAnimationProps}>
                                 <Markdown
                                     className={cx(
                                         classes.body,

@@ -89,7 +89,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                     "opacity": 1,
                     "y": 0,
                     "transition": {
-                        "duration": 1,
+                        "duration": 0.6,
                         "ease": "easeOut",
                     },
                 };
@@ -98,7 +98,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                 forceUpdate();
             }
         },
-        "threshold": 0.6,
+        "threshold": 0.4,
     });
 
     const { classes, cx } = useStyles({
@@ -106,7 +106,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
     });
 
     return (
-        <section className={cx(classes.root, className)}>
+        <section className={className}>
             {(heading !== undefined || subHeading !== undefined) && (
                 <div
                     className={cx(
@@ -171,11 +171,6 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
 
 const useStyles = makeStyles<{ numberOfElements: number }>()(
     (theme, { numberOfElements }) => ({
-        "root": {
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "center",
-        },
         "heading": {
             "fontSize": "2rem",
         },
@@ -186,6 +181,7 @@ const useStyles = makeStyles<{ numberOfElements: number }>()(
             "alignItems": "center",
         },
         "elements": {
+            "justifyItems": "center",
             "display": "grid",
             "gridTemplateColumns": `repeat(${(() => {
                 if (theme.windowInnerWidth >= breakpointsValues.lg) {

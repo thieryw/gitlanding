@@ -56,7 +56,6 @@ export const GlYoutubeVideoSection = memo(
             return {
                 "initial": {
                     "opacity": 0,
-                    "scale": 0.4,
                 },
                 "animate": {},
                 "transition": {
@@ -79,7 +78,6 @@ export const GlYoutubeVideoSection = memo(
 
                 if (entry.isIntersecting) {
                     animationProps.animate = {
-                        "scale": 1,
                         "opacity": 1,
                     };
                     observer.unobserve(entry.target);
@@ -98,7 +96,10 @@ export const GlYoutubeVideoSection = memo(
         return (
             <section ref={ref} className={cx(classes.root, className)}>
                 {title !== undefined && (
-                    <Text className={classesProp?.title} typo="page heading">
+                    <Text
+                        className={cx(classes.title, classesProp?.title)}
+                        typo="page heading"
+                    >
                         {title}
                     </Text>
                 )}
@@ -136,9 +137,12 @@ const useStyles = makeStyles<{
     currentWidth: number;
 }>()((theme, { height, width, currentWidth }) => ({
     "root": {
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "center",
+        "display": "grid",
+        "gridTemplateColumns": "1fr",
+        "justifyItems": "center",
+    },
+    "title": {
+        "textAlign": "center",
     },
     "iframe": {
         "border": "none",
