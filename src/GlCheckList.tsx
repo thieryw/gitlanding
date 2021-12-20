@@ -181,7 +181,10 @@ const useStyles = makeStyles<{ numberOfElements: number }>()(
             "alignItems": "center",
         },
         "elements": {
-            "justifyItems": "center",
+            "justifyItems":
+                theme.windowInnerWidth <= breakpointsValues.sm
+                    ? undefined
+                    : "center",
             "display": "grid",
             "gridTemplateColumns": `repeat(${(() => {
                 if (theme.windowInnerWidth >= breakpointsValues.lg) {
