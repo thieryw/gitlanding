@@ -289,7 +289,7 @@ function App() {
             <GlYoutubeVideoSection
                 buttonLabel="Button Label"
                 title="Video Section Title"
-                src="https://www.youtube.com/embed/UCwL5JtR-3k"
+                src="https://www.youtube.com/embed/taDGhL0z7wc"
                 hasAnimation={true}
             />
         </GlTemplate>
