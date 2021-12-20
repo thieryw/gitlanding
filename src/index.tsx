@@ -29,7 +29,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GlTemplate
       ThemeProvider={ThemeProvider}
-
+      hasTopOfPageLinkButton={true}
       headerOptions={{
         "position": "fixed",
         "isRetracted": "smart"
