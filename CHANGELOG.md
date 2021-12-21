@@ -1,3 +1,10 @@
+### **0.5.9** (2021-12-20)  
+  
+- bump version  
+- speed up animation and safari fix  
+- update ci  
+- update storybook branding    
+  
 ### **0.5.8** (2021-12-02)  
   
 - bump version  
