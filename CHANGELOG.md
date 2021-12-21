@@ -1,3 +1,9 @@
+### **0.5.10** (2021-12-21)  
+  
+- bump version  
+- update video link  
+- GlCheckList correct on small devices    
+  
 ### **0.5.9** (2021-12-20)  
   
 - bump version  
