@@ -51,7 +51,7 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
     );
 });
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ "name": { GlIllustration } })({
     "root": {
         "position": "relative",
     },

@@ -43,7 +43,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     );
 });
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ "name": { GlGithubStarCount } })({
     "root": {
         "& span": {
             "display": "flex",

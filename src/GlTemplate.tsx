@@ -192,13 +192,46 @@ const GlTemplateInner = memo(
     },
 );
 
+export const GlTemplate = memo((props: GlTemplateProps) => {
+    const {
+        ThemeProvider = ThemeProviderDefault,
+        SplashScreenLogo,
+        splashScreenLogoFillColor,
+        ...rest
+    } = props;
+
+    const isThemeProvided = useIsThemeProvided();
+
+    const children = (
+        <GlTemplateInner {...rest} isThemeProvidedOutside={isThemeProvided} />
+    );
+
+    return isThemeProvided ? (
+        children
+    ) : (
+        <ThemeProvider
+            splashScreen={
+                SplashScreenLogo === undefined
+                    ? undefined
+                    : {
+                          "Logo": SplashScreenLogo,
+                          "fillColor": splashScreenLogoFillColor,
+                          "minimumDisplayDuration": 0,
+                      }
+            }
+        >
+            {children}
+        </ThemeProvider>
+    );
+});
+
 const useStyles = makeStyles<{
     headerHeight: number;
     rootWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: "fixed" | "top of page";
     doDelegateScroll: boolean;
-}>()(
+}>({ "name": { GlTemplate } })(
     (
         theme,
         {
@@ -334,36 +367,3 @@ const useStyles = makeStyles<{
         };
     },
 );
-
-export const GlTemplate = memo((props: GlTemplateProps) => {
-    const {
-        ThemeProvider = ThemeProviderDefault,
-        SplashScreenLogo,
-        splashScreenLogoFillColor,
-        ...rest
-    } = props;
-
-    const isThemeProvided = useIsThemeProvided();
-
-    const children = (
-        <GlTemplateInner {...rest} isThemeProvidedOutside={isThemeProvided} />
-    );
-
-    return isThemeProvided ? (
-        children
-    ) : (
-        <ThemeProvider
-            splashScreen={
-                SplashScreenLogo === undefined
-                    ? undefined
-                    : {
-                          "Logo": SplashScreenLogo,
-                          "fillColor": splashScreenLogoFillColor,
-                          "minimumDisplayDuration": 0,
-                      }
-            }
-        >
-            {children}
-        </ThemeProvider>
-    );
-});

@@ -236,146 +236,153 @@ const useStyles = makeStyles<{
     illustrationPosition: "left" | "right";
     hasIllustration: boolean;
     hasArticle: boolean;
-}>()((theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
-    "contentWrapper": {
-        "display": "flex",
-        "flexDirection": (() => {
-            if (
-                illustrationPosition === "left" &&
-                theme.windowInnerWidth >= breakpointsValues.md
-            ) {
-                return "row-reverse";
-            }
+}>({ "name": { GlArticle } })(
+    (theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
+        "contentWrapper": {
+            "display": "flex",
+            "flexDirection": (() => {
+                if (
+                    illustrationPosition === "left" &&
+                    theme.windowInnerWidth >= breakpointsValues.md
+                ) {
+                    return "row-reverse";
+                }
 
-            if (theme.windowInnerWidth < breakpointsValues.md) {
-                return "column";
-            }
+                if (theme.windowInnerWidth < breakpointsValues.md) {
+                    return "column";
+                }
 
-            return undefined;
-        })(),
-        "alignItems":
-            theme.windowInnerWidth < breakpointsValues.md ? "left" : "center",
-        "justifyContent": "center",
-
-        ...(() => {
-            const value = theme.spacing(7);
-
-            return {
-                "marginTop": value,
-                "marginBottom": value,
-            };
-        })(),
-        ...(() => {
-            const value = theme.spacing(8);
-            if (theme.windowInnerWidth < breakpointsValues.lg || !hasArticle) {
                 return undefined;
-            }
-            if (illustrationPosition === "left") {
+            })(),
+            "alignItems":
+                theme.windowInnerWidth < breakpointsValues.md
+                    ? "left"
+                    : "center",
+            "justifyContent": "center",
+
+            ...(() => {
+                const value = theme.spacing(7);
+
                 return {
-                    "paddingRight": value,
+                    "marginTop": value,
+                    "marginBottom": value,
                 };
-            }
+            })(),
+            ...(() => {
+                const value = theme.spacing(8);
+                if (
+                    theme.windowInnerWidth < breakpointsValues.lg ||
+                    !hasArticle
+                ) {
+                    return undefined;
+                }
+                if (illustrationPosition === "left") {
+                    return {
+                        "paddingRight": value,
+                    };
+                }
 
-            return {
-                "paddingLeft": value,
-            };
-        })(),
-    },
-    "title": {
-        ...theme.typography.variants["page heading"].style,
-    },
-    "article": {
-        "display": "flex",
-        "flexDirection": "column",
-        "textAlign": "left",
-        "marginBottom": (() => {
-            if (
-                theme.windowInnerWidth >= breakpointsValues.md ||
-                !hasIllustration
-            ) {
-                return undefined;
-            }
-
-            return theme.spacing(8);
-        })(),
-        "width": (() => {
-            if (!hasIllustration) {
-                return undefined;
-            }
-
-            if (theme.windowInnerWidth >= breakpointsValues.xl) {
-                return 412;
-            }
-
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return 311;
-            }
-
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
-                return 270;
-            }
-
-            return undefined;
-        })(),
-
-        ...(() => {
-            const value =
-                theme.windowInnerWidth >= breakpointsValues.lg
-                    ? theme.spacing(9)
-                    : theme.spacing(5);
-            if (
-                theme.windowInnerWidth < breakpointsValues.md ||
-                !hasIllustration
-            ) {
-                return undefined;
-            }
-            if (illustrationPosition === "left") {
                 return {
-                    "marginLeft": value,
+                    "paddingLeft": value,
                 };
-            }
+            })(),
+        },
+        "title": {
+            ...theme.typography.variants["page heading"].style,
+        },
+        "article": {
+            "display": "flex",
+            "flexDirection": "column",
+            "textAlign": "left",
+            "marginBottom": (() => {
+                if (
+                    theme.windowInnerWidth >= breakpointsValues.md ||
+                    !hasIllustration
+                ) {
+                    return undefined;
+                }
 
-            return {
-                "marginRight": value,
-            };
-        })(),
-    },
-    "body": {
-        ...theme.typography.variants["body 1"].style,
-        "margin": theme.spacing({
-            "topBottom": 4,
-            "rightLeft": 0,
-        }),
-        "color": theme.colors.useCases.typography.textSecondary,
-    },
-    "buttonWrapper": {
-        "display": "flex",
-        "justifyContent": "flex-end",
-    },
-    "button": {
-        "alignSelf": "right",
-    },
-    "aside": {
-        ...(theme.windowInnerWidth >= breakpointsValues.md
-            ? {
-                  ...(() => {
-                      if (!hasArticle) {
-                          return undefined;
-                      }
-                      const value = theme.spacing(8);
-                      switch (illustrationPosition) {
-                          case "left":
-                              return {
-                                  "marginRight": value,
-                              };
-                          case "right":
-                              return {
-                                  "marginLeft": value,
-                              };
-                      }
-                  })(),
-                  "maxWidth": 800,
-              }
-            : {}),
-    },
-}));
+                return theme.spacing(8);
+            })(),
+            "width": (() => {
+                if (!hasIllustration) {
+                    return undefined;
+                }
+
+                if (theme.windowInnerWidth >= breakpointsValues.xl) {
+                    return 412;
+                }
+
+                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                    return 311;
+                }
+
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return 270;
+                }
+
+                return undefined;
+            })(),
+
+            ...(() => {
+                const value =
+                    theme.windowInnerWidth >= breakpointsValues.lg
+                        ? theme.spacing(9)
+                        : theme.spacing(5);
+                if (
+                    theme.windowInnerWidth < breakpointsValues.md ||
+                    !hasIllustration
+                ) {
+                    return undefined;
+                }
+                if (illustrationPosition === "left") {
+                    return {
+                        "marginLeft": value,
+                    };
+                }
+
+                return {
+                    "marginRight": value,
+                };
+            })(),
+        },
+        "body": {
+            ...theme.typography.variants["body 1"].style,
+            "margin": theme.spacing({
+                "topBottom": 4,
+                "rightLeft": 0,
+            }),
+            "color": theme.colors.useCases.typography.textSecondary,
+        },
+        "buttonWrapper": {
+            "display": "flex",
+            "justifyContent": "flex-end",
+        },
+        "button": {
+            "alignSelf": "right",
+        },
+        "aside": {
+            ...(theme.windowInnerWidth >= breakpointsValues.md
+                ? {
+                      ...(() => {
+                          if (!hasArticle) {
+                              return undefined;
+                          }
+                          const value = theme.spacing(8);
+                          switch (illustrationPosition) {
+                              case "left":
+                                  return {
+                                      "marginRight": value,
+                                  };
+                              case "right":
+                                  return {
+                                      "marginLeft": value,
+                                  };
+                          }
+                      })(),
+                      "maxWidth": 800,
+                  }
+                : {}),
+        },
+    }),
+);

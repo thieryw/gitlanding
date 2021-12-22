@@ -180,107 +180,109 @@ const useStyles = makeStyles<{
     isMenuUnfolded: boolean;
     numberOfLinks: number;
     linkHeight: number;
-}>()((theme, { isMenuUnfolded, numberOfLinks, linkHeight }) => {
-    const linkMarginTopBottom = theme.spacing(3);
+}>({ "name": { GlHeader } })(
+    (theme, { isMenuUnfolded, numberOfLinks, linkHeight }) => {
+        const linkMarginTopBottom = theme.spacing(3);
 
-    return {
-        "root": {
-            "display": "flex",
-            "alignItems": "center",
-            "width": "100%",
-            "flexWrap": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return undefined;
-                }
+        return {
+            "root": {
+                "display": "flex",
+                "alignItems": "center",
+                "width": "100%",
+                "flexWrap": (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return undefined;
+                    }
 
-                return "wrap";
-            })(),
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-        },
-        "title": {
-            "display": "flex",
-            "flex": 1,
-            "marginRight": theme.spacing(2),
-        },
-        "links": {
-            "display": "flex",
-            "transition": "height 300ms",
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return "wrap";
+                })(),
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
+            },
+            "title": {
+                "display": "flex",
+                "flex": 1,
+                "marginRight": theme.spacing(2),
+            },
+            "links": {
+                "display": "flex",
+                "transition": "height 300ms",
+                ...(() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return {
+                            "flexWrap": "wrap",
+                        } as const;
+                    }
+
                     return {
-                        "flexWrap": "wrap",
+                        "order": 123,
+                        "flex": "100%",
+                        "flexDirection": "column",
+                        "height": (() => {
+                            if (isMenuUnfolded) {
+                                return (
+                                    (linkHeight + linkMarginTopBottom * 2) *
+                                        numberOfLinks +
+                                    10
+                                );
+                            }
+                            return 0;
+                        })(),
+                        "overflow": "hidden",
+                        "flexWrap": "nowrap",
+                        "marginTop": theme.spacing(2),
                     } as const;
-                }
+                })(),
+            },
+            "linkWrapper": {
+                ...(theme.windowInnerWidth >= breakpointsValues.md
+                    ? {
+                          ...(() => {
+                              const value = theme.spacing(4);
+                              return {
+                                  ...theme.spacing.rightLeft(
+                                      "margin",
+                                      `${value}px`,
+                                  ),
+                              };
+                          })(),
+                      }
+                    : {
+                          ...theme.spacing.topBottom(
+                              "margin",
+                              `${linkMarginTopBottom}px`,
+                          ),
+                      }),
+            },
 
-                return {
-                    "order": 123,
-                    "flex": "100%",
-                    "flexDirection": "column",
-                    "height": (() => {
-                        if (isMenuUnfolded) {
-                            return (
-                                (linkHeight + linkMarginTopBottom * 2) *
-                                    numberOfLinks +
-                                10
-                            );
-                        }
-                        return 0;
-                    })(),
-                    "overflow": "hidden",
-                    "flexWrap": "nowrap",
-                    "marginTop": theme.spacing(2),
-                } as const;
-            })(),
-        },
-        "linkWrapper": {
-            ...(theme.windowInnerWidth >= breakpointsValues.md
-                ? {
-                      ...(() => {
-                          const value = theme.spacing(4);
-                          return {
-                              ...theme.spacing.rightLeft(
-                                  "margin",
-                                  `${value}px`,
-                              ),
-                          };
-                      })(),
-                  }
-                : {
-                      ...theme.spacing.topBottom(
-                          "margin",
-                          `${linkMarginTopBottom}px`,
-                      ),
-                  }),
-        },
+            "link": {
+                "color": theme.colors.useCases.typography.textPrimary,
+                "whiteSpace": "nowrap",
+                ...theme.typography.variants["body 1"].style,
+            },
+            "unfoldIcon": {
+                "cursor": "pointer",
+                "marginLeft": theme.spacing(2),
+                "display": (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return "none";
+                    }
 
-        "link": {
-            "color": theme.colors.useCases.typography.textPrimary,
-            "whiteSpace": "nowrap",
-            ...theme.typography.variants["body 1"].style,
-        },
-        "unfoldIcon": {
-            "cursor": "pointer",
-            "marginLeft": theme.spacing(2),
-            "display": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return "none";
-                }
-
-                return "flex";
-            })(),
-        },
-        "githubStarAndDarkModeSwitch": {
-            "margin": theme.spacing({
-                "topBottom": 0,
-                "rightLeft": 2,
-            }),
-        },
-        "titleInner": {
-            "display": "flex",
-            "alignItems": "center",
-        },
-    };
-});
+                    return "flex";
+                })(),
+            },
+            "githubStarAndDarkModeSwitch": {
+                "margin": theme.spacing({
+                    "topBottom": 0,
+                    "rightLeft": 2,
+                }),
+            },
+            "titleInner": {
+                "display": "flex",
+                "alignItems": "center",
+            },
+        };
+    },
+);

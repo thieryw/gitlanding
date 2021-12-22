@@ -169,49 +169,49 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
     );
 });
 
-const useStyles = makeStyles<{ numberOfElements: number }>()(
-    (theme, { numberOfElements }) => ({
-        "heading": {
-            "fontSize": "2rem",
-        },
-        "headingWrapper": {
-            "marginBottom": theme.spacing(6),
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "center",
-        },
-        "elements": {
-            "justifyItems":
-                theme.windowInnerWidth <= breakpointsValues.sm
-                    ? undefined
-                    : "center",
-            "display": "grid",
-            "gridTemplateColumns": `repeat(${(() => {
-                if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                    if (numberOfElements >= 3) {
-                        return 3;
-                    }
-                    return numberOfElements;
+const useStyles = makeStyles<{ numberOfElements: number }>({
+    "name": { GlCheckList },
+})((theme, { numberOfElements }) => ({
+    "heading": {
+        "fontSize": "2rem",
+    },
+    "headingWrapper": {
+        "marginBottom": theme.spacing(6),
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+    },
+    "elements": {
+        "justifyItems":
+            theme.windowInnerWidth <= breakpointsValues.sm
+                ? undefined
+                : "center",
+        "display": "grid",
+        "gridTemplateColumns": `repeat(${(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                if (numberOfElements >= 3) {
+                    return 3;
                 }
+                return numberOfElements;
+            }
 
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    if (numberOfElements >= 2) {
-                        return 2;
-                    }
-
-                    return 1;
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                if (numberOfElements >= 2) {
+                    return 2;
                 }
 
                 return 1;
-            })()}, 1fr)`,
-            "gap": theme.spacing(6),
-        },
-        "subHeading": {
-            ...theme.typography.variants["body 1"].style,
-            "color": theme.colors.useCases.typography.textSecondary,
-        },
-    }),
-);
+            }
+
+            return 1;
+        })()}, 1fr)`,
+        "gap": theme.spacing(6),
+    },
+    "subHeading": {
+        ...theme.typography.variants["body 1"].style,
+        "color": theme.colors.useCases.typography.textSecondary,
+    },
+}));
 
 const { CheckListElement } = (() => {
     type Props = Required<GlCheckListProps>["elements"][number] & {

@@ -196,7 +196,7 @@ export const GlHero = memo((props: GlHeroProps) => {
 
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
-}>()((theme, { hasOnlyText }) => ({
+}>({ "name": { GlHero } })((theme, { hasOnlyText }) => ({
     "root": {
         "position": "relative",
         "width": "100%",
@@ -300,7 +300,7 @@ const { HeroText } = (() => {
         );
     });
 
-    const useStyles = makeStyles()(theme => ({
+    const useStyles = makeStyles({ "name": { HeroText } })(theme => ({
         "root": {
             "fontWeight": 700,
             ...(() => {

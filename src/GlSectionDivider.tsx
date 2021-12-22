@@ -25,7 +25,7 @@ export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlSectionDivider } })(theme => ({
     "root": {
         "display": "flex",
         "justifyContent": "center",

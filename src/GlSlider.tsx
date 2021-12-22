@@ -177,7 +177,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
 
 const useStyles = makeStyles<{
     width: number | string | undefined;
-}>()((theme, { width }) => ({
+}>({ "name": { GlSlider } })((theme, { width }) => ({
     "root": {
         ...(() => {
             const value = theme.spacing(7);

@@ -38,7 +38,7 @@ export const GlArrow = memo((props: GlArrowProps) => {
 const useStyles = makeStyles<{
     direction: GlArrowProps["direction"];
     hasCircularBorder: boolean;
-}>()((theme, { direction, hasCircularBorder }) => ({
+}>({ "name": { GlArrow } })((theme, { direction, hasCircularBorder }) => ({
     "root": {
         "border": hasCircularBorder
             ? `solid ${

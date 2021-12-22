@@ -52,22 +52,24 @@ export const GlLinkToTop = memo(() => {
     );
 });
 
-const useStyles = makeStyles<{ isShown: boolean }>()((theme, { isShown }) => ({
-    "root": {
-        "transition": "opacity, 500ms",
-        "display": "flex",
-        "backgroundColor": theme.colors.useCases.surfaces.background,
-        "alignItems": "center",
-        "borderRadius": 5,
-        "justifyContent": "center",
-        "padding": theme.spacing(1),
-        "opacity": isShown ? 0.6 : 0,
-        "pointerEvents": isShown ? undefined : "none",
-        "position": "fixed",
-        "border": `solid ${theme.colors.useCases.typography.textPrimary} 3px`,
-        "zIndex": 9000,
-        "top": "90%",
-        "right": theme.paddingRightLeft,
-        "cursor": "pointer",
-    },
-}));
+const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
+    (theme, { isShown }) => ({
+        "root": {
+            "transition": "opacity, 500ms",
+            "display": "flex",
+            "backgroundColor": theme.colors.useCases.surfaces.background,
+            "alignItems": "center",
+            "borderRadius": 5,
+            "justifyContent": "center",
+            "padding": theme.spacing(1),
+            "opacity": isShown ? 0.6 : 0,
+            "pointerEvents": isShown ? undefined : "none",
+            "position": "fixed",
+            "border": `solid ${theme.colors.useCases.typography.textPrimary} 3px`,
+            "zIndex": 9000,
+            "top": "90%",
+            "right": theme.paddingRightLeft,
+            "cursor": "pointer",
+        },
+    }),
+);

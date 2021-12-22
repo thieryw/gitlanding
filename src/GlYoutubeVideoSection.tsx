@@ -135,40 +135,42 @@ const useStyles = makeStyles<{
     width: string | number | undefined;
     height: string | number | undefined;
     currentWidth: number;
-}>()((theme, { height, width, currentWidth }) => ({
-    "root": {
-        "display": "grid",
-        "gridTemplateColumns": "1fr",
-        "justifyItems": "center",
-    },
-    "title": {
-        "textAlign": "center",
-    },
-    "iframe": {
-        "border": "none",
-        ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
-        "boxShadow": theme.customShadow,
-        "width":
-            width ??
-            (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return 700;
-                }
+}>({ "name": { GlYoutubeVideoSection } })(
+    (theme, { height, width, currentWidth }) => ({
+        "root": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr",
+            "justifyItems": "center",
+        },
+        "title": {
+            "textAlign": "center",
+        },
+        "iframe": {
+            "border": "none",
+            ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
+            "boxShadow": theme.customShadow,
+            "width":
+                width ??
+                (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return 700;
+                    }
 
-                if (theme.windowInnerWidth >= breakpointsValues.sm) {
-                    return "70%";
-                }
+                    if (theme.windowInnerWidth >= breakpointsValues.sm) {
+                        return "70%";
+                    }
 
-                return "100%";
-            })(),
-        "height":
-            height ??
-            (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return 7 * 60;
-                }
+                    return "100%";
+                })(),
+            "height":
+                height ??
+                (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.md) {
+                        return 7 * 60;
+                    }
 
-                return (currentWidth / 100) * 60;
-            })(),
-    },
-}));
+                    return (currentWidth / 100) * 60;
+                })(),
+        },
+    }),
+);

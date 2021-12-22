@@ -51,7 +51,7 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlReviewSlide } })(theme => ({
     "root": {
         "display": "flex",
         "alignItems": "center",

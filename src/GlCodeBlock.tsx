@@ -104,7 +104,7 @@ const { VsCodeButtons } = (() => {
         );
     });
 
-    const useStyles = makeStyles()(theme => ({
+    const useStyles = makeStyles({ "name": { GlCodeBlock } })(theme => ({
         "root": {
             "width": "100%",
             "height": 24,

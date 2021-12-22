@@ -55,15 +55,15 @@ export const GlImage = memo((props: GlImageProps) => {
     );
 });
 
-const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>()(
-    (theme, { isImageLoaded, hasShadow }) => ({
-        "root": {
-            "position": "relative",
-            "width": isImageLoaded ? "100%" : undefined,
-            "height": isImageLoaded ? "auto" : undefined,
-            "objectFit": "cover",
-            "verticalAlign": "middle",
-            "boxShadow": !hasShadow ? undefined : theme.customShadow,
-        },
-    }),
-);
+const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>({
+    "name": { GlImage },
+})((theme, { isImageLoaded, hasShadow }) => ({
+    "root": {
+        "position": "relative",
+        "width": isImageLoaded ? "100%" : undefined,
+        "height": isImageLoaded ? "auto" : undefined,
+        "objectFit": "cover",
+        "verticalAlign": "middle",
+        "boxShadow": !hasShadow ? undefined : theme.customShadow,
+    },
+}));

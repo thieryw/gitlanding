@@ -29,7 +29,7 @@ const useStyles = makeStyles<{
     fill: string | undefined;
     width: number | undefined;
     height: number | undefined;
-}>()((theme, { fill, height, width }) => ({
+}>({ "name": { GlLogo } })((theme, { fill, height, width }) => ({
     "root": {
         width,
         height,
