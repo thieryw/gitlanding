@@ -1,3 +1,7 @@
+### **0.5.11** (2021-12-22)  
+  
+- update onyxia and tss react and name property in all makeStyles calls    
+  
 ### **0.5.10** (2021-12-21)  
   
 - bump version  
