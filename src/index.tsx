@@ -190,7 +190,7 @@ For example you might want to have a routing system put in place. And you can ev
           iconUrls={[tsafePngSrc]}
           buttonLabel="View project"
           link={{
-            "href": "https://github.com/garronej/tsafe"
+            "href": "https://www.tsafe.dev/"
           }}
         />
 
