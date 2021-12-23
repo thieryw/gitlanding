@@ -5,13 +5,21 @@
     <i>A library of React component for creating beautiful landing pages in minutes</i>
     <br>
     <br>
-    <img src="https://github.com/thieryw/gitlanding/workflows/ci/badge.svg?branch=main">
-    <img src="https://img.shields.io/npm/dw/gitlanding">
-    <img src="https://img.shields.io/npm/l/gitlanding">
+    <a href="https://github.com/garronej/gitlanding/actions">
+      <img src="https://github.com/garronej/gitlanding/workflows/ci/badge.svg?branch=main">
+    </a>
+    <a href="https://bundlephobia.com/package/gitlanding">
+      <img src="https://img.shields.io/bundlephobia/minzip/gitlanding">
+    </a>
+    <a href="https://www.npmjs.com/package/gitlanding">
+      <img src="https://img.shields.io/npm/dw/gitlanding">
+    </a>
+    <a href="https://github.com/garronej/gitlanding/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/gitlanding">
+    </a>
 </p>
 <p align="center">
   <a href="https://www.gitlanding.dev/">Landing page</a> - <a href="https://www.gitlanding.dev/storybook">Storybook</a> - <a href="https://docs.gitlanding.dev/">Docs</a>
-  
 </p>
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects.
