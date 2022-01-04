@@ -11,6 +11,9 @@ import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 
+export const splashScreenState = {
+    "isShown": true,
+};
 export const scrollableDivId = "GlScrollable";
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 

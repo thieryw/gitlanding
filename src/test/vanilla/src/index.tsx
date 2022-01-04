@@ -13,59 +13,12 @@ import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
+import { useRoute, routes, RouteProvider } from "./router";
+import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
 
-function App() {
+function Home() {
     return (
-        <GlTemplate
-            header={
-                <GlHeader
-                    title="Header title"
-                    links={[
-                        {
-                            "label": "link 1",
-                            "link": { "href": "https://example.com" },
-                        },
-                        {
-                            "label": "link 2",
-                            "link": { "href": "https://example.com" },
-                        },
-                        {
-                            "label": "link 3",
-                            "link": { "href": "https://example.com" },
-                        },
-                    ]}
-                    enableDarkModeSwitch={true}
-                    githubRepoUrl="https://github.com/torvalds/linux"
-                    githubButtonSize="large"
-                />
-            }
-            headerOptions={{
-                "position": "fixed",
-                "isRetracted": "smart",
-            }}
-            footer={
-                <GlFooter
-                    bottomDivContent="Licence M I T"
-                    email="email@email.com"
-                    phoneNumber="+33545345676"
-                    links={[
-                        {
-                            "href": "https://example.com",
-                            "title": "link 1",
-                        },
-                        {
-                            "href": "https://example.com",
-                            "title": "link 2",
-                        },
-                        {
-                            "href": "https://example.com",
-                            "title": "link 3",
-                        },
-                    ]}
-                />
-            }
-            hasTopOfPageLinkButton={true}
-        >
+        <>
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
@@ -292,8 +245,79 @@ function App() {
                 src="https://www.youtube.com/embed/taDGhL0z7wc"
                 hasAnimation={true}
             />
+        </>
+    );
+}
+
+function App() {
+    const route = useRoute();
+    return (
+        <GlTemplate
+            SplashScreenLogo={OnyxiaLogo}
+            header={
+                <GlHeader
+                    title={
+                        <div>
+                            <a {...routes.home().link}>Header Title</a>
+                        </div>
+                    }
+                    links={[
+                        {
+                            "label": "link 1",
+                            "link": routes.link1().link,
+                        },
+                        {
+                            "label": "link 2",
+                            "link": routes.link2().link,
+                        },
+                        {
+                            "label": "link 3",
+                            "link": routes.link3().link,
+                        },
+                    ]}
+                    enableDarkModeSwitch={true}
+                    githubRepoUrl="https://github.com/torvalds/linux"
+                    githubButtonSize="large"
+                />
+            }
+            headerOptions={{
+                "position": "fixed",
+                "isRetracted": "smart",
+            }}
+            footer={
+                <GlFooter
+                    bottomDivContent="Licence M I T"
+                    email="email@email.com"
+                    phoneNumber="+33545345676"
+                    links={[
+                        {
+                            "href": "https://example.com",
+                            "title": "link 1",
+                        },
+                        {
+                            "href": "https://example.com",
+                            "title": "link 2",
+                        },
+                        {
+                            "href": "https://example.com",
+                            "title": "link 3",
+                        },
+                    ]}
+                />
+            }
+            hasTopOfPageLinkButton={true}
+        >
+            {route.name === "home" && <Home />}
+            {route.name === "link1" && <div>link1</div>}
+            {route.name === "link2" && <div>link1</div>}
+            {route.name === "link3" && <div>link1</div>}
         </GlTemplate>
     );
 }
 
-render(<App />, document.getElementById("root"));
+render(
+    <RouteProvider>
+        <App />
+    </RouteProvider>,
+    document.getElementById("root"),
+);

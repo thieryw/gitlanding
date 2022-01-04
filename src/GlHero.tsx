@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useReducer, useMemo } from "react";
+import { memo, useReducer, useMemo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -10,6 +10,8 @@ import { motion } from "framer-motion";
 import { breakpointsValues } from "./theme";
 import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
+import { splashScreenState } from "./GlTemplate";
+import { useConstCallback } from "powerhooks/useConstCallback";
 
 export type GlHeroProps = {
     title?: string;
@@ -45,6 +47,8 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 
+    const { isShown } = splashScreenState;
+
     const textWrapperVariant = useMemo(
         () => ({
             "show": {},
@@ -78,34 +82,47 @@ export const GlHero = memo((props: GlHeroProps) => {
         [],
     );
 
-    const { classes, cx } = useStyles({
-        "hasOnlyText": imageSrc === undefined,
+    const animate = useConstCallback(() => {
+        textWrapperVariant.show = {
+            "transition": {
+                "staggerChildren": 0.5,
+            },
+            "opacity": 1,
+        };
+
+        textVariant.show = {
+            "opacity": 1,
+            "x": 0,
+            "transition": {
+                "duration": 1,
+                "ease": "easeOut",
+            },
+        };
+
+        imageAnimProps.animate = {
+            "opacity": 1,
+        };
+        splashScreenState.isShown = false;
+        forceUpdate();
     });
 
     useSplashScreen({
         "onHidden": () => {
-            textWrapperVariant.show = {
-                "transition": {
-                    "staggerChildren": 0.5,
-                },
-                "opacity": 1,
-            };
-
-            textVariant.show = {
-                "opacity": 1,
-                "x": 0,
-                "transition": {
-                    "duration": 1,
-                    "ease": "easeOut",
-                },
-            };
-
-            imageAnimProps.animate = {
-                "opacity": 1,
-            };
-
-            forceUpdate();
+            animate();
+            splashScreenState.isShown = false;
         },
+    });
+
+    useEffect(() => {
+        if (isShown) {
+            return;
+        }
+
+        animate();
+    }, []);
+
+    const { classes, cx } = useStyles({
+        "hasOnlyText": imageSrc === undefined,
     });
 
     return (
