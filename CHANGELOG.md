@@ -1,3 +1,8 @@
+### **0.5.12** (2022-01-06)  
+  
+- fix content reflow on initial page load  
+- a feable attempt to solve splash screen probleme    
+  
 ### **0.5.11** (2021-12-22)  
   
 - update onyxia and tss react and name property in all makeStyles calls    
