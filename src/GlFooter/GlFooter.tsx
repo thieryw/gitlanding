@@ -4,6 +4,7 @@ import Link from "@mui/material/Link";
 import { makeStyles } from "../theme";
 import { GlFooterInfo } from "./GlFooterInfo";
 import { Markdown } from "../tools/Markdown";
+import { useMergedClasses } from "tss-react";
 
 type Link = {
     href: string;
@@ -12,14 +13,9 @@ type Link = {
 
 export type GlFooterProps = {
     className?: string;
-    classes?: {
-        iconsLinks?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
         iconWrapper?: string;
-        icon?: string;
-        links?: string;
-        link?: string;
         info?: string;
-        bottomDiv?: string;
     };
     iconLinks?: (Link & { iconUrl: string })[];
     links?: (Link & { title: string })[];
@@ -40,11 +36,12 @@ export const GlFooter = memo((props: GlFooterProps) => {
     } = props;
 
     const { classes, cx } = useStyles();
+    const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <footer className={cx(classes.root, className)}>
+        <footer className={cx(mergedClasses.root, className)}>
             {iconLinks !== undefined && (
-                <div className={cx(classes.icons, classesProp?.iconsLinks)}>
+                <div className={mergedClasses.icons}>
                     {iconLinks.map((iconLink, index) => (
                         <div
                             key={index}
@@ -57,7 +54,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
                             className={classesProp?.iconWrapper}
                         >
                             <GlLogo
-                                className={cx(classes.icon, classesProp?.icon)}
+                                className={mergedClasses.icon}
                                 logoUrl={iconLink.iconUrl}
                             />
                         </div>
@@ -66,13 +63,13 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {links !== undefined && (
-                <div className={cx(classes.links, classesProp?.links)}>
+                <div className={mergedClasses.links}>
                     {links.map((link, index) => (
                         <Link
                             key={index}
                             href={link.href}
                             onClick={link.onClick}
-                            className={cx(classes.link, classesProp?.link)}
+                            className={mergedClasses.link}
                             underline="hover"
                         >
                             {link.title}
@@ -90,7 +87,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {bottomDivContent !== undefined && (
-                <div className={cx(classes.bottomDiv, classesProp?.bottomDiv)}>
+                <div className={mergedClasses.bottomDiv}>
                     <Markdown>{bottomDivContent}</Markdown>
                 </div>
             )}

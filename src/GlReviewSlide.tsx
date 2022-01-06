@@ -4,6 +4,7 @@ import { GlLogo } from "./utils/GlLogo";
 import Paper from "@mui/material/Paper";
 import { breakpointsValues } from "./theme";
 import { Markdown } from "./tools/Markdown";
+import { useMergedClasses } from "tss-react";
 
 export type GlReviewSlideProps = {
     /**
@@ -19,15 +20,17 @@ export type GlReviewSlideProps = {
     logoUrl?: string;
     logoFill?: string;
     className?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     const { descriptionMd, className, signature, logoUrl, logoFill } = props;
 
     const { classes, cx } = useStyles();
+    const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <Paper className={cx(classes.root, className)}>
+        <Paper className={cx(mergedClasses.root, className)}>
             {logoUrl !== undefined && (
                 <GlLogo
                     fill={logoFill}
@@ -37,12 +40,12 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
             )}
             <div>
                 {descriptionMd !== undefined && (
-                    <Markdown className={classes.paragraph}>
+                    <Markdown className={mergedClasses.paragraph}>
                         {descriptionMd}
                     </Markdown>
                 )}
                 {signature !== undefined && (
-                    <Text typo="body 2" className={classes.signature}>
+                    <Text typo="body 2" className={mergedClasses.signature}>
                         {signature}
                     </Text>
                 )}

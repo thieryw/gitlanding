@@ -28,7 +28,7 @@ export const Vue = getStory({
                         title="Title"
                         subtitle="Subtitle"
                         badgeLabel="Badge Label"
-                        date="13/12/2021"
+                        text="13/12/2021"
                     />
                 ),
             )}

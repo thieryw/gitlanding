@@ -10,6 +10,7 @@ import { useElementEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
+import { useMergedClasses } from "tss-react";
 
 export const splashScreenState = {
     "isShown": true,
@@ -46,11 +47,7 @@ export type GlTemplateProps = {
     headerOptions?: HeaderOptions;
     className?: string;
     hasTopOfPageLinkButton?: boolean;
-    classes?: {
-        headerWrapper?: string;
-        childrenWrapper?: string;
-        footerWrapper?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 const GlTemplateInner = memo(
@@ -118,20 +115,6 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        const { classes, cx } = useStyles({
-            rootWidth,
-            headerHeight,
-            "isHeaderRetracted":
-                headerOptions.isRetracted === "smart"
-                    ? !isSmartHeaderVisible
-                    : headerOptions.isRetracted,
-            "headerPosition": headerOptions.position,
-            "doDelegateScroll":
-                headerOptions.position === "fixed"
-                    ? false
-                    : headerOptions.doDelegateScroll,
-        });
-
         useElementEvt(
             ({ ctx, element }) => {
                 if (headerOptions.isRetracted !== "smart") {
@@ -156,21 +139,29 @@ const GlTemplateInner = memo(
             [headerHeight, headerOptions.isRetracted],
         );
 
+        const { classes, cx } = useStyles({
+            rootWidth,
+            headerHeight,
+            "isHeaderRetracted":
+                headerOptions.isRetracted === "smart"
+                    ? !isSmartHeaderVisible
+                    : headerOptions.isRetracted,
+            "headerPosition": headerOptions.position,
+            "doDelegateScroll":
+                headerOptions.position === "fixed"
+                    ? false
+                    : headerOptions.doDelegateScroll,
+        });
+
+        const mergedClasses = useMergedClasses(classes, classesProp);
+
         return (
-            <div className={cx(classes.root, className)}>
-                <div
-                    className={cx(
-                        classes.headerWrapper,
-                        classesProp?.headerWrapper,
-                    )}
-                >
+            <div className={cx(mergedClasses.root, className)}>
+                <div className={mergedClasses.headerWrapper}>
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={cx(
-                        classes.childrenWrapper,
-                        classesProp?.childrenWrapper,
-                    )}
+                    className={mergedClasses.childrenWrapper}
                     ref={childrenWrapperRef}
                     id={
                         headerOptions.position === "top of page" &&
@@ -181,14 +172,7 @@ const GlTemplateInner = memo(
                 >
                     {children}
                     {hasTopOfPageLinkButton && <GlLinkToTop />}
-                    <div
-                        className={cx(
-                            classes.footerWrapper,
-                            classesProp?.footerWrapper,
-                        )}
-                    >
-                        {footer}
-                    </div>
+                    <div className={classes.footerWrapper}>{footer}</div>
                 </div>
             </div>
         );

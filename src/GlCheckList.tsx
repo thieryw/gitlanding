@@ -5,15 +5,12 @@ import { Markdown } from "./tools/Markdown";
 import { makeStyles, breakpointsValues } from "./theme";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { motion } from "framer-motion";
+import { useMergedClasses } from "tss-react";
 
 export type GlCheckListProps = {
     className?: string;
     hasAnimation?: boolean;
-    classes?: {
-        headingWrapper?: string;
-        heading?: string;
-        subHeading?: string;
-        elements?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
         element?: string;
         checkIconWrapper?: string;
         checkIcon?: string;
@@ -101,37 +98,26 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         "threshold": 0.4,
     });
 
-    const { classes, cx } = useStyles({
+    let { classes } = useStyles({
         "numberOfElements": elements === undefined ? 1 : elements.length,
     });
+
+    classes = useMergedClasses(classes, classesProp);
 
     return (
         <section className={className}>
             {(heading !== undefined || subHeading !== undefined) && (
-                <div
-                    className={cx(
-                        classes.headingWrapper,
-                        classesProp?.headingWrapper,
-                    )}
-                >
+                <div className={classes.headingWrapper}>
                     {heading !== undefined && (
                         <Text
-                            className={cx(
-                                classes.heading,
-                                classesProp?.heading,
-                            )}
+                            className={classes.heading}
                             typo="section heading"
                         >
                             {heading}
                         </Text>
                     )}
                     {subHeading !== undefined && (
-                        <Markdown
-                            className={cx(
-                                classes.subHeading,
-                                classesProp?.subHeading,
-                            )}
-                        >
+                        <Markdown className={classes.subHeading}>
                             {subHeading}
                         </Markdown>
                     )}
@@ -143,7 +129,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className={cx(classes.elements, classesProp?.elements)}
+                className={classes.elements}
             >
                 {elements !== undefined &&
                     elements.map((elementProps, index) => (
@@ -216,12 +202,9 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
 const { CheckListElement } = (() => {
     type Props = Required<GlCheckListProps>["elements"][number] & {
         className?: string;
-        classes?: {
-            checkIconWrapper?: string;
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
             checkIcon?: string;
             titleAndDescriptionWrapper?: string;
-            title?: string;
-            description?: string;
         };
     };
 
@@ -229,15 +212,11 @@ const { CheckListElement } = (() => {
         const { description, title, className, classes: classesProp } = props;
 
         const { classes, cx } = useStyles();
+        const mergedClasses = useMergedClasses(classes, classesProp);
 
         return (
-            <div className={cx(classes.root, className)}>
-                <div
-                    className={cx(
-                        classes.CheckIcon,
-                        classesProp?.checkIconWrapper,
-                    )}
-                >
+            <div className={cx(mergedClasses.root, className)}>
+                <div className={mergedClasses.checkIconWrapper}>
                     <CheckIcon
                         className={classesProp?.checkIcon}
                         color="success"
@@ -246,18 +225,11 @@ const { CheckListElement } = (() => {
 
                 <div className={classesProp?.titleAndDescriptionWrapper}>
                     {title !== undefined && (
-                        <Markdown
-                            className={cx(classes.title, classesProp?.title)}
-                        >
+                        <Markdown className={mergedClasses.title}>
                             {title}
                         </Markdown>
                     )}
-                    <Markdown
-                        className={cx(
-                            classes.description,
-                            classesProp?.description,
-                        )}
-                    >
+                    <Markdown className={mergedClasses.description}>
                         {description}
                     </Markdown>
                 </div>
@@ -273,7 +245,7 @@ const { CheckListElement } = (() => {
                     : undefined,
             "display": "flex",
         },
-        "CheckIcon": {
+        "checkIconWrapper": {
             "paddingTop": theme.spacing(3.5),
             "marginRight": theme.spacing(3),
         },

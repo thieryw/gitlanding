@@ -3,13 +3,12 @@ import { Text, breakpointsValues, makeStyles, Button } from "./theme";
 import { useDomRect } from "powerhooks/useDomRect";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
+import { useMergedClasses } from "tss-react";
 
 export type GlYoutubeVideoSectionProps = {
     className?: string;
     title?: string;
-    classes?: {
-        title: string;
-        iframe?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
         button?: string;
     };
     src?: string;
@@ -93,13 +92,12 @@ export const GlYoutubeVideoSection = memo(
             "currentWidth": iframeWidth,
         });
 
+        const mergedClasses = useMergedClasses(classes, classesProp);
+
         return (
-            <section ref={ref} className={cx(classes.root, className)}>
+            <section ref={ref} className={cx(mergedClasses.root, className)}>
                 {title !== undefined && (
-                    <Text
-                        className={cx(classes.title, classesProp?.title)}
-                        typo="page heading"
-                    >
+                    <Text className={mergedClasses.title} typo="page heading">
                         {title}
                     </Text>
                 )}
@@ -107,7 +105,7 @@ export const GlYoutubeVideoSection = memo(
                     <motion.iframe
                         {...animationProps}
                         ref={iframeRef}
-                        className={cx(classes.iframe, classesProp?.iframe)}
+                        className={mergedClasses.iframe}
                         src={src}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

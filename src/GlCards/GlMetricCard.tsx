@@ -7,6 +7,7 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
 import { useNumberCountUpAnimation } from "../tools/useNumberCountUpAnimation";
+import { useMergedClasses } from "tss-react";
 
 export type GlMetricCardProps = GlCardProps & {
     number?: number;
@@ -15,6 +16,10 @@ export type GlMetricCardProps = GlCardProps & {
     buttonLabel?: string;
     isNumberAnimated?: boolean;
     timeIntervalBetweenNumbersMs?: number;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+        number?: string;
+        button?: string;
+    };
 };
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
@@ -29,12 +34,14 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         timeIntervalBetweenNumbersMs,
     } = props;
     const { classes, cx, theme } = useStyles();
+    const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <GlCard link={link} className={cx(classes.root, className)}>
-            <div className={classes.heading}>
+        <GlCard link={link} className={cx(mergedClasses.root, className)}>
+            <div className={mergedClasses.heading}>
                 {number !== undefined && (
                     <Number
+                        className={props.classes?.number}
                         isNumberAnimated={isNumberAnimated ?? false}
                         number={number}
                         timeIntervalBetweenNumbersMs={
@@ -46,21 +53,22 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 {iconUrl !== undefined && (
                     <GlLogo
                         fill={theme.colors.useCases.buttons.actionHoverPrimary}
-                        className={classes.icon}
+                        className={mergedClasses.icon}
                         logoUrl={iconUrl}
                     />
                 )}
             </div>
 
             {subHeading && (
-                <Text className={classes.subHeading} typo="subtitle">
+                <Text className={mergedClasses.subHeading} typo="subtitle">
                     {subHeading}
                 </Text>
             )}
 
             {buttonLabel && (
-                <div className={classes.buttonWrapper}>
+                <div className={mergedClasses.buttonWrapper}>
                     <GlButton
+                        className={props.classes?.button}
                         type="submit"
                         href={link?.href}
                         variant="secondary"
@@ -140,21 +148,31 @@ const { Number } = (() => {
             GlMetricCardProps,
             "number" | "isNumberAnimated" | "timeIntervalBetweenNumbersMs"
         >
-    >;
+    > & {
+        className?: string;
+    };
 
     const Number = memo((props: Props) => {
-        const { isNumberAnimated, number, timeIntervalBetweenNumbersMs } =
-            props;
+        const {
+            isNumberAnimated,
+            number,
+            timeIntervalBetweenNumbersMs,
+            className,
+        } = props;
 
         const { ref, renderedNumber } = useNumberCountUpAnimation({
             "intervalMs": timeIntervalBetweenNumbersMs,
             number,
         });
 
-        const { classes } = useStyles();
+        const { classes, cx } = useStyles();
 
         return (
-            <Text className={classes.root} typo="display heading" ref={ref}>
+            <Text
+                className={cx(classes.root, className)}
+                typo="display heading"
+                ref={ref}
+            >
                 {isNumberAnimated ? renderedNumber : number}
             </Text>
         );

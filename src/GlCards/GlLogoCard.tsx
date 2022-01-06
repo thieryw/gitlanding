@@ -6,6 +6,7 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
 import { GlButton } from "../utils/GlButton";
+import { useMergedClasses } from "tss-react";
 
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
@@ -13,6 +14,9 @@ export type GlLogoCardProps = GlCardProps & {
     paragraph?: string;
     buttonLabel?: string;
     overlapIcons?: boolean;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+        button?: string;
+    };
 };
 
 export const GlLogoCard = memo((props: GlLogoCardProps) => {
@@ -31,14 +35,16 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
         "overlapIcons": overlapIcons ?? false,
     });
 
+    const mergedClasses = useMergedClasses(classes, props.classes);
+
     return (
-        <GlCard link={link} className={cx(classes.root, className)}>
+        <GlCard link={link} className={cx(mergedClasses.root, className)}>
             {iconUrls && (
-                <div className={classes.iconWrapper}>
+                <div className={mergedClasses.iconWrapper}>
                     {iconUrls.map((url, index) => (
                         <GlLogo
                             className={cx(
-                                classes.icon,
+                                mergedClasses.icon,
                                 css({
                                     "zIndex": iconUrls.length - index,
                                 }),
@@ -50,14 +56,17 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 </div>
             )}
 
-            <div className={classes.textWrapper}>
+            <div className={mergedClasses.textWrapper}>
                 {title !== undefined && (
-                    <Text typo="section heading" className={classes.title}>
+                    <Text
+                        typo="section heading"
+                        className={mergedClasses.title}
+                    >
                         {title}
                     </Text>
                 )}
                 {paragraph !== undefined && (
-                    <Text typo="body 1" className={classes.paragraph}>
+                    <Text typo="body 1" className={mergedClasses.paragraph}>
                         {paragraph}
                     </Text>
                 )}
@@ -69,6 +78,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     href={link?.href}
                     variant="secondary"
                     onClick={link?.onClick}
+                    className={props.classes?.button}
                 >
                     {buttonLabel}
                 </GlButton>

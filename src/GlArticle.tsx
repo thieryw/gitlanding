@@ -7,18 +7,11 @@ import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { assert } from "tsafe";
 import { Markdown } from "./tools/Markdown";
+import { useMergedClasses } from "tss-react";
 
 export type GlArticleProps = {
     className?: string;
-    classes?: {
-        contentWrapper?: string;
-        article?: string;
-        title?: string;
-        body?: string;
-        buttonWrapper?: string;
-        button?: string;
-        illustrationWrapper?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     id?: string;
     title?: string;
     body?: string;
@@ -47,15 +40,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-    const { classes, cx } = useStyles({
-        "illustrationPosition": illustrationPosition ?? "right",
-        "hasIllustration": illustration !== undefined,
-        "hasArticle":
-            title !== undefined ||
-            body !== undefined ||
-            buttonLabel !== undefined,
-    });
 
     const textTransitionParameters = useMemo(() => {
         if (!hasAnimation || hasAnimation === undefined) {
@@ -155,56 +139,41 @@ export const GlArticle = memo((props: GlArticleProps) => {
         "threshold": 0.2,
     });
 
+    let { classes } = useStyles({
+        "illustrationPosition": illustrationPosition ?? "right",
+        "hasIllustration": illustration !== undefined,
+        "hasArticle":
+            title !== undefined ||
+            body !== undefined ||
+            buttonLabel !== undefined,
+    });
+    classes = useMergedClasses(classes, classesProp);
+
     return (
         <section ref={ref} id={id} className={className}>
-            <div
-                className={cx(
-                    classes.contentWrapper,
-                    classesProp?.contentWrapper,
-                )}
-            >
+            <div className={classes.contentWrapper}>
                 {(title !== undefined ||
                     body !== undefined ||
                     buttonLabel !== undefined) && (
-                    <article
-                        className={cx(classes.article, classesProp?.article)}
-                    >
+                    <article className={classes.article}>
                         {title && (
                             <motion.div {...titleAnimationProps}>
-                                <Markdown
-                                    className={cx(
-                                        classes.title,
-                                        classesProp?.title,
-                                    )}
-                                >
+                                <Markdown className={classes.title}>
                                     {title}
                                 </Markdown>
                             </motion.div>
                         )}
                         {body && (
                             <motion.div {...bodyAnimationProps}>
-                                <Markdown
-                                    className={cx(
-                                        classes.body,
-                                        classesProp?.body,
-                                    )}
-                                >
+                                <Markdown className={classes.body}>
                                     {body}
                                 </Markdown>
                             </motion.div>
                         )}
                         {buttonLabel && (
-                            <div
-                                className={cx(
-                                    classes.buttonWrapper,
-                                    classesProp?.buttonWrapper,
-                                )}
-                            >
+                            <div className={classes.buttonWrapper}>
                                 <GlButton
-                                    className={cx(
-                                        classes.button,
-                                        classesProp?.button,
-                                    )}
+                                    className={classes.button}
                                     type="submit"
                                     href={buttonLink?.href}
                                     onClick={buttonLink?.onClick}
@@ -218,14 +187,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 )}
 
                 <motion.div {...illustrationAnimationProps}>
-                    <aside
-                        className={cx(
-                            classes.aside,
-                            classesProp?.illustrationWrapper,
-                        )}
-                    >
-                        {illustration}
-                    </aside>
+                    <aside className={classes.aside}>{illustration}</aside>
                 </motion.div>
             </div>
         </section>

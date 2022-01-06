@@ -16,8 +16,16 @@ import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { useRoute, routes, RouteProvider } from "./router";
 import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
 import mp4video from "./assets/videos/sspcloud.mp4";
+import { makeStyles } from "gitlanding/theme";
+
+const useStyles = makeStyles()({
+    "foo": {
+        "border": "solid red 2px",
+    },
+});
 
 function Home() {
+    const { classes } = useStyles();
     return (
         <>
             <GlHero
@@ -26,9 +34,15 @@ function Home() {
                 //imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 imageSrc={mp4video}
                 linkToSectionBelowId="firstSection"
+                classes={{
+                    "imageWrapper": classes.foo,
+                }}
             />
 
             <GlArticle
+                classes={{
+                    "aside": classes.foo,
+                }}
                 id="firstSection"
                 title="Article title"
                 body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 

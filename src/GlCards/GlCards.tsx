@@ -5,13 +5,11 @@ import { Text } from "../theme";
 import { makeStyles } from "../theme";
 import { breakpointsValues } from "../theme";
 import { useRef, useEffect, useState } from "react";
+import { useMergedClasses } from "tss-react";
 
 export type GlCardsProps = {
     className?: string;
-    classes?: {
-        title?: string;
-        cardWrapper?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     id?: string;
     title?: string;
     children?: ReactNode;
@@ -32,21 +30,16 @@ export const GlCards = memo((props: GlCardsProps) => {
     }, []);
 
     const { classes, cx } = useStyles({ numberOfCards });
+    const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <section id={id} className={cx(classes.root, className)}>
+        <section id={id} className={cx(mergedClasses.root, className)}>
             {title && (
-                <Text
-                    className={cx(classes.title, classesProp?.title)}
-                    typo="page heading"
-                >
+                <Text className={mergedClasses.title} typo="page heading">
                     {title}
                 </Text>
             )}
-            <div
-                ref={ref}
-                className={cx(classes.cards, classesProp?.cardWrapper)}
-            >
+            <div ref={ref} className={mergedClasses.cardsWrapper}>
                 {children}
             </div>
         </section>
@@ -80,7 +73,7 @@ const useStyles = makeStyles<{ numberOfCards: number }>()(
             })(),
         },
 
-        "cards": {
+        "cardsWrapper": {
             "display": "grid",
             "gridTemplateColumns": (() => {
                 if (theme.windowInnerWidth >= breakpointsValues.lg) {

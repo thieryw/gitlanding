@@ -17,5 +17,5 @@ export const Vue = getStory({
     "title": "Title",
     "subtitle": "SubTitle",
     "projectImageUrl": ExampleImgUrl,
-    "date": "22/10/2021",
+    "text": "22/10/2021",
 });

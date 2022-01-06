@@ -13,19 +13,11 @@ import { useClickAway } from "powerhooks";
 import { breakpointsValues } from "./theme";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { useDomRect } from "powerhooks/useDomRect";
+import { useMergedClasses } from "tss-react";
 
 export type GlHeaderProps = {
     className?: string;
-    classes?: {
-        title?: string;
-        titleInner?: string;
-        links?: string;
-        linkWrapper?: string;
-        link?: string;
-        githubStar?: string;
-        darkModeSwitch?: string;
-        unfoldButton?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     title: ReactNode;
     titleDark?: ReactNode;
     titleSmallScreen?: ReactNode;
@@ -83,25 +75,17 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         linkHeight,
     });
 
+    const mergedClasses = useMergedClasses(classes, classesProp);
+
     return (
-        <header className={cx(classes.root, className)}>
-            <div className={cx(classes.title, classesProp?.title)}>
+        <header className={cx(mergedClasses.root, className)}>
+            <div className={mergedClasses.title}>
                 {typeof title === "string" ? (
-                    <div
-                        className={cx(
-                            classes.titleInner,
-                            classesProp?.titleInner,
-                        )}
-                    >
+                    <div className={mergedClasses.titleInner}>
                         <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
-                    <div
-                        className={cx(
-                            classes.titleInner,
-                            classesProp?.titleInner,
-                        )}
-                    >
+                    <div className={mergedClasses.titleInner}>
                         {((): ReactNode => {
                             if (
                                 theme.windowInnerWidth >= breakpointsValues.md
@@ -125,19 +109,16 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 )}
             </div>
 
-            <div className={cx(classes.links, classesProp?.links)}>
+            <div className={mergedClasses.links}>
                 {links.map(({ link, label }, index) => (
                     <div
                         ref={index === 0 ? linkRef : undefined}
-                        className={cx(
-                            classes.linkWrapper,
-                            classesProp?.linkWrapper,
-                        )}
+                        className={mergedClasses.linkWrapper}
                         key={label}
                     >
                         <Link
                             underline="hover"
-                            className={cx(classes.link, classesProp?.link)}
+                            className={mergedClasses.link}
                             {...link}
                         >
                             {label}
@@ -151,26 +132,18 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
                     showCount={showGithubStarCount}
-                    className={cx(
-                        classes.githubStarAndDarkModeSwitch,
-                        classesProp?.githubStar,
-                    )}
+                    className={mergedClasses.githubStar}
                 />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <GlDarkModeSwitch
-                    className={cx(
-                        classes.githubStarAndDarkModeSwitch,
-                        classesProp?.darkModeSwitch,
-                    )}
-                />
+                <GlDarkModeSwitch className={mergedClasses.darkModeSwitch} />
             )}
 
             <FormatListBulletedIcon
                 ref={rootRef}
                 onClick={unfoldLinks}
-                className={cx(classes.unfoldIcon, classesProp?.unfoldButton)}
+                className={mergedClasses.unfoldButton}
             />
         </header>
     );
@@ -262,7 +235,7 @@ const useStyles = makeStyles<{
                 "whiteSpace": "nowrap",
                 ...theme.typography.variants["body 1"].style,
             },
-            "unfoldIcon": {
+            "unfoldButton": {
                 "cursor": "pointer",
                 "marginLeft": theme.spacing(2),
                 "display": (() => {
@@ -273,12 +246,13 @@ const useStyles = makeStyles<{
                     return "flex";
                 })(),
             },
-            "githubStarAndDarkModeSwitch": {
-                "margin": theme.spacing({
-                    "topBottom": 0,
-                    "rightLeft": 2,
-                }),
+            "githubStar": {
+                ...theme.spacing.rightLeft("margin", `${theme.spacing(2)}px`),
             },
+            "darkModeSwitch": {
+                ...theme.spacing.rightLeft("margin", `${theme.spacing(2)}px`),
+            },
+
             "titleInner": {
                 "display": "flex",
                 "alignItems": "center",

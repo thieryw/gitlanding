@@ -12,6 +12,7 @@ import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
 import { splashScreenState } from "./GlTemplate";
 import { useConstCallback } from "powerhooks/useConstCallback";
+import { useMergedClasses } from "tss-react";
 
 export type GlHeroProps = {
     title?: string;
@@ -21,15 +22,8 @@ export type GlHeroProps = {
     imageSources?: ImageSource[];
     linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
-    classes?: {
-        titleAndSubTitleWrapper?: string;
-        title?: string;
-        subtitle?: string;
-        imageWrapper?: string;
-        image?: string;
-        textAndImageWrapper?: string;
-        linkToSectionBelowWrapper?: string;
-        linkToSectionBelow?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+        arrow?: string;
     };
 };
 
@@ -130,32 +124,21 @@ export const GlHero = memo((props: GlHeroProps) => {
         isImageLoaded,
     });
 
+    const mergedClasses = useMergedClasses(classes, classesProp);
+
     return (
         <section className={cx(classes.root, className)}>
-            <div
-                className={cx(
-                    classes.textAndImageWrapper,
-                    classesProp?.textAndImageWrapper,
-                )}
-            >
+            <div className={mergedClasses.textAndImageWrapper}>
                 {(title !== undefined || subTitle !== undefined) && (
                     <motion.div
                         variants={textWrapperVariant}
                         initial="hidden"
                         animate="show"
-                        className={cx(
-                            classes.textWrapper,
-                            classesProp?.titleAndSubTitleWrapper,
-                        )}
+                        className={mergedClasses.textWrapper}
                     >
                         {title !== undefined && (
                             <motion.div variants={textVariant}>
-                                <HeroText
-                                    className={cx(
-                                        classes.title,
-                                        classesProp?.title,
-                                    )}
-                                >
+                                <HeroText className={mergedClasses.title}>
                                     {title}
                                 </HeroText>
                             </motion.div>
@@ -164,10 +147,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             <motion.div variants={textVariant}>
                                 <Text
                                     typo="subtitle"
-                                    className={cx(
-                                        classes.subtitle,
-                                        classesProp?.subtitle,
-                                    )}
+                                    className={mergedClasses.subtitle}
                                 >
                                     {subTitle}
                                 </Text>
@@ -179,13 +159,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                 {imageSrc !== undefined && (
                     <motion.div
                         {...imageAnimProps}
-                        className={cx(
-                            classes.imageWrapper,
-                            classesProp?.imageWrapper,
-                        )}
+                        className={mergedClasses.imageWrapper}
                     >
                         <GlImage
-                            className={cx(classes.image, classes.image)}
+                            className={mergedClasses.image}
                             hasShadow={hasImageShadow}
                             url={imageSrc}
                             alt="hero image"
@@ -196,14 +173,9 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             </div>
             {linkToSectionBelowId !== undefined && (
-                <div
-                    className={cx(
-                        classes.arrowWrapper,
-                        classesProp?.linkToSectionBelowWrapper,
-                    )}
-                >
+                <div className={mergedClasses.linkToSectionBelowWrapper}>
                     <GlArrow
-                        className={classesProp?.linkToSectionBelow}
+                        className={classesProp?.arrow}
                         direction="down"
                         hasCircularBorder={true}
                         link={{
@@ -296,7 +268,7 @@ const useStyles = makeStyles<{
         "width": "100%",
     },
 
-    "arrowWrapper": {
+    "linkToSectionBelowWrapper": {
         "display": "flex",
         "justifyContent": "center",
         "transition": "opacity 300ms",
