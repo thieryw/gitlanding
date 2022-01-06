@@ -15,6 +15,7 @@ import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { useRoute, routes, RouteProvider } from "./router";
 import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
+import mp4video from "./assets/videos/sspcloud.mp4";
 
 function Home() {
     return (
@@ -22,7 +23,8 @@ function Home() {
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
+                //imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
+                imageSrc={mp4video}
                 linkToSectionBelowId="firstSection"
             />
 

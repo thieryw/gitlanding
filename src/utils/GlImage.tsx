@@ -12,15 +12,29 @@ export type GlImageProps = {
     height?: number;
     hasShadow?: boolean;
     imageSources?: ImageSource[];
+    onLoad?: () => void;
 };
 
 export const GlImage = memo((props: GlImageProps) => {
-    const { className, url, alt, height, width, hasShadow, imageSources } =
-        props;
+    const {
+        className,
+        url,
+        alt,
+        height,
+        width,
+        hasShadow,
+        imageSources,
+        onLoad: onLoadProp,
+    } = props;
+
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const onLoad = useConstCallback(() => {
         setIsImageLoaded(true);
+        if (onLoadProp === undefined) {
+            return;
+        }
+        onLoadProp();
     });
 
     const { classes, cx } = useStyles({
@@ -48,6 +62,7 @@ export const GlImage = memo((props: GlImageProps) => {
             autoPlay={true}
             muted={true}
             loop={true}
+            onLoadStart={onLoadProp}
         >
             <source src={url} type="video/mp4" />
             Your browser does not support HTML video.

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useReducer, useMemo, useEffect } from "react";
+import { memo, useReducer, useMemo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -46,8 +46,13 @@ export const GlHero = memo((props: GlHeroProps) => {
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
-
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
     const { isShown } = splashScreenState;
+
+    const handleOnImageLoad = useConstCallback(async () => {
+        await new Promise<void>(resolve => setTimeout(resolve, 50));
+        setIsImageLoaded(true);
+    });
 
     const textWrapperVariant = useMemo(
         () => ({
@@ -117,12 +122,12 @@ export const GlHero = memo((props: GlHeroProps) => {
         if (isShown) {
             return;
         }
-
         animate();
     }, []);
 
     const { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
+        isImageLoaded,
     });
 
     return (
@@ -182,10 +187,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                         <GlImage
                             className={cx(classes.image, classes.image)}
                             hasShadow={hasImageShadow}
-                            height={imageSrc.endsWith(".mp4") ? undefined : 800}
                             url={imageSrc}
                             alt="hero image"
                             imageSources={imageSources}
+                            onLoad={handleOnImageLoad}
                         />
                     </motion.div>
                 )}
@@ -213,7 +218,8 @@ export const GlHero = memo((props: GlHeroProps) => {
 
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
-}>({ "name": { GlHero } })((theme, { hasOnlyText }) => ({
+    isImageLoaded: boolean;
+}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
     "root": {
         "position": "relative",
         "width": "100%",
@@ -224,6 +230,7 @@ const useStyles = makeStyles<{
             "topBottom": 5,
             "rightLeft": 0,
         }),
+        "minHeight": (window.innerHeight / 100) * 70,
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
@@ -292,6 +299,8 @@ const useStyles = makeStyles<{
     "arrowWrapper": {
         "display": "flex",
         "justifyContent": "center",
+        "transition": "opacity 300ms",
+        "opacity": isImageLoaded ? 1 : 0,
     },
 }));
 
