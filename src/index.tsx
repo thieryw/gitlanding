@@ -23,11 +23,13 @@ import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 import { ThemeProvider } from "./theme";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { GlCheckList } from "gitlanding/GlCheckList";
+import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
 
 
 ReactDOM.render(
   <React.StrictMode>
     <GlTemplate
+      SplashScreenLogo={OnyxiaLogo}
       ThemeProvider={ThemeProvider}
       hasTopOfPageLinkButton={true}
       headerOptions={{
@@ -217,7 +219,7 @@ For example you might want to have a routing system put in place. And you can ev
 
       <GlSectionDivider />
 
-      <GlCheckList 
+      <GlCheckList
         hasAnimation={true}
         heading="Why Gitlanding"
         elements={[
