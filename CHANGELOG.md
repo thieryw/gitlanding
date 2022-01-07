@@ -1,3 +1,10 @@
+### **0.5.13** (2022-01-07)  
+  
+- update ci to run test on node v 16  
+- remove root property from classes property in components  
+- update typescript and @emotion/react  
+- use new tss-react feature useMergedClasses in all components    
+  
 ### **0.5.12** (2022-01-06)  
   
 - fix content reflow on initial page load  
