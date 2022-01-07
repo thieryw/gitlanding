@@ -17,7 +17,7 @@ import { useMergedClasses } from "tss-react";
 
 export type GlHeaderProps = {
     className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
     title: ReactNode;
     titleDark?: ReactNode;
     titleSmallScreen?: ReactNode;
@@ -78,7 +78,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <header className={cx(mergedClasses.root, className)}>
+        <header className={cx(classes.root, className)}>
             <div className={mergedClasses.title}>
                 {typeof title === "string" ? (
                     <div className={mergedClasses.titleInner}>

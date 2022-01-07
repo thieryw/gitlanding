@@ -12,7 +12,7 @@ import { useMergedClasses } from "tss-react";
 
 export type GlSliderProps = {
     className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         prev?: string;
         next?: string;
     };
@@ -115,7 +115,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
     const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <section ref={ref} className={cx(mergedClasses.root, className)}>
+        <section ref={ref} className={cx(classes.root, className)}>
             {title !== undefined && (
                 <Text className={mergedClasses.heading} typo="page heading">
                     {title}

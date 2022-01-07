@@ -22,9 +22,7 @@ export type GlHeroProps = {
     imageSources?: ImageSource[];
     linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
-        arrow?: string;
-    };
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
@@ -175,7 +173,7 @@ export const GlHero = memo((props: GlHeroProps) => {
             {linkToSectionBelowId !== undefined && (
                 <div className={mergedClasses.linkToSectionBelowWrapper}>
                     <GlArrow
-                        className={classesProp?.arrow}
+                        className={mergedClasses.arrow}
                         direction="down"
                         hasCircularBorder={true}
                         link={{
@@ -196,6 +194,9 @@ const useStyles = makeStyles<{
         "position": "relative",
         "width": "100%",
         "paddingBottom": theme.spacing(7),
+    },
+    "arrow": {
+        "cursor": "pointer",
     },
     "textAndImageWrapper": {
         "padding": theme.spacing({

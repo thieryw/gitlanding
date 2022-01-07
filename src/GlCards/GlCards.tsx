@@ -9,7 +9,7 @@ import { useMergedClasses } from "tss-react";
 
 export type GlCardsProps = {
     className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
     id?: string;
     title?: string;
     children?: ReactNode;
@@ -33,7 +33,7 @@ export const GlCards = memo((props: GlCardsProps) => {
     const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <section id={id} className={cx(mergedClasses.root, className)}>
+        <section id={id} className={cx(classes.root, className)}>
             {title && (
                 <Text className={mergedClasses.title} typo="page heading">
                     {title}

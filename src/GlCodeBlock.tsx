@@ -1,6 +1,7 @@
 import { CodeBlock, railscast } from "react-code-blocks";
 import { memo } from "react";
 import { makeStyles } from "./theme";
+import { useMergedClasses } from "tss-react";
 
 const colors = {
     "tomatoRed": "#f85b52",
@@ -16,6 +17,7 @@ export type GlCodeBlockProps = {
     showLineNumbers?: boolean;
     hasDecorativeVsCodeButtons?: boolean;
     hasShadow?: boolean;
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
 };
 
 export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
@@ -33,11 +35,13 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         "hasShadow": hasShadow ?? false,
     });
 
+    const mergedClasses = useMergedClasses(classes, props.classes);
+
     return (
         <div className={cx(classes.root, className)}>
             {hasDecorativeVsCodeButtons !== undefined &&
                 hasDecorativeVsCodeButtons && (
-                    <VsCodeButtons className={classes.vsCodeButtons} />
+                    <VsCodeButtons className={mergedClasses.vsCodeButtons} />
                 )}
             <CodeBlock
                 language={language}

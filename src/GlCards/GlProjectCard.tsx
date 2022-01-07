@@ -15,7 +15,7 @@ export type GlProjectCardProps = GlCardProps & {
     title: string;
     subtitle?: string;
     text?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         footerText?: string;
     };
 };
@@ -42,7 +42,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <GlCard link={link} className={cx(mergedClasses.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             <div className={mergedClasses.header}>
                 {badgeLabel !== undefined && (
                     <GlButton

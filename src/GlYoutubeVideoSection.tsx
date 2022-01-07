@@ -8,7 +8,7 @@ import { useMergedClasses } from "tss-react";
 export type GlYoutubeVideoSectionProps = {
     className?: string;
     title?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         button?: string;
     };
     src?: string;
@@ -95,7 +95,7 @@ export const GlYoutubeVideoSection = memo(
         const mergedClasses = useMergedClasses(classes, classesProp);
 
         return (
-            <section ref={ref} className={cx(mergedClasses.root, className)}>
+            <section ref={ref} className={cx(classes.root, className)}>
                 {title !== undefined && (
                     <Text className={mergedClasses.title} typo="page heading">
                         {title}

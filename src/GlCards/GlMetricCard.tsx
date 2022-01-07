@@ -16,7 +16,7 @@ export type GlMetricCardProps = GlCardProps & {
     buttonLabel?: string;
     isNumberAnimated?: boolean;
     timeIntervalBetweenNumbersMs?: number;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         number?: string;
         button?: string;
     };
@@ -37,7 +37,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
     const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <GlCard link={link} className={cx(mergedClasses.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             <div className={mergedClasses.heading}>
                 {number !== undefined && (
                     <Number

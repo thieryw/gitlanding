@@ -47,7 +47,7 @@ export type GlTemplateProps = {
     headerOptions?: HeaderOptions;
     className?: string;
     hasTopOfPageLinkButton?: boolean;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
 };
 
 const GlTemplateInner = memo(
@@ -156,7 +156,7 @@ const GlTemplateInner = memo(
         const mergedClasses = useMergedClasses(classes, classesProp);
 
         return (
-            <div className={cx(mergedClasses.root, className)}>
+            <div className={cx(classes.root, className)}>
                 <div className={mergedClasses.headerWrapper}>
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>

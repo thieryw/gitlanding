@@ -80,6 +80,9 @@ function Home() {
                             ]}
                         />
                         <GlLogoCard
+                            classes={{
+                                "button": classes.foo,
+                            }}
                             title="Card title"
                             paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                 nisl nec hendrerit rutrum, 

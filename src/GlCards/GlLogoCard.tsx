@@ -14,7 +14,7 @@ export type GlLogoCardProps = GlCardProps & {
     paragraph?: string;
     buttonLabel?: string;
     overlapIcons?: boolean;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         button?: string;
     };
 };
@@ -38,7 +38,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <GlCard link={link} className={cx(mergedClasses.root, className)}>
+        <GlCard link={link} className={cx(classes.root, className)}>
             {iconUrls && (
                 <div className={mergedClasses.iconWrapper}>
                     {iconUrls.map((url, index) => (

@@ -13,7 +13,7 @@ type Link = {
 
 export type GlFooterProps = {
     className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
         iconWrapper?: string;
         info?: string;
     };
@@ -39,7 +39,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
     const mergedClasses = useMergedClasses(classes, classesProp);
 
     return (
-        <footer className={cx(mergedClasses.root, className)}>
+        <footer className={cx(classes.root, className)}>
             {iconLinks !== undefined && (
                 <div className={mergedClasses.icons}>
                     {iconLinks.map((iconLink, index) => (

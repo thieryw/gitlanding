@@ -20,7 +20,7 @@ export type GlReviewSlideProps = {
     logoUrl?: string;
     logoFill?: string;
     className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
 };
 
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
@@ -30,7 +30,7 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     const mergedClasses = useMergedClasses(classes, props.classes);
 
     return (
-        <Paper className={cx(mergedClasses.root, className)}>
+        <Paper className={cx(classes.root, className)}>
             {logoUrl !== undefined && (
                 <GlLogo
                     fill={logoFill}
