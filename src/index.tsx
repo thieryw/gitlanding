@@ -121,8 +121,8 @@ See the documentation for a quick setup guide.
           hasShadow={true}
           url={materialUiPngUrl}
         />}
-        title="Material UI integration"
-        body={`Gitlanding uses a custom version of the **Material UI** theme, so you can use any of MUI's components within a Gitlanding page.`}
+        title="MUI integration"
+        body={`Gitlanding uses a custom version of the **[MUI](https://mui.com/)** theme, so you can use any of MUI's components within a Gitlanding page.`}
         buttonLabel="Learn more"
         buttonLink={{
           "href": "https://docs.gitlanding.dev/customization"
