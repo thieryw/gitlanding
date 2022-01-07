@@ -4,16 +4,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "gitlanding": "^0.5.11",
+    "gitlanding": "^0.5.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1",
-    "onyxia-ui": "^0.23.2",
-    "tss-react": "^3.2.4",
-    "powerhooks": "^0.11.1",
+    "onyxia-ui": "^0.23.3",
+    "tss-react": "^3.3.1",
+    "powerhooks": "^0.11.2",
     "@mui/material": "^5.1.1",
-    "@emotion/react": "^11.6.0",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0"
   },
   "devDependencies": {
