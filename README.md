@@ -2,17 +2,14 @@
     <img src="https://user-images.githubusercontent.com/39378411/135892116-24367dcb-e0b4-4e16-a1c0-952c7f5bef9a.png">  
 </p>
 <p align="center">
-    <i>A library of React component for creating beautiful landing pages in minutes</i>
+    <i>Showcase your open source project with a good-looking webpage</i>
     <br>
     <br>
-    <a href="https://github.com/garronej/gitlanding/actions">
-      <img src="https://github.com/garronej/gitlanding/workflows/ci/badge.svg?branch=main">
+    <a href="https://github.com/thieryw/gitlanding/actions">
+      <img src="https://github.com/thieryw/gitlanding/workflows/ci/badge.svg?branch=main">
     </a>
-    <a href="https://bundlephobia.com/package/gitlanding">
-      <img src="https://img.shields.io/bundlephobia/minzip/gitlanding">
-    </a>
-    <a href="https://www.npmjs.com/package/gitlanding">
-      <img src="https://img.shields.io/npm/dw/gitlanding">
+    <a href="https://github.com/thieryw/gitlanding/blob/cfa7b01db162602fa6622160377f4d4e3485d4fc/tsconfig.json#L14">
+        <img src="https://camo.githubusercontent.com/0f9fcc0ac1b8617ad4989364f60f78b2d6b32985ad6a508f215f14d8f897b8d3/68747470733a2f2f62616467656e2e6e65742f62616467652f547970655363726970742f7374726963742532302546302539462539322541412f626c7565">
     </a>
     <a href="https://github.com/garronej/gitlanding/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/gitlanding">
@@ -24,12 +21,10 @@
   <a href="https://docs.gitlanding.dev/">Documentation</a>
 </p>
 
-Gitlanding helps you create a beautiful landing page for your GitHub projects.
-Start from a blank [CRA](https://create-react-app.dev/) project, import [some `gitlanding` components](https://www.gitlanding.dev/) and put it live using [GitHub page](https://pages.github.com/)!
-`gitlanding` Components looks good out of the box and are also highly customizable.
-
-Be mindfully though that `Gitlanding` is **not** a documentation website generator, it's a landing page generator.  
-For creating documentation website you can use [GitBook](https://gitbook.com), it's for open source projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
+Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:  
+- Start from a blank [CRA](https://create-react-app.dev/) project
+- Import [some `gitlanding` components](https://www.gitlanding.dev/)
+- Put it live using [GitHub page](https://pages.github.com/)!  
 
 # Motivation
 
@@ -43,6 +38,9 @@ forcing you start over and create a React website from scratch.
 
 The approach of `gitlanding` is to provide you with a way to to create a good looking page in
 minutes and enable you to customize it and add feature along the way as your project grow.
+
+> Be mindfully though that `Gitlanding` is **not** a documentation website generator, it's a landing page generator.  
+> For creating documentation website you can use [GitBook](https://gitbook.com), it's free for open source projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
 
 # Showcase
 
