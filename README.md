@@ -46,7 +46,7 @@ minutes and enable you to customize it and add feature along the way as your pro
 
 Website using gitlanding.
 
--   [SSPCloud.fr](https://www.sspcloud.fr), [Source code](https://github.com/InseeFrLab/www.sspcloud.fr)
+-   [SSPCloud.fr](https://www.sspcloud.fr)
 -   [tsafe.dev](https://www.tsafe.dev/)
 -   [Gitlanding itself](https://www.gitlanding.dev/)
 -   [powerhooks.dev](https://www.powerhooks.dev/)
