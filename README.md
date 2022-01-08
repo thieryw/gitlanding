@@ -56,6 +56,9 @@ Website using gitlanding.
 
 Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
 
+[![kickstart_video](https://user-images.githubusercontent.com/6702424/148655634-bcc2ef69-9720-4224-9da5-0af88eb9d906.png)](https://youtu.be/taDGhL0z7wc)
+
+
 # Dev
 
 ```bash
