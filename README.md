@@ -19,15 +19,17 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://www.gitlanding.dev/">Landing page</a> - <a href="https://www.gitlanding.dev/storybook">Storybook</a> - <a href="https://docs.gitlanding.dev/">Docs</a>
+  <a href="https://www.gitlanding.dev/">Home</a> - 
+  <a href="https://www.gitlanding.dev/storybook">Components index</a> - 
+  <a href="https://docs.gitlanding.dev/">Documentation</a>
 </p>
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects.
-Start from a blank CRA project, import some `gitlanding` components, publish on GitHub page, you are done.
+Start from a blank [CRA](https://create-react-app.dev/) project, import [some `gitlanding` components](https://www.gitlanding.dev/) and put it live using [GitHub page](https://pages.github.com/)!
 `gitlanding` Components looks good out of the box and are also highly customizable.
 
-Be mindfully though that `Gitlanding` is not a documentation website generator. For that purpose you
-can use [GitBook](https://gitbook.com), they are free for open source projects.
+Be mindfully though that `Gitlanding` is **not** a documentation website generator, it's a landing page generator.  
+For creating documentation website you can use [GitBook](https://gitbook.com), it's for open source projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
 
 # Motivation
 
@@ -47,18 +49,14 @@ minutes and enable you to customize it and add feature along the way as your pro
 Website using gitlanding.
 
 -   [SSPCloud.fr](https://www.sspcloud.fr), [Source code](https://github.com/InseeFrLab/www.sspcloud.fr)
--   [powerhooks.dev](https://www.powerhooks.dev/)
 -   [tsafe.dev](https://www.tsafe.dev/)
+-   [Gitlanding itself](https://www.gitlanding.dev/)
+-   [powerhooks.dev](https://www.powerhooks.dev/)
 
-# Quick start
 
-```bash
-yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks
-# If you plan on using icons from: https://mui.com/components/material-icons/
-yarn add @mui/icons-material
-```
+# 🚀 Quick start
 
--   [Find out how to publish a Gitlanding page on Github pages](https://docs.gitlanding.dev/)
+Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
 
 # Dev
 
@@ -66,9 +64,8 @@ yarn add @mui/icons-material
 git clone https://github.com/thieryw/gitlanding && cd gitlanding
 yarn install
 yarn build
-yarn start_vanilla
+# To strart the test project
+yarn start_vanilla 
 ```
 
 Edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
-
-You can also browse the [Storybook](https://gitlanding.dev/storybook) website to see what components are available.
