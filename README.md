@@ -21,10 +21,11 @@
   <a href="https://docs.gitlanding.dev/">Documentation</a>
 </p>
 
-Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:  
-- Start from a blank [CRA](https://create-react-app.dev/) project
-- Import [some `gitlanding` components](https://www.gitlanding.dev/)
-- Put it live using [GitHub page](https://pages.github.com/)!  
+Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:
+
+-   Start from a blank [CRA](https://create-react-app.dev/) project
+-   Import [some `gitlanding` components](https://www.gitlanding.dev/)
+-   Put it live using [GitHub page](https://pages.github.com/)!
 
 # Motivation
 
@@ -51,7 +52,6 @@ Website using gitlanding.
 -   [Gitlanding itself](https://www.gitlanding.dev/)
 -   [powerhooks.dev](https://www.powerhooks.dev/)
 
-
 # 🚀 Quick start
 
 Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
@@ -63,7 +63,7 @@ git clone https://github.com/thieryw/gitlanding && cd gitlanding
 yarn install
 yarn build
 # To strart the test project
-yarn start_vanilla 
+yarn start_vanilla
 ```
 
 Edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
