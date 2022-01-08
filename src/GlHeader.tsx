@@ -47,7 +47,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         titleDark,
         titleSmallScreen,
         titleSmallScreenDark,
-        classes: classesProp,
         showGithubStarCount,
     } = props;
 
@@ -69,23 +68,23 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         domRect: { height: linkHeight },
     } = useDomRect();
 
-    const { classes, cx, theme } = useStyles({
+    let { classes, cx, theme } = useStyles({
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
         linkHeight,
     });
 
-    const mergedClasses = useMergedClasses(classes, classesProp);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <header className={cx(classes.root, className)}>
-            <div className={mergedClasses.title}>
+            <div className={classes.title}>
                 {typeof title === "string" ? (
-                    <div className={mergedClasses.titleInner}>
+                    <div className={classes.titleInner}>
                         <Text typo="subtitle">{title}</Text>
                     </div>
                 ) : (
-                    <div className={mergedClasses.titleInner}>
+                    <div className={classes.titleInner}>
                         {((): ReactNode => {
                             if (
                                 theme.windowInnerWidth >= breakpointsValues.md
@@ -109,16 +108,16 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 )}
             </div>
 
-            <div className={mergedClasses.links}>
+            <div className={classes.links}>
                 {links.map(({ link, label }, index) => (
                     <div
                         ref={index === 0 ? linkRef : undefined}
-                        className={mergedClasses.linkWrapper}
+                        className={classes.linkWrapper}
                         key={label}
                     >
                         <Link
                             underline="hover"
-                            className={mergedClasses.link}
+                            className={classes.link}
                             {...link}
                         >
                             {label}
@@ -132,18 +131,18 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     repoUrl={githubRepoUrl}
                     size={githubButtonSize}
                     showCount={showGithubStarCount}
-                    className={mergedClasses.githubStar}
+                    className={classes.githubStar}
                 />
             )}
 
             {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <GlDarkModeSwitch className={mergedClasses.darkModeSwitch} />
+                <GlDarkModeSwitch className={classes.darkModeSwitch} />
             )}
 
             <FormatListBulletedIcon
                 ref={rootRef}
                 onClick={unfoldLinks}
-                className={mergedClasses.unfoldButton}
+                className={classes.unfoldButton}
             />
         </header>
     );

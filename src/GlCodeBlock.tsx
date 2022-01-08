@@ -17,7 +17,7 @@ export type GlCodeBlockProps = {
     showLineNumbers?: boolean;
     hasDecorativeVsCodeButtons?: boolean;
     hasShadow?: boolean;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
@@ -30,18 +30,18 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         hasShadow,
     } = props;
 
-    const { classes, cx } = useStyles({
+    let { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
         "hasShadow": hasShadow ?? false,
     });
 
-    const mergedClasses = useMergedClasses(classes, props.classes);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <div className={cx(classes.root, className)}>
             {hasDecorativeVsCodeButtons !== undefined &&
                 hasDecorativeVsCodeButtons && (
-                    <VsCodeButtons className={mergedClasses.vsCodeButtons} />
+                    <VsCodeButtons className={classes.vsCodeButtons} />
                 )}
             <CodeBlock
                 language={language}

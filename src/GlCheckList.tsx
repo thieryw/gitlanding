@@ -10,14 +10,7 @@ import { useMergedClasses } from "tss-react";
 export type GlCheckListProps = {
     className?: string;
     hasAnimation?: boolean;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
-        element?: string;
-        checkIconWrapper?: string;
-        checkIcon?: string;
-        elementTitleAndDescriptionWrapper?: string;
-        elementTitle?: string;
-        elementDescription?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     heading?: string;
     subHeading?: string;
     elements?: {
@@ -27,14 +20,7 @@ export type GlCheckListProps = {
 };
 
 export const GlCheckList = memo((props: GlCheckListProps) => {
-    const {
-        className,
-        elements,
-        heading,
-        subHeading,
-        hasAnimation,
-        classes: classesProp,
-    } = props;
+    const { className, elements, heading, subHeading, hasAnimation } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -102,7 +88,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         "numberOfElements": elements === undefined ? 1 : elements.length,
     });
 
-    classes = useMergedClasses(classes, classesProp);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <section className={className}>
@@ -135,16 +121,15 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                     elements.map((elementProps, index) => (
                         <motion.div variants={listItem} key={index}>
                             <CheckListElement
-                                className={classesProp?.element}
+                                className={classes.element}
                                 classes={{
-                                    "checkIcon": classesProp?.checkIcon,
+                                    "checkIcon": classes.checkIcon,
                                     "checkIconWrapper":
-                                        classesProp?.checkIconWrapper,
-                                    "description":
-                                        classesProp?.elementDescription,
-                                    "title": classesProp?.elementTitle,
+                                        classes.checkIconWrapper,
+                                    "description": classes.elementDescription,
+                                    "title": classes.elementTitle,
                                     "titleAndDescriptionWrapper":
-                                        classesProp?.elementTitleAndDescriptionWrapper,
+                                        classes.elementTitleAndDescriptionWrapper,
                                 }}
                                 {...elementProps}
                             />
@@ -197,6 +182,12 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
         ...theme.typography.variants["body 1"].style,
         "color": theme.colors.useCases.typography.textSecondary,
     },
+    "element": {},
+    "checkIconWrapper": {},
+    "checkIcon": {},
+    "elementTitleAndDescriptionWrapper": {},
+    "elementTitle": {},
+    "elementDescription": {},
 }));
 
 const { CheckListElement } = (() => {

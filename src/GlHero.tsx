@@ -22,7 +22,7 @@ export type GlHeroProps = {
     imageSources?: ImageSource[];
     linkToSectionBelowId?: string;
     hasImageShadow?: boolean;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
@@ -34,7 +34,6 @@ export const GlHero = memo((props: GlHeroProps) => {
         linkToSectionBelowId,
         hasImageShadow,
         imageSources,
-        classes: classesProp,
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -117,26 +116,26 @@ export const GlHero = memo((props: GlHeroProps) => {
         animate();
     }, []);
 
-    const { classes, cx } = useStyles({
+    let { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
         isImageLoaded,
     });
 
-    const mergedClasses = useMergedClasses(classes, classesProp);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <section className={cx(classes.root, className)}>
-            <div className={mergedClasses.textAndImageWrapper}>
+            <div className={classes.textAndImageWrapper}>
                 {(title !== undefined || subTitle !== undefined) && (
                     <motion.div
                         variants={textWrapperVariant}
                         initial="hidden"
                         animate="show"
-                        className={mergedClasses.textWrapper}
+                        className={classes.textWrapper}
                     >
                         {title !== undefined && (
                             <motion.div variants={textVariant}>
-                                <HeroText className={mergedClasses.title}>
+                                <HeroText className={classes.title}>
                                     {title}
                                 </HeroText>
                             </motion.div>
@@ -145,7 +144,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                             <motion.div variants={textVariant}>
                                 <Text
                                     typo="subtitle"
-                                    className={mergedClasses.subtitle}
+                                    className={classes.subtitle}
                                 >
                                     {subTitle}
                                 </Text>
@@ -157,10 +156,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                 {imageSrc !== undefined && (
                     <motion.div
                         {...imageAnimProps}
-                        className={mergedClasses.imageWrapper}
+                        className={classes.imageWrapper}
                     >
                         <GlImage
-                            className={mergedClasses.image}
+                            className={classes.image}
                             hasShadow={hasImageShadow}
                             url={imageSrc}
                             alt="hero image"
@@ -171,9 +170,9 @@ export const GlHero = memo((props: GlHeroProps) => {
                 )}
             </div>
             {linkToSectionBelowId !== undefined && (
-                <div className={mergedClasses.linkToSectionBelowWrapper}>
+                <div className={classes.linkToSectionBelowWrapper}>
                     <GlArrow
-                        className={mergedClasses.arrow}
+                        className={classes.arrow}
                         direction="down"
                         hasCircularBorder={true}
                         link={{

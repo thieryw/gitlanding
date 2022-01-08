@@ -14,9 +14,7 @@ export type GlLogoCardProps = GlCardProps & {
     paragraph?: string;
     buttonLabel?: string;
     overlapIcons?: boolean;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        button?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlLogoCard = memo((props: GlLogoCardProps) => {
@@ -30,21 +28,21 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
         link,
     } = props;
 
-    const { classes, cx, css } = useStyles({
+    let { classes, cx, css } = useStyles({
         "numberOfIcons": iconUrls?.length ?? 0,
         "overlapIcons": overlapIcons ?? false,
     });
 
-    const mergedClasses = useMergedClasses(classes, props.classes);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
             {iconUrls && (
-                <div className={mergedClasses.iconWrapper}>
+                <div className={classes.iconWrapper}>
                     {iconUrls.map((url, index) => (
                         <GlLogo
                             className={cx(
-                                mergedClasses.icon,
+                                classes.icon,
                                 css({
                                     "zIndex": iconUrls.length - index,
                                 }),
@@ -56,17 +54,14 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 </div>
             )}
 
-            <div className={mergedClasses.textWrapper}>
+            <div className={classes.textWrapper}>
                 {title !== undefined && (
-                    <Text
-                        typo="section heading"
-                        className={mergedClasses.title}
-                    >
+                    <Text typo="section heading" className={classes.title}>
                         {title}
                     </Text>
                 )}
                 {paragraph !== undefined && (
-                    <Text typo="body 1" className={mergedClasses.paragraph}>
+                    <Text typo="body 1" className={classes.paragraph}>
                         {paragraph}
                     </Text>
                 )}
@@ -78,7 +73,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     href={link?.href}
                     variant="secondary"
                     onClick={link?.onClick}
-                    className={props.classes?.button}
+                    className={classes.button}
                 >
                     {buttonLabel}
                 </GlButton>
@@ -90,7 +85,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
 const useStyles = makeStyles<{
     numberOfIcons: number;
     overlapIcons: boolean;
-}>()((theme, { numberOfIcons, overlapIcons }) => ({
+}>({ "name": { GlLogoCard } })((theme, { numberOfIcons, overlapIcons }) => ({
     "root": {
         "padding": theme.spacing({
             "rightLeft": 3,
@@ -159,4 +154,5 @@ const useStyles = makeStyles<{
         "textAlign": "center",
         "marginBottom": theme.spacing(4),
     },
+    "button": {},
 }));

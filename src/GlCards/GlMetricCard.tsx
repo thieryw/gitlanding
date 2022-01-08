@@ -16,10 +16,7 @@ export type GlMetricCardProps = GlCardProps & {
     buttonLabel?: string;
     isNumberAnimated?: boolean;
     timeIntervalBetweenNumbersMs?: number;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        number?: string;
-        button?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
@@ -33,12 +30,12 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         isNumberAnimated,
         timeIntervalBetweenNumbersMs,
     } = props;
-    const { classes, cx, theme } = useStyles();
-    const mergedClasses = useMergedClasses(classes, props.classes);
+    let { classes, cx, theme } = useStyles();
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
-            <div className={mergedClasses.heading}>
+            <div className={classes.heading}>
                 {number !== undefined && (
                     <Number
                         className={props.classes?.number}
@@ -53,20 +50,20 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 {iconUrl !== undefined && (
                     <GlLogo
                         fill={theme.colors.useCases.buttons.actionHoverPrimary}
-                        className={mergedClasses.icon}
+                        className={classes.icon}
                         logoUrl={iconUrl}
                     />
                 )}
             </div>
 
             {subHeading && (
-                <Text className={mergedClasses.subHeading} typo="subtitle">
+                <Text className={classes.subHeading} typo="subtitle">
                     {subHeading}
                 </Text>
             )}
 
             {buttonLabel && (
-                <div className={mergedClasses.buttonWrapper}>
+                <div className={classes.buttonWrapper}>
                     <GlButton
                         className={props.classes?.button}
                         type="submit"
@@ -82,7 +79,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlMetricCard } })(theme => ({
     "root": {
         "position": "relative",
         "display": "flex",
@@ -140,6 +137,8 @@ const useStyles = makeStyles()(theme => ({
         "textAlign": "center",
         "marginTop": theme.spacing(4),
     },
+    "number": {},
+    "button": {},
 }));
 
 const { Number } = (() => {
@@ -178,7 +177,7 @@ const { Number } = (() => {
         );
     });
 
-    const useStyles = makeStyles()(theme => ({
+    const useStyles = makeStyles({ "name": { Number } })(theme => ({
         "root": {
             "fontSize": "86px",
             ...(() => {

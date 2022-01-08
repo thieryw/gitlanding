@@ -13,10 +13,7 @@ type Link = {
 
 export type GlFooterProps = {
     className?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        iconWrapper?: string;
-        info?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     iconLinks?: (Link & { iconUrl: string })[];
     links?: (Link & { title: string })[];
     bottomDivContent?: string;
@@ -32,16 +29,15 @@ export const GlFooter = memo((props: GlFooterProps) => {
         phoneNumber,
         iconLinks,
         links,
-        classes: classesProp,
     } = props;
 
-    const { classes, cx } = useStyles();
-    const mergedClasses = useMergedClasses(classes, classesProp);
+    let { classes, cx } = useStyles();
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <footer className={cx(classes.root, className)}>
             {iconLinks !== undefined && (
-                <div className={mergedClasses.icons}>
+                <div className={classes.icons}>
                     {iconLinks.map((iconLink, index) => (
                         <div
                             key={index}
@@ -51,10 +47,10 @@ export const GlFooter = memo((props: GlFooterProps) => {
                                     (window.location.href =
                                         iconLink.href ?? "#"))
                             }
-                            className={classesProp?.iconWrapper}
+                            className={classes.iconWrapper}
                         >
                             <GlLogo
-                                className={mergedClasses.icon}
+                                className={classes.icon}
                                 logoUrl={iconLink.iconUrl}
                             />
                         </div>
@@ -63,13 +59,13 @@ export const GlFooter = memo((props: GlFooterProps) => {
             )}
 
             {links !== undefined && (
-                <div className={mergedClasses.links}>
+                <div className={classes.links}>
                     {links.map((link, index) => (
                         <Link
                             key={index}
                             href={link.href}
                             onClick={link.onClick}
-                            className={mergedClasses.link}
+                            className={classes.link}
                             underline="hover"
                         >
                             {link.title}
@@ -80,14 +76,14 @@ export const GlFooter = memo((props: GlFooterProps) => {
 
             {(email !== undefined || phoneNumber !== undefined) && (
                 <GlFooterInfo
-                    className={classesProp?.info}
+                    className={classes.info}
                     email={email}
                     phoneNumber={phoneNumber}
                 />
             )}
 
             {bottomDivContent !== undefined && (
-                <div className={mergedClasses.bottomDiv}>
+                <div className={classes.bottomDiv}>
                     <Markdown>{bottomDivContent}</Markdown>
                 </div>
             )}
@@ -95,7 +91,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlFooter } })(theme => ({
     "root": {
         "display": "flex",
         "flexDirection": "column",
@@ -163,4 +159,6 @@ const useStyles = makeStyles()(theme => ({
         "justifyContent": "center",
         "alignItems": "center",
     },
+    "iconWrapper": {},
+    "info": {},
 }));

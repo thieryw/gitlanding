@@ -9,14 +9,14 @@ import { useMergedClasses } from "tss-react";
 
 export type GlCardsProps = {
     className?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     id?: string;
     title?: string;
     children?: ReactNode;
 };
 
 export const GlCards = memo((props: GlCardsProps) => {
-    const { title, children, className, id, classes: classesProp } = props;
+    const { title, children, className, id } = props;
     const ref = useRef<HTMLDivElement>(null);
 
     const [numberOfCards, setNumberOfCards] = useState(0);
@@ -29,71 +29,66 @@ export const GlCards = memo((props: GlCardsProps) => {
         setNumberOfCards(ref.current.childElementCount);
     }, []);
 
-    const { classes, cx } = useStyles({ numberOfCards });
-    const mergedClasses = useMergedClasses(classes, classesProp);
+    let { classes, cx } = useStyles({ numberOfCards });
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <section id={id} className={cx(classes.root, className)}>
             {title && (
-                <Text className={mergedClasses.title} typo="page heading">
+                <Text className={classes.title} typo="page heading">
                     {title}
                 </Text>
             )}
-            <div ref={ref} className={mergedClasses.cardsWrapper}>
+            <div ref={ref} className={classes.cardsWrapper}>
                 {children}
             </div>
         </section>
     );
 });
 
-const useStyles = makeStyles<{ numberOfCards: number }>()(
-    (theme, { numberOfCards }) => ({
-        "root": {
-            "position": "relative",
-            ...(() => {
-                const value = theme.spacing(7);
-                return {
-                    "marginTop": value,
-                    "marginBottom": value,
-                };
-            })(),
-        },
-        "title": {
-            "textAlign": "center",
-            "marginTop": theme.spacing(5),
-            "marginBottom": theme.spacing(7),
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                    return {};
-                }
-                return {
-                    "fontSize": "22px",
-                    "lineHeight": "24px",
-                };
-            })(),
-        },
+const useStyles = makeStyles<{ numberOfCards: number }>({
+    "name": { GlCards },
+})((theme, { numberOfCards }) => ({
+    "root": {
+        "position": "relative",
+        ...(() => {
+            const value = theme.spacing(7);
+            return {
+                "marginTop": value,
+                "marginBottom": value,
+            };
+        })(),
+    },
+    "title": {
+        "textAlign": "center",
+        "marginTop": theme.spacing(5),
+        "marginBottom": theme.spacing(7),
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return {};
+            }
+            return {
+                "fontSize": "22px",
+                "lineHeight": "24px",
+            };
+        })(),
+    },
+    "cardsWrapper": {
+        "display": "grid",
+        "gridTemplateColumns": (() => {
+            if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                return `repeat(${numberOfCards > 4 ? 4 : numberOfCards}, 1fr)`;
+            }
 
-        "cardsWrapper": {
-            "display": "grid",
-            "gridTemplateColumns": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                    return `repeat(${
-                        numberOfCards > 4 ? 4 : numberOfCards
-                    }, 1fr)`;
-                }
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
+                return `repeat(${numberOfCards > 3 ? 2 : numberOfCards}, 1fr)`;
+            }
 
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return `repeat(${
-                        numberOfCards > 3 ? 2 : numberOfCards
-                    }, 1fr)`;
-                }
+            if (theme.windowInnerWidth >= breakpointsValues.sm) {
+                return `repeat(${numberOfCards > 3 ? 2 : 1}, 1fr)`;
+            }
 
-                if (theme.windowInnerWidth >= breakpointsValues.sm) {
-                    return `repeat(${numberOfCards > 3 ? 2 : 1}, 1fr)`;
-                }
-
-                return undefined;
-            })(),
-        },
-    }),
-);
+            return undefined;
+        })(),
+    },
+}));

@@ -29,7 +29,7 @@ export const GlCard = memo((props: GlCardProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlCard } })(theme => ({
     "root": {
         "borderRadius": 16,
         "transition": "box-shadow 200ms",

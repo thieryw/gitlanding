@@ -38,7 +38,7 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles({ "name": { GlFooterInfo } })(theme => ({
     "root": {
         "display": "flex",
         "flexDirection": "column",

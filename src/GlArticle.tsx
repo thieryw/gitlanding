@@ -36,7 +36,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
         id,
         buttonLink,
         hasAnimation,
-        classes: classesProp,
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -139,7 +138,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
         "threshold": 0.2,
     });
 
-    let { classes } = useStyles({
+    let { classes, cx } = useStyles({
         "illustrationPosition": illustrationPosition ?? "right",
         "hasIllustration": illustration !== undefined,
         "hasArticle":
@@ -147,10 +146,10 @@ export const GlArticle = memo((props: GlArticleProps) => {
             body !== undefined ||
             buttonLabel !== undefined,
     });
-    classes = useMergedClasses(classes, classesProp);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
-        <section ref={ref} id={id} className={className}>
+        <section ref={ref} id={id} className={cx(classes.root, className)}>
             <div className={classes.contentWrapper}>
                 {(title !== undefined ||
                     body !== undefined ||
@@ -200,6 +199,7 @@ const useStyles = makeStyles<{
     hasArticle: boolean;
 }>({ "name": { GlArticle } })(
     (theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
+        "root": {},
         "contentWrapper": {
             "display": "flex",
             "flexDirection": (() => {
