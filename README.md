@@ -23,20 +23,20 @@
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:
 
--   Start from a blank [React App](https://create-react-app.dev/) on a branch of your repo.
--   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/)
+-   Start from a blank [React App](https://create-react-app.dev/) on a branch of your repository.
+-   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/).
 -   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
 
-Don't worry, you are not on your own, you will be guided every steps of the way!
+Don't worry, you are not on your own, you will be guided every step of the way!
 
 # Motivation
 
-There is no shortage of website generators that enables to create decently looking landing page in a few commands.
+There is no shortage of website generators that enable the creation of decent-looking landing pages.
 The problem, however, is that if your project grows you will eventually need to incorporate
-features like internationalization, routing, and other functionalities that your website generator
+features like internationalisation, routing, and other functionalities that your website generator
 mat not be able to accommodate.
 
-The approach of `gitlanding` is to provide a library of customizable React component
+The approach of `gitlanding` is to provide a library of customisable React component
 designed to be fitting budding blocks for a landing page.  
 This way your little landing page is a react project capable of growing into a more mature project if need be.
 
@@ -46,7 +46,7 @@ This way your little landing page is a react project capable of growing into a m
 
 # Showcase
 
-Website using gitlanding.
+Websites using gitlanding.
 
 -   [SSPCloud.fr](https://www.sspcloud.fr)
 -   [Gitlanding.dev itself](https://www.gitlanding.dev/)
@@ -61,7 +61,7 @@ Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
 
 # Dev
 
-> NOTE: This is the commands for **contributing**.
+> NOTE: These are the commands for **contributing**.
 > If you just want to start **using** GitLanding it's [here](https://docs.gitlanding.dev/)
 
 ```bash
