@@ -17,30 +17,28 @@
 </p>
 <p align="center">
   <a href="https://www.gitlanding.dev/">Home</a> - 
-  <a href="https://www.gitlanding.dev/storybook">Components index</a> - 
+  <a href="https://www.gitlanding.dev/storybook">Components</a> - 
   <a href="https://docs.gitlanding.dev/">Documentation</a>
 </p>
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:
 
--   Start from a blank [CRA](https://create-react-app.dev/) project
--   Import [some `gitlanding` components](https://www.gitlanding.dev/)
--   Auto deploy with [GitHub Actions](https://github.com/features/actions), put it live using [GitHub page](https://pages.github.com/)!
+-   Start from a blank [CRA](https://create-react-app.dev/) on a branch of your repo.
+-   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/)
+-   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
 
 Don't worry, you are not on your own, you will be guided every steps of the way!
 
 # Motivation
 
-When it comes to creating landing pages there are hundreds of option to choose from.  
-You could pick a theme you like from Jekyll. You could create a wordpress or again
-create page using [GitPages](https://gitpages.app).
+There is no shortage of website generators that enables to create decently looking landing page in a few commands.
+The problem, however, is that if your project grows you will eventually need to incorporate
+features like internationalization, routing, and other functionalities that your website generator
+mat not be able to accommodate.
 
-The problem with all these solutions is that if your project grow you will need to incorporate
-features like internationalization, routing, and maybe some advanced logic that may end up
-forcing you start over and create a React website from scratch.
-
-The approach of `gitlanding` is to provide you with a way to to create a good looking page in
-minutes and enable you to customize it and add feature along the way as your project grow.
+The approach of `gitlanding` is to provide a library of customizable React component
+designed to be fitting budding blocks for a landing page.  
+This way your little landing page is a react project capable of growing into a more mature project if need be.
 
 > Be mindfully though that `Gitlanding` is **not** a documentation website generator, it's a landing page generator.  
 > For creating documentation website you can use [GitBook](https://gitbook.com), it's free for open source projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
@@ -66,7 +64,7 @@ Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
 git clone https://github.com/thieryw/gitlanding && cd gitlanding
 yarn install
 yarn build
-# To strart the test project
+# To start the test project
 yarn start_vanilla
 ```
 
