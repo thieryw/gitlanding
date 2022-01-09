@@ -12,10 +12,7 @@ import { useMergedClasses } from "tss-react";
 
 export type GlSliderProps = {
     className?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        prev?: string;
-        next?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     title?: string;
     slides?: ReactNode[];
     autoPlayTimeInterval?: number;
@@ -23,14 +20,7 @@ export type GlSliderProps = {
 };
 
 export const GlSlider = memo((props: GlSliderProps) => {
-    const {
-        className,
-        slides,
-        title,
-        autoPlayTimeInterval,
-        classes: classesProp,
-        width,
-    } = props;
+    const { className, slides, title, autoPlayTimeInterval, width } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
     const [isPlaying, setIsPlaying] = useState(false);
@@ -108,33 +98,33 @@ export const GlSlider = memo((props: GlSliderProps) => {
         setIsPlaying(false);
     });
 
-    const { classes, cx } = useStyles({
+    let { classes, cx } = useStyles({
         width,
     });
 
-    const mergedClasses = useMergedClasses(classes, classesProp);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>
             {title !== undefined && (
-                <Text className={mergedClasses.heading} typo="page heading">
+                <Text className={classes.heading} typo="page heading">
                     {title}
                 </Text>
             )}
-            <div className={mergedClasses.sliderWrapper}>
+            <div className={classes.sliderWrapper}>
                 <Icon
                     iconId="arrowBackIos"
-                    className={cx(mergedClasses.arrows, classesProp?.prev)}
+                    className={classes.arrows}
                     onClick={onClickFactory("left")}
                 />
-                <div className={mergedClasses.viewport} ref={emblaRef}>
-                    <div className={mergedClasses.container}>
+                <div className={classes.viewport} ref={emblaRef}>
+                    <div className={classes.container}>
                         {slides !== undefined &&
                             slides.map((slide, index) => (
                                 <div
                                     onMouseDown={onMouseDown}
                                     key={index}
-                                    className={mergedClasses.slide}
+                                    className={classes.slide}
                                 >
                                     {slide}
                                 </div>
@@ -143,7 +133,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
                 </div>
                 <Icon
                     iconId="arrowForwardIos"
-                    className={cx(mergedClasses.arrows, classesProp?.next)}
+                    className={classes.arrows}
                     onClick={onClickFactory("right")}
                 />
             </div>
@@ -200,4 +190,6 @@ const useStyles = makeStyles<{
             "topBottom": 4,
         }),
     },
+    "prev": {},
+    "next": {},
 }));

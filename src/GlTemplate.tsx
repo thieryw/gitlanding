@@ -47,7 +47,7 @@ export type GlTemplateProps = {
     headerOptions?: HeaderOptions;
     className?: string;
     hasTopOfPageLinkButton?: boolean;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 const GlTemplateInner = memo(
@@ -139,7 +139,7 @@ const GlTemplateInner = memo(
             [headerHeight, headerOptions.isRetracted],
         );
 
-        const { classes, cx } = useStyles({
+        let { classes, cx } = useStyles({
             rootWidth,
             headerHeight,
             "isHeaderRetracted":
@@ -153,15 +153,15 @@ const GlTemplateInner = memo(
                     : headerOptions.doDelegateScroll,
         });
 
-        const mergedClasses = useMergedClasses(classes, classesProp);
+        classes = useMergedClasses(classes, classesProp);
 
         return (
             <div className={cx(classes.root, className)}>
-                <div className={mergedClasses.headerWrapper}>
+                <div className={classes.headerWrapper}>
                     <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
-                    className={mergedClasses.childrenWrapper}
+                    className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
                     id={
                         headerOptions.position === "top of page" &&

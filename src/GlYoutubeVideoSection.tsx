@@ -8,9 +8,7 @@ import { useMergedClasses } from "tss-react";
 export type GlYoutubeVideoSectionProps = {
     className?: string;
     title?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        button?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     src?: string;
     width?: string | number;
     height?: string | number;
@@ -86,18 +84,18 @@ export const GlYoutubeVideoSection = memo(
             "threshold": 0.5,
         });
 
-        const { classes, cx } = useStyles({
+        let { classes, cx } = useStyles({
             width,
             height,
             "currentWidth": iframeWidth,
         });
 
-        const mergedClasses = useMergedClasses(classes, classesProp);
+        classes = useMergedClasses(classes, classesProp);
 
         return (
             <section ref={ref} className={cx(classes.root, className)}>
                 {title !== undefined && (
-                    <Text className={mergedClasses.title} typo="page heading">
+                    <Text className={classes.title} typo="page heading">
                         {title}
                     </Text>
                 )}
@@ -105,7 +103,7 @@ export const GlYoutubeVideoSection = memo(
                     <motion.iframe
                         {...animationProps}
                         ref={iframeRef}
-                        className={mergedClasses.iframe}
+                        className={classes.iframe}
                         src={src}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -116,7 +114,7 @@ export const GlYoutubeVideoSection = memo(
                 {buttonLabel !== undefined && (
                     <Button
                         onClick={link?.onClick}
-                        className={classesProp?.button}
+                        className={classes.button}
                         href={link?.href}
                         type="submit"
                         variant="secondary"
@@ -170,5 +168,6 @@ const useStyles = makeStyles<{
                     return (currentWidth / 100) * 60;
                 })(),
         },
+        "button": {},
     }),
 );

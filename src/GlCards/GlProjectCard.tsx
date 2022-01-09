@@ -15,9 +15,7 @@ export type GlProjectCardProps = GlCardProps & {
     title: string;
     subtitle?: string;
     text?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root"> & {
-        footerText?: string;
-    };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlProjectCard = memo((props: GlProjectCardProps) => {
@@ -33,21 +31,21 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         badgeColor,
     } = props;
 
-    const { classes, cx } = useStyles({
+    let { classes, cx } = useStyles({
         badgeColor,
         badgeBackgroundColor,
         projectImageUrl,
     });
 
-    const mergedClasses = useMergedClasses(classes, props.classes);
+    classes = useMergedClasses(classes, props.classes);
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
-            <div className={mergedClasses.header}>
+            <div className={classes.header}>
                 {badgeLabel !== undefined && (
                     <GlButton
                         type="submit"
-                        className={mergedClasses.button}
+                        className={classes.button}
                         variant="ternary"
                         href={link?.href}
                         onClick={link?.onClick}
@@ -56,23 +54,17 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                     </GlButton>
                 )}
             </div>
-            <div className={mergedClasses.footer}>
-                <Text
-                    typo="object heading"
-                    className={mergedClasses.footerTitle}
-                >
+            <div className={classes.footer}>
+                <Text typo="object heading" className={classes.footerTitle}>
                     {title}
                 </Text>
                 {subtitle !== undefined && (
-                    <Text
-                        typo="label 2"
-                        className={mergedClasses.footerSubtitle}
-                    >
+                    <Text typo="label 2" className={classes.footerSubtitle}>
                         {subtitle}
                     </Text>
                 )}
                 {text !== undefined && (
-                    <Text className={props.classes?.footerText} typo="label 2">
+                    <Text className={classes.footerText} typo="label 2">
                         {text}
                     </Text>
                 )}
@@ -143,4 +135,5 @@ const useStyles = makeStyles<
             return undefined;
         })(),
     },
+    "footerText": {},
 }));

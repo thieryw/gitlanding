@@ -17,7 +17,7 @@ import { useMergedClasses } from "tss-react";
 
 export type GlHeaderProps = {
     className?: string;
-    classes?: Omit<Partial<ReturnType<typeof useStyles>["classes"]>, "root">;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     title: ReactNode;
     titleDark?: ReactNode;
     titleSmallScreen?: ReactNode;
