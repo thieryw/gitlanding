@@ -35,7 +35,6 @@ ReactDOM.render(
       headerOptions={{
         "position": "fixed",
         "isRetracted": "smart"
-
       }}
       header={<GlHeader
         links={[
@@ -58,11 +57,11 @@ ReactDOM.render(
         titleSmallScreen={<GlLogo logoUrl={logoSmallPng} width={80} />}
         enableDarkModeSwitch={true}
         githubRepoUrl="https://github.com/thieryw/gitlanding"
+        showGithubStarCount={true}
         githubButtonSize="large"
         isCollapsible={true}
       />}
       footer={
-
         <GlFooter
           links={
             [
@@ -80,25 +79,30 @@ ReactDOM.render(
               }
             ]
           }
-          bottomDivContent="M.I.T Licence"
+          bottomDivContent="M.I.T License"
         />
       }
     >
       <GlHero
-        title="A stylish landing page for your github repo"
-        subTitle="It's all MIT, no paid plan, no hosting fees, it will go on Github Pages"
+        title="Showcase your GitHub repo with a good looking webpage"
+        subTitle="It's 100% free and open source software and it only takes a few minutes to setup."
         imageSrc={heroImageUrl}
         linkToSectionBelowId="sectionBellow"
-        hasImageShadow={true}
+        hasImageShadow={false}
       />
 
       <GlArticle
         id="sectionBellow"
-        title="You are looking at a page created with Gitlanding"
+        title="Everything you see have been created using `<GitLanding/>`"
         illustrationPosition="left"
-        body={`Get started in but a few minutes by creating a **React App** and publishing it for free on **Github Pages**. 
+        body={`
+Gitlanding helps you create pages in 3 steps:
 
-See the documentation for a quick setup guide.
+- Start from a blank React App on a new branch.
+- Import some gitlanding components
+- Auto deploy with GitHub Actions, host it using GitHub page!  
+
+Don't worry, you will be guided every steps of the way!
 `}
         illustration={
           <GlIllustration
@@ -108,7 +112,7 @@ See the documentation for a quick setup guide.
           />
         }
         hasAnimation={true}
-        buttonLabel="Documentation"
+        buttonLabel="Get started  🚀"
         buttonLink={{
           "href": "https://docs.gitlanding.dev/getting-started"
         }}
@@ -122,11 +126,7 @@ See the documentation for a quick setup guide.
           url={materialUiPngUrl}
         />}
         title="MUI integration"
-        body={`Gitlanding uses a custom version of the **[MUI](https://mui.com/)** theme, so you can use any of MUI's components within a Gitlanding page.`}
-        buttonLabel="Learn more"
-        buttonLink={{
-          "href": "https://docs.gitlanding.dev/customization"
-        }}
+        body={`You can use components from [\`@mui/material\`](https://mui.com/), they will automatically adjust to your GitLanding theme to perfectly blend in.`}
         hasAnimation={true}
       />
 
@@ -134,9 +134,12 @@ See the documentation for a quick setup guide.
 
       <GlArticle
         title="Build as your project grows"
-        body={`**Gitlanding** is imported in react projects witch means that you can start with a simple landing page and evolve towards a more complex website.
-For example you might want to have a routing system put in place. And you can even throw in an translation engine if this is your requirement. Each Gitlanding component can be imported and used individually for a specific need.
-        `}
+        body={`
+There is no shortage of website generators that enables to create decently looking landing page in a few commands. The problem, however, is that if your project grows you will eventually need to incorporate features like internationalization, routing, and other functionalities that your website generator mat not be able to accommodate.
+
+The approach of gitlanding is to provide a library of customizable React component designed to be fitting budding blocks for a landing page.
+This way your little landing page is a react project capable of growing into a more mature project if need be.
+`}
         hasAnimation={true}
         illustration={
           <GlIllustration
@@ -145,9 +148,9 @@ For example you might want to have a routing system put in place. And you can ev
             hasShadow={true}
           />
         }
-        buttonLabel="See Example Project"
+        buttonLabel="Documentation 📙"
         buttonLink={{
-          "href": "https://www.sspcloud.fr/"
+          "href": "https://docs.gitlanding.dev"
         }}
         illustrationPosition="left"
 
@@ -157,10 +160,10 @@ For example you might want to have a routing system put in place. And you can ev
 
       <GlArticle
         title="Highly Customizable"
-        body={`Gitlanding uses a fully customizable ui toolkit based on Material Ui that gives you the possibility of easily changing or adding to the theme. For example you may want to use your own color set or typography.`}
-        buttonLabel="Learn more"
+        body={`Gitlanding is build with customizable ui toolkit based on MUI that gives you the possibility of easily changing or adding to the theme. It enable you for example to use your own color set or typography.`}
+        buttonLabel="Learn more 💅"
         buttonLink={{
-          "href": "https://docs.gitlanding.dev/customization"
+          "href": "https://github.com/InseeFrLab/onyxia-ui"
         }}
         illustration={
           <GlIllustration
@@ -208,7 +211,7 @@ For example you might want to have a routing system put in place. And you can ev
       </GlCards>
 
       <GlYoutubeVideoSection
-        buttonLabel="Documentation"
+        buttonLabel="Documentation 📙"
         title="A short video to get you started"
         src="https://www.youtube.com/embed/taDGhL0z7wc"
         hasAnimation={true}
@@ -224,8 +227,8 @@ For example you might want to have a routing system put in place. And you can ev
         heading="Why Gitlanding"
         elements={[
           {
-            "title": "Open source",
-            "description": "gitlanding is 100% free with no paid plans or branding."
+            "title": "It's a passion project",
+            "description": " It doesn't need to make money, it's Free and open source and will stay that way."
           },
           {
             "title": "Easy to use",
