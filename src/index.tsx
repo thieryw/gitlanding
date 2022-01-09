@@ -23,7 +23,6 @@ import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 import { ThemeProvider } from "./theme";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { GlCheckList } from "gitlanding/GlCheckList";
-import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
 import { useTheme, ThemeProviderDefault } from "gitlanding/theme";
 import heroImageLightUrl from "./assets/img/hero-image-light.png";
 
@@ -33,7 +32,6 @@ function App() {
   const { isDarkModeEnabled } = useTheme();
 
   return <GlTemplate
-    SplashScreenLogo={OnyxiaLogo}
     ThemeProvider={ThemeProvider}
     hasTopOfPageLinkButton={true}
     headerOptions={{
