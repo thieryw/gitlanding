@@ -93,7 +93,7 @@ ReactDOM.render(
 
       <GlArticle
         id="sectionBellow"
-        title="Everything you see have been created using `<GitLanding/>`"
+        title="Everything you see has been created using `<GitLanding/>`"
         illustrationPosition="left"
         body={`
 It works in 3 steps:
@@ -102,7 +102,7 @@ It works in 3 steps:
 - Compose your page using [gitlanding components](https://www.gitlanding.dev/storybook/)
 - Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub pages](https://pages.github.com)!  
 
-Don't worry, you will be guided every steps of the way!
+Don't worry, you will be guided every step of the way!
 `}
         illustration={
           <GlIllustration
@@ -126,7 +126,7 @@ Don't worry, you will be guided every steps of the way!
           url={materialUiPngUrl}
         />}
         title="MUI integration"
-        body={`You can use components from [\`@mui/material\`](https://mui.com/), they will automatically adjust to your GitLanding theme to perfectly blend in.`}
+        body={`You can use components from [\`@mui/material\`](https://mui.com/), they will automatically adjust to your GitLanding theme and blend in perfectly.`}
         hasAnimation={true}
       />
 
@@ -135,9 +135,9 @@ Don't worry, you will be guided every steps of the way!
       <GlArticle
         title="Build as your project grows"
         body={`
-There is no shortage of website generators that enables to create decently looking landing page in a few commands. The problem, however, is that if your project grows you will eventually need to incorporate features like internationalization, routing, and other functionalities that your website generator mat not be able to accommodate.
+There is no shortage of website generators that enable the creation of decent looking landing pages. The problem, however, is that if your project grows, you will eventually need to incorporate features like internationalization, routing, and other functionalities that your website generator may not be able to accommodate.
 
-The approach of gitlanding is to provide a library of customizable React component designed to be fitting budding blocks for a landing page.
+The approach of gitlanding is to provide a library of customizable React component designed to be fitting building blocks for a landing page.
 This way your little landing page is a react project capable of growing into a more mature project if need be.
 `}
         hasAnimation={true}
@@ -160,7 +160,7 @@ This way your little landing page is a react project capable of growing into a m
 
       <GlArticle
         title="Highly Customizable"
-        body={`Gitlanding is build with customizable ui toolkit based on MUI that gives you the possibility of easily changing or adding to the theme. It enable you for example to use your own color set or typography.`}
+        body={`Gitlanding is built with customizable ui toolkit based on MUI that gives you the possibility of easily changing or adding to the theme. It enables you for example to use your own color set or typography.`}
         buttonLabel="Learn more 💅"
         buttonLink={{
           "href": "https://github.com/InseeFrLab/onyxia-ui"
