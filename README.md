@@ -61,6 +61,9 @@ Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
 
 # Dev
 
+> NOTE: This is the commands for **contributing**.
+> If you just want to start **using** GitLanding it's [here](https://docs.gitlanding.dev/)
+
 ```bash
 git clone https://github.com/thieryw/gitlanding && cd gitlanding
 yarn install
