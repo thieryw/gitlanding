@@ -40,8 +40,9 @@ The approach of `gitlanding` is to provide a library of customizable React compo
 designed to be fitting budding blocks for a landing page.  
 This way your little landing page is a react project capable of growing into a more mature project if need be.
 
-> Be mindfully though that `Gitlanding` is **not** a documentation website generator, it's a landing page generator.  
-> For creating documentation website you can use [GitBook](https://gitbook.com), it's free for open source projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
+> You can have both a landing page (e.g.: `www.your-project.dev`) and a documentation website (e.g.: `docs.your-project.dev`).  
+> For creating documentation website [GitBook](https://gitbook.com) is better fit than Gitlanding. GitBook is free for open source
+> projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
 
 # Showcase
 
