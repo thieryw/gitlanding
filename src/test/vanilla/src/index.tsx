@@ -34,9 +34,7 @@ function Home() {
                 //imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 imageSrc={mp4video}
                 linkToSectionBelowId="firstSection"
-                classes={{
-                    "imageWrapper": classes.foo,
-                }}
+                hasImageShadow={true}
             />
 
             <GlArticle
