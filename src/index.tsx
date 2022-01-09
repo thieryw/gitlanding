@@ -96,11 +96,11 @@ ReactDOM.render(
         title="Everything you see have been created using `<GitLanding/>`"
         illustrationPosition="left"
         body={`
-Gitlanding helps you create pages in 3 steps:
+It works in 3 steps:
 
-- Start from a blank React App on a new branch.
-- Import some gitlanding components
-- Auto deploy with GitHub Actions, host it using GitHub page!  
+- Start from a blank [React App](https://create-react-app.dev/) on a new branch.
+- Compose your page using [gitlanding components](https://www.gitlanding.dev/storybook/)
+- Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub pages](https://pages.github.com)!  
 
 Don't worry, you will be guided every steps of the way!
 `}
@@ -228,27 +228,33 @@ This way your little landing page is a react project capable of growing into a m
         elements={[
           {
             "title": "It's a passion project",
-            "description": " It doesn't need to make money, it's Free and open source and will stay that way."
+            "description": " It doesn't need to make money, it's **Free and open source** and will stay that way."
           },
           {
-            "title": "Easy to use",
-            "description": "Just add blocks to your index file and every thing neatly slides into place."
+            "title": "Markdown support",
+            "description": `
+Every block of text is rendered as \`Markdown\`. 
+You can **easily** apply *formatting* just like you are used to in your [READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
+            `
           },
           {
             "title": "Scalable",
-            "description": "You can easily go from a simple landing page to a more complex website."
+            "description": `
+A GitLanding project is a React project! 
+You can go from a simple landing page assembled in a few minutes to a fully-fledged website with advanced features.
+`
           },
           {
             "title": "Performance",
-            "description": "Each generated page scores over 90 in google lighthouse."
+            "description": "Each generated page scores over **90/100** in [Google lighthouse](https://developers.google.com/web/tools/lighthouse)."
           },
           {
             "title": "Customizable",
-            "description": "Change fonts, color schemes or restyle components to your liking with ease thanks to TSS-React and Onyxia-ui."
+            "description": "[Change fonts](https://docs.gitlanding.dev/master/custom-fonts), color schemes or restyle components to your liking with ease thanks to [`tss-react`](https://github.com/garronej/tss-react) and [`onyxia-ui`](https://github.com/InseeFrLab/onyxia-ui)."
           },
           {
-            "title": "Material Ui",
-            "description": "You can use any Material Ui component within a Gitlanding project"
+            "title": "MUI compatibility",
+            "description": "You can use [any MUI component](https://mui.com/components/autocomplete/) within a Gitlanding project"
           }
         ]}
       />
