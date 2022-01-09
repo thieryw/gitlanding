@@ -23,7 +23,7 @@
 
 Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:
 
--   Start from a blank [CRA](https://create-react-app.dev/) on a branch of your repo.
+-   Start from a blank [React App](https://create-react-app.dev/) on a branch of your repo.
 -   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/)
 -   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
 
