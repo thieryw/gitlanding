@@ -48,7 +48,7 @@ ReactDOM.render(
             "link": { "href": "https://docs.gitlanding.dev/" },
           },
           {
-            "label": "STORYBOOK",
+            "label": "COMPONENTS",
             "link": {
               "href": "https://www.gitlanding.dev/storybook"
             }
