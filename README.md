@@ -6,11 +6,19 @@ description: >-
 
 # Getting started
 
-{% hint style="success" %}
-Before getting started you might want to checkout a repo whith a gitlanding page setup. For example [the landingpage of GitLangind itself](https://www.gitlanding.dev).
+### Overview
+
+Let's start with an overview of what we are trying to achieve.
+
+Let's check how [the landingpage of GitLangind itself](https://www.gitlanding.dev) is setup.
 
 The code of the website lies on a [dedicated branch](https://github.com/thieryw/gitlanding/tree/4e5a33ed312227efcf7d26332ea87c19331f1eed) of the [GitLanding repo](https://github.com/thieryw/gitlanding/tree/2105d99c84b76f6c6b0647484171c5e09a61dbf5). The file that are actally served by [GitHub Page](https://pages.github.com) lies on the [`gh_page`](https://github.com/thieryw/gitlanding/tree/b11d5dab0df08a84b7acc72a25d0c3fa7c78cc6b) branch and is put there using [this GitHub Action](https://github.com/thieryw/gitlanding/blob/eb85ca1fea7ce0ce21837d1e0ba7a6bb1a784b19/.github/workflows/deploy.yml#L21).
-{% endhint %}
+
+### Setp by sep guide
+
+This guide asumes you are either on Linux or MacOS. On Windows you'll need to adapt these commands a bit.&#x20;
+
+First, if you don't have it already, [install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
 
 ```bash
 # first cd in your project
