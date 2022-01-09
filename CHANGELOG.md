@@ -1,3 +1,18 @@
+### **0.5.15** (2022-01-09)  
+  
+- refactor with useMergedClasses finish  
+- Update README.md  
+- Update README  
+- Update README  
+- [README] Rephrase  
+- Refactor use of useMergedClasses  
+- Update README.md  
+- Update README.md  
+- fmt  
+- Update README.md  
+- Update README  
+- Inprove readme    
+  
 ### **0.5.14** (2022-01-07)  
   
 - use node v 16 in ci    
