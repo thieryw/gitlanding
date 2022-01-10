@@ -36,9 +36,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
                 data-icon="octicon-star"
                 data-size={size === "large" ? size : ""}
                 data-show-count={`${showCount ?? false}`}
-            >
-                Star
-            </GithubBtn>
+            ></GithubBtn>
         </div>
     );
 });

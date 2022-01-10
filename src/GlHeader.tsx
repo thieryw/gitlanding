@@ -3,7 +3,7 @@
 import Link from "@mui/material/Link";
 import { useNamedState } from "powerhooks/useNamedState";
 import { useConstCallback } from "powerhooks/useConstCallback";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { makeStyles, Text } from "./theme";
 import type { ReactNode } from "react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
@@ -54,6 +54,17 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         "isMenuUnfolded",
         false,
     );
+    const { isComponentVisible, setIsComponentVisible } = useNamedState(
+        "isComponentVisible",
+        false,
+    );
+
+    useEffect(() => {
+        (async () => {
+            await new Promise<void>(resolve => setTimeout(resolve, 1000));
+            setIsComponentVisible(true);
+        })();
+    }, []);
 
     const unfoldLinks = useConstCallback(() => {
         setIsMenuUnfolded(!isMenuUnfolded);
@@ -72,6 +83,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         isMenuUnfolded,
         "numberOfLinks": links !== undefined ? links.length : 0,
         linkHeight,
+        isComponentVisible,
     });
 
     classes = useMergedClasses(classes, props.classes);
@@ -152,12 +164,18 @@ const useStyles = makeStyles<{
     isMenuUnfolded: boolean;
     numberOfLinks: number;
     linkHeight: number;
+    isComponentVisible: boolean;
 }>({ "name": { GlHeader } })(
-    (theme, { isMenuUnfolded, numberOfLinks, linkHeight }) => {
+    (
+        theme,
+        { isMenuUnfolded, numberOfLinks, linkHeight, isComponentVisible },
+    ) => {
         const linkMarginTopBottom = theme.spacing(3);
 
         return {
             "root": {
+                "transition": "opacity 300ms",
+                "opacity": isComponentVisible ? 1 : 0,
                 "display": "flex",
                 "alignItems": "center",
                 "width": "100%",

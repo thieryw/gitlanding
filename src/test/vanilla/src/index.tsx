@@ -14,7 +14,6 @@ import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { useRoute, routes, RouteProvider } from "./router";
-import { ReactComponent as OnyxiaLogo } from "./assets/svg/OnyxiaLogo.svg";
 import mp4video from "./assets/videos/sspcloud.mp4";
 import { makeStyles } from "gitlanding/theme";
 
@@ -270,7 +269,7 @@ function App() {
     const route = useRoute();
     return (
         <GlTemplate
-            SplashScreenLogo={OnyxiaLogo}
+            //SplashScreenLogo={OnyxiaLogo}
             header={
                 <GlHeader
                     title={
@@ -295,6 +294,7 @@ function App() {
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
                     githubButtonSize="large"
+                    showGithubStarCount={true}
                 />
             }
             headerOptions={{
