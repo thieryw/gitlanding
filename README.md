@@ -29,9 +29,9 @@ Gitlanding helps you create a beautiful landing page for your GitHub projects in
 
 Don't worry, you are not on your own, you will be guided every step of the way!
 
-https://user-images.githubusercontent.com/6702424/148711807-feebad36-22de-4f7d-aa4d-8f0afaf6e831.mp4
+https://user-images.githubusercontent.com/6702424/148715912-64485db0-ae26-474f-a6ce-b9a142a419e0.mp4
 
-
+https://user-images.githubusercontent.com/6702424/148716227-4a699c07-ba17-4860-b4bb-9feeed8b7662.mp4
 
 # Motivation
 
