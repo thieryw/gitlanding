@@ -1,3 +1,11 @@
+### **0.5.16** (2022-01-09)  
+  
+- correct readme  
+- weaken shadow  
+- Do not confuse developpement and usage
+
+Signed-off-by: garronej <joseph.garrone.gj@gmail.com>    
+  
 ### **0.5.15** (2022-01-09)  
   
 - refactor with useMergedClasses finish  
