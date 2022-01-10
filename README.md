@@ -48,8 +48,8 @@ This way your little landing page is a react project capable of growing into a m
 
 Websites using gitlanding.
 
--   [SSPCloud.fr](https://www.sspcloud.fr)
 -   [Gitlanding.dev itself](https://www.gitlanding.dev/)
+-   [SSPCloud.fr](https://www.sspcloud.fr)
 -   [tsafe.dev](https://www.tsafe.dev/)
 -   [powerhooks.dev](https://www.powerhooks.dev/)
 
