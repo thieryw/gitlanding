@@ -1,3 +1,10 @@
+### **0.5.17** (2022-01-10)  
+  
+- make github star button apear in a less dramaticaly awfull way  
+- Put the website of gitlanding as the first showcase project  
+- Add video recording to the README  
+- Add large video demo    
+  
 ### **0.5.16** (2022-01-09)  
   
 - correct readme  
