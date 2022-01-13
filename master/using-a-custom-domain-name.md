@@ -22,4 +22,8 @@ Do not fill in the custom domain form in your Github pages settings. Adding the 
 
 ![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.41.04.png>)
 
+{% hint style="info" %}
+You can alsow create AAAA records for ipV6 support.
+{% endhint %}
+
 3\) When you have done all this, commit and push your changes and your done. Navigate to your website using your new domain name to glory in the success of this operation.
