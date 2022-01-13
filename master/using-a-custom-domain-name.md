@@ -1,29 +1,81 @@
 # Using a custom domain name
 
-1\) Add a file called `CNAME` in the `public` folder of your project.
+Let's say you own the domain name: `yourdomain.com`.
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.00.31.png>)
+* If you want peopoles to hit your landingpage when they query `https://yourdomain.com` or `https://www.yourdomain.com` follow the instruction of the `Apex domain` tab.
+* if you want pepole to hit your landingpage when they query `https://asubdomain.yourdomain.com` follow the instructions of the `Subdomain` tab.
 
-Write your domain name to the `CNAME` folder.
+{% tabs %}
+{% tab title="Apex domain" %}
+Create a `CNAME` file in the public folder:&#x20;
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.03.40.png>)
+```bash
+echo "www.example.com" > public/CNAME
+```
 
 {% hint style="warning" %}
-Do not fill in the custom domain form in your Github pages settings. Adding the `CNAME` file in your `public` folder ensures that it is done automaticaly.
+You may think:
+
+_« I would prefer yourdomain.com to be the default and www.yourdomain.com to redirect to example.com »_
+
+It's **not** possible with GitHub pages.
 {% endhint %}
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.54.11 (1).png>)
+Remove the hostname field in your `package.json`
 
-2\) Configure your A records with your DNS provider. Navigate to your DNS provider and create A records that target the [IP addresses for Github pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+```diff
+- "homepage": "https://yourUsername.github.io/yourRepoName"
+```
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.31.29.png>)
+Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.35.22.png>)
+```
+www.yourdomain.com. CNAME yourUsername.github.com
+yourdomain.com.     ALIAS yourUsername.github.com
+```
 
-![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.41.04.png>)
+If, and ony if, your DNS service provider do not support `ALIAS` records:
+
+```diff
+ www.yourdomain.com. CNAME yourUsername.github.com
+-yourdomain.com.     ALIAS yourUsername.github.com
++yourdomain.com.    A     185.199.108.153
++yourdomain.com.    A     185.199.109.153
++yourdomain.com.    A     185.199.110.153
++yourdomain.com.    A     185.199.111.153
+```
 
 {% hint style="info" %}
-You can alsow create AAAA records for ipV6 support.
+You do not need to go to the GitHub Pages config and fill in your custom domain, it will be read from the CNAME file.
 {% endhint %}
 
-3\) When you have done all this, commit and push your changes and your done. Navigate to your website using your new domain name to glory in the success of this operation.
+Comit and push your changes and your are good to go.
+{% endtab %}
+
+{% tab title="Subdomain" %}
+Create a `CNAME` file in the public folder:&#x20;
+
+```bash
+echo "asubdomain.example.com" > public/CNAME
+```
+
+Remove the hostname field in your `package.json`
+
+```diff
+- "homepage": "https://yourUsername.github.io/yourRepoName"
+```
+
+Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
+
+```
+asubdomain.yourdomain.com. CNAME yourUsername.github.com
+```
+
+{% hint style="info" %}
+You do not need to go to the GitHub Pages config and fill in your custom domain, it will be read from the `CNAME` file.
+{% endhint %}
+
+Comit and push your changes and your are good to go.
+{% endtab %}
+{% endtabs %}
+
