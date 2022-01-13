@@ -2,12 +2,12 @@
 
 Let's say you own the domain name: `yourdomain.com`.
 
-* If you want peopoles to hit your landingpage when they query `https://yourdomain.com` or `https://www.yourdomain.com` head over to [this section](using-a-custom-domain-name-1.md#apex-domain-yourdomain.com-and-www.yourdomain.com).
-* if you want pepole to hit your landingpage when they query `https://asubdomain.yourdomain.com` head over to [this section](using-a-custom-domain-name-1.md#subdomain-mysubdomain.yourdomain.com).
+* If you want peopoles to hit your landingpage when they query `https://yourdomain.com` or `https://www.yourdomain.com` follow the instruction of the `Apex domain` tab.
+* if you want pepole to hit your landingpage when they query `https://asubdomain.yourdomain.com` follow the instructions of the `Subdomain` tab.
 
-## Apex domain: `yourdomain.com` & `www.yourdomain.com`
-
-Create a CNAME file in the public folder:&#x20;
+{% tabs %}
+{% tab title="Apex domain" %}
+Create a `CNAME` file in the public folder:&#x20;
 
 ```bash
 echo "www.example.com" > public/CNAME
@@ -50,10 +50,10 @@ You do not need to go to the GitHub Pages config and fill in your custom domain,
 {% endhint %}
 
 Comit and push your changes and your are good to go.
+{% endtab %}
 
-## Subdomain: asubdomain.yourdomain.com
-
-Create a CNAME file in the public folder:&#x20;
+{% tab title="Subdomain" %}
+Create a `CNAME` file in the public folder:&#x20;
 
 ```bash
 echo "asubdomain.example.com" > public/CNAME
@@ -76,3 +76,6 @@ You do not need to go to the GitHub Pages config and fill in your custom domain,
 {% endhint %}
 
 Comit and push your changes and your are good to go.
+{% endtab %}
+{% endtabs %}
+
