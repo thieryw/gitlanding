@@ -2,7 +2,7 @@
 
 Let's say you own the domain name: `yourdomain.com`.
 
-* If you want poeple to hit your landingpage when they query `https://yourdomain.com` or `https://www.yourdomain.com` ,follow the instruction of the `Apex domain` tab.
+* If you want poeple to hit your landing page when they query `https://yourdomain.com` or `https://www.yourdomain.com` ,follow the instruction of the `Apex domain` tab.
 * if you want people to hit your landing page when they query `https://asubdomain.yourdomain.com,` follow the instructions of the `Subdomain` tab.
 
 {% tabs %}
