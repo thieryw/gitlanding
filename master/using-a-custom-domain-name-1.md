@@ -16,7 +16,7 @@ echo "www.example.com" > public/CNAME
 {% hint style="warning" %}
 You may think:
 
-"I would prefer yourdomain.com to be the default and www.yourdomain.com to redirect to example.com"&#x20;
+_« I would prefer yourdomain.com to be the default and www.yourdomain.com to redirect to example.com »_
 
 It's **not** possible with GitHub pages.
 {% endhint %}
