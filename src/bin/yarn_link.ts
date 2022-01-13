@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
+import { type as osType } from "os";
 import * as fs from "fs";
 
 const tssReactDirPath = pathJoin(__dirname, "..", "..");
@@ -64,8 +64,19 @@ const commonThirdPartyDeps = (() => {
 
 const yarnHomeDirPath = pathJoin(tssReactDirPath, ".yarn_home");
 
-execSync(
+/*execSync(
     ["rm -rf", "mkdir"].map(cmd => `${cmd} ${yarnHomeDirPath}`).join(" && "),
+);*/
+
+execSync(
+    (() => {
+        if (!fs.existsSync(yarnHomeDirPath)) {
+            return `mkdir ${yarnHomeDirPath}`;
+        }
+        return [osType() === "Windows_NT" ? "rmdir" : "rm -rf", "mkdir"]
+            .map(cmd => `${cmd} ${yarnHomeDirPath}`)
+            .join(" && ");
+    })(),
 );
 
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {

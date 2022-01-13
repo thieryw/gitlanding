@@ -47,35 +47,32 @@
     "keywords": [],
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.0",
-        "@types/react": "^16.8.0 || ^17.0.0",
         "@mui/material": "^5.0.3",
+        "@types/react": "^16.8.0 || ^17.0.0",
+        "onyxia-ui": "^0.23.2",
         "powerhooks": "^0.11.1",
-        "tss-react": "^3.3.1",
-        "onyxia-ui": "^0.23.2"
+        "react": "^16.8.0 || ^17.0.0",
+        "tss-react": "^3.3.1"
     },
     "dependencies": {
         "@mui/icons-material": "^5.0.3",
         "embla-carousel": "^4.1.5",
+        "framer-motion": "^4.1.17",
         "react-code-blocks": "^0.0.8",
+        "react-github-btn": "^1.2.0",
         "react-markdown": "^5.0.3",
         "react-svg": "^13.0.4",
         "tsafe": "^0.8.1",
-        "typeface-work-sans": "^1.1.13",
-        "react-github-btn": "^1.2.0",
-        "framer-motion": "^4.1.17"
+        "typeface-work-sans": "^1.1.13"
     },
     "devDependencies": {
-        "@mui/material": "^5.0.3",
-        "powerhooks": "^0.11.2",
-        "tss-react": "^3.3.1",
-        "onyxia-ui": "^0.23.3",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.3.0",
+        "@mui/material": "^5.0.3",
         "@storybook/addon-actions": "^6.2.9",
+        "@storybook/addon-docs": "^6.3.2",
         "@storybook/addon-essentials": "^6.2.9",
         "@storybook/addon-links": "^6.2.9",
-        "@storybook/addon-docs": "^6.3.2",
         "@storybook/node-logger": "^6.2.9",
         "@storybook/preset-create-react-app": "^3.1.7",
         "@storybook/react": "^6.2.9",
@@ -90,14 +87,17 @@
         "evt": "^2.0.0-beta.38",
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
+        "onyxia-ui": "^0.23.3",
+        "powerhooks": "^0.11.2",
         "prettier": "^2.2.1",
         "react": "^17.0.2",
         "react-code-blocks": "^0.0.8",
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
         "react-svg": "^13.0.4",
-        "typescript": "^4.5.4",
-        "ts-node": "^10.2.1"
+        "ts-node": "^10.4.0",
+        "tss-react": "^3.3.1",
+        "typescript": "^4.5.4"
     },
     "resolutions": {
         "babel-loader": "8.1.0"
