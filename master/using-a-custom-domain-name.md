@@ -4,12 +4,12 @@
 
 ![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.00.31.png>)
 
-Write your domain name to the CNAME folder.
+Write your domain name to the `CNAME` folder.
 
 ![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.03.40.png>)
 
 {% hint style="warning" %}
-Do not fill in the custom domain form in your Github pages settings. Adding the CNAME file in your public folder ensures that it is done automaticaly.
+Do not fill in the custom domain form in your Github pages settings. Adding the `CNAME` file in your `public` folder ensures that it is done automaticaly.
 {% endhint %}
 
 ![](<../.gitbook/assets/Screenshot 2022-01-13 at 11.54.11 (1).png>)
