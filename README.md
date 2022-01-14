@@ -55,11 +55,13 @@ If not done all ready, install [Git for Windows](https://git-scm.com/download/wi
 # first cd in your project
 
 powershell
-IIjgit checkout --orphan landingpage
+git checkout --orphan landingpage
 git rm -rf .
 yarn create react-app . --template typescript
 mkdir .github\workflows
 curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
+# This next command will set the homepage to 
+# "https://USERNAME.github.io/REPO" in your package.json
 node -e "require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'), 'homepage': (()=>{ const [r, u]= require('child_process').execSync('git remote get-url origin').toString().replace(/\r?\n$/, '').split('/').reverse(); return 'https://' + u + '.github.io/' + r; })()},null,2))"
 git add -A
 git commit -m "Initial commit"
