@@ -68,6 +68,10 @@ git commit -m "Initial commit"
 git push --set-upstream origin landingpage
 ```
 {% endtab %}
+
+{% tab title="Ubuntu" %}
+it's comming
+{% endtab %}
 {% endtabs %}
 
 Next you'll have to enable GitHub page in your repo. Navigate to your repository on Github and go to `Setting > Pages`, then set the `gh-pages` branch as the branch from witch the site is to be built.
