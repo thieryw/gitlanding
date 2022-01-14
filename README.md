@@ -30,7 +30,7 @@ If you don't have it already, [install yarn](https://classic.yarnpkg.com/lang/en
 # first cd in your project
 
 git checkout --orphan landingpage && git rm -rf .
-yarn create react-app . --template typescript
+yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # This next command will set the homepage to 
