@@ -57,7 +57,7 @@ If not done all ready, install [Git for Windows](https://git-scm.com/download/wi
 powershell
 git checkout --orphan landingpage
 git rm -rf .
-yarn create react-app . --template typescript
+yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir .github\workflows
 curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # This next command will set the homepage to 
