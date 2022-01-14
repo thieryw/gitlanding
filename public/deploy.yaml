@@ -12,9 +12,8 @@ jobs:
     - uses: actions/setup-node@v2.1.3
       with:
         node-version: '16'
-    - run: |
-        yarn install --frozen-lockfile
-        yarn build
+    - uses: bahmutov/npm-install@v1
+    - run: yarn build
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
