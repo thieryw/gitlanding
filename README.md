@@ -24,7 +24,7 @@ The code of the website lies on a [dedicated branch](https://github.com/thieryw/
 brew install node
 ```
 
-If you don't have it already, [install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
+[Install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
 
 ```bash
 # first cd in your project
@@ -69,8 +69,41 @@ git push --set-upstream origin landingpage
 ```
 {% endtab %}
 
-{% tab title="Ubuntu" %}
-it's comming
+{% tab title="Debian" %}
+[Install Node](https://nodejs.org/en/download/package-manager/).
+
+For latest release:
+
+```bash
+sudo apt-get install curl software-properties-common 
+curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - 
+sudo apt-get install -y nodejs
+```
+
+[Install the Yarn package manager](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable).
+
+```bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
+
+Next past in the following commands.
+
+```bash
+# first cd in your project
+
+git checkout --orphan landingpage && git rm -rf .
+yarn create react-app . --scripts-version 4.0.3 --template typescript
+mkdir -p .github/workflows
+wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
+# This next command will set the homepage to 
+# "https://USERNAME.github.io/REPO" in your package.json
+node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
+git add -A
+git commit -m "Initial commit"
+git push --set-upstream origin landingpage
+```
 {% endtab %}
 {% endtabs %}
 
