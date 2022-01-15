@@ -105,6 +105,44 @@ git commit -m "Initial commit"
 git push --set-upstream origin landingpage
 ```
 {% endtab %}
+
+{% tab title="Ubuntu" %}
+[Install Node](https://nodejs.org/en/download/package-manager/).
+
+For latest version:
+
+```bash
+sudo apt-get update
+wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+[Install Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable).
+
+```bash
+sudo apt-get install curl
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install --no-install-recommends yarn
+```
+
+Then paste in the following commands:
+
+```bash
+# first cd in your project
+
+git checkout --orphan landingpage && git rm -rf .
+yarn create react-app . --scripts-version 4.0.3 --template typescript
+mkdir -p .github/workflows
+wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
+# This next command will set the homepage to 
+# "https://USERNAME.github.io/REPO" in your package.json
+node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
+git add -A
+git commit -m "Initial commit"
+git push --set-upstream origin landingpage
+```
+{% endtab %}
 {% endtabs %}
 
 Next you'll have to enable GitHub page in your repo. Navigate to your repository on Github and go to `Setting > Pages`, then set the `gh-pages` branch as the branch from witch the site is to be built.
