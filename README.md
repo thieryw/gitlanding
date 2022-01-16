@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/39378411/135892116-24367dcb-e0b4-4e16-a1c0-952c7f5bef9a.png">  
 </p>
 <p align="center">
-    <i>Showcase your open source project with a good-looking webpage</i>
+    <i>✒️ Showcase your open source project with a good-looking webpage ✒️</i>
     <br>
     <br>
     <a href="https://github.com/thieryw/gitlanding/actions">
@@ -28,7 +28,7 @@ Gitlanding helps you create a beautiful landing page for your GitHub projects in
 -   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
 
 Don't worry, you will be guided every step of the way with specific instruction for **MacOS**, **Widows** and **Linux**.  
-Besides, setting up a GitLanding page is a great practical introduction to [GitHub Actions](https://github.com/features/actions) and [GitHub page](https://pages.github.com/).
+Setting up a GitLanding page is a great practical introduction to [GitHub Actions](https://github.com/features/actions) and [GitHub page](https://pages.github.com/).
 
 # Motivation
 
