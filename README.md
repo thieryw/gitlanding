@@ -86,7 +86,7 @@ Open a new terminal
 
 ```bash
 # Move to the project you want to create a gitlanding page for
-# example: cd github\my_super_project
+# example: cd ~/github/my_super_project  
 
 git checkout --orphan landingpage && git rm -rf .
 # If you get: 'yarn: error: no such option: --template' running the following command. It means you have 'yarn' from cmdtest, we need yarn the package manager.
