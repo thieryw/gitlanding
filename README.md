@@ -68,62 +68,36 @@ git push --set-upstream origin landingpa
 ```
 {% endtab %}
 
-{% tab title="Debian" %}
+{% tab title="Ubuntu/Debian" %}
+If you don't have [the yarn package manager](https://classic.yarnpkg.com/lang/en/) installed allready:
+
 ```bash
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install yarn
+# Using Ubuntu
+sudo su
+# Using Debian
+su root
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt update && apt install yarn
 ```
 
-Next past in the following commands.
+Open a new terminal
 
 ```bash
-# first cd in your project
+# Move to the project you want to create a gitlanding page for
+# example: cd github\my_super_project
 
 git checkout --orphan landingpage && git rm -rf .
+# If you get: 'yarn: error: no such option: --template' running the following command. It means you have 'yarn' from cmdtest, we need yarn the package manager.
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# This next command will set the homepage to 
-# "https://USERNAME.github.io/REPO" in your package.json
-node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
-git add -A
-git commit -m "Initial commit"
-git push --set-upstream origin landingpage
-```
-{% endtab %}
-
-{% tab title="Ubuntu" %}
-[Install Node](https://nodejs.org/en/download/package-manager/).
-
-For latest version:
-
-```bash
-sudo apt-get update
-wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt install -y nodejs
-```
-
-[Install Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable).
-
-```bash
-sudo apt-get install curl
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install --no-install-recommends yarn
-```
-
-Then paste in the following commands:
-
-```bash
-# first cd in your project
-
-git checkout --orphan landingpage && git rm -rf .
-yarn create react-app . --scripts-version 4.0.3 --template typescript
-mkdir -p .github/workflows
-wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# This next command will set the homepage to 
-# "https://USERNAME.github.io/REPO" in your package.json
+# Don't get frightened by this next command.
+# It will just edit the package.jsson and
+# update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name>
+# Feel free to do that manually.
 node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
 git add -A
 git commit -m "Initial commit"
