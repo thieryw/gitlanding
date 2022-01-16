@@ -27,7 +27,8 @@ Gitlanding helps you create a beautiful landing page for your GitHub projects in
 -   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/).
 -   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
 
-Don't worry, you are not on your own, you will be guided every step of the way!
+Don't worry, you will be guided every step of the way with specific instruction for **MacOS**, **Widows** and **Linux**.  
+Besides, setting up a GitLanding page is a great practical introduction to [GitHub Actions](https://github.com/features/actions) and [GitHub page](https://pages.github.com/).
 
 # Motivation
 
