@@ -18,23 +18,24 @@ The code of the website lies on a [dedicated branch](https://github.com/thieryw/
 
 {% tabs %}
 {% tab title="MacOs" %}
-[Install Node](https://nodejs.org/en/).
+Open a new terminal (for example [iTerm2](https://iterm2.com) )
 
 ```bash
-brew install node
-```
+# Only if you don't have yarn already 
+# (you need https://brew.sh to run the next command)
+brew install yarn
 
-[Install yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
-
-```bash
-# first cd in your project
-
+# Move to the project you want to create a gitlanding page for
+# example: cd ~/github/my_super_project
 git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# This next command will set the homepage to 
-# "https://USERNAME.github.io/REPO" in your package.json
+# Don't get frightened by this next command.
+# It will just edit the package.jsson and
+# update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name>
+# Feel free to do that manually.
 node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
 git add -A
 git commit -m "Initial commit"
@@ -43,45 +44,31 @@ git push --set-upstream origin landingpage
 {% endtab %}
 
 {% tab title="Windows" %}
-Install Node. [Download the installer and follow the instructions](https://nodejs.org/en/download/).
+If you don't have it already, [install Node.js](https://nodejs.org/en/).
 
-Install the [Yarn package manager](https://classic.yarnpkg.com/lang/en/docs/install/#windows-nightly).
-
-If not done all ready, install [Git for Windows](https://git-scm.com/download/win).
-
-
+Open a Powershell terminal
 
 ```bash
-# first cd in your project
-
-powershell
+# Move to the project you want to create a gitlanding page for
+# example: cd github\my_super_project
 git checkout --orphan landingpage
 git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir .github\workflows
 curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# This next command will set the homepage to 
-# "https://USERNAME.github.io/REPO" in your package.json
+# Don't get frightened by this next command.
+# It will just edit the package.jsson and
+# update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name>
+# Feel free to do that manually.
 node -e "require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'), 'homepage': (()=>{ const [r, u]= require('child_process').execSync('git remote get-url origin').toString().replace(/\r?\n$/, '').split('/').reverse(); return 'https://' + u + '.github.io/' + r; })()},null,2))"
 git add -A
 git commit -m "Initial commit"
-git push --set-upstream origin landingpage
+git push --set-upstream origin landingpa
 ```
 {% endtab %}
 
 {% tab title="Debian" %}
-[Install Node](https://nodejs.org/en/download/package-manager/).
-
-For latest release:
-
-```bash
-sudo apt-get install curl software-properties-common 
-curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - 
-sudo apt-get install -y nodejs
-```
-
-[Install the Yarn package manager](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable).
-
 ```bash
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
