@@ -31,7 +31,7 @@ git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# Don't get frightened by this next command.
+# Don't get frightened by the next command.
 # It will just edit the package.jsson and
 # update the "homepage" field with: 
 # https://<your_github_username>.github.io/<your_repo_name>
@@ -56,7 +56,7 @@ git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir .github\workflows
 curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# Don't get frightened by this next command.
+# Don't get frightened by the next command.
 # It will just edit the package.jsson and
 # update the "homepage" field with: 
 # https://<your_github_username>.github.io/<your_repo_name>
@@ -93,7 +93,7 @@ git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
-# Don't get frightened by this next command.
+# Don't get frightened by the next command.
 # It will just edit the package.jsson and
 # update the "homepage" field with: 
 # https://<your_github_username>.github.io/<your_repo_name>
