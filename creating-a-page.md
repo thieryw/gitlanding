@@ -4,14 +4,6 @@ description: Create your landing page with Gitlanding
 
 # Using Gitlanding
 
-{% hint style="info" %}
-You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)&#x20;
-{% endhint %}
-
-{% hint style="info" %}
-If you have bootstraped your page using `create-react-app` there is a[ lot of things](https://github.com/thieryw/crispy-octo-bassoon/commit/431679969c454772605d2d16ad69290559a43cba) you can delete.&#x20;
-{% endhint %}
-
 ```
 yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks
 ```
@@ -316,6 +308,14 @@ render(<App />, document.getElementById("root"));
 
 {% hint style="success" %}
 Host your assets by placing them [in a dedicated directory in your `src` folder](https://github.com/thieryw/gitlanding/tree/006bc0507cabe327e4b0d7df5613877caa146142/src/assets/img). An then [importing them as URLs directly in your code](https://github.com/thieryw/gitlanding/blob/006bc0507cabe327e4b0d7df5613877caa146142/src/index.tsx#L10).
+{% endhint %}
+
+{% hint style="info" %}
+You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+If you have bootstraped your page using `create-react-app` there is a[ lot of things](https://github.com/thieryw/crispy-octo-bassoon/commit/431679969c454772605d2d16ad69290559a43cba) you can delete.&#x20;
 {% endhint %}
 
 #### &#x20;
