@@ -19,7 +19,7 @@ The code of the website lies on a [dedicated branch](https://github.com/thieryw/
 ### Step by step guide
 
 {% tabs %}
-{% tab title="MacOs" %}
+{% tab title="MacOS" %}
 Open a new terminal (for example [iTerm2](https://iterm2.com) )
 
 ```bash
