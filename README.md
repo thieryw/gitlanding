@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/39378411/135892116-24367dcb-e0b4-4e16-a1c0-952c7f5bef9a.png">  
+    <img src="https://user-images.githubusercontent.com/6702424/149700453-81e535ba-7196-4765-88bd-ab2b30e6875b.png">  
 </p>
 <p align="center">
     <i>✒️ Showcase your open source project with a good-looking webpage ✒️</i>
