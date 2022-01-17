@@ -2,7 +2,7 @@
 description: Changing the look and feel of your landingpage.
 ---
 
-# Advanced customization
+# 🎨 Theme customization
 
 A proper documentation is coming but in the meantime you can checkout how the website [sspcloud.fr](https://www.sspcloud.fr) have extended GitLanding by:
 

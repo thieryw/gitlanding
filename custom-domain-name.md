@@ -1,4 +1,4 @@
-# Using a custom domain name
+# 🌐 Custom domain name
 
 Let's say you own the domain name: `yourdomain.com`.
 

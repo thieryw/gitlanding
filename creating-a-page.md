@@ -2,7 +2,7 @@
 description: Create your landing page with Gitlanding
 ---
 
-# Using Gitlanding
+# 📝 Filling up your page
 
 ```
 yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react powerhooks

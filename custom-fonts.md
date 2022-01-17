@@ -1,4 +1,4 @@
-# Custom fonts
+# 🔡 Custom fonts
 
 You can change the default font to one of your choosing by hosting them your self or by importing them directly via google fonts. Link them in your `public/index.html` file and create a new theme provider with Onyxia-ui, then set the `ThemeProvider` property in the `GlTemplate` component to the new theme provider.
 

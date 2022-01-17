@@ -1,4 +1,4 @@
-# Favicon and Meta Tags
+# 📣 Favicon and Meta Tags
 
 ### For changing the favicon (the little logo in your browser tab)
 
@@ -13,7 +13,7 @@
 2. Consult [this commit ](https://github.com/thieryw/crispy-octo-bassoon/commit/02c52f0477e0348339ac6d4d2b434a6bde2711cc)to view the code to add in the `<head>` of your `public/index.html` file.
 
 {% hint style="info" %}
-You can use [metatags.io](https://metatags.io) to generate your metatags but you must change the default url they provide to` %PUBLIC_URL%`.
+You can use [metatags.io](https://metatags.io) to generate your metatags but you must change the default url they provide to `%PUBLIC_URL%`.
 {% endhint %}
 
-![Here is an example when I send my example project link via Whatsapp](<../.gitbook/assets/Screenshot 2021-10-17 at 21.05.07.png>)
+![Here is an example when I send my example project link via Whatsapp](<.gitbook/assets/Screenshot 2021-10-17 at 21.05.07.png>)
