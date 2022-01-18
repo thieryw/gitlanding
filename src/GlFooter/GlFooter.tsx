@@ -15,7 +15,7 @@ export type GlFooterProps = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     iconLinks?: (Link & { iconUrl: string })[];
-    links?: (Link & { title: string })[];
+    links?: (Link & { label: string })[];
     bottomDivContent?: string;
     email?: string;
     phoneNumber?: string;
@@ -68,7 +68,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
                             className={classes.link}
                             underline="hover"
                         >
-                            {link.title}
+                            {link.label}
                         </Link>
                     ))}
                 </div>

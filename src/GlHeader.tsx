@@ -24,10 +24,8 @@ export type GlHeaderProps = {
     titleSmallScreenDark?: ReactNode;
     links: {
         label: string;
-        link: {
-            href: string;
-            onClick?(): void;
-        };
+        href: string;
+        onClick?(): void;
     }[];
     enableDarkModeSwitch?: boolean;
     githubRepoUrl?: GlGithubStarCountProps["repoUrl"];
@@ -121,7 +119,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             </div>
 
             <div className={classes.links}>
-                {links.map(({ link, label }, index) => (
+                {links.map(({ label, ...link }, index) => (
                     <div
                         ref={index === 0 ? linkRef : undefined}
                         className={classes.linkWrapper}

@@ -32,15 +32,15 @@ export const Vue = getStory({
     ],
     "links": [
         {
-            "title": "Github",
+            "label": "Github",
             "href": "",
         },
         {
-            "title": "Documentation",
+            "label": "Documentation",
             "href": "",
         },
         {
-            "title": "Storybook",
+            "label": "Storybook",
             "href": "",
         },
     ],

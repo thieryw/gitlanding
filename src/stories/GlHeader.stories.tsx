@@ -19,15 +19,15 @@ const props: GlHeaderProps = {
     "links": [
         {
             "label": "Link 1 label",
-            "link": { "href": "#" },
+            "href": "",
         },
         {
             "label": "Link 2 label",
-            "link": { "href": "#" },
+            "href": "",
         },
         {
             "label": "Link 3 label",
-            "link": { "href": "#" },
+            "href": "",
         },
     ],
     "enableDarkModeSwitch": true,
