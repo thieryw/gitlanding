@@ -1,3 +1,11 @@
+## **0.6.0** (2022-01-18)  
+  
+- update footer and header links and there stories  
+- Update README.md  
+- Update README.md  
+- adapt yarn_link script for windows  
+- Remove legacy command    
+  
 ### **0.5.17** (2022-01-10)  
   
 - make github star button apear in a less dramaticaly awfull way  
