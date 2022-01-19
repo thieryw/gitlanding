@@ -1,6 +1,6 @@
 # 🛤 Defining routes
 
-If you want to have more than one pages in your application we recommend using [type-route](https://typehero.org/type-route) and [github-pages-plugin-for-type-route](https://github.com/garronej/github-pages-plugin-for-type-route).&#x20;
+If you wint your website to be composed by more than just one page we recommend using [type-route](https://typehero.org/type-route) and [github-pages-plugin-for-type-route](https://github.com/garronej/github-pages-plugin-for-type-route).&#x20;
 
 Let's see how to set it up.
 
