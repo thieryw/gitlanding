@@ -9,6 +9,6 @@ yarn add type-route
 yarn add github-pages-plugin-for-type-route
 ```
 
-1. Create a [`src/router.ts`](https://github.com/thieryw/crispy-octo-bassoon/commit/2cf3534596ba7a41fadc8c959b21aa3084eeeef0) file.
-2. [Create test pages.](https://example.com)
-3. [Update header and footer.](https://example.com)
+1. Create a `src/router.ts` file.
+2. Create test pages.
+3. Update header and footer.
