@@ -18,12 +18,6 @@ The code of the website lies on a [dedicated branch](https://github.com/thieryw/
 
 ### Step by step guide
 
-Start by cloning your project in a new landing page folder
-
-```bash
-git clone https://github.com/<user_name>/<project_name>_landingpage
-```
-
 {% tabs %}
 {% tab title="MacOS" %}
 Open a new terminal (for example [iTerm2](https://iterm2.com) )
@@ -33,8 +27,10 @@ Open a new terminal (for example [iTerm2](https://iterm2.com) )
 # (you need https://brew.sh to run the next command)
 brew install yarn
 
-# Move to the project you want to create a gitlanding page for
-# example: cd ~/github/my_super_project
+#
+git clone https://github.com/<user_name>/<project_name> <project_name>_landingpage 
+cd <project_name>_landingpage
+
 git checkout --orphan landingpage && git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
@@ -57,8 +53,9 @@ If you don't have it already, [install Node.js](https://nodejs.org/en/).
 Open a Powershell terminal
 
 ```bash
-# Move to the project you want to create a gitlanding page for
-# example: cd github\my_super_project
+git clone https://github.com/<user_name>/<project_name> <project_name>_landingpage 
+cd <project_name>_landingpage
+
 git checkout --orphan landingpage
 git rm -rf .
 yarn create react-app . --scripts-version 4.0.3 --template typescript
@@ -94,8 +91,8 @@ npm install -g yarn
 Open a new terminal
 
 ```bash
-# Move to the project you want to create a gitlanding page for
-# example: cd ~/github/my_super_project  
+git clone https://github.com/<user_name>/<project_name> <project_name>_landingpage  
+cd <project_name>_landingpage
 
 git checkout --orphan landingpage && git rm -rf .
 # If you get: 'yarn: error: no such option: --template' running the following command. It means you have 'yarn' from cmdtest, we need yarn the package manager.
