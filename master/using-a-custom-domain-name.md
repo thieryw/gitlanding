@@ -18,7 +18,7 @@ You may think:
 
 _« I would prefer yourdomain.com to be the default and www.yourdomain.com to redirect to example.com »_
 
-It's **not** possible with GitHub pages.
+It's **not** possible with GitHub pages but it makes no practical difference.
 {% endhint %}
 
 Remove the hostname field in your `package.json`
