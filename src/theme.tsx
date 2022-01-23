@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 
 import { createThemeProvider } from "onyxia-ui";
-import { createMakeStyles } from "tss-react/compat";
+import { createMakeAndWithStyles } from "tss-react/compat";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
 import { createButton } from "onyxia-ui/Button";
@@ -13,12 +13,12 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import Brightness1RoundedIcon from "@mui/icons-material/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
-import { useStyles } from "onyxia-ui/lib/ThemeProvider";
+import { useStyles as useStylesBase } from "onyxia-ui/lib/ThemeProvider";
 
 export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({});
 
 export function useTheme() {
-    const { theme } = useStyles();
+    const { theme } = useStylesBase();
 
     return {
         ...theme,
@@ -39,7 +39,9 @@ export function useTheme() {
     };
 }
 
-export const { makeStyles } = createMakeStyles({ useTheme });
+export const { makeStyles, useStyles, withStyles } = createMakeAndWithStyles({
+    useTheme,
+});
 
 export const { Text } = createText({ useTheme });
 
