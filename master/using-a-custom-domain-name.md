@@ -10,7 +10,7 @@ Let's say you own the domain name: `yourdomain.com`.
 Create a `CNAME` file in the public folder:&#x20;
 
 ```bash
-echo "www.example.com" > public/CNAME
+echo "www.yourdomain.com" > public/CNAME
 ```
 
 {% hint style="warning" %}
@@ -30,14 +30,14 @@ Remove the hostname field in your `package.json`
 Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
 
 ```
-www.yourdomain.com. CNAME yourUsername.github.com
-yourdomain.com.     ALIAS yourUsername.github.com
+www.yourdomain.com. CNAME yourUsername.github.io
+yourdomain.com.     ALIAS yourUsername.github.io
 ```
 
 If, and ony if, your DNS service provider do not support `ALIAS` records:
 
 ```diff
- www.yourdomain.com. CNAME yourUsername.github.com
+ www.yourdomain.com. CNAME yourUsername.github.io
 -yourdomain.com.     ALIAS yourUsername.github.com
 +yourdomain.com.    A     185.199.108.153
 +yourdomain.com.    A     185.199.109.153
@@ -56,7 +56,7 @@ Comit and push your changes and your are good to go.
 Create a `CNAME` file in the public folder:&#x20;
 
 ```bash
-echo "asubdomain.example.com" > public/CNAME
+echo "asubdomain.yourdomain.com" > public/CNAME
 ```
 
 Remove the hostname field in your `package.json`
@@ -68,7 +68,7 @@ Remove the hostname field in your `package.json`
 Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
 
 ```
-asubdomain.yourdomain.com. CNAME yourUsername.github.com
+asubdomain.yourdomain.com. CNAME yourUsername.github.io
 ```
 
 {% hint style="info" %}
