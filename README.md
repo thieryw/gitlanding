@@ -18,6 +18,12 @@ The code of the website lies on a [dedicated branch](https://github.com/thieryw/
 
 ### Step by step guide
 
+Start by cloning your project in a new landing page folder
+
+```bash
+git clone https://github.com/<user_name>/<project_name>_landingpage
+```
+
 {% tabs %}
 {% tab title="MacOS" %}
 Open a new terminal (for example [iTerm2](https://iterm2.com) )
