@@ -7,3 +7,4 @@
 * [🔡 Custom fonts](master/custom-fonts.md)
 * [🛤 Adding more pages](adding-more-pages.md)
 * [🎨 Theme customization](customization.md)
+* [🎇 Restyling components](restyling-components.md)
