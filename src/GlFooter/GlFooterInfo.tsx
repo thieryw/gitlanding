@@ -56,5 +56,6 @@ const useStyles = makeStyles({ "name": { GlFooterInfo } })(theme => ({
     "email": {
         "color": theme.colors.useCases.typography.textSecondary,
         "marginBottom": theme.spacing(1),
+        "textDecoration": "none",
     },
 }));
