@@ -1,4 +1,5 @@
 import { memo } from "react";
+import type { ReactNode } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@mui/material/Link";
 import { makeStyles } from "../theme";
@@ -15,7 +16,7 @@ export type GlFooterProps = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     iconLinks?: (Link & { iconUrl: string })[];
-    links?: (Link & { label: string })[];
+    links?: (Link & { label: ReactNode })[];
     bottomDivContent?: string;
     email?: string;
     phoneNumber?: string;
