@@ -32,7 +32,7 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
 
     let { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
-        "hasShadow": hasShadow ?? false,
+        "hasShadow": hasShadow ?? true,
     });
 
     classes = useMergedClasses(classes, props.classes);
