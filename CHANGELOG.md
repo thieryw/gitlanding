@@ -1,3 +1,9 @@
+## **0.7.0** (2022-01-23)  
+  
+- Only export styles utility in the index  
+- update test project  
+- update yarn_link script to work cross platform    
+  
 ## **0.6.0** (2022-01-18)  
   
 - update footer and header links and there stories  
