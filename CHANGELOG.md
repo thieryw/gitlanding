@@ -1,3 +1,9 @@
+### **0.7.1** (2022-01-24)  
+  
+- activate shadows in illustrations by default  
+- make link label a React node instead of a string  
+- footer email without underline    
+  
 ## **0.7.0** (2022-01-23)  
   
 - Only export styles utility in the index  
