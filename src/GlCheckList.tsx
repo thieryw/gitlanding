@@ -144,7 +144,13 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
     "name": { GlCheckList },
 })((theme, { numberOfElements }) => ({
     "heading": {
-        "fontSize": "2rem",
+        ...(() => {
+            const value = "2rem";
+            return {
+                "fontSize": value,
+                "lineHeight": value,
+            };
+        })(),
     },
     "headingWrapper": {
         "marginBottom": theme.spacing(6),
