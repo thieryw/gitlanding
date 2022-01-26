@@ -1,3 +1,7 @@
+### **0.8.1** (2022-01-26)  
+  
+- disable emotion warnings when using first-child pseudo class    
+  
 ## **0.8.0** (2022-01-26)  
   
 - Allow react node in footer  
