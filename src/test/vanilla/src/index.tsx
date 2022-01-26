@@ -74,6 +74,7 @@ function App() {
                 subTitle={"Hero subtitle"}
                 imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 linkToSectionBelowId="firstSection"
+                hasImageShadow={false}
             />
 
             <GlArticle
@@ -85,14 +86,22 @@ function App() {
         Donec imperdiet ac nulla sit amet lacinia. 
         Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
         Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
-                buttonLabel="Article Button label"
+                buttonLabel={
+                    <img src="https://img.shields.io/npm/dw/tss-react" alt="" />
+                }
                 buttonLink={{
                     "href": "https://example.com",
                 }}
                 illustration={
                     <GlIllustration
-                        type="image"
-                        url="https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png"
+                        type="code"
+                        hasDecorativeVsCodeButtons={true}
+                        isCopyBlock={true}
+                        copiedToClipboardMessage="copied!"
+                        language="typescript"
+                        text={`function sum(x: number, y: number): number{
+    return x + y;
+}`}
                     />
                 }
                 hasAnimation={true}
@@ -160,6 +169,7 @@ function App() {
                     <GlIllustration
                         type="image"
                         url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png"
+                        hasShadow={false}
                     />
                 }
                 hasAnimation={true}
