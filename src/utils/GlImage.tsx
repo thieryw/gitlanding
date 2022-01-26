@@ -39,7 +39,7 @@ export const GlImage = memo((props: GlImageProps) => {
 
     const { classes, cx } = useStyles({
         isImageLoaded,
-        "hasShadow": hasShadow ?? false,
+        "hasShadow": hasShadow ?? true,
     });
     return !url.endsWith(".mp4") ? (
         <picture>
