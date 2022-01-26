@@ -1,7 +1,10 @@
 import { CodeBlock, railscast } from "react-code-blocks";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { makeStyles } from "./theme";
 import { useMergedClasses } from "tss-react";
+import { useConstCallback } from "powerhooks/useConstCallback";
+import CopyAllIcon from "@mui/icons-material/CopyAll";
+import { Text } from "./theme";
 
 const colors = {
     "tomatoRed": "#f85b52",
@@ -18,6 +21,8 @@ export type GlCodeBlockProps = {
     hasDecorativeVsCodeButtons?: boolean;
     hasShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    isCopyBlock?: boolean;
+    copiedToClipboardMessage?: string;
 };
 
 export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
@@ -28,11 +33,41 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         text,
         hasDecorativeVsCodeButtons,
         hasShadow,
+        isCopyBlock,
+        copiedToClipboardMessage,
     } = props;
+
+    const [isMouseDown, setIsMouseDown] = useState(false);
+    const [isCopiedMessageShowing, setIsCopiedMessageShowing] = useState(false);
+
+    const copyCode = useConstCallback(() => {
+        if (text === undefined) {
+            return;
+        }
+        navigator.clipboard.writeText(text);
+        setIsMouseDown(false);
+        if (isCopiedMessageShowing) {
+            return;
+        }
+        setIsCopiedMessageShowing(true);
+        setTimeout(() => {
+            setIsCopiedMessageShowing(false);
+        }, 2000);
+    });
+
+    const onMouseDown = useConstCallback(() => {
+        if (isMouseDown) {
+            return;
+        }
+
+        setIsMouseDown(true);
+    });
 
     let { classes, cx } = useStyles({
         "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
-        "hasShadow": hasShadow ?? false,
+        "hasShadow": hasShadow ?? true,
+        isMouseDown,
+        isCopiedMessageShowing,
     });
 
     classes = useMergedClasses(classes, props.classes);
@@ -43,36 +78,89 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
                 hasDecorativeVsCodeButtons && (
                     <VsCodeButtons className={classes.vsCodeButtons} />
                 )}
+            {isCopyBlock !== undefined && isCopyBlock && (
+                <div
+                    className={classes.copyButtonWrapper}
+                    onMouseUp={copyCode}
+                    onMouseDown={onMouseDown}
+                >
+                    <CopyAllIcon className={classes.copyButtonIcon} />
+                </div>
+            )}
+
             <CodeBlock
                 language={language}
                 showLineNumbers={showLineNumbers}
                 text={text}
                 theme={railscast}
             />
+            <Text className={classes.copiedTextMessage} typo="caption">
+                {copiedToClipboardMessage !== undefined
+                    ? copiedToClipboardMessage
+                    : "Copied to clipboard"}
+            </Text>
         </div>
     );
 });
 
 const useStyles = makeStyles<{
     hasDecorativeVsCodeButtons: boolean;
+    isCopiedMessageShowing: boolean;
     hasShadow: boolean;
-}>()((theme, { hasDecorativeVsCodeButtons, hasShadow }) => ({
-    "root": {
-        ...(hasDecorativeVsCodeButtons
-            ? {
-                  "position": "relative",
-                  "paddingTop": 24,
-                  "backgroundColor": colors.darkslategray,
-              }
-            : {}),
-        "boxShadow": !hasShadow ? undefined : theme.customShadow,
-    },
-    "vsCodeButtons": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-    },
-}));
+    isMouseDown: boolean;
+}>()(
+    (
+        theme,
+        {
+            hasDecorativeVsCodeButtons,
+            hasShadow,
+            isMouseDown,
+            isCopiedMessageShowing,
+        },
+    ) => ({
+        "root": {
+            ...(hasDecorativeVsCodeButtons
+                ? {
+                      "position": "relative",
+                      "paddingTop": 24,
+                      "backgroundColor": colors.darkslategray,
+                  }
+                : {}),
+            "boxShadow": !hasShadow ? undefined : theme.customShadow,
+        },
+        "vsCodeButtons": {
+            "position": "absolute",
+            "top": 0,
+            "left": 0,
+        },
+        "copyButtonWrapper": {
+            "position": "absolute",
+            "cursor": "pointer",
+            "top": 0,
+            "right": 0,
+            ...(() => {
+                const value = theme.spacing(1);
+                return {
+                    "paddingTop": value,
+                    "paddingRight": value,
+                };
+            })(),
+        },
+        "copyButtonIcon": {
+            "fill": isMouseDown
+                ? theme.colors.palette.focus.light
+                : theme.colors.palette.light.greyVariant1,
+        },
+        "copiedTextMessage": {
+            "transition": "opacity 200ms",
+            "opacity": isCopiedMessageShowing ? 1 : 0,
+            "pointerEvents": "none",
+            "paddingBottom": theme.spacing(1),
+            "paddingRight": theme.spacing(2),
+            "textAlign": "right",
+        },
+    }),
+);
 
 const { VsCodeButtons } = (() => {
     type VsCodeButtonsProps = {
