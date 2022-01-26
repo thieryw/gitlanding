@@ -45,6 +45,8 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
                     }
                     className={cx(classes.content, props.className)}
                     hasShadow={hasShadow}
+                    isCopyBlock={props.isCopyBlock}
+                    copiedToClipboardMessage={props.copiedToClipboardMessage}
                 />
             )}
         </div>
