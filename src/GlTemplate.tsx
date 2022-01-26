@@ -11,6 +11,9 @@ import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { useMergedClasses } from "tss-react";
+import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
+
+disableEmotionWarnings();
 
 export const splashScreenState = {
     "isShown": true,
