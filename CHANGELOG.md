@@ -1,3 +1,8 @@
+## **0.8.0** (2022-01-26)  
+  
+- Allow react node in footer  
+- Only export style utility from index    
+  
 ## **0.6.0** (2022-01-18)  
   
 - update footer and header links and there stories  
