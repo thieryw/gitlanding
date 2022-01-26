@@ -15,7 +15,7 @@ export type GlArticleProps = {
     id?: string;
     title?: string;
     body?: string;
-    buttonLabel?: string;
+    buttonLabel?: ReactNode;
     buttonLink?: {
         href: string;
         onClick?: () => void;
