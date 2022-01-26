@@ -7,20 +7,6 @@ Let's say you own the domain name: `yourdomain.com`.
 
 {% tabs %}
 {% tab title="Apex domain" %}
-Create a `CNAME` file in the public folder:&#x20;
-
-```bash
-echo "www.yourdomain.com" > public/CNAME
-```
-
-{% hint style="warning" %}
-You may think:
-
-_« I would prefer yourdomain.com to be the default and www.yourdomain.com to redirect to example.com »_
-
-It's **not** possible with GitHub pages but it makes no practical difference.
-{% endhint %}
-
 Remove the hostname field in your `package.json`
 
 ```diff
@@ -34,7 +20,7 @@ www.yourdomain.com. CNAME yourUsername.github.io
 yourdomain.com.     ALIAS yourUsername.github.io
 ```
 
-If, and ony if, your DNS service provider do not support `ALIAS` records:
+If, and only if, your DNS service provider do not support `ALIAS` records:
 
 ```diff
  www.yourdomain.com. CNAME yourUsername.github.io
@@ -44,21 +30,9 @@ If, and ony if, your DNS service provider do not support `ALIAS` records:
 +yourdomain.com.    A     185.199.110.153
 +yourdomain.com.    A     185.199.111.153
 ```
-
-{% hint style="info" %}
-You do not need to go to the GitHub Pages config and fill in your custom domain, it will be read from the CNAME file.
-{% endhint %}
-
-Comit and push your changes and your are good to go.
 {% endtab %}
 
 {% tab title="Subdomain" %}
-Create a `CNAME` file in the public folder:&#x20;
-
-```bash
-echo "asubdomain.yourdomain.com" > public/CNAME
-```
-
 Remove the hostname field in your `package.json`
 
 ```diff
@@ -70,12 +44,17 @@ Create theses DNS records (don't forget to replace `yourUsername` by your GitHub
 ```
 asubdomain.yourdomain.com. CNAME yourUsername.github.io
 ```
-
-{% hint style="info" %}
-You do not need to go to the GitHub Pages config and fill in your custom domain, it will be read from the `CNAME` file.
-{% endhint %}
-
-Comit and push your changes and your are good to go.
 {% endtab %}
 {% endtabs %}
 
+Once your DNS records are available, create a `CNAME` file in the public folder:&#x20;
+
+```bash
+echo "asubdomain.yourdomain.com" > public/CNAME
+```
+
+Commit and push your changes and your are good to go.
+
+{% hint style="success" %}
+You do not need to go to the GitHub Pages config and fill in your custom domain, it will be read from the CNAME file.
+{% endhint %}
