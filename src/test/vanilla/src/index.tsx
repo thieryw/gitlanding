@@ -57,8 +57,13 @@ function App() {
                             "label": "link 2",
                         },
                         {
-                            "href": "https://example.com",
-                            "label": "link 3",
+                            "href": "https://www.npmjs.com/package/tss-react",
+                            "label": (
+                                <img
+                                    src="https://img.shields.io/npm/dw/tss-react"
+                                    alt=""
+                                />
+                            ),
                         },
                     ]}
                 />

@@ -5,6 +5,7 @@ import { makeStyles } from "../theme";
 import { GlFooterInfo } from "./GlFooterInfo";
 import { Markdown } from "../tools/Markdown";
 import { useMergedClasses } from "tss-react";
+import type { ReactNode } from "react";
 
 type Link = {
     href: string;
@@ -15,7 +16,7 @@ export type GlFooterProps = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     iconLinks?: (Link & { iconUrl: string })[];
-    links?: (Link & { label: string })[];
+    links?: (Link & { label: ReactNode })[];
     bottomDivContent?: string;
     email?: string;
     phoneNumber?: string;
