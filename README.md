@@ -36,9 +36,10 @@ yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # Don't get frightened by the next command.
-# It will just edit the package.jsson and
-# update the "homepage" field with: 
-# https://<your_github_username>.github.io/<your_repo_name>
+# It will just update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name> 
+# in the package.json anddeclare mp4 as module so that you can import 
+# mp4 files.
 # Feel free to do that manually.
 node -e '(() => {require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"),"homepage":(()=>{const[r,u]=`${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse();return `https://${u}.github.io/${r}`;})()},null,2));require("fs").appendFileSync(require("path").join(__dirname, "src","react-app-env.d.ts"),`declare module "*.mp4" {const _default: string;export default _default;}`)})()'
 git add -A
@@ -62,9 +63,10 @@ yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir .github\workflows
 curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # Don't get frightened by the next command.
-# It will just edit the package.jsson and
-# update the "homepage" field with: 
-# https://<your_github_username>.github.io/<your_repo_name>
+# It will just update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name> 
+# in the package.json and declare mp4 as module so that you can import 
+# mp4 files.
 # Feel free to do that manually.
 node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'), 'homepage': (()=>{ const [r, u]= require('child_process').execSync('git remote get-url origin').toString().replace(/\r?\n$/, '').split('/').reverse(); return 'https://' + u + '.github.io/' + r; })()},null,2));require('fs').appendFileSync(require('path').join(__dirname, 'src','react-app-env.d.ts'),'\ndeclare module \"*.mp4\" {const _default: string;export default _default;}')})()"
 git add -A
@@ -100,9 +102,10 @@ yarn create react-app . --scripts-version 4.0.3 --template typescript
 mkdir -p .github/workflows
 wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # Don't get frightened by the next command.
-# It will just edit the package.jsson and
-# update the "homepage" field with: 
-# https://<your_github_username>.github.io/<your_repo_name>
+# It will just update the "homepage" field with: 
+# https://<your_github_username>.github.io/<your_repo_name> 
+# in the package.json and declare mp4 as module so that you can import 
+# mp4 files.
 # Feel free to do that manually.
 node -e 'require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"), "homepage": (()=>{ const [r, u]= `${require("child_process").execSync("git remote get-url origin")}`.replace(/\r?\n$/, "").split("/").reverse(); return `https://${u}.github.io/${r}`; })()},null,2))'
 git add -A
