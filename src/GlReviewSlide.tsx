@@ -90,15 +90,7 @@ const useStyles = makeStyles({ "name": { GlReviewSlide } })(theme => ({
     },
     "signature": {
         "fontStyle": "italic",
-        "marginRight": theme.spacing(
-            (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return 5;
-                }
-
-                return 0;
-            })(),
-        ),
+        ...theme.spacing.rightLeft("margin", `${theme.spacing(5)}px`),
         "marginBottom": theme.spacing(5),
         "textAlign": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.md) {
