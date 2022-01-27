@@ -68,7 +68,7 @@ curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # in the package.json and declare mp4 as module so that you can import 
 # mp4 files.
 # Feel free to do that manually.
-node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'), 'homepage': (()=>{ const [r, u]= require('child_process').execSync('git remote get-url origin').toString().replace(/\r?\n$/, '').split('/').reverse(); return 'https://' + u + '.github.io/' + r; })()},null,2));require('fs').appendFileSync(require('path').join(__dirname, 'src','react-app-env.d.ts'),'\ndeclare module \"*.mp4\" {const _default: string;export default _default;}')})()"
+node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'), 'homepage': (()=>{ const [r, u]= require('child_process').execSync('git remote get-url origin').toString().replace(/\r?\n$/, '').split('/').reverse(); return 'https://' + u + '.github.io/' + r; })()},null,2));require('fs').appendFileSync(require('path').join(__dirname, 'src','react-app-env.d.ts'),'\ndeclare module \'*.mp4\' {const _default: string;export default _default;}')})()"
 git add -A
 git commit -m "Initial commit"
 git push --set-upstream origin landingpa
