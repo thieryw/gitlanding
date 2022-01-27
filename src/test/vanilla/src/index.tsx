@@ -264,7 +264,6 @@ function App() {
                 autoPlayTimeInterval={4}
                 slides={[
                     <GlReviewSlide
-                        logoUrl="https://user-images.githubusercontent.com/39378411/135731994-29a3c46a-0d92-4ec8-954e-39bfeeb06534.png"
                         descriptionMd={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
         nisl nec hendrerit rutrum, 
         mi enim semper arcu, ut imperdiet urna libero non metus. 
@@ -272,7 +271,7 @@ function App() {
         Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
         Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.
             `}
-                        signature="Signature"
+                        signature="Signature montpe qsdfmlkj zepoi qsdmlkj ezoir dsfj aezoiru qsdlfkj aezroiu qmldskjf ozeoioidfjgh qsdf lkjhz eroiu kj"
                     />,
                     <GlReviewSlide
                         logoUrl="https://user-images.githubusercontent.com/39378411/135731995-136d4baf-58a6-4cb3-a72c-b8ddce835b3c.png"
