@@ -1,3 +1,15 @@
+### **0.8.2** (2022-01-27)  
+  
+- test review slide  
+- GlreviewSlide signature margin corrections  
+- remove underline on email GlFooter  
+- test copy block  
+- GlImage set shadow by default  
+- GlIllustration set isCopyBlock and copiedToClipboard prop  
+- GlArticle set button lable type to react node  
+- GlCodeBlock set shadow by default and add copy button  
+- correct line height probleme GlCheckList    
+  
 ### **0.8.1** (2022-01-26)  
   
 - disable emotion warnings when using first-child pseudo class    
