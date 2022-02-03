@@ -38,7 +38,9 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const { isShown } = splashScreenState;
+    const imageId = useMemo(() => "imageId", []);
 
     const handleOnImageLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -104,21 +106,34 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            animate();
             splashScreenState.isShown = false;
+            if (isImageLoaded) {
+                animate();
+            }
         },
     });
 
     useEffect(() => {
-        if (isShown) {
+        if (isShown || !isImageLoaded) {
             return;
         }
         animate();
-    }, []);
+    }, [isImageLoaded]);
+
+    useEffect(() => {
+        const image = document.getElementById(imageId);
+
+        if (!image || image.clientHeight === 0 || imageSrc === undefined) {
+            return;
+        }
+
+        setImageAspectRatio(image.clientWidth / image.clientHeight);
+    }, [isImageLoaded]);
 
     let { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
         isImageLoaded,
+        imageAspectRatio,
     });
 
     classes = useMergedClasses(classes, props.classes);
@@ -159,6 +174,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                         className={classes.imageWrapper}
                     >
                         <GlImage
+                            id={imageId}
                             className={classes.image}
                             hasShadow={hasImageShadow}
                             url={imageSrc}
@@ -188,93 +204,124 @@ export const GlHero = memo((props: GlHeroProps) => {
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
     isImageLoaded: boolean;
-}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
-    "root": {
-        "position": "relative",
-        "width": "100%",
-        "paddingBottom": theme.spacing(7),
-    },
-    "arrow": {
-        "cursor": "pointer",
-    },
-    "textAndImageWrapper": {
-        "padding": theme.spacing({
-            "topBottom": 5,
-            "rightLeft": 0,
-        }),
-        "minHeight": (window.innerHeight / 100) * 70,
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "flexDirection": "column",
-                  "alignItems": "left",
-              }
-            : {}),
-        "marginBottom": theme.spacing(6),
-    },
+    imageAspectRatio: number;
+}>({ "name": { GlHero } })(
+    (theme, { hasOnlyText, isImageLoaded, imageAspectRatio }) => ({
+        "root": {
+            "position": "relative",
+            "width": "100%",
+            "paddingBottom": theme.spacing(7),
+        },
+        "arrow": {
+            "cursor": "pointer",
+        },
+        "textAndImageWrapper": {
+            "padding": theme.spacing({
+                "topBottom": 5,
+                "rightLeft": 0,
+            }),
+            "minHeight": (window.innerHeight / 100) * 70,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "flexDirection": "column",
+                      "alignItems": "left",
+                  }
+                : {}),
+            "marginBottom": theme.spacing(6),
+        },
 
-    "title": {
-        "marginBottom": theme.spacing(4),
-    },
-    "subtitle": {
-        "marginTop": theme.spacing(4),
-        "maxWidth": 650,
-        "color": theme.colors.useCases.typography.textSecondary,
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return undefined;
-            }
-            return theme.typography.variants["body 1"].style;
-        })(),
-    },
+        "title": {
+            "marginBottom": theme.spacing(4),
+        },
+        "subtitle": {
+            "marginTop": theme.spacing(4),
+            "maxWidth": 650,
+            "color": theme.colors.useCases.typography.textSecondary,
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                    return undefined;
+                }
+                return theme.typography.variants["body 1"].style;
+            })(),
+        },
 
-    "textWrapper": {
-        "textAlign":
-            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                ? "center"
-                : undefined,
-        "display": "flex",
-        "alignItems": hasOnlyText ? "center" : undefined,
-        "flexDirection": "column",
-        "flex": 1,
-        "maxWidth": 1000,
-        ...(() => {
-            const value = theme.spacing(7);
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+        "textWrapper": {
+            "textAlign":
+                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                    ? "center"
+                    : undefined,
+            "alignItems": hasOnlyText ? "center" : undefined,
+            "flexDirection": "column",
+            "flex": 1,
+            "maxWidth": 1000,
+            "display": "flex",
+            ...(() => {
+                const value = theme.spacing(7);
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {
+                        "marginRight": hasOnlyText ? undefined : value,
+                    };
+                }
+
                 return {
-                    "marginRight": hasOnlyText ? undefined : value,
+                    "marginBottom": value,
                 };
-            }
+            })(),
+        },
 
-            return {
-                "marginBottom": value,
-            };
-        })(),
-    },
+        "imageWrapper": {
+            "position": "relative",
+            "flex": 1.5,
+            ...(() => {
+                if (theme.windowInnerWidth < breakpointsValues.md) {
+                    return {};
+                }
+                let value = 800;
+                if (imageAspectRatio === 0) {
+                    return {
+                        "maxHeight": 700,
+                    };
+                }
 
-    "imageWrapper": {
-        "position": "relative",
-        "flex": 1.5,
-        "maxWidth": 800,
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "maxWidth": breakpointsValues.md,
-              }
-            : {}),
-    },
-    "image": {
-        "width": "100%",
-    },
+                if (imageAspectRatio < 1.2 && imageAspectRatio >= 0.9) {
+                    value = 650;
+                }
 
-    "linkToSectionBelowWrapper": {
-        "display": "flex",
-        "justifyContent": "center",
-        "transition": "opacity 300ms",
-        "opacity": isImageLoaded ? 1 : 0,
-    },
-}));
+                if (imageAspectRatio < 0.9 && imageAspectRatio >= 0.6) {
+                    value = 500;
+                }
+
+                if (imageAspectRatio < 0.6) {
+                    value = 350;
+                }
+
+                return {
+                    "maxWidth": value,
+                    "maxHeight": value / imageAspectRatio,
+                };
+            })(),
+
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "maxWidth": breakpointsValues.md,
+                  }
+                : {}),
+        },
+        "image": {
+            "width": "100%",
+        },
+
+        "linkToSectionBelowWrapper": {
+            "display": "flex",
+            "justifyContent": "center",
+            "transition": "opacity 300ms",
+            "opacity": isImageLoaded ? 1 : 0,
+        },
+    }),
+);
 
 const { HeroText } = (() => {
     type Props = {

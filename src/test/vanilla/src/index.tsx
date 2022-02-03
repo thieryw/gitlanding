@@ -12,6 +12,13 @@ import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
+import heroImage1 from "./assets/test-images/test1.gif";
+import heroImage2 from "./assets/test-images/test2.png";
+import heroImage3 from "./assets/test-images/test3.png";
+import heroImage4 from "./assets/test-images/test4.jpeg";
+import heroImage5 from "./assets/test-images/test5.png";
+import heroImage6 from "./assets/test-images/test6.jpeg";
+import heroImage7 from "./assets/test-images/test7.png";
 
 function App() {
     return (
@@ -72,7 +79,7 @@ function App() {
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
+                imageSrc={heroImage1}
                 linkToSectionBelowId="firstSection"
                 hasImageShadow={false}
             />

@@ -5,6 +5,7 @@ import { useConstCallback } from "powerhooks";
 import { ImageSource } from "../tools/ImageSource";
 
 export type GlImageProps = {
+    id?: string;
     className?: string;
     url: string;
     alt?: string;
@@ -17,6 +18,7 @@ export type GlImageProps = {
 
 export const GlImage = memo((props: GlImageProps) => {
     const {
+        id,
         className,
         url,
         alt,
@@ -46,6 +48,7 @@ export const GlImage = memo((props: GlImageProps) => {
             {imageSources !== undefined &&
                 imageSources.map(source => <source {...source} />)}
             <img
+                id={id}
                 onLoad={onLoad}
                 className={cx(classes.root, className)}
                 src={url}
@@ -56,6 +59,7 @@ export const GlImage = memo((props: GlImageProps) => {
         </picture>
     ) : (
         <video
+            id={id}
             width={width}
             height={height}
             className={cx(classes.root, className)}
