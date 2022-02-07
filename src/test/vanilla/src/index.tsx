@@ -1,6 +1,6 @@
 import { render } from "react-dom";
 import { GlTemplate } from "gitlanding/GlTemplate";
-import { GlHeader } from "gitlanding/GlHeader";
+//import { GlHeader } from "gitlanding/GlHeader";
 import { GlHero } from "gitlanding/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
@@ -12,19 +12,14 @@ import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
-import heroImage1 from "./assets/test-images/test1.gif";
 import heroImage2 from "./assets/test-images/test2.png";
-import heroImage3 from "./assets/test-images/test3.png";
-import heroImage4 from "./assets/test-images/test4.jpeg";
-import heroImage5 from "./assets/test-images/test5.png";
-import heroImage6 from "./assets/test-images/test6.jpeg";
-import heroImage7 from "./assets/test-images/test7.png";
+import { Header } from "gitlanding/GlHeader2";
 
 function App() {
     return (
         <GlTemplate
             header={
-                <GlHeader
+                <Header
                     title="Header title"
                     links={[
                         {
