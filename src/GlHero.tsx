@@ -279,27 +279,15 @@ const useStyles = makeStyles<{
                 if (theme.windowInnerWidth < breakpointsValues.md) {
                     return {};
                 }
-                let value = 800;
                 if (imageAspectRatio === 0) {
                     return {
                         "maxHeight": 700,
                     };
                 }
-
-                if (imageAspectRatio < 1.2 && imageAspectRatio >= 0.9) {
-                    value = 650;
-                }
-
-                if (imageAspectRatio < 0.9 && imageAspectRatio >= 0.6) {
-                    value = 500;
-                }
-
-                if (imageAspectRatio < 0.6) {
-                    value = 350;
-                }
+                const value = 650 * imageAspectRatio;
 
                 return {
-                    "maxWidth": value,
+                    "maxWidth": value > 800 ? 800 : value,
                     "maxHeight": value / imageAspectRatio,
                 };
             })(),
