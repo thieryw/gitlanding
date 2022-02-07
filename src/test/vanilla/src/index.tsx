@@ -79,7 +79,7 @@ function App() {
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc={heroImage1}
+                imageSrc={heroImage2}
                 linkToSectionBelowId="firstSection"
                 hasImageShadow={false}
             />
