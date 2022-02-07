@@ -1,3 +1,11 @@
+### **0.8.3** (2022-02-07)  
+  
+- try new header  
+- GlHero better image rendering on small screen  
+- test diferente images in GlHero  
+- GlHero image width calculated on image aspect ratio better vertion  
+- gl hero take into account image aspect ratio    
+  
 ### **0.8.2** (2022-01-27)  
   
 - test review slide  
