@@ -274,11 +274,9 @@ const useStyles = makeStyles<{
 
         "imageWrapper": {
             "position": "relative",
+            "alignSelf": "center",
             "flex": 1.5,
             ...(() => {
-                if (theme.windowInnerWidth < breakpointsValues.md) {
-                    return {};
-                }
                 if (imageAspectRatio === 0) {
                     return {
                         "maxHeight": 700,
@@ -291,12 +289,6 @@ const useStyles = makeStyles<{
                     "maxHeight": value / imageAspectRatio,
                 };
             })(),
-
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "maxWidth": breakpointsValues.md,
-                  }
-                : {}),
         },
         "image": {
             "width": "100%",
