@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { Text } from "./theme";
@@ -31,6 +31,8 @@ export type HeaderProps = {
     showGithubStarCount?: boolean;
 };
 
+let count = 0;
+
 export const Header = memo((props: HeaderProps) => {
     const {
         links,
@@ -56,6 +58,26 @@ export const Header = memo((props: HeaderProps) => {
         domRect: { height: linksHeight },
         ref: linksRef,
     } = useDomRect();
+
+    /*const {domRect: {width: buttonsWidth}, ref: buttonsRef} = useDomRect();
+    const {domRect: {width: titleWidth}, ref: titleRef} = useDomRect()*/
+    const buttonsRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLDivElement>(null);
+    const [buttonsWidth, setButtonsWidth] = useState(0);
+    const [titleWidth, setTitleWidth] = useState(0);
+
+    useEffect(() => {
+        if (count > 2) {
+            return;
+        }
+        if (!titleRef.current || !buttonsRef.current) {
+            return;
+        }
+
+        setButtonsWidth(buttonsRef.current.clientWidth);
+        setTitleWidth(titleRef.current.clientWidth);
+        count++;
+    }, [buttonsRef.current?.clientWidth, titleRef.current?.clientWidth]);
 
     const { rootRef } = useClickAway(() => {
         if (!isMenuUnfolded) {
@@ -86,6 +108,8 @@ export const Header = memo((props: HeaderProps) => {
         headerHeight,
         isMenuUnfolded,
         linksHeight,
+        buttonsWidth,
+        titleWidth,
     });
 
     classes = useMergedClasses(classes, props.classes);
@@ -93,9 +117,9 @@ export const Header = memo((props: HeaderProps) => {
     return (
         <header className={cx(classes.root, className)} ref={headerRef}>
             <div ref={rootRef} className={classes.headerInner}>
-                <div className={classes.title}>
+                <div ref={titleRef} className={classes.title}>
                     {typeof title === "string" ? (
-                        <Text typo="subtitle">title</Text>
+                        <Text typo="subtitle">{title}</Text>
                     ) : (
                         ((): ReactNode => {
                             if (
@@ -119,7 +143,7 @@ export const Header = memo((props: HeaderProps) => {
                     )}
                 </div>
 
-                <div className={classes.buttonWrapper}>
+                <div ref={buttonsRef} className={classes.buttonWrapper}>
                     <Links
                         className={classes.links}
                         links={links}
@@ -179,99 +203,133 @@ const useStyles = makeStyles<{
     headerHeight: number;
     isMenuUnfolded: boolean;
     linksHeight: number;
-}>()((theme, { headerHeight, isMenuUnfolded, linksHeight }) => ({
-    "root": {
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-        "position": "relative",
-    },
-    "headerInner": {
-        "display": "flex",
-        "justifyContent": "space-between",
-        "alignItems": "center",
-        "position": "relative",
-    },
-    "unfoldIcon": {
-        "display": "none",
-        "pointerEvents": "none",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "display": "block",
-                  "pointerEvents": "unset",
-              }
-            : {}),
-    },
-    "smallDeviceLinksWrapper": {
-        "position": "absolute",
-        "backgroundColor": theme.colors.useCases.surfaces.background,
-        "left": -theme.paddingRightLeft,
-        "top": headerHeight + theme.spacing(3),
-        "width": window.innerWidth,
-        "opacity": 0,
-        "height": 0,
-        "overflow": "hidden",
-        "pointerEvents": "none",
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "flex-start",
-        "justifyContent": "center",
-        "transition": "height 300ms, border-top-color 300ms",
-        ...theme.spacing.rightLeft("padding", `${theme.spacing(3)}px`),
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "borderTop": isMenuUnfolded
-                      ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
-                      : undefined,
-                  "height": isMenuUnfolded ? linksHeight : 0,
-                  "opacity": 0.94,
-                  "pointerEvents": "unset",
-              }
-            : {}),
-    },
+    buttonsWidth: number;
+    titleWidth: number;
+}>()(
+    (
+        theme,
+        { headerHeight, isMenuUnfolded, linksHeight, buttonsWidth, titleWidth },
+    ) => {
+        const isCollapsibleMenu =
+            buttonsWidth + 100 > theme.windowInnerWidth - titleWidth ||
+            theme.windowInnerWidth < breakpointsValues.sm;
 
-    "smallDeviceLinksInnerWrapper": {
-        ...theme.spacing.topBottom("padding", `${theme.spacing(6)}px`),
-    },
+        return {
+            "root": {
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
+                "position": "relative",
+            },
+            "headerInner": {
+                "display": "flex",
+                "justifyContent": "space-between",
+                "alignItems": "center",
+                "position": "relative",
+            },
+            "unfoldIcon": {
+                "display": "none",
+                "pointerEvents": "none",
+                ...(isCollapsibleMenu
+                    ? {
+                          "display": "block",
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
+            "smallDeviceLinksWrapper": {
+                "position": "absolute",
+                "backgroundColor": theme.colors.useCases.surfaces.background,
+                "left": -theme.paddingRightLeft,
+                "top": headerHeight + theme.spacing(3),
+                "width": window.innerWidth,
+                "opacity": 0,
+                "height": 0,
+                "overflow": "hidden",
+                "pointerEvents": "none",
+                "display": "flex",
+                "flexDirection": "column",
+                "alignItems": "flex-start",
+                "justifyContent": "center",
+                "transition": "height 300ms, border-top-color 300ms",
+                ...theme.spacing.rightLeft("padding", `${theme.spacing(3)}px`),
+                ...(isCollapsibleMenu
+                    ? {
+                          "borderTop": isMenuUnfolded
+                              ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
+                              : undefined,
+                          "height": isMenuUnfolded ? linksHeight : 0,
+                          "opacity": 0.94,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
 
-    "smallDeviceLinks": {
-        "flexDirection": "column",
-        "display": "flex",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "opacity": 1,
-                  "pointerEvents": "unset",
-              }
-            : {}),
-    },
+            "smallDeviceLinksInnerWrapper": {
+                ...theme.spacing.topBottom("padding", `${theme.spacing(6)}px`),
+            },
 
-    "darkModeSwitch": {
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  ...theme.spacing.rightLeft("margin", `${theme.spacing(2)}px`),
-              }
-            : {}),
+            "smallDeviceLinks": {
+                "flexDirection": "column",
+                "display": "flex",
+                ...(isCollapsibleMenu
+                    ? {
+                          "opacity": 1,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
+
+            "darkModeSwitch": {
+                ...(theme.windowInnerWidth < breakpointsValues.md
+                    ? {
+                          ...theme.spacing.rightLeft(
+                              "margin",
+                              `${theme.spacing(2)}px`,
+                          ),
+                      }
+                    : {}),
+            },
+            "buttonWrapper": {
+                "display": "flex",
+                "alignItems": "center",
+            },
+            "githubStar": {
+                ...(theme.windowInnerWidth >= breakpointsValues.md
+                    ? {
+                          "paddingRight": theme.spacing(2),
+                      }
+                    : {}),
+            },
+            "links": {
+                /*...(buttonsWidth > titleWidth + window.innerWidth + 50 
+                ? {
+                    "display": "none",
+                    "pointerEvents": "none",
+                }
+                : {}),*/
+                ...(() => {
+                    if (isCollapsibleMenu) {
+                        return {
+                            "display": "none",
+                            "pointerEvents": "none",
+                        };
+                    }
+                })(),
+            },
+            "title": { "border": "solid red 2px" },
+            "link": {},
+            "linkWrapper": {},
+            "linkUnderline": {},
+            "unFoldIcon": {},
+            "smallDeviceLink": {},
+            "smallDeviceLinkWrapper": {},
+            "smallDeviceLinkUnderline": {},
+            "darkModeSwitchWrapper": {},
+        };
     },
-    "buttonWrapper": {
-        "display": "flex",
-        "alignItems": "center",
-    },
-    "githubStar": {
-        ...(theme.windowInnerWidth >= breakpointsValues.md
-            ? {
-                  "paddingRight": theme.spacing(2),
-              }
-            : {}),
-    },
-    "links": {},
-    "title": {},
-    "link": {},
-    "linkWrapper": {},
-    "linkUnderline": {},
-    "unFoldIcon": {},
-    "smallDeviceLink": {},
-    "smallDeviceLinkWrapper": {},
-    "smallDeviceLinkUnderline": {},
-    "darkModeSwitchWrapper": {},
-}));
+);
 
 const { Links } = (() => {
     type LinksProps = {
@@ -309,23 +367,17 @@ const { Links } = (() => {
         );
     });
 
-    const useStyles = makeStyles()(theme => ({
+    const useStyles = makeStyles()({
         "links": {
             "display": "flex",
             "justifyContent": "center",
             "flex": 1,
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "display": "none",
-                      "pointerEvents": "none",
-                  }
-                : {}),
         },
         "linkWrapper": {
             "display": "flex",
             "cursor": "pointer",
         },
-    }));
+    });
 
     return { Links };
 })();
