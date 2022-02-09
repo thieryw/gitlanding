@@ -1,101 +1,119 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from "@mui/material/Link";
-import { useNamedState } from "powerhooks/useNamedState";
-import { useConstCallback } from "powerhooks/useConstCallback";
-import { memo, useEffect } from "react";
-import { makeStyles, Text } from "./theme";
+import { memo, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import { GlGithubStarCount } from "./utils/GlGithubStarCount";
-import type { GlGithubStarCountProps } from "./utils/GlGithubStarCount";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { useClickAway } from "powerhooks";
+import { makeStyles } from "./theme";
+import { Text } from "./theme";
 import { breakpointsValues } from "./theme";
-import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
+import UnfoldIcon from "@mui/icons-material/FormatLineSpacing";
 import { useDomRect } from "powerhooks/useDomRect";
+import { useConstCallback } from "powerhooks";
+import { useClickAway } from "powerhooks";
+import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
+import { scrollableDivId } from "./GlTemplate";
+import { Evt } from "evt";
 import { useMergedClasses } from "tss-react";
+import { GlGithubStarCount } from "./utils/GlGithubStarCount";
 
 export type GlHeaderProps = {
-    className?: string;
-    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
-    title: ReactNode;
-    titleDark?: ReactNode;
-    titleSmallScreen?: ReactNode;
-    titleSmallScreenDark?: ReactNode;
     links: {
         label: string;
         href: string;
-        onClick?(): void;
+        onClick?: () => void;
     }[];
+    title?: ReactNode;
+    titleDark?: ReactNode;
+    titleSmallScreen?: ReactNode;
+    titleSmallScreenDark?: ReactNode;
+    className?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     enableDarkModeSwitch?: boolean;
-    githubRepoUrl?: GlGithubStarCountProps["repoUrl"];
-    githubButtonSize?: GlGithubStarCountProps["size"];
-    showGithubStarCount?: GlGithubStarCountProps["showCount"];
-    isCollapsible?: boolean;
+    githubRepoUrl?: string;
+    githubButtonSize?: "normal" | "large";
+    showGithubStarCount?: boolean;
 };
 
 export const GlHeader = memo((props: GlHeaderProps) => {
     const {
-        className,
-        title,
         links,
+        title,
+        className,
         enableDarkModeSwitch,
         githubButtonSize,
         githubRepoUrl,
+        showGithubStarCount,
         titleDark,
         titleSmallScreen,
         titleSmallScreenDark,
-        showGithubStarCount,
     } = props;
 
-    const { isMenuUnfolded, setIsMenuUnfolded } = useNamedState(
-        "isMenuUnfolded",
-        false,
-    );
-    const { isComponentVisible, setIsComponentVisible } = useNamedState(
-        "isComponentVisible",
-        false,
-    );
+    const [isMenuUnfolded, setIsMenuUnfolded] = useState(false);
+
+    const {
+        domRect: { height: headerHeight },
+        ref: headerRef,
+    } = useDomRect();
+
+    const {
+        domRect: { height: linksHeight },
+        ref: smallDeviceLinksRef,
+    } = useDomRect();
+
+    const linksRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLDivElement>(null);
+    const [buttonsWidth, setButtonsWidth] = useState(0);
+    const [titleWidth, setTitleWidth] = useState(0);
 
     useEffect(() => {
-        (async () => {
-            await new Promise<void>(resolve => setTimeout(resolve, 1000));
-            setIsComponentVisible(true);
-        })();
-    }, []);
+        if (!titleRef.current || !linksRef.current) {
+            return;
+        }
 
-    const unfoldLinks = useConstCallback(() => {
-        setIsMenuUnfolded(!isMenuUnfolded);
-    });
+        setButtonsWidth(linksRef.current.clientWidth);
+        setTitleWidth(titleRef.current.clientWidth);
+    }, [titleRef.current?.clientWidth, linksRef.current?.clientWidth]);
 
     const { rootRef } = useClickAway(() => {
+        if (!isMenuUnfolded) {
+            return;
+        }
         setIsMenuUnfolded(false);
     });
 
-    const {
-        ref: linkRef,
-        domRect: { height: linkHeight },
-    } = useDomRect();
+    const toggleMenu = useConstCallback(() => {
+        setIsMenuUnfolded(!isMenuUnfolded);
+    });
+
+    useEffect(() => {
+        const ctx = Evt.newCtx();
+        const scrollableElement =
+            window.document.getElementById(scrollableDivId);
+        if (scrollableElement === null) {
+            return;
+        }
+        Evt.from(ctx, scrollableElement, "scroll").attach(() => {
+            if (headerHeight < scrollableElement.scrollTop) {
+                setIsMenuUnfolded(false);
+            }
+        });
+    }, [headerHeight]);
 
     let { classes, cx, theme } = useStyles({
+        headerHeight,
         isMenuUnfolded,
-        "numberOfLinks": links !== undefined ? links.length : 0,
-        linkHeight,
-        isComponentVisible,
+        linksHeight,
+        buttonsWidth,
+        titleWidth,
     });
 
     classes = useMergedClasses(classes, props.classes);
 
     return (
-        <header className={cx(classes.root, className)}>
-            <div className={classes.title}>
-                {typeof title === "string" ? (
-                    <div className={classes.titleInner}>
+        <header className={cx(classes.root, className)} ref={headerRef}>
+            <div ref={rootRef} className={classes.headerInner}>
+                <div ref={titleRef} className={classes.title}>
+                    {typeof title === "string" ? (
                         <Text typo="subtitle">{title}</Text>
-                    </div>
-                ) : (
-                    <div className={classes.titleInner}>
-                        {((): ReactNode => {
+                    ) : (
+                        ((): ReactNode => {
                             if (
                                 theme.windowInnerWidth >= breakpointsValues.md
                             ) {
@@ -113,165 +131,330 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                                 );
                             }
                             return titleSmallScreen ?? title;
-                        })()}
-                    </div>
-                )}
-            </div>
+                        })()
+                    )}
+                </div>
 
-            <div className={classes.links}>
-                {links.map(({ label, ...link }, index) => (
+                <div ref={linksRef} className={classes.buttonAndLinkWrapper}>
+                    <Links
+                        className={classes.links}
+                        links={links}
+                        classes={{
+                            "text": classes.text,
+                            "linkWrapper": classes.linkWrapper,
+                            "linkUnderline": classes.linkUnderline,
+                        }}
+                    />
+
+                    {githubRepoUrl !== undefined && (
+                        <GlGithubStarCount
+                            repoUrl={githubRepoUrl}
+                            size={githubButtonSize}
+                            showCount={showGithubStarCount}
+                            className={classes.githubStar}
+                        />
+                    )}
+
+                    {enableDarkModeSwitch !== undefined &&
+                        enableDarkModeSwitch && (
+                            <div className={classes.darkModeSwitch}>
+                                <GlDarkModeSwitch
+                                    className={classes.darkModeSwitch}
+                                />
+                            </div>
+                        )}
+
+                    <div onClick={toggleMenu}>
+                        <UnfoldIcon className={classes.unfoldIcon} />
+                    </div>
+                </div>
+
+                <div className={classes.smallDeviceLinksWrapper}>
                     <div
-                        ref={index === 0 ? linkRef : undefined}
-                        className={classes.linkWrapper}
-                        key={label}
+                        className={classes.smallDeviceLinksInnerWrapper}
+                        ref={smallDeviceLinksRef}
                     >
-                        <Link
-                            underline="hover"
-                            className={classes.link}
-                            {...link}
-                        >
-                            {label}
-                        </Link>
+                        <Links
+                            links={links}
+                            className={classes.smallDeviceLinks}
+                            classes={{
+                                "link": classes.smallDeviceLink,
+                                "text": classes.smallDeviceText,
+                                "linkWrapper":
+                                    classes.smallDeviceLinksInnerWrapper,
+                                "linkUnderline":
+                                    classes.smallDeviceLinkUnderline,
+                            }}
+                        />
                     </div>
-                ))}
+                </div>
             </div>
-
-            {githubRepoUrl !== undefined && (
-                <GlGithubStarCount
-                    repoUrl={githubRepoUrl}
-                    size={githubButtonSize}
-                    showCount={showGithubStarCount}
-                    className={classes.githubStar}
-                />
-            )}
-
-            {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                <GlDarkModeSwitch className={classes.darkModeSwitch} />
-            )}
-
-            <FormatListBulletedIcon
-                ref={rootRef}
-                onClick={unfoldLinks}
-                className={classes.unfoldButton}
-            />
         </header>
     );
 });
 
 const useStyles = makeStyles<{
+    headerHeight: number;
     isMenuUnfolded: boolean;
-    numberOfLinks: number;
-    linkHeight: number;
-    isComponentVisible: boolean;
-}>({ "name": { GlHeader } })(
+    linksHeight: number;
+    buttonsWidth: number;
+    titleWidth: number;
+}>()(
     (
         theme,
-        { isMenuUnfolded, numberOfLinks, linkHeight, isComponentVisible },
+        { headerHeight, isMenuUnfolded, linksHeight, buttonsWidth, titleWidth },
     ) => {
-        const linkMarginTopBottom = theme.spacing(3);
+        const isCollapsibleMenu =
+            buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
+                theme.windowInnerWidth - titleWidth ||
+            theme.windowInnerWidth < breakpointsValues.sm;
 
         return {
             "root": {
-                "transition": "opacity 300ms",
-                "opacity": isComponentVisible ? 1 : 0,
-                "display": "flex",
-                "alignItems": "center",
-                "width": "100%",
-                "flexWrap": (() => {
-                    if (theme.windowInnerWidth >= breakpointsValues.md) {
-                        return undefined;
-                    }
-
-                    return "wrap";
-                })(),
                 ...theme.spacing.rightLeft(
                     "padding",
                     `${theme.paddingRightLeft}px`,
                 ),
+                "position": "relative",
             },
-            "title": {
+            "headerInner": {
                 "display": "flex",
-                "flex": 1,
-                "marginRight": theme.spacing(2),
+                "justifyContent": "space-between",
+                "alignItems": "center",
+                "position": "relative",
             },
-            "links": {
-                "display": "flex",
-                "transition": "height 300ms",
-                ...(() => {
-                    if (theme.windowInnerWidth >= breakpointsValues.md) {
-                        return {
-                            "flexWrap": "wrap",
-                        } as const;
-                    }
-
-                    return {
-                        "order": 123,
-                        "flex": "100%",
-                        "flexDirection": "column",
-                        "height": (() => {
-                            if (isMenuUnfolded) {
-                                return (
-                                    (linkHeight + linkMarginTopBottom * 2) *
-                                        numberOfLinks +
-                                    10
-                                );
-                            }
-                            return 0;
-                        })(),
-                        "overflow": "hidden",
-                        "flexWrap": "nowrap",
-                        "marginTop": theme.spacing(2),
-                    } as const;
-                })(),
-            },
-            "linkWrapper": {
-                ...(theme.windowInnerWidth >= breakpointsValues.md
+            "unfoldIcon": {
+                "display": "none",
+                "pointerEvents": "none",
+                ...(isCollapsibleMenu
                     ? {
-                          ...(() => {
-                              const value = theme.spacing(4);
-                              return {
-                                  ...theme.spacing.rightLeft(
-                                      "margin",
-                                      `${value}px`,
-                                  ),
-                              };
-                          })(),
+                          "display": "block",
+                          "pointerEvents": "unset",
                       }
-                    : {
-                          ...theme.spacing.topBottom(
-                              "margin",
-                              `${linkMarginTopBottom}px`,
-                          ),
-                      }),
-            },
-
-            "link": {
-                "color": theme.colors.useCases.typography.textPrimary,
-                "whiteSpace": "nowrap",
-                ...theme.typography.variants["body 1"].style,
-            },
-            "unfoldButton": {
-                "cursor": "pointer",
+                    : {}),
                 "marginLeft": theme.spacing(2),
-                "display": (() => {
-                    if (theme.windowInnerWidth >= breakpointsValues.md) {
-                        return "none";
-                    }
+            },
+            "smallDeviceLinksWrapper": {
+                "position": "absolute",
+                "backgroundColor": theme.colors.useCases.surfaces.background,
+                "left": -theme.paddingRightLeft,
+                "top": headerHeight + theme.spacing(3),
+                "width": window.innerWidth,
+                "opacity": 0,
+                "height": 0,
+                "overflow": "hidden",
+                "pointerEvents": "none",
+                "display": "flex",
+                "flexDirection": "column",
+                "alignItems": "flex-start",
+                "justifyContent": "center",
+                "transition": "height 300ms, border-top-color 300ms",
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
+                ...(isCollapsibleMenu
+                    ? {
+                          "borderTop": isMenuUnfolded
+                              ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
+                              : undefined,
+                          "height": isMenuUnfolded ? linksHeight : 0,
+                          "opacity": 0.94,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
 
-                    return "flex";
-                })(),
+            "smallDeviceLinksInnerWrapper": {
+                ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
             },
-            "githubStar": {
-                ...theme.spacing.rightLeft("margin", `${theme.spacing(2)}px`),
+
+            "smallDeviceLinks": {
+                "flexDirection": "column",
+                "display": "flex",
+                ...(isCollapsibleMenu
+                    ? {
+                          "opacity": 1,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
             },
+
             "darkModeSwitch": {
-                ...theme.spacing.rightLeft("margin", `${theme.spacing(2)}px`),
+                ...(theme.windowInnerWidth < breakpointsValues.md
+                    ? {
+                          ...theme.spacing.rightLeft(
+                              "margin",
+                              `${theme.spacing(2)}px`,
+                          ),
+                      }
+                    : {}),
             },
-
-            "titleInner": {
+            "buttonAndLinkWrapper": {
+                "position": "absolute",
+                "right": 0,
                 "display": "flex",
                 "alignItems": "center",
             },
+            "githubStar": {
+                ...(theme.windowInnerWidth >= breakpointsValues.md
+                    ? {
+                          "paddingRight": theme.spacing(2),
+                      }
+                    : {}),
+            },
+            "links": {
+                ...(() => {
+                    if (isCollapsibleMenu) {
+                        return {
+                            "opacity": 0,
+                            "pointerEvents": "none",
+                        };
+                    }
+                })(),
+            },
+            "title": {},
+            "text": {},
+            "linkWrapper": {},
+            "linkUnderline": {},
+            "smallDeviceText": {},
+            "smallDeviceLink": {
+                "margin": 0,
+            },
+            "smallDeviceLinkUnderline": {},
+            "darkModeSwitchWrapper": {},
         };
     },
 );
+
+const { Links } = (() => {
+    type LinksProps = {
+        links: GlHeaderProps["links"];
+        className?: string;
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    };
+
+    const Links = memo((props: LinksProps) => {
+        const { links, className } = props;
+
+        let { classes, cx } = useStyles();
+
+        classes = useMergedClasses(classes, props.classes);
+
+        return (
+            <div className={cx(classes.links, className)}>
+                {links.map(({ href, label, onClick }) => (
+                    <div key={label} className={classes.linkWrapper}>
+                        <Link
+                            className={classes.link}
+                            href={href}
+                            label={label}
+                            onClick={onClick}
+                            classes={{
+                                "text": classes.text,
+                                "underline": classes.linkUnderline,
+                            }}
+                        />
+                    </div>
+                ))}
+            </div>
+        );
+    });
+
+    const useStyles = makeStyles()({
+        "links": {
+            "display": "flex",
+            "justifyContent": "center",
+            "flex": 1,
+        },
+        "linkWrapper": {
+            "display": "flex",
+            "cursor": "pointer",
+        },
+        "text": {},
+        "linkUnderline": {},
+        "link": {},
+    });
+
+    return { Links };
+})();
+
+const { Link } = (() => {
+    type LinkProps = GlHeaderProps["links"][number] & {
+        className?: string;
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    };
+
+    const Link = memo((props: LinkProps) => {
+        const { href, label, onClick, className } = props;
+        let { classes, cx } = useStyles();
+        classes = useMergedClasses(classes, props.classes);
+
+        return (
+            <div
+                onClick={onClick ?? (() => (window.location.href = href))}
+                className={cx(classes.root, className)}
+            >
+                <Text typo="label 1" className={classes.text}>
+                    {label}
+                </Text>
+                <div className={classes.underline}></div>
+            </div>
+        );
+    });
+
+    const useStyles = makeStyles<void, "underline">()(
+        (theme, _params, classes) => {
+            return {
+                "root": {
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "position": "relative",
+                    ...theme.spacing.rightLeft(
+                        "margin",
+                        `${theme.spacing(3)}px`,
+                    ),
+                    "&: hover": {
+                        "cursor": "pointer",
+                    },
+                    [`&:hover .${classes.underline}`]: {
+                        "width": "110%",
+                        ...(theme.windowInnerWidth < breakpointsValues.md
+                            ? {
+                                  "width": "50%",
+                              }
+                            : {}),
+                    },
+                    ...(theme.windowInnerWidth < breakpointsValues.md
+                        ? {
+                              ...theme.spacing.topBottom(
+                                  "margin",
+                                  `${theme.spacing(3)}px`,
+                              ),
+                          }
+                        : {}),
+                },
+                "underline": {
+                    "width": 0,
+                    "position": "relative",
+                    "left":
+                        theme.windowInnerWidth >= breakpointsValues.md
+                            ? "-5%"
+                            : "25%",
+                    "top": theme.spacing(1),
+                    "height": 1,
+                    "backgroundColor":
+                        theme.colors.useCases.typography.textPrimary,
+                    "transition": "width 200ms",
+                },
+                "text": {
+                    ...theme.spacing.rightLeft(
+                        "padding",
+                        `${theme.spacing(2)}px`,
+                    ),
+                },
+            };
+        },
+    );
+    return { Link };
+})();
