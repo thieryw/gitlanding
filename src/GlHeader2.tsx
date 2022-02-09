@@ -31,8 +31,6 @@ export type HeaderProps = {
     showGithubStarCount?: boolean;
 };
 
-let count = 0;
-
 export const Header = memo((props: HeaderProps) => {
     const {
         links,
@@ -56,28 +54,22 @@ export const Header = memo((props: HeaderProps) => {
 
     const {
         domRect: { height: linksHeight },
-        ref: linksRef,
+        ref: smallDeviceLinksRef,
     } = useDomRect();
 
-    /*const {domRect: {width: buttonsWidth}, ref: buttonsRef} = useDomRect();
-    const {domRect: {width: titleWidth}, ref: titleRef} = useDomRect()*/
-    const buttonsRef = useRef<HTMLDivElement>(null);
+    const linksRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
     const [buttonsWidth, setButtonsWidth] = useState(0);
     const [titleWidth, setTitleWidth] = useState(0);
 
     useEffect(() => {
-        if (count > 2) {
-            return;
-        }
-        if (!titleRef.current || !buttonsRef.current) {
+        if (!titleRef.current || !linksRef.current) {
             return;
         }
 
-        setButtonsWidth(buttonsRef.current.clientWidth);
+        setButtonsWidth(linksRef.current.clientWidth);
         setTitleWidth(titleRef.current.clientWidth);
-        count++;
-    }, [buttonsRef.current?.clientWidth, titleRef.current?.clientWidth]);
+    }, [titleRef.current?.clientWidth, linksRef.current?.clientWidth]);
 
     const { rootRef } = useClickAway(() => {
         if (!isMenuUnfolded) {
@@ -143,12 +135,12 @@ export const Header = memo((props: HeaderProps) => {
                     )}
                 </div>
 
-                <div ref={buttonsRef} className={classes.buttonWrapper}>
+                <div ref={linksRef} className={classes.buttonAndLinkWrapper}>
                     <Links
                         className={classes.links}
                         links={links}
                         classes={{
-                            "link": classes.link,
+                            "text": classes.text,
                             "linkWrapper": classes.linkWrapper,
                             "linkUnderline": classes.linkUnderline,
                         }}
@@ -180,14 +172,16 @@ export const Header = memo((props: HeaderProps) => {
                 <div className={classes.smallDeviceLinksWrapper}>
                     <div
                         className={classes.smallDeviceLinksInnerWrapper}
-                        ref={linksRef}
+                        ref={smallDeviceLinksRef}
                     >
                         <Links
                             links={links}
                             className={classes.smallDeviceLinks}
                             classes={{
                                 "link": classes.smallDeviceLink,
-                                "linkWrapper": classes.smallDeviceLinkWrapper,
+                                "text": classes.smallDeviceText,
+                                "linkWrapper":
+                                    classes.smallDeviceLinksInnerWrapper,
                                 "linkUnderline":
                                     classes.smallDeviceLinkUnderline,
                             }}
@@ -211,7 +205,8 @@ const useStyles = makeStyles<{
         { headerHeight, isMenuUnfolded, linksHeight, buttonsWidth, titleWidth },
     ) => {
         const isCollapsibleMenu =
-            buttonsWidth + 100 > theme.windowInnerWidth - titleWidth ||
+            buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
+                theme.windowInnerWidth - titleWidth ||
             theme.windowInnerWidth < breakpointsValues.sm;
 
         return {
@@ -237,6 +232,7 @@ const useStyles = makeStyles<{
                           "pointerEvents": "unset",
                       }
                     : {}),
+                "marginLeft": theme.spacing(2),
             },
             "smallDeviceLinksWrapper": {
                 "position": "absolute",
@@ -253,7 +249,10 @@ const useStyles = makeStyles<{
                 "alignItems": "flex-start",
                 "justifyContent": "center",
                 "transition": "height 300ms, border-top-color 300ms",
-                ...theme.spacing.rightLeft("padding", `${theme.spacing(3)}px`),
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
                 ...(isCollapsibleMenu
                     ? {
                           "borderTop": isMenuUnfolded
@@ -267,7 +266,7 @@ const useStyles = makeStyles<{
             },
 
             "smallDeviceLinksInnerWrapper": {
-                ...theme.spacing.topBottom("padding", `${theme.spacing(6)}px`),
+                ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
             },
 
             "smallDeviceLinks": {
@@ -291,7 +290,9 @@ const useStyles = makeStyles<{
                       }
                     : {}),
             },
-            "buttonWrapper": {
+            "buttonAndLinkWrapper": {
+                "position": "absolute",
+                "right": 0,
                 "display": "flex",
                 "alignItems": "center",
             },
@@ -303,28 +304,23 @@ const useStyles = makeStyles<{
                     : {}),
             },
             "links": {
-                /*...(buttonsWidth > titleWidth + window.innerWidth + 50 
-                ? {
-                    "display": "none",
-                    "pointerEvents": "none",
-                }
-                : {}),*/
                 ...(() => {
                     if (isCollapsibleMenu) {
                         return {
-                            "display": "none",
+                            "opacity": 0,
                             "pointerEvents": "none",
                         };
                     }
                 })(),
             },
-            "title": { "border": "solid red 2px" },
-            "link": {},
+            "title": {},
+            "text": {},
             "linkWrapper": {},
             "linkUnderline": {},
-            "unFoldIcon": {},
-            "smallDeviceLink": {},
-            "smallDeviceLinkWrapper": {},
+            "smallDeviceText": {},
+            "smallDeviceLink": {
+                "margin": 0,
+            },
             "smallDeviceLinkUnderline": {},
             "darkModeSwitchWrapper": {},
         };
@@ -335,31 +331,29 @@ const { Links } = (() => {
     type LinksProps = {
         links: HeaderProps["links"];
         className?: string;
-        classes?: {
-            linkWrapper?: string;
-            link?: string;
-            linkUnderline?: string;
-        };
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     };
 
     const Links = memo((props: LinksProps) => {
-        const { links, className, classes: classesProp } = props;
+        const { links, className } = props;
 
-        const { classes, cx } = useStyles();
+        let { classes, cx } = useStyles();
+
+        classes = useMergedClasses(classes, props.classes);
 
         return (
             <div className={cx(classes.links, className)}>
                 {links.map(({ href, label, onClick }) => (
                     <div key={label} className={classes.linkWrapper}>
                         <Link
+                            className={classes.link}
                             href={href}
                             label={label}
                             onClick={onClick}
                             classes={{
-                                "link": classesProp?.link,
-                                "underline": classesProp?.linkUnderline,
+                                "text": classes.text,
+                                "underline": classes.linkUnderline,
                             }}
-                            className={classesProp?.linkWrapper}
                         />
                     </div>
                 ))}
@@ -377,6 +371,9 @@ const { Links } = (() => {
             "display": "flex",
             "cursor": "pointer",
         },
+        "text": {},
+        "linkUnderline": {},
+        "link": {},
     });
 
     return { Links };
@@ -385,30 +382,23 @@ const { Links } = (() => {
 const { Link } = (() => {
     type LinkProps = HeaderProps["links"][number] & {
         className?: string;
-        classes?: {
-            link?: string;
-            underline?: string;
-        };
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     };
 
     const Link = memo((props: LinkProps) => {
-        const { href, label, onClick, className, classes: classesProp } = props;
-        const { classes, cx } = useStyles();
+        const { href, label, onClick, className } = props;
+        let { classes, cx } = useStyles();
+        classes = useMergedClasses(classes, props.classes);
 
         return (
             <div
                 onClick={onClick ?? (() => (window.location.href = href))}
                 className={cx(classes.root, className)}
             >
-                <Text
-                    typo="label 1"
-                    className={cx(classes.text, classesProp?.link)}
-                >
+                <Text typo="label 1" className={classes.text}>
                     {label}
                 </Text>
-                <div
-                    className={cx(classes.underline, classesProp?.underline)}
-                ></div>
+                <div className={classes.underline}></div>
             </div>
         );
     });

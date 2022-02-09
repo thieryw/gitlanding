@@ -20,7 +20,7 @@ function App() {
         <GlTemplate
             header={
                 <Header
-                    title="a very very very long title"
+                    title="Title"
                     links={[
                         {
                             "label": "link 1",
@@ -32,30 +32,6 @@ function App() {
                         },
                         {
                             "label": "link 3",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 4",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 5",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 6",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 7",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 8",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link 9",
                             "href": "https://example.com",
                         },
                     ]}
