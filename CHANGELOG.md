@@ -1,3 +1,9 @@
+### **0.8.4** (2022-02-09)  
+  
+- apply new header  
+- correct header number of element detection  
+- GlHeader2 automaticaly go to collapsible if to many links    
+  
 ### **0.8.3** (2022-02-07)  
   
 - try new header  
