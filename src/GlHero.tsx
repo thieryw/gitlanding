@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useReducer, useMemo, useEffect, useState } from "react";
+import { memo, useMemo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { breakpointsValues } from "./theme";
 import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
-import { splashScreenState } from "./GlTemplate";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useMergedClasses } from "tss-react";
 
@@ -36,10 +35,10 @@ export const GlHero = memo((props: GlHeroProps) => {
         imageSources,
     } = props;
 
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
+    const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
-    const { isShown } = splashScreenState;
+    const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
     const imageId = useMemo(() => "imageId", []);
 
     const handleOnImageLoad = useConstCallback(async () => {
@@ -100,25 +99,24 @@ export const GlHero = memo((props: GlHeroProps) => {
         imageAnimProps.animate = {
             "opacity": 1,
         };
-        splashScreenState.isShown = false;
-        forceUpdate();
+        setIsAnimationComplete(true);
     });
 
     useSplashScreen({
         "onHidden": () => {
-            splashScreenState.isShown = false;
-            if (isImageLoaded) {
+            setIsSplashScreenShown(false);
+            if (isImageLoaded && isAnimationComplete) {
                 animate();
             }
         },
     });
 
     useEffect(() => {
-        if (isShown || !isImageLoaded) {
+        if (isSplashScreenShown || !isImageLoaded || isAnimationComplete) {
             return;
         }
         animate();
-    }, [isImageLoaded]);
+    }, [isImageLoaded, isSplashScreenShown]);
 
     useEffect(() => {
         const image = document.getElementById(imageId);

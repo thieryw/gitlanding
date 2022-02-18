@@ -15,9 +15,6 @@ import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 
 disableEmotionWarnings();
 
-export const splashScreenState = {
-    "isShown": true,
-};
 export const scrollableDivId = "GlScrollable";
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 
