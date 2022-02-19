@@ -168,25 +168,22 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                         <UnfoldIcon className={classes.unfoldIcon} />
                     </div>
                 </div>
-
-                <div className={classes.smallDeviceLinksWrapper}>
-                    <div
-                        className={classes.smallDeviceLinksInnerWrapper}
-                        ref={smallDeviceLinksRef}
-                    >
-                        <Links
-                            links={links}
-                            className={classes.smallDeviceLinks}
-                            classes={{
-                                "link": classes.smallDeviceLink,
-                                "text": classes.smallDeviceText,
-                                "linkWrapper":
-                                    classes.smallDeviceLinksInnerWrapper,
-                                "linkUnderline":
-                                    classes.smallDeviceLinkUnderline,
-                            }}
-                        />
-                    </div>
+            </div>
+            <div className={classes.smallDeviceLinksWrapper}>
+                <div
+                    className={classes.smallDeviceLinksInnerWrapper}
+                    ref={smallDeviceLinksRef}
+                >
+                    <Links
+                        links={links}
+                        className={classes.smallDeviceLinks}
+                        classes={{
+                            "link": classes.smallDeviceLink,
+                            "text": classes.smallDeviceText,
+                            "linkWrapper": classes.smallDeviceLinksInnerWrapper,
+                            "linkUnderline": classes.smallDeviceLinkUnderline,
+                        }}
+                    />
                 </div>
             </div>
         </header>
@@ -199,133 +196,129 @@ const useStyles = makeStyles<{
     linksHeight: number;
     buttonsWidth: number;
     titleWidth: number;
-}>()(
-    (
-        theme,
-        { headerHeight, isMenuUnfolded, linksHeight, buttonsWidth, titleWidth },
-    ) => {
-        const isCollapsibleMenu =
-            buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
-                theme.windowInnerWidth - titleWidth ||
-            theme.windowInnerWidth < breakpointsValues.sm;
+}>()((theme, { isMenuUnfolded, linksHeight, buttonsWidth, titleWidth }) => {
+    const isCollapsibleMenu =
+        buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
+            theme.windowInnerWidth - titleWidth ||
+        theme.windowInnerWidth < breakpointsValues.sm;
 
-        return {
-            "root": {
-                ...theme.spacing.rightLeft(
-                    "padding",
-                    `${theme.paddingRightLeft}px`,
-                ),
-                "position": "relative",
-            },
-            "headerInner": {
-                "display": "flex",
-                "justifyContent": "space-between",
-                "alignItems": "center",
-                "position": "relative",
-            },
-            "unfoldIcon": {
-                "display": "none",
-                "pointerEvents": "none",
-                ...(isCollapsibleMenu
-                    ? {
-                          "display": "block",
-                          "pointerEvents": "unset",
-                      }
-                    : {}),
-                "marginLeft": theme.spacing(2),
-            },
-            "smallDeviceLinksWrapper": {
-                "position": "absolute",
-                "backgroundColor": theme.colors.useCases.surfaces.background,
-                "left": -theme.paddingRightLeft,
-                "top": headerHeight + theme.spacing(3),
-                "width": window.innerWidth,
-                "opacity": 0,
-                "height": 0,
-                "overflow": "hidden",
-                "pointerEvents": "none",
-                "display": "flex",
-                "flexDirection": "column",
-                "alignItems": "flex-start",
-                "justifyContent": "center",
-                "transition": "height 300ms, border-top-color 300ms",
-                ...theme.spacing.rightLeft(
-                    "padding",
-                    `${theme.paddingRightLeft}px`,
-                ),
-                ...(isCollapsibleMenu
-                    ? {
-                          "borderTop": isMenuUnfolded
-                              ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
-                              : undefined,
-                          "height": isMenuUnfolded ? linksHeight : 0,
-                          "opacity": 0.94,
-                          "pointerEvents": "unset",
-                      }
-                    : {}),
-            },
+    return {
+        "root": {
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+            "position": "relative",
+        },
+        "headerInner": {
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "position": "relative",
+        },
+        "unfoldIcon": {
+            "display": "none",
+            "pointerEvents": "none",
+            ...(isCollapsibleMenu
+                ? {
+                      "display": "block",
+                      "pointerEvents": "unset",
+                  }
+                : {}),
+            "marginLeft": theme.spacing(2),
+        },
+        "smallDeviceLinksWrapper": {
+            "position": "relative",
+            "left": -theme.paddingRightLeft,
+            "top": theme.spacing(3),
+            "width": window.innerWidth,
+            "opacity": 0,
+            "height": 0,
+            "overflow": "hidden",
+            "pointerEvents": "none",
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "justifyContent": "center",
+            "transition": "height 200ms, border-top-color 200ms",
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+            ...(isCollapsibleMenu
+                ? {
+                      "borderTop": isMenuUnfolded
+                          ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
+                          : undefined,
+                      "height": isMenuUnfolded ? linksHeight : 0,
+                      "opacity": 0.94,
+                      "pointerEvents": "unset",
+                  }
+                : {}),
+        },
 
-            "smallDeviceLinksInnerWrapper": {
-                ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
-            },
+        "smallDeviceLinksInnerWrapper": {
+            ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
+        },
 
-            "smallDeviceLinks": {
-                "flexDirection": "column",
-                "display": "flex",
-                ...(isCollapsibleMenu
-                    ? {
-                          "opacity": 1,
-                          "pointerEvents": "unset",
-                      }
-                    : {}),
-            },
+        "smallDeviceLinks": {
+            "flexDirection": "column",
+            "display": "flex",
+            ...(isCollapsibleMenu
+                ? {
+                      "opacity": 1,
+                      "pointerEvents": "unset",
+                  }
+                : {}),
+        },
 
-            "darkModeSwitch": {
-                ...(theme.windowInnerWidth < breakpointsValues.md
-                    ? {
-                          ...theme.spacing.rightLeft(
-                              "margin",
-                              `${theme.spacing(2)}px`,
-                          ),
-                      }
-                    : {}),
-            },
-            "buttonAndLinkWrapper": {
-                "position": "absolute",
-                "right": 0,
-                "display": "flex",
-                "alignItems": "center",
-            },
-            "githubStar": {
-                ...(theme.windowInnerWidth >= breakpointsValues.md
-                    ? {
-                          "paddingRight": theme.spacing(2),
-                      }
-                    : {}),
-            },
-            "links": {
-                ...(() => {
-                    if (isCollapsibleMenu) {
-                        return {
-                            "opacity": 0,
-                            "pointerEvents": "none",
-                        };
-                    }
-                })(),
-            },
-            "title": {},
-            "text": {},
-            "linkWrapper": {},
-            "linkUnderline": {},
-            "smallDeviceText": {},
-            "smallDeviceLink": {
-                "margin": 0,
-            },
-            "smallDeviceLinkUnderline": {},
-            "darkModeSwitchWrapper": {},
-        };
-    },
-);
+        "darkModeSwitch": {
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      ...theme.spacing.rightLeft(
+                          "margin",
+                          `${theme.spacing(2)}px`,
+                      ),
+                  }
+                : {}),
+        },
+        "buttonAndLinkWrapper": {
+            "position": "absolute",
+            "right": 0,
+            "display": "flex",
+            "alignItems": "center",
+        },
+        "githubStar": {
+            ...(theme.windowInnerWidth >= breakpointsValues.md
+                ? {
+                      "paddingRight": theme.spacing(2),
+                  }
+                : {}),
+        },
+        "links": {
+            ...(() => {
+                if (isCollapsibleMenu) {
+                    return {
+                        "opacity": 0,
+                        "pointerEvents": "none",
+                    };
+                }
+            })(),
+        },
+        "title": {},
+        "text": {},
+        "linkWrapper": {},
+        "linkUnderline": {},
+        "smallDeviceText": {},
+        "smallDeviceLink": {
+            "margin": 0,
+        },
+        "smallDeviceLinkUnderline": {
+            "left": isCollapsibleMenu ? theme.spacing(2) : undefined,
+        },
+        "darkModeSwitchWrapper": {},
+    };
+});
 
 const { Links } = (() => {
     type LinksProps = {
@@ -387,11 +380,23 @@ const { Link } = (() => {
 
     const Link = memo((props: LinkProps) => {
         const { href, label, onClick, className } = props;
-        let { classes, cx } = useStyles();
+        const ref = useRef<HTMLDivElement>(null);
+        const [elementWidth, setElementWidth] = useState(0);
+
+        useEffect(() => {
+            if (!ref.current) {
+                return;
+            }
+
+            setElementWidth(ref.current.clientWidth);
+        }, [ref.current?.clientWidth]);
+
+        let { classes, cx } = useStyles({ elementWidth });
         classes = useMergedClasses(classes, props.classes);
 
         return (
             <div
+                ref={ref}
                 onClick={onClick ?? (() => (window.location.href = href))}
                 className={cx(classes.root, className)}
             >
@@ -403,8 +408,8 @@ const { Link } = (() => {
         );
     });
 
-    const useStyles = makeStyles<void, "underline">()(
-        (theme, _params, classes) => {
+    const useStyles = makeStyles<{ elementWidth: number }, "underline">()(
+        (theme, { elementWidth }, classes) => {
             return {
                 "root": {
                     "display": "flex",
@@ -418,29 +423,12 @@ const { Link } = (() => {
                         "cursor": "pointer",
                     },
                     [`&:hover .${classes.underline}`]: {
-                        "width": "110%",
-                        ...(theme.windowInnerWidth < breakpointsValues.md
-                            ? {
-                                  "width": "50%",
-                              }
-                            : {}),
+                        "width": elementWidth,
                     },
-                    ...(theme.windowInnerWidth < breakpointsValues.md
-                        ? {
-                              ...theme.spacing.topBottom(
-                                  "margin",
-                                  `${theme.spacing(3)}px`,
-                              ),
-                          }
-                        : {}),
                 },
                 "underline": {
                     "width": 0,
                     "position": "relative",
-                    "left":
-                        theme.windowInnerWidth >= breakpointsValues.md
-                            ? "-5%"
-                            : "25%",
                     "top": theme.spacing(1),
                     "height": 1,
                     "backgroundColor":
