@@ -13,13 +13,13 @@ import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import heroImage2 from "./assets/test-images/test2.png";
-import { Header } from "gitlanding/GlHeader2";
+import { GlHeader } from "gitlanding/GlHeader";
 
 function App() {
     return (
         <GlTemplate
             header={
-                <Header
+                <GlHeader
                     title="Title"
                     links={[
                         {
@@ -27,7 +27,7 @@ function App() {
                             "href": "https://example.com",
                         },
                         {
-                            "label": "link 2",
+                            "label": "le zizi dans la boubouche",
                             "href": "https://example.com",
                         },
                         {
