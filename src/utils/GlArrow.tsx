@@ -8,14 +8,11 @@ export type GlArrowProps = {
     className?: string;
     direction: "up" | "down" | "left" | "right";
     hasCircularBorder?: boolean;
-    link?: {
-        href: string;
-        onClick?: () => void;
-    };
+    onClick?: () => void;
 };
 
 export const GlArrow = memo((props: GlArrowProps) => {
-    const { className, link, direction, hasCircularBorder } = props;
+    const { className, direction, hasCircularBorder, onClick } = props;
 
     const { classes, cx } = useStyles({
         direction,
@@ -23,13 +20,7 @@ export const GlArrow = memo((props: GlArrowProps) => {
     });
 
     return (
-        <div
-            onClick={
-                link?.onClick ??
-                (() => (window.location.href = link?.href ?? "#"))
-            }
-            className={cx(classes.root, className)}
-        >
+        <div onClick={onClick} className={cx(classes.root, className)}>
             <ReactSVG src={downArrow} />
         </div>
     );

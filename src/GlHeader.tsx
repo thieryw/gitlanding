@@ -8,7 +8,7 @@ import { useDomRect } from "powerhooks/useDomRect";
 import { useConstCallback } from "powerhooks";
 import { useClickAway } from "powerhooks";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
-import { scrollableDivId } from "./GlTemplate";
+import { childrenWrapperId } from "./GlTemplate";
 import { Evt } from "evt";
 import { useMergedClasses } from "tss-react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
@@ -85,7 +85,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     useEffect(() => {
         const ctx = Evt.newCtx();
         const scrollableElement =
-            window.document.getElementById(scrollableDivId);
+            window.document.getElementById(childrenWrapperId);
         if (scrollableElement === null) {
             return;
         }

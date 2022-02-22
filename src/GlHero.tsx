@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useMemo, useEffect, useState } from "react";
+import { memo, useMemo, useEffect, useState, useRef } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -19,7 +19,7 @@ export type GlHeroProps = {
     className?: string;
     imageSrc?: string;
     imageSources?: ImageSource[];
-    linkToSectionBelowId?: string;
+    hasLinkToSectionBellow?: boolean;
     hasImageShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
@@ -30,7 +30,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         subTitle,
         className,
         imageSrc,
-        linkToSectionBelowId,
+        hasLinkToSectionBellow,
         hasImageShadow,
         imageSources,
     } = props;
@@ -40,6 +40,7 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
     const imageId = useMemo(() => "imageId", []);
+    const ref = useRef<HTMLElement>(null);
 
     const handleOnImageLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -128,6 +129,16 @@ export const GlHero = memo((props: GlHeroProps) => {
         setImageAspectRatio(image.clientWidth / image.clientHeight);
     }, [isImageLoaded]);
 
+    const onClick = useConstCallback(() => {
+        if (!ref.current) return;
+        console.log(ref.current.clientHeight);
+
+        window.scrollTo({
+            "behavior": "smooth",
+            "top": ref.current.clientHeight,
+        });
+    });
+
     let { classes, cx } = useStyles({
         "hasOnlyText": imageSrc === undefined,
         isImageLoaded,
@@ -137,7 +148,7 @@ export const GlHero = memo((props: GlHeroProps) => {
     classes = useMergedClasses(classes, props.classes);
 
     return (
-        <section className={cx(classes.root, className)}>
+        <section ref={ref} className={cx(classes.root, className)}>
             <div className={classes.textAndImageWrapper}>
                 {(title !== undefined || subTitle !== undefined) && (
                     <motion.div
@@ -183,15 +194,13 @@ export const GlHero = memo((props: GlHeroProps) => {
                     </motion.div>
                 )}
             </div>
-            {linkToSectionBelowId !== undefined && (
+            {hasLinkToSectionBellow !== undefined && (
                 <div className={classes.linkToSectionBelowWrapper}>
                     <GlArrow
+                        onClick={onClick}
                         className={classes.arrow}
                         direction="down"
                         hasCircularBorder={true}
-                        link={{
-                            "href": `#${linkToSectionBelowId}`,
-                        }}
                     />
                 </div>
             )}
