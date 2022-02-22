@@ -13,10 +13,10 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 const props: GlHeroProps = {
-    "linkToSectionBelowId": "sectionBelow",
     "imageSrc": heroImgSrc,
     "title": "Hero Title",
     "subTitle": "Hero Subtitle",
+    "hasLinkToSectionBellow": true,
 };
 
 export const Vue = getStory({
