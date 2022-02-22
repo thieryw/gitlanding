@@ -6,7 +6,7 @@ import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { useDomRect } from "onyxia-ui";
-import { useElementEvt } from "evt/hooks";
+import { useEvt } from "evt/hooks";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
@@ -15,7 +15,7 @@ import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 
 disableEmotionWarnings();
 
-export const scrollableDivId = "GlScrollable";
+export const childrenWrapperId = "GlChildren";
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 
 export namespace HeaderOptions {
@@ -29,8 +29,6 @@ export namespace HeaderOptions {
         position: "top of page";
         /** Default false */
         isRetracted?: boolean;
-        /** Default false */
-        doDelegateScroll?: boolean;
     };
 }
 
@@ -86,8 +84,6 @@ const GlTemplateInner = memo(
                     return {
                         ...headerOptions,
                         "isRetracted": headerOptions.isRetracted ?? false,
-                        "doDelegateScroll":
-                            headerOptions.doDelegateScroll ?? false,
                     };
             }
         })();
@@ -115,27 +111,24 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        useElementEvt(
-            ({ ctx, element }) => {
+        useEvt(
+            ctx => {
                 if (headerOptions.isRetracted !== "smart") {
                     return;
                 }
 
                 let previousScrollTop = 0;
 
-                Evt.from(ctx, element, "scroll").attach(e => {
-                    const scrollTop = (e as any).target.scrollTop;
-
+                Evt.from(ctx, window, "scroll").attach(() => {
                     setIsSmartHeaderVisible(
-                        scrollTop < previousScrollTop
+                        window.scrollY < previousScrollTop
                             ? true
-                            : scrollTop <= headerHeight,
+                            : window.scrollY <= headerHeight,
                     );
 
-                    previousScrollTop = scrollTop;
+                    previousScrollTop = window.scrollY;
                 });
             },
-            childrenWrapperRef,
             [headerHeight, headerOptions.isRetracted],
         );
 
@@ -147,10 +140,6 @@ const GlTemplateInner = memo(
                     ? !isSmartHeaderVisible
                     : headerOptions.isRetracted,
             "headerPosition": headerOptions.position,
-            "doDelegateScroll":
-                headerOptions.position === "fixed"
-                    ? false
-                    : headerOptions.doDelegateScroll,
         });
 
         classes = useMergedClasses(classes, classesProp);
@@ -163,12 +152,7 @@ const GlTemplateInner = memo(
                 <div
                     className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
-                    id={
-                        headerOptions.position === "top of page" &&
-                        headerOptions.doDelegateScroll
-                            ? undefined
-                            : scrollableDivId
-                    }
+                    id={childrenWrapperId}
                 >
                     {children}
                     {hasTopOfPageLinkButton && <GlLinkToTop />}
@@ -217,44 +201,24 @@ const useStyles = makeStyles<{
     rootWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: "fixed" | "top of page";
-    doDelegateScroll: boolean;
 }>({ "name": { GlTemplate } })(
-    (
-        theme,
-        {
-            headerHeight,
-            rootWidth,
-            isHeaderRetracted,
-            headerPosition,
-            doDelegateScroll,
-        },
-    ) => {
+    (theme, { headerHeight, rootWidth, isHeaderRetracted, headerPosition }) => {
         const paddingTopBottom = theme.spacing(3);
         const headerHeightPlusMargin = headerHeight + 2 * paddingTopBottom;
 
         return {
             "root": {
-                "height": "100%",
                 ...(() => {
-                    switch (headerPosition) {
-                        case "fixed":
-                            return {
-                                "visibility":
-                                    headerHeight === 0 || rootWidth === 0
-                                        ? "hidden"
-                                        : "visible",
-                            } as const;
-                        case "top of page":
-                            return doDelegateScroll
-                                ? ({
-                                      "display": "flex",
-                                      "flexDirection": "column",
-                                  } as const)
-                                : ({
-                                      "overflow": "auto",
-                                      "scrollBehavior": "smooth",
-                                  } as const);
+                    if (headerPosition !== "fixed") {
+                        return {};
                     }
+
+                    return {
+                        "visibility":
+                            headerHeight === 0 || rootWidth === 0
+                                ? "hidden"
+                                : "visible",
+                    };
                 })(),
             },
             "headerWrapper": {
@@ -333,22 +297,16 @@ const useStyles = makeStyles<{
                     `${theme.paddingRightLeft}px`,
                 ),
                 ...(() => {
-                    switch (headerPosition) {
-                        case "fixed":
-                            return {
-                                "height": "100%",
-                                "zIndex": 1,
-                                "overflowY": "auto",
-                                "scrollBehavior": "smooth",
-                            } as const;
-                        case "top of page":
-                            return doDelegateScroll
-                                ? ({
-                                      "flex": 1,
-                                      "overflow": "hidden",
-                                  } as const)
-                                : {};
+                    if (headerPosition !== "fixed") {
+                        return {};
                     }
+
+                    return {
+                        "height": "100%",
+                        "zIndex": 1,
+                        "overflowY": "auto",
+                        "scrollBehavior": "smooth",
+                    };
                 })(),
             },
         };
