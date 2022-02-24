@@ -218,6 +218,7 @@ const useStyles = makeStyles<{
             "position": "relative",
             "width": "100%",
             "paddingBottom": theme.spacing(7),
+            "overflowX": "hidden",
         },
         "arrow": {
             "cursor": "pointer",

@@ -15,7 +15,7 @@ import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 
 disableEmotionWarnings();
 
-export const childrenWrapperId = "GlChildren";
+export const childrenWrapperId = "GlChildrenWrapper";
 export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
 
 export namespace HeaderOptions {
@@ -278,7 +278,6 @@ const useStyles = makeStyles<{
             "childrenWrapper": {
                 "display": "flex",
                 "flexDirection": "column",
-                "overflowX": "hidden",
                 "& > :first-child": {
                     "position": "relative",
                     "paddingTop":
@@ -296,18 +295,7 @@ const useStyles = makeStyles<{
                     "padding",
                     `${theme.paddingRightLeft}px`,
                 ),
-                ...(() => {
-                    if (headerPosition !== "fixed") {
-                        return {};
-                    }
-
-                    return {
-                        "height": "100%",
-                        "zIndex": 1,
-                        "overflowY": "auto",
-                        "scrollBehavior": "smooth",
-                    };
-                })(),
+                "minHeight": window.innerHeight,
             },
         };
     },

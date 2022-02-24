@@ -199,7 +199,9 @@ const useStyles = makeStyles<{
     hasArticle: boolean;
 }>({ "name": { GlArticle } })(
     (theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
-        "root": {},
+        "root": {
+            "overflowX": "hidden",
+        },
         "contentWrapper": {
             "display": "flex",
             "flexDirection": (() => {
