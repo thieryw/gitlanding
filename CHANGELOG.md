@@ -1,3 +1,14 @@
+### **0.8.5** (2022-02-25)  
+  
+- update so that footer stick to bottom and position sticky usable  
+- test  
+- correct Components to go with refactored GlTemplate  
+- refactor GlTemplate to use native scroll  
+- update GlHero story  
+- update test/index  
+- GlHeader better with sexy underline  
+- Corrected animation bug width splash screen GlHero    
+  
 ### **0.8.4** (2022-02-09)  
   
 - apply new header  
