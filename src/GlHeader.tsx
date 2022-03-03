@@ -196,129 +196,139 @@ const useStyles = makeStyles<{
     linksHeight: number;
     buttonsWidth: number;
     titleWidth: number;
-}>()((theme, { isMenuUnfolded, linksHeight, buttonsWidth, titleWidth }) => {
-    const isCollapsibleMenu =
-        buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
-            theme.windowInnerWidth - titleWidth ||
-        theme.windowInnerWidth < breakpointsValues.sm;
+}>()(
+    (
+        theme,
+        { isMenuUnfolded, linksHeight, buttonsWidth, titleWidth, headerHeight },
+    ) => {
+        const isCollapsibleMenu =
+            buttonsWidth + theme.spacing(9) + theme.paddingRightLeft * 2 >
+                theme.windowInnerWidth - titleWidth ||
+            theme.windowInnerWidth < breakpointsValues.sm;
 
-    return {
-        "root": {
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-            "position": "relative",
-        },
-        "headerInner": {
-            "display": "flex",
-            "justifyContent": "space-between",
-            "alignItems": "center",
-            "position": "relative",
-        },
-        "unfoldIcon": {
-            "display": "none",
-            "pointerEvents": "none",
-            ...(isCollapsibleMenu
-                ? {
-                      "display": "block",
-                      "pointerEvents": "unset",
-                  }
-                : {}),
-            "marginLeft": theme.spacing(2),
-        },
-        "smallDeviceLinksWrapper": {
-            "position": "relative",
-            "left": -theme.paddingRightLeft,
-            "top": theme.spacing(3),
-            "width": window.innerWidth,
-            "opacity": 0,
-            "height": 0,
-            "overflow": "hidden",
-            "pointerEvents": "none",
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "flex-start",
-            "justifyContent": "center",
-            "transition": "height 200ms, border-top-color 200ms",
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-            ...(isCollapsibleMenu
-                ? {
-                      "borderTop": isMenuUnfolded
-                          ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
-                          : undefined,
-                      "height": isMenuUnfolded ? linksHeight : 0,
-                      "opacity": 0.94,
-                      "pointerEvents": "unset",
-                  }
-                : {}),
-        },
+        const paddingTopBottom = theme.spacing(3);
 
-        "smallDeviceLinksInnerWrapper": {
-            ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
-        },
+        return {
+            "root": {
+                "padding": theme.spacing({
+                    "rightLeft": `${theme.paddingRightLeft}px`,
+                    "topBottom": `${paddingTopBottom}px`,
+                }),
 
-        "smallDeviceLinks": {
-            "flexDirection": "column",
-            "display": "flex",
-            ...(isCollapsibleMenu
-                ? {
-                      "opacity": 1,
-                      "pointerEvents": "unset",
-                  }
-                : {}),
-        },
+                "position": "relative",
+            },
+            "headerInner": {
+                "display": "flex",
+                "justifyContent": "space-between",
+                "alignItems": "center",
+                "position": "relative",
+            },
+            "unfoldIcon": {
+                "display": "none",
+                "pointerEvents": "none",
+                ...(isCollapsibleMenu
+                    ? {
+                          "display": "block",
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+                "marginLeft": theme.spacing(2),
+            },
+            "smallDeviceLinksWrapper": {
+                "position": "absolute",
+                //"left": -theme.paddingRightLeft,
+                "left": 0,
+                "backgroundColor": theme.colors.useCases.surfaces.background,
+                "top": headerHeight,
+                "width": window.innerWidth,
+                "opacity": 0,
+                "height": 0,
+                "overflow": "hidden",
+                "pointerEvents": "none",
+                "display": "flex",
+                "flexDirection": "column",
+                "alignItems": "flex-start",
+                "justifyContent": "center",
+                "transition": "height 350ms, border-top-color 200ms",
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
+                ...(isCollapsibleMenu
+                    ? {
+                          "borderTop": isMenuUnfolded
+                              ? `solid 1px ${theme.colors.useCases.typography.textSecondary}`
+                              : undefined,
+                          "height": isMenuUnfolded ? linksHeight : 0,
+                          "opacity": 0.94,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
 
-        "darkModeSwitch": {
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      ...theme.spacing.rightLeft(
-                          "margin",
-                          `${theme.spacing(2)}px`,
-                      ),
-                  }
-                : {}),
-        },
-        "buttonAndLinkWrapper": {
-            "position": "absolute",
-            "right": 0,
-            "display": "flex",
-            "alignItems": "center",
-        },
-        "githubStar": {
-            ...(theme.windowInnerWidth >= breakpointsValues.md
-                ? {
-                      "paddingRight": theme.spacing(2),
-                  }
-                : {}),
-        },
-        "links": {
-            ...(() => {
-                if (isCollapsibleMenu) {
-                    return {
-                        "opacity": 0,
-                        "pointerEvents": "none",
-                    };
-                }
-            })(),
-        },
-        "title": {},
-        "text": {},
-        "linkWrapper": {},
-        "linkUnderline": {},
-        "smallDeviceText": {},
-        "smallDeviceLink": {
-            "margin": 0,
-        },
-        "smallDeviceLinkUnderline": {
-            "left": isCollapsibleMenu ? theme.spacing(2) : undefined,
-        },
-        "darkModeSwitchWrapper": {},
-    };
-});
+            "smallDeviceLinksInnerWrapper": {
+                ...theme.spacing.topBottom("padding", `${theme.spacing(3)}px`),
+            },
+
+            "smallDeviceLinks": {
+                "flexDirection": "column",
+                "display": "flex",
+                ...(isCollapsibleMenu
+                    ? {
+                          "opacity": 1,
+                          "pointerEvents": "unset",
+                      }
+                    : {}),
+            },
+
+            "darkModeSwitch": {
+                ...(theme.windowInnerWidth < breakpointsValues.md
+                    ? {
+                          ...theme.spacing.rightLeft(
+                              "margin",
+                              `${theme.spacing(2)}px`,
+                          ),
+                      }
+                    : {}),
+            },
+            "buttonAndLinkWrapper": {
+                "position": "absolute",
+                "right": 0,
+                "display": "flex",
+                "alignItems": "center",
+            },
+            "githubStar": {
+                ...(theme.windowInnerWidth >= breakpointsValues.md
+                    ? {
+                          "paddingRight": theme.spacing(2),
+                      }
+                    : {}),
+            },
+            "links": {
+                ...(() => {
+                    if (isCollapsibleMenu) {
+                        return {
+                            "opacity": 0,
+                            "pointerEvents": "none",
+                        };
+                    }
+                })(),
+            },
+            "title": {},
+            "text": {},
+            "linkWrapper": {},
+            "linkUnderline": {},
+            "smallDeviceText": {},
+            "smallDeviceLink": {
+                "margin": 0,
+            },
+            "smallDeviceLinkUnderline": {
+                "left": isCollapsibleMenu ? theme.spacing(2) : undefined,
+            },
+            "darkModeSwitchWrapper": {},
+        };
+    },
+);
 
 const { Links } = (() => {
     type LinksProps = {

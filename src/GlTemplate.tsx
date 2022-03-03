@@ -12,23 +12,31 @@ import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { useMergedClasses } from "tss-react";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
+import type { CSSObject } from "tss-react/types";
 
 disableEmotionWarnings();
 
 export const childrenWrapperId = "GlChildrenWrapper";
-export type HeaderOptions = HeaderOptions.Fixed | HeaderOptions.TopOfPage;
+
+export type HeaderOptions =
+    | HeaderOptions.Fixed
+    | HeaderOptions.TopOfPage
+    | HeaderOptions.Sticky;
 
 export namespace HeaderOptions {
     export type Fixed = {
         position: "fixed";
-        /** Default false */
         isRetracted?: boolean | "smart";
     };
 
     export type TopOfPage = {
         position: "top of page";
-        /** Default false */
         isRetracted?: boolean;
+    };
+
+    export type Sticky = {
+        position: "sticky";
+        isRetracted?: boolean | "smart";
     };
 }
 
@@ -69,7 +77,7 @@ const GlTemplateInner = memo(
 
             if (headerOptions === undefined) {
                 return {
-                    "position": "fixed",
+                    "position": "top of page",
                     "isRetracted": false,
                 } as const;
             }
@@ -81,6 +89,11 @@ const GlTemplateInner = memo(
                         "isRetracted": headerOptions.isRetracted ?? false,
                     };
                 case "top of page":
+                    return {
+                        ...headerOptions,
+                        "isRetracted": headerOptions.isRetracted ?? false,
+                    };
+                case "sticky":
                     return {
                         ...headerOptions,
                         "isRetracted": headerOptions.isRetracted ?? false,
@@ -110,6 +123,22 @@ const GlTemplateInner = memo(
         } = useDomRect();
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
+
+        /*const { headerHeightPermanent } = (function useClosure() {
+
+            const [headerHeightPermanent, setHeaderHeightPermanent] = useState(0);
+            useEffect(()=>{
+                if(headerHeightPermanent !== 0){
+                    return;
+                }
+
+                setHeaderHeightPermanent(headerHeight);
+
+            }, [headerHeightPermanent, headerHeight ]);
+            return {
+                headerHeightPermanent
+            }
+        })();*/
 
         useEvt(
             ctx => {
@@ -147,7 +176,9 @@ const GlTemplateInner = memo(
         return (
             <div className={cx(classes.root, className)}>
                 <div className={classes.headerWrapper}>
-                    <div ref={headerWrapperRef}>{header}</div>
+                    <div className={classes.headerInner} ref={headerWrapperRef}>
+                        {header}
+                    </div>
                 </div>
                 <div
                     className={classes.childrenWrapper}
@@ -200,15 +231,15 @@ const useStyles = makeStyles<{
     headerHeight: number;
     rootWidth: number;
     isHeaderRetracted: boolean;
-    headerPosition: "fixed" | "top of page";
+    headerPosition: Required<HeaderOptions>["position"];
 }>({ "name": { GlTemplate } })(
     (theme, { headerHeight, rootWidth, isHeaderRetracted, headerPosition }) => {
-        const paddingTopBottom = theme.spacing(3);
-        const headerHeightPlusMargin = headerHeight + 2 * paddingTopBottom;
+        //const paddingTopBottom = theme.spacing(3);
+        //const headerHeightPlusPadding = headerHeight + 2 * paddingTopBottom;
 
         return {
             "root": {
-                ...(() => {
+                /*...(() => {
                     if (headerPosition !== "fixed") {
                         return {};
                     }
@@ -219,53 +250,50 @@ const useStyles = makeStyles<{
                                 ? "hidden"
                                 : "visible",
                     };
-                })(),
+                })(),*/
             },
+            "headerInner": {},
             "headerWrapper": {
-                ...theme.spacing.topBottom("padding", `${paddingTopBottom}px`),
                 ...(() => {
+                    let out: CSSObject = {};
+                    if (
+                        headerPosition === "fixed" ||
+                        headerPosition === "sticky"
+                    ) {
+                        out = {
+                            "zIndex": 1000,
+                            "width": rootWidth,
+                            "backgroundColor": changeColorOpacity({
+                                "color":
+                                    theme.colors.useCases.surfaces.background,
+                                "opacity": 0.94,
+                            }),
+                            "top": !isHeaderRetracted ? 0 : -headerHeight,
+                            "transition": "top 350ms",
+                        };
+                    }
                     switch (headerPosition) {
                         case "fixed":
-                            return {
-                                "zIndex": 1000,
+                            out = {
+                                ...out,
                                 "position": "fixed",
-                                "width": rootWidth,
-                                "transition": "top 350ms",
-                                "top": !isHeaderRetracted
-                                    ? 0
-                                    : -headerHeightPlusMargin,
-                                "backgroundColor": changeColorOpacity({
-                                    "color":
-                                        theme.colors.useCases.surfaces
-                                            .background,
-                                    "opacity": 0.94,
-                                }),
-                            } as const;
+                            };
+                            break;
+                        case "sticky":
+                            out = {
+                                ...out,
+                                "position": "sticky",
+                                //"overflow": "hidden",
+                                "pointerEvents": isHeaderRetracted
+                                    ? "none"
+                                    : undefined,
+                            };
+                            break;
                         case "top of page":
-                            return {
-                                ...(() => {
-                                    const height =
-                                        headerHeight === 0
-                                            ? undefined
-                                            : isHeaderRetracted
-                                            ? 0
-                                            : headerHeightPlusMargin;
-
-                                    return {
-                                        height,
-                                        ...(height !== 0
-                                            ? {}
-                                            : {
-                                                  "paddingBottom": 0,
-                                              }),
-                                    };
-                                })(),
-                                "overflow": "hidden",
-                                "transition": ["height", "padding"]
-                                    .map(prop => `${prop} 250ms`)
-                                    .join(", "),
-                            } as const;
+                            return {};
                     }
+
+                    return out;
                 })(),
             },
 
@@ -281,9 +309,7 @@ const useStyles = makeStyles<{
                 "& > :first-child": {
                     "position": "relative",
                     "paddingTop":
-                        headerPosition === "fixed"
-                            ? headerHeightPlusMargin
-                            : undefined,
+                        headerPosition === "fixed" ? headerHeight : undefined,
                     "width": rootWidth,
                     "left": -theme.paddingRightLeft,
                     ...theme.spacing.rightLeft(
