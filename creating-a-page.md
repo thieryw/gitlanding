@@ -10,7 +10,7 @@ Now you are going yo actually create yout landing page! 🚀&#x20;
 First install GitLanding and it's peer dependencies.
 
 ```
-yarn add gitlanding onyxia-ui @mui/material @emotion/react @emotion/styled tss-react
+yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-ui
 ```
 
 Then copyand  paste the the following skeletton in `src/index.tsx`,  run `yarn start` and start hacking around!
