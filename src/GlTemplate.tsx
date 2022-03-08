@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
@@ -6,17 +6,16 @@ import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { useDomRect } from "onyxia-ui";
-import { useEvt } from "evt/hooks";
+import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { useMergedClasses } from "tss-react";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 disableEmotionWarnings();
-
-export const childrenWrapperId = "GlChildrenWrapper";
 
 export type HeaderOptions =
     | HeaderOptions.Fixed
@@ -43,6 +42,7 @@ export namespace HeaderOptions {
 export type GlTemplateProps = {
     header?: ReactNode;
     footer?: ReactNode;
+    doDelegateScroll?: boolean;
     SplashScreenLogo?: ComponentType<{ className: string }>;
     splashScreenLogoFillColor?: string;
     children: ReactNode;
@@ -70,7 +70,24 @@ const GlTemplateInner = memo(
             className,
             classes: classesProp,
             hasTopOfPageLinkButton,
+            doDelegateScroll,
         } = props;
+
+        const rootRef = useRef<HTMLDivElement>(null);
+        const [scrollableElement, setScrollableElement] = useState<
+            HTMLElement | undefined
+        >(undefined);
+
+        useEffect(() => {
+            if (!rootRef.current) return;
+
+            if (doDelegateScroll) {
+                setScrollableElement(getScrollableParent(rootRef.current));
+                return;
+            }
+
+            setScrollableElement(rootRef.current);
+        }, [rootRef.current]);
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -124,38 +141,25 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        /*const { headerHeightPermanent } = (function useClosure() {
-
-            const [headerHeightPermanent, setHeaderHeightPermanent] = useState(0);
-            useEffect(()=>{
-                if(headerHeightPermanent !== 0){
-                    return;
-                }
-
-                setHeaderHeightPermanent(headerHeight);
-
-            }, [headerHeightPermanent, headerHeight ]);
-            return {
-                headerHeightPermanent
-            }
-        })();*/
-
         useEvt(
             ctx => {
-                if (headerOptions.isRetracted !== "smart") {
+                if (
+                    headerOptions.isRetracted !== "smart" ||
+                    scrollableElement === undefined
+                ) {
                     return;
                 }
 
                 let previousScrollTop = 0;
 
-                Evt.from(ctx, window, "scroll").attach(() => {
+                Evt.from(ctx, scrollableElement, "scroll").attach(() => {
                     setIsSmartHeaderVisible(
-                        window.scrollY < previousScrollTop
+                        scrollableElement.scrollTop < previousScrollTop
                             ? true
-                            : window.scrollY <= headerHeight,
+                            : scrollableElement.scrollTop <= headerHeight,
                     );
 
-                    previousScrollTop = window.scrollY;
+                    previousScrollTop = scrollableElement.scrollTop;
                 });
             },
             [headerHeight, headerOptions.isRetracted],
@@ -169,21 +173,23 @@ const GlTemplateInner = memo(
                     ? !isSmartHeaderVisible
                     : headerOptions.isRetracted,
             "headerPosition": headerOptions.position,
+            "doDelegateScroll": doDelegateScroll ?? false,
         });
 
         classes = useMergedClasses(classes, classesProp);
 
         return (
-            <div className={cx(classes.root, className)}>
+            <div
+                ref={rootRef}
+                className={cx(classes.root, className)}
+                tabIndex={-1}
+            >
                 <div className={classes.headerWrapper}>
-                    <div className={classes.headerInner} ref={headerWrapperRef}>
-                        {header}
-                    </div>
+                    <div ref={headerWrapperRef}>{header}</div>
                 </div>
                 <div
                     className={classes.childrenWrapper}
                     ref={childrenWrapperRef}
-                    id={childrenWrapperId}
                 >
                     {children}
                     {hasTopOfPageLinkButton && <GlLinkToTop />}
@@ -232,36 +238,34 @@ const useStyles = makeStyles<{
     rootWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: Required<HeaderOptions>["position"];
+    doDelegateScroll: boolean;
 }>({ "name": { GlTemplate } })(
-    (theme, { headerHeight, rootWidth, isHeaderRetracted, headerPosition }) => {
-        //const paddingTopBottom = theme.spacing(3);
-        //const headerHeightPlusPadding = headerHeight + 2 * paddingTopBottom;
-
+    (
+        theme,
+        {
+            headerHeight,
+            rootWidth,
+            isHeaderRetracted,
+            headerPosition,
+            doDelegateScroll,
+        },
+    ) => {
         return {
             "root": {
-                /*...(() => {
-                    if (headerPosition !== "fixed") {
-                        return {};
-                    }
-
-                    return {
-                        "visibility":
-                            headerHeight === 0 || rootWidth === 0
-                                ? "hidden"
-                                : "visible",
-                    };
-                })(),*/
+                "height": "100%",
+                "overflow": doDelegateScroll ? "hidden" : "auto",
             },
-            "headerInner": {},
             "headerWrapper": {
                 ...(() => {
-                    let out: CSSObject = {};
+                    let out: CSSObject = {
+                        "zIndex": 4,
+                    };
                     if (
                         headerPosition === "fixed" ||
                         headerPosition === "sticky"
                     ) {
                         out = {
-                            "zIndex": 1000,
+                            ...out,
                             "width": rootWidth,
                             "backgroundColor": changeColorOpacity({
                                 "color":
@@ -283,7 +287,6 @@ const useStyles = makeStyles<{
                             out = {
                                 ...out,
                                 "position": "sticky",
-                                //"overflow": "hidden",
                                 "pointerEvents": isHeaderRetracted
                                     ? "none"
                                     : undefined,
