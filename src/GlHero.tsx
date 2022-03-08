@@ -12,6 +12,7 @@ import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useMergedClasses } from "tss-react";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 export type GlHeroProps = {
     title?: string;
@@ -39,8 +40,17 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
+    const [scrollableElement, setScrollableElement] = useState<
+        HTMLElement | undefined
+    >(undefined);
     const imageId = useMemo(() => "imageId", []);
     const ref = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        if (!ref.current) return;
+
+        setScrollableElement(getScrollableParent(ref.current));
+    }, [ref.current]);
 
     const handleOnImageLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -130,10 +140,9 @@ export const GlHero = memo((props: GlHeroProps) => {
     }, [isImageLoaded]);
 
     const onClick = useConstCallback(() => {
-        if (!ref.current) return;
-        console.log(ref.current.clientHeight);
+        if (!ref.current || scrollableElement === undefined) return;
 
-        window.scrollTo({
+        scrollableElement.scrollTo({
             "behavior": "smooth",
             "top": ref.current.clientHeight,
         });
