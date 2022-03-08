@@ -8,10 +8,11 @@ import { useDomRect } from "powerhooks/useDomRect";
 import { useConstCallback } from "powerhooks";
 import { useClickAway } from "powerhooks";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
-import { childrenWrapperId } from "./GlTemplate";
 import { Evt } from "evt";
+import { useEvt } from "evt/hooks/useEvt";
 import { useMergedClasses } from "tss-react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 export type GlHeaderProps = {
     links: {
@@ -46,6 +47,9 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     } = props;
 
     const [isMenuUnfolded, setIsMenuUnfolded] = useState(false);
+    const [scrollableElement, setScrollableElement] = useState<
+        HTMLElement | undefined
+    >(undefined);
 
     const {
         domRect: { height: headerHeight },
@@ -63,6 +67,12 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const [titleWidth, setTitleWidth] = useState(0);
 
     useEffect(() => {
+        if (!headerRef.current) return;
+
+        setScrollableElement(getScrollableParent(headerRef.current));
+    }, [headerRef.current]);
+
+    useEffect(() => {
         if (!titleRef.current || !linksRef.current) {
             return;
         }
@@ -71,30 +81,33 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setTitleWidth(titleRef.current.clientWidth);
     }, [titleRef.current?.clientWidth, linksRef.current?.clientWidth]);
 
-    const { rootRef } = useClickAway(() => {
-        if (!isMenuUnfolded) {
-            return;
-        }
-        setIsMenuUnfolded(false);
+    const { ref } = useClickAway({
+        "onClickAway": () => {
+            if (!isMenuUnfolded) {
+                return;
+            }
+            setIsMenuUnfolded(false);
+        },
     });
 
     const toggleMenu = useConstCallback(() => {
         setIsMenuUnfolded(!isMenuUnfolded);
     });
 
-    useEffect(() => {
-        const ctx = Evt.newCtx();
-        const scrollableElement =
-            window.document.getElementById(childrenWrapperId);
-        if (scrollableElement === null) {
-            return;
-        }
-        Evt.from(ctx, scrollableElement, "scroll").attach(() => {
-            if (headerHeight < scrollableElement.scrollTop) {
-                setIsMenuUnfolded(false);
+    useEvt(
+        ctx => {
+            if (scrollableElement === undefined) {
+                return;
             }
-        });
-    }, [headerHeight]);
+
+            Evt.from(ctx, scrollableElement, "scroll").attach(() => {
+                if (headerHeight < scrollableElement.scrollTop) {
+                    setIsMenuUnfolded(false);
+                }
+            });
+        },
+        [headerHeight],
+    );
 
     let { classes, cx, theme } = useStyles({
         headerHeight,
@@ -108,7 +121,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
 
     return (
         <header className={cx(classes.root, className)} ref={headerRef}>
-            <div ref={rootRef} className={classes.headerInner}>
+            <div ref={ref} className={classes.headerInner}>
                 <div ref={titleRef} className={classes.title}>
                     {typeof title === "string" ? (
                         <Text typo="subtitle">{title}</Text>
@@ -236,7 +249,6 @@ const useStyles = makeStyles<{
             },
             "smallDeviceLinksWrapper": {
                 "position": "absolute",
-                //"left": -theme.paddingRightLeft,
                 "left": 0,
                 "backgroundColor": theme.colors.useCases.surfaces.background,
                 "top": headerHeight,
@@ -372,9 +384,10 @@ const { Links } = (() => {
         },
         "linkWrapper": {
             "display": "flex",
+        },
+        "text": {
             "cursor": "pointer",
         },
-        "text": {},
         "linkUnderline": {},
         "link": {},
     });
