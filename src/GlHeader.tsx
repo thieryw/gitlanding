@@ -12,7 +12,7 @@ import { Evt } from "evt";
 import { useEvt } from "evt/hooks/useEvt";
 import { useMergedClasses } from "tss-react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
-import { getScrollableParent } from "powerhooks/getScrollableParent";
+import { useGetScrollableParent } from "./tools/useGetScrollableParent";
 
 export type GlHeaderProps = {
     links: {
@@ -47,9 +47,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     } = props;
 
     const [isMenuUnfolded, setIsMenuUnfolded] = useState(false);
-    const [scrollableElement, setScrollableElement] = useState<
-        HTMLElement | undefined
-    >(undefined);
 
     const {
         domRect: { height: headerHeight },
@@ -66,11 +63,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const [buttonsWidth, setButtonsWidth] = useState(0);
     const [titleWidth, setTitleWidth] = useState(0);
 
-    useEffect(() => {
-        if (!headerRef.current) return;
-
-        setScrollableElement(getScrollableParent(headerRef.current));
-    }, [headerRef.current]);
+    const { scrollableParent } = useGetScrollableParent({ "ref": headerRef });
 
     useEffect(() => {
         if (!titleRef.current || !linksRef.current) {
@@ -96,12 +89,12 @@ export const GlHeader = memo((props: GlHeaderProps) => {
 
     useEvt(
         ctx => {
-            if (scrollableElement === undefined) {
+            if (scrollableParent === undefined) {
                 return;
             }
 
-            Evt.from(ctx, scrollableElement, "scroll").attach(() => {
-                if (headerHeight < scrollableElement.scrollTop) {
+            Evt.from(ctx, scrollableParent, "scroll").attach(() => {
+                if (headerHeight < scrollableParent.scrollTop) {
                     setIsMenuUnfolded(false);
                 }
             });

@@ -13,7 +13,6 @@ import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { useMergedClasses } from "tss-react";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
-import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 disableEmotionWarnings();
 
@@ -42,7 +41,6 @@ export namespace HeaderOptions {
 export type GlTemplateProps = {
     header?: ReactNode;
     footer?: ReactNode;
-    doDelegateScroll?: boolean;
     SplashScreenLogo?: ComponentType<{ className: string }>;
     splashScreenLogoFillColor?: string;
     children: ReactNode;
@@ -70,24 +68,9 @@ const GlTemplateInner = memo(
             className,
             classes: classesProp,
             hasTopOfPageLinkButton,
-            doDelegateScroll,
         } = props;
 
         const rootRef = useRef<HTMLDivElement>(null);
-        const [scrollableElement, setScrollableElement] = useState<
-            HTMLElement | undefined
-        >(undefined);
-
-        useEffect(() => {
-            if (!rootRef.current) return;
-
-            if (doDelegateScroll) {
-                setScrollableElement(getScrollableParent(rootRef.current));
-                return;
-            }
-
-            setScrollableElement(rootRef.current);
-        }, [rootRef.current]);
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -143,23 +126,22 @@ const GlTemplateInner = memo(
 
         useEvt(
             ctx => {
-                if (
-                    headerOptions.isRetracted !== "smart" ||
-                    scrollableElement === undefined
-                ) {
+                if (headerOptions.isRetracted !== "smart" || !rootRef.current) {
                     return;
                 }
 
                 let previousScrollTop = 0;
 
-                Evt.from(ctx, scrollableElement, "scroll").attach(() => {
+                Evt.from(ctx, rootRef.current, "scroll").attach(() => {
+                    if (!rootRef.current) return;
+                    const scrollTop = rootRef.current?.scrollTop;
                     setIsSmartHeaderVisible(
-                        scrollableElement.scrollTop < previousScrollTop
+                        scrollTop < previousScrollTop
                             ? true
-                            : scrollableElement.scrollTop <= headerHeight,
+                            : scrollTop <= headerHeight,
                     );
 
-                    previousScrollTop = scrollableElement.scrollTop;
+                    previousScrollTop = scrollTop;
                 });
             },
             [headerHeight, headerOptions.isRetracted],
@@ -173,7 +155,6 @@ const GlTemplateInner = memo(
                     ? !isSmartHeaderVisible
                     : headerOptions.isRetracted,
             "headerPosition": headerOptions.position,
-            "doDelegateScroll": doDelegateScroll ?? false,
         });
 
         classes = useMergedClasses(classes, classesProp);
@@ -238,22 +219,12 @@ const useStyles = makeStyles<{
     rootWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: Required<HeaderOptions>["position"];
-    doDelegateScroll: boolean;
 }>({ "name": { GlTemplate } })(
-    (
-        theme,
-        {
-            headerHeight,
-            rootWidth,
-            isHeaderRetracted,
-            headerPosition,
-            doDelegateScroll,
-        },
-    ) => {
+    (theme, { headerHeight, rootWidth, isHeaderRetracted, headerPosition }) => {
         return {
             "root": {
                 "height": "100%",
-                "overflow": doDelegateScroll ? "hidden" : "auto",
+                "overflow": "auto",
             },
             "headerWrapper": {
                 ...(() => {

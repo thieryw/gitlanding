@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useMemo, useEffect, useState, useRef } from "react";
+import { memo, useMemo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -12,7 +12,7 @@ import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useMergedClasses } from "tss-react";
-import { getScrollableParent } from "powerhooks/getScrollableParent";
+import { useGetScrollableParent } from "./tools/useGetScrollableParent";
 
 export type GlHeroProps = {
     title?: string;
@@ -40,17 +40,9 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
-    const [scrollableElement, setScrollableElement] = useState<
-        HTMLElement | undefined
-    >(undefined);
     const imageId = useMemo(() => "imageId", []);
-    const ref = useRef<HTMLElement>(null);
 
-    useEffect(() => {
-        if (!ref.current) return;
-
-        setScrollableElement(getScrollableParent(ref.current));
-    }, [ref.current]);
+    const { ref, scrollableParent } = useGetScrollableParent();
 
     const handleOnImageLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -140,9 +132,9 @@ export const GlHero = memo((props: GlHeroProps) => {
     }, [isImageLoaded]);
 
     const onClick = useConstCallback(() => {
-        if (!ref.current || scrollableElement === undefined) return;
+        if (!ref.current || scrollableParent === undefined) return;
 
-        scrollableElement.scrollTo({
+        scrollableParent.scrollTo({
             "behavior": "smooth",
             "top": ref.current.clientHeight,
         });
