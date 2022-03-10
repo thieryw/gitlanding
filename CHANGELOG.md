@@ -1,3 +1,17 @@
+## **0.9.0** (2022-03-10)  
+  
+- merge sticky_header branch to main  
+- header corrections  
+- GlTemplate remove doDelegateScroll; GlHeader, GlHero and GlLinkToTop  refactor with useGetScrollableParent  
+- GlLinkToTop remove un necessary zIndex and use getScrollableParrent  
+- GlHero use getScrollabelParent  
+- GlHeader correct useClickAway and using getScrollableParent  
+- GlTemplate adding delegate scroll option and using getScrollableParent from powerhooks  
+- update dependencys  
+- tss-react and powerhooks are no longer modules that requires to be peer dependencies  
+- sticky positioning header  
+- Update ci.yaml    
+  
 ### **0.8.5** (2022-02-25)  
   
 - update so that footer stick to bottom and position sticky usable  
