@@ -114,7 +114,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
 
     return (
         <header className={cx(classes.root, className)} ref={headerRef}>
-            <div ref={ref} className={classes.headerInner}>
+            <div className={classes.headerInner}>
                 <div ref={titleRef} className={classes.title}>
                     {typeof title === "string" ? (
                         <Text typo="subtitle">{title}</Text>
@@ -175,7 +175,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     </div>
                 </div>
             </div>
-            <div className={classes.smallDeviceLinksWrapper}>
+            <div ref={ref} className={classes.smallDeviceLinksWrapper}>
                 <div
                     className={classes.smallDeviceLinksInnerWrapper}
                     ref={smallDeviceLinksRef}
@@ -212,15 +212,8 @@ const useStyles = makeStyles<{
                 theme.windowInnerWidth - titleWidth ||
             theme.windowInnerWidth < breakpointsValues.sm;
 
-        const paddingTopBottom = theme.spacing(3);
-
         return {
             "root": {
-                "padding": theme.spacing({
-                    "rightLeft": `${theme.paddingRightLeft}px`,
-                    "topBottom": `${paddingTopBottom}px`,
-                }),
-
                 "position": "relative",
             },
             "headerInner": {
@@ -241,10 +234,11 @@ const useStyles = makeStyles<{
                 "marginLeft": theme.spacing(2),
             },
             "smallDeviceLinksWrapper": {
+                "zIndex": 4,
                 "position": "absolute",
-                "left": 0,
+                "left": -theme.paddingRightLeft,
                 "backgroundColor": theme.colors.useCases.surfaces.background,
-                "top": headerHeight,
+                "top": headerHeight + theme.spacing(3),
                 "width": window.innerWidth,
                 "opacity": 0,
                 "height": 0,

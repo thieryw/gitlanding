@@ -165,8 +165,8 @@ const GlTemplateInner = memo(
                 className={cx(classes.root, className)}
                 tabIndex={-1}
             >
-                <div className={classes.headerWrapper}>
-                    <div ref={headerWrapperRef}>{header}</div>
+                <div ref={headerWrapperRef} className={classes.headerWrapper}>
+                    {header}
                 </div>
                 <div
                     className={classes.childrenWrapper}
@@ -227,6 +227,10 @@ const useStyles = makeStyles<{
                 "overflow": "auto",
             },
             "headerWrapper": {
+                "padding": theme.spacing({
+                    "rightLeft": `${theme.paddingRightLeft}px`,
+                    "topBottom": `${theme.spacing(3)}px`,
+                }),
                 ...(() => {
                     let out: CSSObject = {
                         "zIndex": 4,
