@@ -4,32 +4,46 @@ import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
+import { useGetScrollableParent } from "../tools/useGetScrollableParent";
 
 export const GlLinkToTop = memo(() => {
     const [isShown, setIsShown] = useState(false);
 
+    const { ref, scrollableParent } = useGetScrollableParent();
+
     const onClick = useConstCallback(() => {
-        window.scrollTo({
+        if (scrollableParent === undefined) {
+            return;
+        }
+        scrollableParent.scrollTo({
             "top": 0,
             "behavior": "smooth",
         });
     });
 
-    useEvt(ctx => {
-        Evt.from(ctx, window, "scroll").attach(() => {
-            if (window.scrollY / (window.innerHeight / 100) >= 70) {
-                setIsShown(true);
+    useEvt(
+        ctx => {
+            if (scrollableParent === undefined) {
                 return;
             }
 
-            setIsShown(false);
-        });
-    }, []);
+            Evt.from(ctx, scrollableParent, "scroll").attach(() => {
+                const scrollTop = (scrollableParent as HTMLElement).scrollTop;
+                if (scrollTop / (window.innerHeight / 100) >= 70) {
+                    setIsShown(true);
+                    return;
+                }
+
+                setIsShown(false);
+            });
+        },
+        [scrollableParent],
+    );
 
     const { classes } = useStyles({ isShown });
 
     return (
-        <div onClick={onClick} className={classes.root}>
+        <div ref={ref} onClick={onClick} className={classes.root}>
             <ArrowUpwardIcon />
         </div>
     );
@@ -49,7 +63,6 @@ const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
             "pointerEvents": isShown ? undefined : "none",
             "position": "fixed",
             "border": `solid ${theme.colors.useCases.typography.textPrimary} 3px`,
-            "zIndex": 9000,
             "top": "90%",
             "right": theme.paddingRightLeft,
             "cursor": "pointer",

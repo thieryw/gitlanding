@@ -47,13 +47,15 @@
     "keywords": [],
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
-        "@mui/material": "^5.0.3",
+        "@mui/material": "^5.5.0",
         "@types/react": "^16.8.0 || ^17.0.0",
-        "onyxia-ui": "^0.23.2",
-        "react": "^16.8.0 || ^17.0.0"
+        "onyxia-ui": "^0.30.2",
+        "powerhooks": "^0.14.0",
+        "react": "^16.8.0 || ^17.0.0",
+        "tss-react": "^3.5.2"
     },
     "dependencies": {
-        "@mui/icons-material": "^5.0.3",
+        "@mui/icons-material": "^5.5.0",
         "embla-carousel": "^4.1.5",
         "framer-motion": "^4.1.17",
         "react-code-blocks": "^0.0.8",
@@ -68,7 +70,7 @@
     "devDependencies": {
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.3.0",
-        "@mui/material": "^5.0.3",
+        "@mui/material": "^5.5.0",
         "@storybook/addon-actions": "^6.2.9",
         "@storybook/addon-docs": "^6.3.2",
         "@storybook/addon-essentials": "^6.2.9",
@@ -87,7 +89,8 @@
         "evt": "^2.0.0-beta.38",
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
-        "onyxia-ui": "^0.23.3",
+        "onyxia-ui": "^0.30.2",
+        "powerhooks": "^0.14.0",
         "prettier": "^2.2.1",
         "react": "^17.0.2",
         "react-code-blocks": "^0.0.8",
@@ -95,6 +98,7 @@
         "react-scripts": "4.0.3",
         "react-svg": "^13.0.4",
         "ts-node": "^10.4.0",
+        "tss-react": "^3.5.2",
         "typescript": "^4.5.4"
     },
     "resolutions": {

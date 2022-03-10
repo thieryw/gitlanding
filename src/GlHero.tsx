@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
-import { memo, useMemo, useEffect, useState, useRef } from "react";
+import { memo, useMemo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "./theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -12,6 +12,7 @@ import { GlArrow } from "./utils/GlArrow";
 import type { ImageSource } from "./tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useMergedClasses } from "tss-react";
+import { useGetScrollableParent } from "./tools/useGetScrollableParent";
 
 export type GlHeroProps = {
     title?: string;
@@ -40,7 +41,8 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
     const imageId = useMemo(() => "imageId", []);
-    const ref = useRef<HTMLElement>(null);
+
+    const { ref, scrollableParent } = useGetScrollableParent();
 
     const handleOnImageLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -130,10 +132,9 @@ export const GlHero = memo((props: GlHeroProps) => {
     }, [isImageLoaded]);
 
     const onClick = useConstCallback(() => {
-        if (!ref.current) return;
-        console.log(ref.current.clientHeight);
+        if (!ref.current || scrollableParent === undefined) return;
 
-        window.scrollTo({
+        scrollableParent.scrollTo({
             "behavior": "smooth",
             "top": ref.current.clientHeight,
         });
