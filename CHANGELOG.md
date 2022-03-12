@@ -1,3 +1,7 @@
+### **0.9.1** (2022-03-12)  
+  
+- correct hero animation probleme    
+  
 ## **0.9.0** (2022-03-10)  
   
 - merge sticky_header branch to main  
