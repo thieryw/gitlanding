@@ -39,7 +39,7 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
-    const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
+    //const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
     const imageId = useMemo(() => "imageId", []);
 
     const { ref, scrollableParent } = useGetScrollableParent();
@@ -107,7 +107,7 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            setIsSplashScreenShown(false);
+            //setIsSplashScreenShown(false);
             if (isImageLoaded && isAnimationComplete) {
                 animate();
             }
@@ -115,11 +115,11 @@ export const GlHero = memo((props: GlHeroProps) => {
     });
 
     useEffect(() => {
-        if (isSplashScreenShown || !isImageLoaded || isAnimationComplete) {
+        if (!isImageLoaded || isAnimationComplete) {
             return;
         }
         animate();
-    }, [isImageLoaded, isSplashScreenShown]);
+    }, [isImageLoaded]);
 
     useEffect(() => {
         const image = document.getElementById(imageId);
