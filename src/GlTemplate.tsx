@@ -288,7 +288,7 @@ const useStyles = makeStyles<{
                     "position": "relative",
                     "paddingTop":
                         headerPosition === "fixed" ? headerHeight : undefined,
-                    "width": rootWidth,
+                    "width": window.innerWidth,
                     "left": -theme.paddingRightLeft,
                     ...theme.spacing.rightLeft(
                         "padding",
