@@ -52,7 +52,7 @@ Websites using gitlanding.
 -   [Gitlanding.dev itself](https://www.gitlanding.dev/)
 -   [SSPCloud.fr](https://www.sspcloud.fr)
 -   [tsafe.dev](https://www.tsafe.dev/)
--   [powerhooks.dev](https://www.powerhooks.dev/)
+-   [tss-react.dev](https://www.tss-react.dev/)
 
 https://user-images.githubusercontent.com/6702424/148715912-64485db0-ae26-474f-a6ce-b9a142a419e0.mp4
 
