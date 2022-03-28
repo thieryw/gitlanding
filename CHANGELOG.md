@@ -1,3 +1,8 @@
+### **0.9.3** (2022-03-28)  
+  
+- update GlLinkToTop  
+- update readme    
+  
 ### **0.9.2** (2022-03-20)  
   
 - GlTemplate first-child css correction    
