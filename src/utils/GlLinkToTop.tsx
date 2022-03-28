@@ -53,6 +53,7 @@ const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
     (theme, { isShown }) => ({
         "root": {
             "transition": "opacity, 500ms",
+            "zIndex": 1,
             "display": "flex",
             "backgroundColor": theme.colors.useCases.surfaces.background,
             "alignItems": "center",
