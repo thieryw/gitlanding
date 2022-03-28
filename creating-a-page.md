@@ -5,7 +5,7 @@ coverY: 0
 
 # 📝 Filling up your page
 
-Now you are going yo actually create yout landing page! 🚀&#x20;
+Now you are going yo actually create yout landing page! 🚀
 
 First install GitLanding and it's peer dependencies.
 
@@ -13,7 +13,7 @@ First install GitLanding and it's peer dependencies.
 yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-ui
 ```
 
-Then copyand  paste the the following skeletton in `src/index.tsx`,  run `yarn start` and start hacking around!
+Then copyand paste the the following skeletton in `src/index.tsx`, run `yarn start` and start hacking around!
 
 ```typescript
 import { render } from "react-dom";
@@ -86,7 +86,7 @@ function App() {
                 title="Hero title"
                 subTitle={"Hero subtitle"}
                 imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
-                linkToSectionBelowId="firstSection"
+                hasLinkToSectionBellow={true}
             />
 
             <GlArticle
@@ -316,11 +316,11 @@ Host your assets by placing them [in a dedicated directory in your `src` folder]
 {% endhint %}
 
 {% hint style="info" %}
-You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)&#x20;
+You can preview the components in [Storybook](https://www.gitlanding.dev/storybook)
 {% endhint %}
 
 {% hint style="info" %}
-If you have bootstraped your page using `create-react-app` there is a[ lot of things](https://github.com/thieryw/crispy-octo-bassoon/commit/431679969c454772605d2d16ad69290559a43cba) you can delete.&#x20;
+If you have bootstraped your page using `create-react-app` there is a[ lot of things](https://github.com/thieryw/crispy-octo-bassoon/commit/431679969c454772605d2d16ad69290559a43cba) you can delete.
 {% endhint %}
 
-#### &#x20;
+####
