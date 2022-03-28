@@ -1,3 +1,7 @@
+### **0.9.2** (2022-03-20)  
+  
+- GlTemplate first-child css correction    
+  
 ### **0.9.1** (2022-03-12)  
   
 - correct hero animation probleme    
