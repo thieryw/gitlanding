@@ -30,6 +30,12 @@ If, and only if, your DNS service provider do not support `ALIAS` records:
 +yourdomain.com.    A     185.199.110.153
 +yourdomain.com.    A     185.199.111.153
 ```
+
+Once your DNS records are available, create a `CNAME` file in the public folder:&#x20;
+
+```bash
+echo "www.yourdomain.com" > public/CNAME
+```
 {% endtab %}
 
 {% tab title="Subdomain" %}
@@ -44,14 +50,14 @@ Create theses DNS records (don't forget to replace `yourUsername` by your GitHub
 ```
 asubdomain.yourdomain.com. CNAME yourUsername.github.io
 ```
-{% endtab %}
-{% endtabs %}
 
 Once your DNS records are available, create a `CNAME` file in the public folder:&#x20;
 
 ```bash
 echo "asubdomain.yourdomain.com" > public/CNAME
 ```
+{% endtab %}
+{% endtabs %}
 
 Commit and push your changes and your are good to go.
 
