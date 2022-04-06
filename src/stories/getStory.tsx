@@ -20,6 +20,8 @@ import { GlobalStyles } from "tss-react/compat";
 import { objectKeys } from "tsafe/objectKeys";
 import type { ReactNode } from "react";
 
+const propsByTitle = new Map<string, any>();
+
 export function getStoryFactory<Props>(params: {
     sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
@@ -33,6 +35,8 @@ export function getStoryFactory<Props>(params: {
         argTypes = {},
         defaultWidth,
     } = params;
+
+    const title = `${sectionName}/${symToStr(wrappedComponent)}`;
 
     const Component: React.ComponentType<Props> = Object.entries(
         wrappedComponent,
@@ -75,14 +79,20 @@ export function getStoryFactory<Props>(params: {
             chromeFontSize: ChromeFontSize;
             targetWindowInnerWidth: number;
         }
-    > = ({
-        darkMode,
-        width,
-        targetWindowInnerWidth,
-        chromeFontSize,
-        ...props
-    }) => {
+    > = templateProps => {
         const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
+
+        const {
+            chromeFontSize,
+            darkMode,
+            targetWindowInnerWidth,
+            width,
+            ...props
+        } = Object.assign(
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            propsByTitle.get(title)!,
+            templateProps,
+        ) as typeof templateProps;
 
         useEffect(() => {
             setIsDarkModeEnabled(darkMode);
@@ -122,12 +132,14 @@ export function getStoryFactory<Props>(params: {
             ...props,
         };
 
+        propsByTitle.set(title, out.args);
+
         return out;
     }
 
     return {
         "meta": id<Meta>({
-            "title": `${sectionName}/${symToStr(wrappedComponent)}`,
+            title,
             "component": Component,
             "argTypes": {
                 "width": {
