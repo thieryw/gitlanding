@@ -18,7 +18,9 @@ const propsWithImage: GlArticleProps = {
     "title": "Title",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
     "buttonLabel": "Button",
-    "illustration": <GlIllustration type="image" url={heroImgSrc} />,
+    "illustration": (
+        <GlIllustration hasShadow={false} type="image" url={heroImgSrc} />
+    ),
     "hasAnimation": true,
 };
 

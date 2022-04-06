@@ -17,6 +17,7 @@ const props: GlHeroProps = {
     "title": "Hero Title",
     "subTitle": "Hero Subtitle",
     "hasLinkToSectionBellow": true,
+    "hasImageShadow": false,
 };
 
 export const Vue = getStory({
