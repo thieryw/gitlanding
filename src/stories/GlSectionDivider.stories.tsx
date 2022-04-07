@@ -12,6 +12,4 @@ export default meta;
 
 export const VuePrimary = getStory({});
 
-export const VueSecondary = getStory({
-    "variant": "secondary",
-});
+export const VueSecondary = getStory({});
