@@ -50,9 +50,7 @@
         "@mui/material": "^5.5.0",
         "@types/react": "^16.8.0 || ^17.0.0",
         "onyxia-ui": "^0.30.2",
-        "powerhooks": "^0.14.0",
-        "react": "^16.8.0 || ^17.0.0",
-        "tss-react": "^3.5.2"
+        "react": "^16.8.0 || ^17.0.0"
     },
     "dependencies": {
         "@mui/icons-material": "^5.5.0",
@@ -64,7 +62,7 @@
         "react-svg": "^13.0.4",
         "tsafe": "^0.8.1",
         "typeface-work-sans": "^1.1.13",
-        "tss-react": "^3.5.2",
+        "tss-react": "^3.6.0",
         "powerhooks": "^0.14.0"
     },
     "devDependencies": {
@@ -90,7 +88,6 @@
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
         "onyxia-ui": "^0.30.2",
-        "powerhooks": "^0.14.0",
         "prettier": "^2.2.1",
         "react": "^17.0.2",
         "react-code-blocks": "^0.0.8",
@@ -98,7 +95,6 @@
         "react-scripts": "4.0.3",
         "react-svg": "^13.0.4",
         "ts-node": "^10.4.0",
-        "tss-react": "^3.5.2",
         "typescript": "^4.5.4"
     },
     "resolutions": {

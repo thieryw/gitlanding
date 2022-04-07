@@ -11,7 +11,6 @@ import { breakpointsValues } from "../theme";
 import { GlArrow } from "../utils/GlArrow";
 import type { ImageSource } from "../tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
-import { useMergedClasses } from "tss-react";
 import { useGetScrollableParent } from "../tools/useGetScrollableParent";
 import { GlHeroText } from "./GlHeroText";
 
@@ -142,13 +141,14 @@ export const GlHero = memo((props: GlHeroProps) => {
         });
     });
 
-    let { classes, cx } = useStyles({
-        "hasOnlyText": imageSrc === undefined,
-        isImageLoaded,
-        imageAspectRatio,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(
+        {
+            "hasOnlyText": imageSrc === undefined,
+            isImageLoaded,
+            imageAspectRatio,
+        },
+        { props },
+    );
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>
