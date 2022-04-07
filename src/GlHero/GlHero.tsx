@@ -1,29 +1,32 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Text } from "./theme";
-import { GlImage } from "./utils/GlImage";
+import { Text } from "../theme";
+import { GlImage } from "../utils/GlImage";
 import { memo, useMemo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { makeStyles } from "./theme";
+import { makeStyles } from "../theme";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
-import { breakpointsValues } from "./theme";
-import { GlArrow } from "./utils/GlArrow";
-import type { ImageSource } from "./tools/ImageSource";
+import { breakpointsValues } from "../theme";
+import { GlArrow } from "../utils/GlArrow";
+import type { ImageSource } from "../tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useMergedClasses } from "tss-react";
-import { useGetScrollableParent } from "./tools/useGetScrollableParent";
+import { useGetScrollableParent } from "../tools/useGetScrollableParent";
+import { GlHeroText } from "./GlHeroText";
 
 export type GlHeroProps = {
-    title?: string;
-    subTitle?: string;
     className?: string;
+    title?: NonNullable<ReactNode>;
+    subTitle?: NonNullable<ReactNode>;
     imageSrc?: string;
     imageSources?: ImageSource[];
     hasLinkToSectionBellow?: boolean;
     hasImageShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
+
+const imageId = "imageId";
 
 export const GlHero = memo((props: GlHeroProps) => {
     const {
@@ -40,7 +43,6 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
     //const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
-    const imageId = useMemo(() => "imageId", []);
 
     const { ref, scrollableParent } = useGetScrollableParent();
 
@@ -160,19 +162,27 @@ export const GlHero = memo((props: GlHeroProps) => {
                     >
                         {title !== undefined && (
                             <motion.div variants={textVariant}>
-                                <HeroText className={classes.title}>
-                                    {title}
-                                </HeroText>
+                                {typeof title === "string" ? (
+                                    <GlHeroText className={classes.title}>
+                                        {title}
+                                    </GlHeroText>
+                                ) : (
+                                    title
+                                )}
                             </motion.div>
                         )}
                         {subTitle !== undefined && (
                             <motion.div variants={textVariant}>
-                                <Text
-                                    typo="subtitle"
-                                    className={classes.subtitle}
-                                >
-                                    {subTitle}
-                                </Text>
+                                {typeof title === "string" ? (
+                                    <Text
+                                        typo="subtitle"
+                                        className={classes.subtitle}
+                                    >
+                                        {subTitle}
+                                    </Text>
+                                ) : (
+                                    subTitle
+                                )}
                             </motion.div>
                         )}
                     </motion.div>
@@ -311,53 +321,3 @@ const useStyles = makeStyles<{
         },
     }),
 );
-
-const { HeroText } = (() => {
-    type Props = {
-        className?: string;
-        children: NonNullable<ReactNode>;
-    };
-
-    const HeroText = memo((props: Props) => {
-        const { children, className } = props;
-
-        const { classes, cx } = useStyles();
-
-        return (
-            <Text
-                className={cx(classes.root, className)}
-                htmlComponent="h1"
-                typo="body 1"
-            >
-                {children}
-            </Text>
-        );
-    });
-
-    const useStyles = makeStyles({ "name": { HeroText } })(theme => ({
-        "root": {
-            "fontWeight": 700,
-            ...(() => {
-                const value =
-                    (theme.typography.rootFontSizePx / 16) *
-                    (() => {
-                        if (theme.windowInnerWidth >= breakpointsValues.xl) {
-                            return 86;
-                        }
-
-                        if (theme.windowInnerWidth >= 600) {
-                            return 52;
-                        }
-
-                        return 36;
-                    })();
-
-                return {
-                    "fontSize": value,
-                    "lineHeight": `${value}px`,
-                };
-            })(),
-        },
-    }));
-    return { HeroText };
-})();
