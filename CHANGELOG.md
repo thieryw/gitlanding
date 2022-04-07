@@ -1,3 +1,14 @@
+### **0.10.2** (2022-04-07)  
+  
+- fix build  
+- Fix bug GlHero  
+- remove position relative  
+- GlHero dont use useMemo uselessly & remove position relative  
+- GlTemplate remove relative positioning and favor margin  
+- GlSectionDivider remove secondary variant  
+- GlHeader remove positioning when possible and correct toggle menu bug  
+- GlCodeBlock remove absolute positioning    
+  
 ### **0.10.1** (2022-04-07)  
   
 - Update TSS-react    
