@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "../theme";
 import { GlImage } from "../utils/GlImage";
-import { memo, useMemo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { makeStyles } from "../theme";
 import { useSplashScreen } from "onyxia-ui";
@@ -27,6 +27,30 @@ export type GlHeroProps = {
 
 const imageId = "imageId";
 
+const textWrapperVariant = {
+    "show": {},
+    "hidden": { "opacity": 0 },
+};
+
+const textVariant = {
+    "show": {},
+    "hidden": {
+        "x": -150,
+        "opacity": 0,
+    },
+};
+
+const imageAnimProps = {
+    "transition": {
+        "delay": 1,
+        "duration": 0.5,
+    },
+    "initial": {
+        "opacity": 0,
+    },
+    "animate": {},
+};
+
 export const GlHero = memo((props: GlHeroProps) => {
     const {
         title,
@@ -49,39 +73,6 @@ export const GlHero = memo((props: GlHeroProps) => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
         setIsImageLoaded(true);
     });
-
-    const textWrapperVariant = useMemo(
-        () => ({
-            "show": {},
-            "hidden": { "opacity": 0 },
-        }),
-        [],
-    );
-
-    const textVariant = useMemo(
-        () => ({
-            "show": {},
-            "hidden": {
-                "x": -150,
-                "opacity": 0,
-            },
-        }),
-        [],
-    );
-
-    const imageAnimProps = useMemo(
-        () => ({
-            "transition": {
-                "delay": 1,
-                "duration": 0.5,
-            },
-            "initial": {
-                "opacity": 0,
-            },
-            "animate": {},
-        }),
-        [],
-    );
 
     const animate = useConstCallback(() => {
         textWrapperVariant.show = {
@@ -226,7 +217,6 @@ const useStyles = makeStyles<{
 }>({ "name": { GlHero } })(
     (theme, { hasOnlyText, isImageLoaded, imageAspectRatio }) => ({
         "root": {
-            "position": "relative",
             "width": "100%",
             "paddingBottom": theme.spacing(7),
             "overflowX": "hidden",
@@ -292,7 +282,6 @@ const useStyles = makeStyles<{
         },
 
         "imageWrapper": {
-            "position": "relative",
             "alignSelf": "center",
             "flex": 1.5,
             ...(() => {

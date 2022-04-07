@@ -81,7 +81,6 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
 
 const useStyles = makeStyles({ "name": { GlMetricCard } })(theme => ({
     "root": {
-        "position": "relative",
         "display": "flex",
         "justifyContent": "space-between",
         "flexDirection": "column",

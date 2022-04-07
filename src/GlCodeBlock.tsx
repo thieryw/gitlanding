@@ -74,19 +74,21 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
 
     return (
         <div className={cx(classes.root, className)}>
-            {hasDecorativeVsCodeButtons !== undefined &&
-                hasDecorativeVsCodeButtons && (
-                    <VsCodeButtons className={classes.vsCodeButtons} />
+            <div className={classes.heading}>
+                {hasDecorativeVsCodeButtons !== undefined &&
+                    hasDecorativeVsCodeButtons && (
+                        <VsCodeButtons className={classes.vsCodeButtons} />
+                    )}
+                {isCopyBlock !== undefined && isCopyBlock && (
+                    <div
+                        className={classes.copyButtonWrapper}
+                        onMouseUp={copyCode}
+                        onMouseDown={onMouseDown}
+                    >
+                        <CopyAllIcon className={classes.copyButtonIcon} />
+                    </div>
                 )}
-            {isCopyBlock !== undefined && isCopyBlock && (
-                <div
-                    className={classes.copyButtonWrapper}
-                    onMouseUp={copyCode}
-                    onMouseDown={onMouseDown}
-                >
-                    <CopyAllIcon className={classes.copyButtonIcon} />
-                </div>
-            )}
+            </div>
 
             <CodeBlock
                 language={language}
@@ -121,23 +123,18 @@ const useStyles = makeStyles<{
         "root": {
             ...(hasDecorativeVsCodeButtons
                 ? {
-                      "position": "relative",
-                      "paddingTop": 24,
                       "backgroundColor": colors.darkslategray,
                   }
                 : {}),
             "boxShadow": !hasShadow ? undefined : theme.customShadow,
         },
-        "vsCodeButtons": {
-            "position": "absolute",
-            "top": 0,
-            "left": 0,
+        "heading": {
+            "display": "flex",
+            "justifyContent": "space-between",
         },
+        "vsCodeButtons": {},
         "copyButtonWrapper": {
-            "position": "absolute",
             "cursor": "pointer",
-            "top": 0,
-            "right": 0,
             ...(() => {
                 const value = theme.spacing(1);
                 return {

@@ -50,7 +50,6 @@ const useStyles = makeStyles<{ numberOfCards: number }>({
     "name": { GlCards },
 })((theme, { numberOfCards }) => ({
     "root": {
-        "position": "relative",
         ...(() => {
             const value = theme.spacing(7);
             return {

@@ -54,9 +54,7 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
 });
 
 const useStyles = makeStyles({ "name": { GlIllustration } })({
-    "root": {
-        "position": "relative",
-    },
+    "root": {},
 
     "content": {
         "width": "100%",

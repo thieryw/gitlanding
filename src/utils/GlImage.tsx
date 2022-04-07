@@ -78,7 +78,6 @@ const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>({
     "name": { GlImage },
 })((theme, { isImageLoaded, hasShadow }) => ({
     "root": {
-        "position": "relative",
         "width": isImageLoaded ? "100%" : undefined,
         "height": isImageLoaded ? "auto" : undefined,
         "objectFit": "cover",

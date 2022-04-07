@@ -59,7 +59,6 @@ const useStyles = makeStyles({ "name": { GlReviewSlide } })(theme => ({
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "space-between",
-        "position": "relative",
         "flexDirection": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return "row";

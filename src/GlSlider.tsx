@@ -158,7 +158,6 @@ const useStyles = makeStyles<{
         "textAlign": "center",
     },
     "sliderWrapper": {
-        "position": "relative",
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
@@ -180,7 +179,6 @@ const useStyles = makeStyles<{
         },
     },
     "slide": {
-        "position": "relative",
         "minWidth": "100%",
         "display": "flex",
         "justifyContent": "center",
