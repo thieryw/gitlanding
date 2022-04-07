@@ -68,15 +68,15 @@ function App() {
                     links={[
                         {
                             "href": "https://example.com",
-                            "label": "link 1"
+                            "label": "link 1",
                         },
                         {
                             "href": "https://example.com",
-                            "label": "link 2"
+                            "label": "link 2",
                         },
                         {
                             "href": "https://example.com",
-                            "label": "link 3"
+                            "label": "link 3",
                         },
                     ]}
                 />
@@ -84,7 +84,7 @@ function App() {
         >
             <GlHero
                 title="Hero title"
-                subTitle={"Hero subtitle"}
+                subTitle="Hero subtitle"
                 imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 hasLinkToSectionBellow={true}
                 hasImageShadow={false}
@@ -93,20 +93,16 @@ function App() {
             <GlArticle
                 id="firstSection"
                 title="Article title"
-                body={
-                    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                     nisl nec hendrerit rutrum, 
                     mi enim **semper arcu**, ut imperdiet urna libero non metus. 
                     Donec imperdiet ac nulla sit amet lacinia. 
                     Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
-                    Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`
-                }
+                    Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
                 buttonLabel="Article Button label"
-                buttonLink={
-                    {
-                        "href": "https://example.com",
-                    }
-                }
+                buttonLink={{
+                    "href": "https://example.com",
+                }}
                 illustration={
                     <GlIllustration
                         hasShadow={false}
@@ -123,76 +119,58 @@ function App() {
                     <>
                         <GlLogoCard
                             title="Card title"
-                            paragraph={
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
-                                mi enim semper arcu, ut imperdiet urna libero non metus.`
-                            }
+                                mi enim semper arcu, ut imperdiet urna libero non metus.`}
                             buttonLabel="Button Label"
-                            iconUrls={
-                                [
-                                    "https://user-images.githubusercontent.com/39378411/135731999-a2d8f901-3d7d-40a9-b59f-102ee1facc45.png",
-                                    "https://user-images.githubusercontent.com/39378411/135731995-136d4baf-58a6-4cb3-a72c-b8ddce835b3c.png"
-                                ]
-                            }
+                            iconUrls={[
+                                "https://user-images.githubusercontent.com/39378411/135731999-a2d8f901-3d7d-40a9-b59f-102ee1facc45.png",
+                                "https://user-images.githubusercontent.com/39378411/135731995-136d4baf-58a6-4cb3-a72c-b8ddce835b3c.png",
+                            ]}
                         />
                         <GlLogoCard
                             title="Card title"
-                            paragraph={
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
-                                mi enim semper arcu, ut imperdiet urna libero non metus.`
-                            }
+                                mi enim semper arcu, ut imperdiet urna libero non metus.`}
                             buttonLabel="Button Label"
-                            iconUrls={
-                                [
-                                    "https://user-images.githubusercontent.com/39378411/135731998-e01a7970-a7c4-4041-b07c-341e075207d2.png"
-                                ]
-                            }
+                            iconUrls={[
+                                "https://user-images.githubusercontent.com/39378411/135731998-e01a7970-a7c4-4041-b07c-341e075207d2.png",
+                            ]}
                         />
 
                         <GlLogoCard
                             title="Card title"
-                            paragraph={
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
-                                mi enim semper arcu, ut imperdiet urna libero non metus.`
-                            }
+                                mi enim semper arcu, ut imperdiet urna libero non metus.`}
                             buttonLabel="Button Label"
-                            iconUrls={
-                                [
-                                    "https://user-images.githubusercontent.com/39378411/135731991-3da13e97-c2f7-42b2-88ab-055aff0d6ae9.png",
-                                    "https://user-images.githubusercontent.com/39378411/135731994-29a3c46a-0d92-4ec8-954e-39bfeeb06534.png",
-                                    "https://user-images.githubusercontent.com/39378411/135731998-e01a7970-a7c4-4041-b07c-341e075207d2.png",
-                                    "https://user-images.githubusercontent.com/39378411/135731990-8f64ce8e-d655-4ded-9561-3d7f6893d06e.png"
-                                ]
-                            }
+                            iconUrls={[
+                                "https://user-images.githubusercontent.com/39378411/135731991-3da13e97-c2f7-42b2-88ab-055aff0d6ae9.png",
+                                "https://user-images.githubusercontent.com/39378411/135731994-29a3c46a-0d92-4ec8-954e-39bfeeb06534.png",
+                                "https://user-images.githubusercontent.com/39378411/135731998-e01a7970-a7c4-4041-b07c-341e075207d2.png",
+                                "https://user-images.githubusercontent.com/39378411/135731990-8f64ce8e-d655-4ded-9561-3d7f6893d06e.png",
+                            ]}
                             overlapIcons={true}
-
                         />
                     </>
                 }
-
             </GlCards>
 
             <GlSectionDivider />
 
             <GlArticle
                 title="Article title"
-                body={
-                    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                     nisl nec **hendrerit** rutrum, 
                     mi enim semper arcu, ut imperdiet urna libero non metus. 
                     Donec imperdiet ac nulla sit amet lacinia. 
                     Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
-                    Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`
-                }
+                    Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
                 buttonLabel="Article Button label"
-                buttonLink={
-                    {
-                        "href": "https://example.com",
-                    }
-                }
+                buttonLink={{
+                    "href": "https://example.com",
+                }}
                 illustration={
                     <GlIllustration
                         type="image"
@@ -233,58 +211,50 @@ function App() {
             <GlCheckList
                 heading="Check List Heading"
                 hasAnimation={true}
-                elements={
-                    [
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                elements={[
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut **imperdiet** urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut imperdiet urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut imperdiet urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut imperdiet urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut imperdiet urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                        {
-                            "title": "List element title",
-                            "description":
-                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                    {
+                        "title": "List element title",
+                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                                 nisl nec hendrerit rutrum, 
                                 mi enim semper arcu, ut imperdiet urna libero non metus. 
-                                Donec imperdiet ac nulla sit amet lacinia.`
-                        },
-                    ]
-                }
+                                Donec imperdiet ac nulla sit amet lacinia.`,
+                    },
+                ]}
             />
 
             <GlSectionDivider />
@@ -295,40 +265,34 @@ function App() {
                 slides={[
                     <GlReviewSlide
                         logoUrl="https://user-images.githubusercontent.com/39378411/135731994-29a3c46a-0d92-4ec8-954e-39bfeeb06534.png"
-                        descriptionMd={
-                            `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                        descriptionMd={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                             nisl nec hendrerit rutrum, 
                             mi enim semper arcu, ut imperdiet urna libero non metus. 
                             Donec imperdiet ac nulla sit amet lacinia. 
                             Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
-                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`
-                        }
+                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
                         signature="Signature"
                     />,
                     <GlReviewSlide
                         logoUrl="https://user-images.githubusercontent.com/39378411/135731995-136d4baf-58a6-4cb3-a72c-b8ddce835b3c.png"
-                        descriptionMd={
-                            `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                        descriptionMd={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                             nisl nec hendrerit rutrum, 
                             mi enim semper arcu, ut imperdiet urna libero non metus. 
                             Donec imperdiet ac nulla sit amet lacinia. 
                             Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
-                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`
-                        }
+                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
                         signature="Signature"
                     />,
                     <GlReviewSlide
                         logoUrl="https://user-images.githubusercontent.com/39378411/135731999-a2d8f901-3d7d-40a9-b59f-102ee1facc45.png"
-                        descriptionMd={
-                            `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                        descriptionMd={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                             nisl nec hendrerit rutrum, 
                             mi enim semper arcu, ut imperdiet urna libero non metus. 
                             Donec imperdiet ac nulla sit amet lacinia. 
                             Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
-                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`
-                        }
+                            Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
                         signature="Signature"
-                    />
+                    />,
                 ]}
             />
         </GlTemplate>
