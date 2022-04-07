@@ -173,7 +173,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                         )}
                         {subTitle !== undefined && (
                             <motion.div variants={textVariant}>
-                                {typeof title === "string" ? (
+                                {typeof subTitle === "string" ? (
                                     <Text
                                         typo="subtitle"
                                         className={classes.subtitle}
