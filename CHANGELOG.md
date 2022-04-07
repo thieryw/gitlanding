@@ -1,3 +1,7 @@
+### **0.10.1** (2022-04-07)  
+  
+- Update TSS-react    
+  
 ## **0.10.0** (2022-04-07)  
   
 - Enable fine grained configuration of GlHero  
