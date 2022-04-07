@@ -1,4 +1,8 @@
-# 🏃♂ 🏃♂ Getting started
+---
+layout: landing
+---
+
+# 🏃♂ Getting started!
 
 ### Overview
 
