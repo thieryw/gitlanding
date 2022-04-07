@@ -1,3 +1,18 @@
+## **0.10.0** (2022-04-07)  
+  
+- Enable fine grained configuration of GlHero  
+- Name stylesheet  
+- Name stylesheet GlHeader  
+- GlArticle and GlHero stories turn off image shadow  
+- fix storybook reload bug  
+- fix storybook eslint warnings  
+- Merge pull request #9 from bzg/main
+
+README.md: Tiny wording fix  
+- README.md: Tiny wording fix
+
+When mentioning the operating system, "GNU/Linux" is better.    
+  
 ### **0.9.3** (2022-03-28)  
   
 - update GlLinkToTop  
