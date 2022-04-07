@@ -202,7 +202,7 @@ const useStyles = makeStyles<{
     linksHeight: number;
     buttonsWidth: number;
     titleWidth: number;
-}>()(
+}>({ "name": { GlHeader } })(
     (
         theme,
         { isMenuUnfolded, linksHeight, buttonsWidth, titleWidth, headerHeight },
