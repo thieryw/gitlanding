@@ -31,11 +31,14 @@ If, and only if, your DNS service provider do not support `ALIAS` records:
 +yourdomain.com.    A     185.199.111.153
 ```
 
-Once your DNS records are available, create a `CNAME` file in the public folder:&#x20;
+Once your DNS records are available, update your `package.json` `homepage` field:
 
-```bash
-echo "www.yourdomain.com" > public/CNAME
+```diff
+-"homepage": "https://yourUsername.github.io/yourRepoName",
++"homepage": "https://www.yourdomain.com",
 ```
+
+[This line](https://github.com/thieryw/gitlanding/blob/8628d6bc47ba368b08903725e99e40c4eb640203/public/deploy.yaml#L17) of your CI workflow will make sure GitHub Pages understands the change.
 {% endtab %}
 
 {% tab title="Subdomain" %}
@@ -51,11 +54,14 @@ Create theses DNS records (don't forget to replace `yourUsername` by your GitHub
 asubdomain.yourdomain.com. CNAME yourUsername.github.io
 ```
 
-Once your DNS records are available, create a `CNAME` file in the public folder:&#x20;
+Once your DNS records are available, update your `package.json` `homepage` field:
 
-```bash
-echo "asubdomain.yourdomain.com" > public/CNAME
+```diff
+-"homepage": "https://yourUsername.github.io/yourRepoName",
++"homepage": "https://asubdomain.yourdomain.com",
 ```
+
+[This line](https://github.com/thieryw/gitlanding/blob/8628d6bc47ba368b08903725e99e40c4eb640203/public/deploy.yaml#L17) of your CI workflow will make sure GitHub Pages understands the change.
 {% endtab %}
 {% endtabs %}
 
