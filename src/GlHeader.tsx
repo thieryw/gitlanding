@@ -171,7 +171,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                             </div>
                         )}
 
-                    <div onClick={toggleMenu}>
+                    <div
+                        className={classes.unfoldIconWrapper}
+                        onClick={toggleMenu}
+                    >
                         <UnfoldIcon className={classes.unfoldIcon} />
                     </div>
                 </div>
@@ -217,6 +220,9 @@ const useStyles = makeStyles<{
             "root": {
                 "position": "relative",
             },
+            "unfoldIconWrapper": {
+                "pointerEvents": isMenuUnfolded ? "none" : undefined,
+            },
             "headerInner": {
                 "display": "flex",
                 "justifyContent": "space-between",
@@ -235,7 +241,7 @@ const useStyles = makeStyles<{
                 "marginLeft": theme.spacing(2),
             },
             "smallDeviceLinksWrapper": {
-                "zIndex": 4,
+                //"zIndex": 4,
                 "position": "absolute",
                 "left": -theme.paddingRightLeft,
                 "backgroundColor": theme.colors.useCases.surfaces.background,
@@ -428,7 +434,6 @@ const { Link } = (() => {
             "root": {
                 "display": "flex",
                 "flexDirection": "column",
-                "position": "relative",
                 ...theme.spacing.rightLeft("margin", `${theme.spacing(3)}px`),
                 "&: hover": {
                     "cursor": "pointer",
@@ -439,8 +444,7 @@ const { Link } = (() => {
             },
             "underline": {
                 "width": 0,
-                "position": "relative",
-                "top": theme.spacing(1),
+                "marginTop": theme.spacing(1),
                 "height": 1,
                 "backgroundColor": theme.colors.useCases.typography.textPrimary,
                 "transition": "width 200ms",
