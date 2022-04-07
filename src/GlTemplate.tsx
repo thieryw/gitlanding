@@ -233,7 +233,7 @@ const useStyles = makeStyles<{
                 }),
                 ...(() => {
                     let out: CSSObject = {
-                        "zIndex": 4,
+                        "zIndex": 1,
                     };
                     if (
                         headerPosition === "fixed" ||
@@ -277,19 +277,17 @@ const useStyles = makeStyles<{
 
             "footerWrapper": {
                 "marginTop": "auto",
-                "position": "relative",
                 "width": rootWidth,
-                "left": -theme.paddingRightLeft,
+                "marginLeft": -theme.paddingRightLeft,
             },
             "childrenWrapper": {
                 "display": "flex",
                 "flexDirection": "column",
                 "& > :first-child": {
-                    "position": "relative",
                     "paddingTop":
                         headerPosition === "fixed" ? headerHeight : undefined,
                     "width": window.innerWidth,
-                    "left": -theme.paddingRightLeft,
+                    "marginLeft": -theme.paddingRightLeft,
                     ...theme.spacing.rightLeft(
                         "padding",
                         `${theme.paddingRightLeft}px`,
