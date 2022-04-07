@@ -13,6 +13,7 @@ import { useEvt } from "evt/hooks/useEvt";
 import { useMergedClasses } from "tss-react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
 import { useGetScrollableParent } from "./tools/useGetScrollableParent";
+import { symToStr } from "tsafe/symToStr";
 
 export type GlHeaderProps = {
     links: {
@@ -363,7 +364,9 @@ const { Links } = (() => {
         );
     });
 
-    const useStyles = makeStyles()({
+    const useStyles = makeStyles({
+        "name": `${symToStr({ GlHeader })}${symToStr({ Links })}`,
+    })({
         "links": {
             "display": "flex",
             "justifyContent": "center",
@@ -418,41 +421,34 @@ const { Link } = (() => {
         );
     });
 
-    const useStyles = makeStyles<{ elementWidth: number }, "underline">()(
-        (theme, { elementWidth }, classes) => {
-            return {
-                "root": {
-                    "display": "flex",
-                    "flexDirection": "column",
-                    "position": "relative",
-                    ...theme.spacing.rightLeft(
-                        "margin",
-                        `${theme.spacing(3)}px`,
-                    ),
-                    "&: hover": {
-                        "cursor": "pointer",
-                    },
-                    [`&:hover .${classes.underline}`]: {
-                        "width": elementWidth,
-                    },
+    const useStyles = makeStyles<{ elementWidth: number }, "underline">({
+        "name": `${symToStr({ GlHeader })}${symToStr({ Link })}`,
+    })((theme, { elementWidth }, classes) => {
+        return {
+            "root": {
+                "display": "flex",
+                "flexDirection": "column",
+                "position": "relative",
+                ...theme.spacing.rightLeft("margin", `${theme.spacing(3)}px`),
+                "&: hover": {
+                    "cursor": "pointer",
                 },
-                "underline": {
-                    "width": 0,
-                    "position": "relative",
-                    "top": theme.spacing(1),
-                    "height": 1,
-                    "backgroundColor":
-                        theme.colors.useCases.typography.textPrimary,
-                    "transition": "width 200ms",
+                [`&:hover .${classes.underline}`]: {
+                    "width": elementWidth,
                 },
-                "text": {
-                    ...theme.spacing.rightLeft(
-                        "padding",
-                        `${theme.spacing(2)}px`,
-                    ),
-                },
-            };
-        },
-    );
+            },
+            "underline": {
+                "width": 0,
+                "position": "relative",
+                "top": theme.spacing(1),
+                "height": 1,
+                "backgroundColor": theme.colors.useCases.typography.textPrimary,
+                "transition": "width 200ms",
+            },
+            "text": {
+                ...theme.spacing.rightLeft("padding", `${theme.spacing(2)}px`),
+            },
+        };
+    });
     return { Link };
 })();
