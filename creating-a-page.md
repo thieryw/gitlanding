@@ -1,6 +1,5 @@
 ---
 description: Create your landing page with Gitlanding
-coverY: 0
 ---
 
 # 📝 Filling up your page
