@@ -1,3 +1,9 @@
+### **0.11.1** (2022-04-08)  
+  
+- GlLogo cards remove number of icons  
+- GlProjectCard calculate image aspect ratio  
+- GlLogoCard use flex instead of grid for logos    
+  
 ## **0.11.0** (2022-04-08)  
   
 - Enable to customize header with start and end node    
