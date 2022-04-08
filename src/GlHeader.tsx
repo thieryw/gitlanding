@@ -303,6 +303,15 @@ const useStyles = makeStyles<{
                           ),
                       }
                     : {}),
+                "marginLeft": theme.spacing(
+                    (() => {
+                        if (theme.windowInnerWidth >= breakpointsValues.md) {
+                            return 2;
+                        }
+
+                        return 0;
+                    })(),
+                ),
             },
             "buttonAndLinkWrapper": {
                 "position": "absolute",
@@ -316,6 +325,15 @@ const useStyles = makeStyles<{
                           "paddingRight": theme.spacing(2),
                       }
                     : {}),
+                "marginLeft": theme.spacing(
+                    (() => {
+                        if (theme.windowInnerWidth >= breakpointsValues.md) {
+                            return 2;
+                        }
+
+                        return 0;
+                    })(),
+                ),
             },
             "links": {
                 ...(() => {
