@@ -448,16 +448,23 @@ const { Link } = (() => {
                 [`&:hover .${classes.underline}`]: {
                     "width": elementWidth,
                 },
+                "& :active": {
+                    "color": theme.colors.palette.orangeWarning.main,
+                },
+                [`&:active .${classes.underline}`]: {
+                    "backgroundColor": theme.colors.palette.orangeWarning.main,
+                },
             },
             "underline": {
                 "width": 0,
                 "marginTop": theme.spacing(1),
                 "height": 1,
                 "backgroundColor": theme.colors.useCases.typography.textPrimary,
-                "transition": "width 200ms",
+                "transition": "width 200ms, background-color 100ms",
             },
             "text": {
                 ...theme.spacing.rightLeft("padding", `${theme.spacing(2)}px`),
+                "transition": "color 100ms",
             },
         };
     });
