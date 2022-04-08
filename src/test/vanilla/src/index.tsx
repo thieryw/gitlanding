@@ -118,7 +118,10 @@ function App() {
                             title="Card title"
                             paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
                 nisl nec hendrerit rutrum, 
-                mi enim semper arcu, ut imperdiet urna libero non metus.`}
+                mi enim semper arcu, ut imperdiet urna libero non metus.
+                nisl nec hendrerit rutrum, 
+                mi enim semper arcu, ut imperdiet urna libero non metus.
+                `}
                             buttonLabel="Button Label"
                             iconUrls={[
                                 "https://user-images.githubusercontent.com/39378411/135731999-a2d8f901-3d7d-40a9-b59f-102ee1facc45.png",
@@ -181,7 +184,7 @@ function App() {
             <GlCards>
                 <>
                     <GlProjectCard
-                        title="Project Card Title"
+                        title="Project Card Title verry long title xxxxxxxxxxxxxxxx"
                         subtitle="Project Card Subtitle"
                         projectImageUrl="https://user-images.githubusercontent.com/39378411/135731821-0f1c7165-fada-418f-896a-c36a0e55171b.png"
                     />
