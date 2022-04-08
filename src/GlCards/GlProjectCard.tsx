@@ -130,6 +130,7 @@ const useStyles = makeStyles<
         },
 
         "footer": {
+            "flex": 1,
             "backgroundColor": theme.isDarkModeEnabled
                 ? theme.colors.palette.dark.greyVariant1
                 : theme.colors.palette.light.light,
