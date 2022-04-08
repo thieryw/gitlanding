@@ -278,7 +278,8 @@ const useStyles = makeStyles<{
             "footerWrapper": {
                 "marginTop": "auto",
                 "width": rootWidth,
-                "marginLeft": -theme.paddingRightLeft,
+                //"marginLeft": -theme.paddingRightLeft,
+                "transform": `translateX(${-theme.paddingRightLeft}px)`,
             },
             "childrenWrapper": {
                 "display": "flex",
@@ -287,7 +288,8 @@ const useStyles = makeStyles<{
                     "paddingTop":
                         headerPosition === "fixed" ? headerHeight : undefined,
                     "width": window.innerWidth,
-                    "marginLeft": -theme.paddingRightLeft,
+                    //"marginLeft": -theme.paddingRightLeft,
+                    "transform": `translateX(${-theme.paddingRightLeft}px)`,
                     ...theme.spacing.rightLeft(
                         "padding",
                         `${theme.paddingRightLeft}px`,
