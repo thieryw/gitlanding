@@ -1,3 +1,7 @@
+### **0.11.4** (2022-04-08)  
+  
+- GlHeader add active property on links    
+  
 ### **0.11.3** (2022-04-08)  
   
 - Fix spacing in header items    
