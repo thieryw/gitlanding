@@ -29,7 +29,6 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     } = props;
 
     let { classes, cx, css } = useStyles({
-        "numberOfIcons": iconUrls?.length ?? 0,
         "overlapIcons": overlapIcons ?? false,
     });
 
@@ -86,9 +85,8 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
 });
 
 const useStyles = makeStyles<{
-    numberOfIcons: number;
     overlapIcons: boolean;
-}>({ "name": { GlLogoCard } })((theme, { numberOfIcons, overlapIcons }) => ({
+}>({ "name": { GlLogoCard } })((theme, { overlapIcons }) => ({
     "root": {
         "padding": theme.spacing({
             "rightLeft": 3,
