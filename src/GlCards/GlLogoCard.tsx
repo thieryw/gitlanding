@@ -39,18 +39,21 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
         <GlCard link={link} className={cx(classes.root, className)}>
             {iconUrls && (
                 <div className={classes.iconWrapper}>
-                    {iconUrls.map((url, index) => (
-                        <GlLogo
-                            className={cx(
-                                classes.icon,
-                                css({
-                                    "zIndex": iconUrls.length - index,
-                                }),
-                            )}
-                            logoUrl={url}
-                            key={index}
-                        />
-                    ))}
+                    {iconUrls
+                        .map((url, index) => (
+                            <GlLogo
+                                className={cx(
+                                    classes.icon,
+                                    css({
+                                        //"zIndex": iconUrls.length - index,
+                                        //"order": iconUrls.length - index
+                                    }),
+                                )}
+                                logoUrl={url}
+                                key={index}
+                            />
+                        ))
+                        .reverse()}
                 </div>
             )}
 
@@ -105,26 +108,25 @@ const useStyles = makeStyles<{
         })(),
     },
     "iconWrapper": {
-        "marginRight": overlapIcons ? theme.spacing(3) + 5 : undefined,
-        "display": "grid",
-        "columnGap": theme.spacing(2),
-        "gridTemplateColumns": (() => {
-            if (overlapIcons) {
-                return "repeat(auto-fit, minmax(10px, max-content))";
-            }
-
-            return `repeat(${numberOfIcons}, 1fr)`;
-        })(),
-        "width": (() => {
-            if (!overlapIcons) {
-                return undefined;
-            }
-
-            return numberOfIcons * 35;
-        })(),
+        "display": "flex",
+        "alignItems": "center",
+        "transform": "rotate(180deg)",
+        ...(overlapIcons
+            ? {
+                  "marginLeft": -theme.spacing(3),
+              }
+            : {}),
     },
 
     "icon": {
+        "transform": "rotate(180deg)",
+        ...(!overlapIcons
+            ? {
+                  ...theme.spacing.rightLeft("margin", `${theme.spacing(1)}px`),
+              }
+            : {
+                  "marginLeft": -theme.spacing(3),
+              }),
         ...(() => {
             const value = (() => {
                 if (theme.windowInnerWidth >= breakpointsValues.lg) {
