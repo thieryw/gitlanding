@@ -1,3 +1,7 @@
+### **0.11.3** (2022-04-08)  
+  
+- Fix spacing in header items    
+  
 ### **0.11.2** (2022-04-08)  
   
 - bumb version  
