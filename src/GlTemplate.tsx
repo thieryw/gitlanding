@@ -119,7 +119,7 @@ const GlTemplateInner = memo(
         } = useDomRect();
         const {
             ref: childrenWrapperRef,
-            domRect: { width: rootWidth },
+            domRect: { width: childrenWrapperWidth },
         } = useDomRect();
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
@@ -148,7 +148,7 @@ const GlTemplateInner = memo(
         );
 
         let { classes, cx } = useStyles({
-            rootWidth,
+            childrenWrapperWidth,
             headerHeight,
             "isHeaderRetracted":
                 headerOptions.isRetracted === "smart"
@@ -216,11 +216,19 @@ export const GlTemplate = memo((props: GlTemplateProps) => {
 
 const useStyles = makeStyles<{
     headerHeight: number;
-    rootWidth: number;
+    childrenWrapperWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: Required<HeaderOptions>["position"];
 }>({ "name": { GlTemplate } })(
-    (theme, { headerHeight, rootWidth, isHeaderRetracted, headerPosition }) => {
+    (
+        theme,
+        {
+            headerHeight,
+            childrenWrapperWidth,
+            isHeaderRetracted,
+            headerPosition,
+        },
+    ) => {
         return {
             "root": {
                 "height": "100%",
@@ -241,7 +249,7 @@ const useStyles = makeStyles<{
                     ) {
                         out = {
                             ...out,
-                            "width": rootWidth,
+                            "width": childrenWrapperWidth,
                             "backgroundColor": changeColorOpacity({
                                 "color":
                                     theme.colors.useCases.surfaces.background,
@@ -277,7 +285,7 @@ const useStyles = makeStyles<{
 
             "footerWrapper": {
                 "marginTop": "auto",
-                "width": rootWidth,
+                "width": childrenWrapperWidth,
                 //"marginLeft": -theme.paddingRightLeft,
                 "transform": `translateX(${-theme.paddingRightLeft}px)`,
             },
@@ -287,9 +295,8 @@ const useStyles = makeStyles<{
                 "& > :first-child": {
                     "paddingTop":
                         headerPosition === "fixed" ? headerHeight : undefined,
-                    "width": window.innerWidth,
-                    //"marginLeft": -theme.paddingRightLeft,
-                    "transform": `translateX(${-theme.paddingRightLeft}px)`,
+                    "width": childrenWrapperWidth,
+                    "marginLeft": -theme.paddingRightLeft,
                     ...theme.spacing.rightLeft(
                         "padding",
                         `${theme.paddingRightLeft}px`,
