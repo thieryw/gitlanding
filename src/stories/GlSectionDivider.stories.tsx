@@ -10,6 +10,4 @@ const { getStory, meta } = getStoryFactory({
 
 export default meta;
 
-export const VuePrimary = getStory({});
-
-export const VueSecondary = getStory({});
+export const Vue = getStory({});
