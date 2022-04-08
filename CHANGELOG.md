@@ -1,3 +1,14 @@
+### **0.11.3** (2022-04-08)  
+  
+- Fix spacing in header items    
+  
+### **0.11.2** (2022-04-08)  
+  
+- bumb version  
+- GlSectionDivider story delete secondary vue  
+- test  
+- GlProjectCard correct footer bug    
+  
 ### **0.11.1** (2022-04-08)  
   
 - GlLogo cards remove number of icons  
