@@ -31,6 +31,8 @@ export type GlHeaderProps = {
     githubRepoUrl?: string;
     githubButtonSize?: "normal" | "large";
     showGithubStarCount?: boolean;
+    customItemStart?: NonNullable<ReactNode>;
+    customItemEnd?: NonNullable<ReactNode>;
 };
 
 export const GlHeader = memo((props: GlHeaderProps) => {
@@ -45,6 +47,8 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         titleDark,
         titleSmallScreen,
         titleSmallScreenDark,
+        customItemStart,
+        customItemEnd,
     } = props;
 
     const [isMenuUnfolded, setIsMenuUnfolded] = useState(false);
@@ -143,6 +147,8 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 </div>
 
                 <div ref={linksRef} className={classes.buttonAndLinkWrapper}>
+                    {customItemStart !== undefined && customItemStart}
+
                     <Links
                         className={classes.links}
                         links={links}
@@ -170,6 +176,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                                 />
                             </div>
                         )}
+                    {customItemEnd !== undefined && customItemEnd}
 
                     <div
                         className={classes.unfoldIconWrapper}
