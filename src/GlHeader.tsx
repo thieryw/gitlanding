@@ -467,10 +467,11 @@ const { Link } = (() => {
                     "width": elementWidth,
                 },
                 "& :active": {
-                    "color": theme.colors.palette.orangeWarning.main,
+                    "color": theme.colors.useCases.buttons.actionActive,
                 },
                 [`&:active .${classes.underline}`]: {
-                    "backgroundColor": theme.colors.palette.orangeWarning.main,
+                    "backgroundColor":
+                        theme.colors.useCases.buttons.actionActive,
                 },
             },
             "underline": {

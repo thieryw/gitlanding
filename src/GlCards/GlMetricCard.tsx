@@ -123,7 +123,7 @@ const useStyles = makeStyles({ "name": { GlMetricCard } })(theme => ({
         "backgroundColor": !theme.isDarkModeEnabled
             ? theme.colors.useCases.surfaces.background
             : theme.colors.palette.light.greyVariant1,
-        "fill": "orange",
+        "fill": theme.colors.useCases.buttons.actionActive,
         ...(() => {
             const value = theme.spacing(6.5);
             return {
