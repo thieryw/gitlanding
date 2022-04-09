@@ -1,3 +1,8 @@
+### **0.11.5** (2022-04-09)  
+  
+- Fix regression  
+- change margin to transform    
+  
 ### **0.11.4** (2022-04-08)  
   
 - GlHeader add active property on links    
