@@ -5,8 +5,8 @@ import { Text } from "./theme";
 import { breakpointsValues } from "./theme";
 import UnfoldIcon from "@mui/icons-material/FormatLineSpacing";
 import { useDomRect } from "powerhooks/useDomRect";
-import { useConstCallback } from "powerhooks";
-import { useClickAway } from "powerhooks";
+import { useConstCallback } from "powerhooks/useConstCallback";
+import { useClickAway } from "powerhooks/useClickAway";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks/useEvt";
@@ -98,7 +98,15 @@ export const GlHeader = memo((props: GlHeaderProps) => {
             }
 
             Evt.from(ctx, scrollableParent, "scroll").attach(() => {
-                if (headerHeight < scrollableParent.scrollTop) {
+                const scrollTop = (() => {
+                    if (scrollableParent === window) {
+                        return (scrollableParent as Window & typeof globalThis)
+                            .scrollY;
+                    }
+
+                    return (scrollableParent as HTMLElement).scrollTop;
+                })();
+                if (headerHeight < scrollTop) {
                     setIsMenuUnfolded(false);
                 }
             });
