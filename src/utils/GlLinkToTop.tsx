@@ -6,7 +6,13 @@ import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
 import { useGetScrollableParent } from "../tools/useGetScrollableParent";
 
-export const GlLinkToTop = memo(() => {
+export type GlLinkToTopProps = {
+    className?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+};
+
+export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
+    const { className } = props;
     const [isShown, setIsShown] = useState(false);
 
     const { ref, scrollableParent } = useGetScrollableParent();
@@ -40,11 +46,15 @@ export const GlLinkToTop = memo(() => {
         [scrollableParent],
     );
 
-    const { classes } = useStyles({ isShown });
+    const { classes, cx } = useStyles({ isShown }, { props });
 
     return (
-        <div ref={ref} onClick={onClick} className={classes.root}>
-            <ArrowUpwardIcon />
+        <div
+            ref={ref}
+            onClick={onClick}
+            className={cx(classes.root, className)}
+        >
+            <ArrowUpwardIcon className={classes.arrowIcon} />
         </div>
     );
 });
@@ -68,5 +78,6 @@ const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
             "right": theme.paddingRightLeft,
             "cursor": "pointer",
         },
+        "arrowIcon": {},
     }),
 );
