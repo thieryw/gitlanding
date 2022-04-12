@@ -65,7 +65,6 @@ export const GlHero = memo((props: GlHeroProps) => {
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageAspectRatio, setImageAspectRatio] = useState(0);
-    //const [isSplashScreenShown, setIsSplashScreenShown] = useState(true);
 
     const { ref, scrollableParent } = useGetScrollableParent();
 
@@ -99,7 +98,6 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            //setIsSplashScreenShown(false);
             if (isImageLoaded && isAnimationComplete) {
                 animate();
             }
