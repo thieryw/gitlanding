@@ -5,7 +5,6 @@ import { Text } from "../theme";
 import { makeStyles } from "../theme";
 import { breakpointsValues } from "../theme";
 import { useRef, useEffect, useState } from "react";
-import { useMergedClasses } from "tss-react";
 
 export type GlCardsProps = {
     className?: string;
@@ -29,8 +28,7 @@ export const GlCards = memo((props: GlCardsProps) => {
         setNumberOfCards(ref.current.childElementCount);
     }, []);
 
-    let { classes, cx } = useStyles({ numberOfCards });
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles({ numberOfCards }, { props });
 
     return (
         <section id={id} className={cx(classes.root, className)}>

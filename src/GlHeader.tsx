@@ -10,7 +10,6 @@ import { useClickAway } from "powerhooks";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks/useEvt";
-import { useMergedClasses } from "tss-react";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
 import { useGetScrollableParent } from "./tools/useGetScrollableParent";
 import { symToStr } from "tsafe/symToStr";
@@ -107,15 +106,16 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         [headerHeight],
     );
 
-    let { classes, cx, theme } = useStyles({
-        headerHeight,
-        isMenuUnfolded,
-        linksHeight,
-        buttonsWidth,
-        titleWidth,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx, theme } = useStyles(
+        {
+            headerHeight,
+            isMenuUnfolded,
+            linksHeight,
+            buttonsWidth,
+            titleWidth,
+        },
+        { props },
+    );
 
     return (
         <header className={cx(classes.root, className)} ref={headerRef}>
@@ -371,9 +371,7 @@ const { Links } = (() => {
     const Links = memo((props: LinksProps) => {
         const { links, className } = props;
 
-        let { classes, cx } = useStyles();
-
-        classes = useMergedClasses(classes, props.classes);
+        const { classes, cx } = useStyles(undefined, { props });
 
         return (
             <div className={cx(classes.links, className)}>
@@ -435,8 +433,7 @@ const { Link } = (() => {
             setElementWidth(ref.current.clientWidth);
         }, [ref.current?.clientWidth]);
 
-        let { classes, cx } = useStyles({ elementWidth });
-        classes = useMergedClasses(classes, props.classes);
+        const { classes, cx } = useStyles({ elementWidth }, { props });
 
         return (
             <div

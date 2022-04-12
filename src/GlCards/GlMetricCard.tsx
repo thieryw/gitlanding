@@ -7,7 +7,6 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
 import { useNumberCountUpAnimation } from "../tools/useNumberCountUpAnimation";
-import { useMergedClasses } from "tss-react";
 
 export type GlMetricCardProps = GlCardProps & {
     number?: number;
@@ -30,8 +29,8 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         isNumberAnimated,
         timeIntervalBetweenNumbersMs,
     } = props;
-    let { classes, cx, theme } = useStyles();
-    classes = useMergedClasses(classes, props.classes);
+
+    const { classes, cx, theme } = useStyles(undefined, { props });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>

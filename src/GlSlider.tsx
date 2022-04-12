@@ -8,7 +8,6 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
-import { useMergedClasses } from "tss-react";
 
 export type GlSliderProps = {
     className?: string;
@@ -98,11 +97,12 @@ export const GlSlider = memo((props: GlSliderProps) => {
         setIsPlaying(false);
     });
 
-    let { classes, cx } = useStyles({
-        width,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(
+        {
+            width,
+        },
+        { props },
+    );
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>

@@ -5,7 +5,7 @@ import { makeStyles, Text } from "../theme";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
-import { useMergedClasses } from "tss-react";
+
 import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlProjectCardProps = GlCardProps & {
@@ -50,15 +50,16 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         };
     }, [projectImageUrl]);
 
-    let { classes, cx } = useStyles({
-        badgeColor,
-        badgeBackgroundColor,
-        projectImageUrl,
-        headerWidth,
-        imgAspectRatio,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(
+        {
+            badgeColor,
+            badgeBackgroundColor,
+            projectImageUrl,
+            headerWidth,
+            imgAspectRatio,
+        },
+        { props },
+    );
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>

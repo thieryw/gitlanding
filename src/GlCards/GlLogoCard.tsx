@@ -6,7 +6,6 @@ import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
 import { GlButton } from "../utils/GlButton";
-import { useMergedClasses } from "tss-react";
 
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
@@ -28,11 +27,12 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
         link,
     } = props;
 
-    let { classes, cx, css } = useStyles({
-        "overlapIcons": overlapIcons ?? false,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx, css } = useStyles(
+        {
+            "overlapIcons": overlapIcons ?? false,
+        },
+        { props },
+    );
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>

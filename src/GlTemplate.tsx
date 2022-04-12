@@ -10,7 +10,7 @@ import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
-import { useMergedClasses } from "tss-react";
+
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
 
@@ -66,7 +66,6 @@ const GlTemplateInner = memo(
             children,
             footer,
             className,
-            classes: classesProp,
             hasTopOfPageLinkButton,
         } = props;
 
@@ -147,17 +146,18 @@ const GlTemplateInner = memo(
             [headerHeight, headerOptions.isRetracted],
         );
 
-        let { classes, cx } = useStyles({
-            childrenWrapperWidth,
-            headerHeight,
-            "isHeaderRetracted":
-                headerOptions.isRetracted === "smart"
-                    ? !isSmartHeaderVisible
-                    : headerOptions.isRetracted,
-            "headerPosition": headerOptions.position,
-        });
-
-        classes = useMergedClasses(classes, classesProp);
+        const { classes, cx } = useStyles(
+            {
+                childrenWrapperWidth,
+                headerHeight,
+                "isHeaderRetracted":
+                    headerOptions.isRetracted === "smart"
+                        ? !isSmartHeaderVisible
+                        : headerOptions.isRetracted,
+                "headerPosition": headerOptions.position,
+            },
+            { props },
+        );
 
         return (
             <div

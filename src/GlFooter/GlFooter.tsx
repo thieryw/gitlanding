@@ -4,7 +4,7 @@ import Link from "@mui/material/Link";
 import { makeStyles } from "../theme";
 import { GlFooterInfo } from "./GlFooterInfo";
 import { Markdown } from "../tools/Markdown";
-import { useMergedClasses } from "tss-react";
+
 import type { ReactNode } from "react";
 
 type Link = {
@@ -32,8 +32,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
         links,
     } = props;
 
-    let { classes, cx } = useStyles();
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(undefined, { props });
 
     return (
         <footer className={cx(classes.root, className)}>

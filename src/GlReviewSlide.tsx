@@ -4,7 +4,6 @@ import { GlLogo } from "./utils/GlLogo";
 import Paper from "@mui/material/Paper";
 import { breakpointsValues } from "./theme";
 import { Markdown } from "./tools/Markdown";
-import { useMergedClasses } from "tss-react";
 
 export type GlReviewSlideProps = {
     /**
@@ -26,8 +25,7 @@ export type GlReviewSlideProps = {
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     const { descriptionMd, className, signature, logoUrl, logoFill } = props;
 
-    let { classes, cx } = useStyles();
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(undefined, { props });
 
     return (
         <Paper className={cx(classes.root, className)}>

@@ -1,7 +1,6 @@
 import { CodeBlock, railscast } from "react-code-blocks";
 import { memo, useState } from "react";
 import { makeStyles } from "./theme";
-import { useMergedClasses } from "tss-react";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { Text } from "./theme";
@@ -63,14 +62,15 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         setIsMouseDown(true);
     });
 
-    let { classes, cx } = useStyles({
-        "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
-        "hasShadow": hasShadow ?? true,
-        isMouseDown,
-        isCopiedMessageShowing,
-    });
-
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(
+        {
+            "hasDecorativeVsCodeButtons": hasDecorativeVsCodeButtons ?? false,
+            "hasShadow": hasShadow ?? true,
+            isMouseDown,
+            isCopiedMessageShowing,
+        },
+        { props },
+    );
 
     return (
         <div className={cx(classes.root, className)}>

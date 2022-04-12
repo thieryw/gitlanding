@@ -3,7 +3,6 @@ import { Text, breakpointsValues, makeStyles, Button } from "./theme";
 import { useDomRect } from "powerhooks/useDomRect";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
-import { useMergedClasses } from "tss-react";
 
 export type GlYoutubeVideoSectionProps = {
     className?: string;
@@ -30,7 +29,6 @@ export const GlYoutubeVideoSection = memo(
             width,
             height,
             buttonLabel,
-            classes: classesProp,
             hasAnimation,
         } = props;
 
@@ -84,13 +82,14 @@ export const GlYoutubeVideoSection = memo(
             "threshold": 0.5,
         });
 
-        let { classes, cx } = useStyles({
-            width,
-            height,
-            "currentWidth": iframeWidth,
-        });
-
-        classes = useMergedClasses(classes, classesProp);
+        const { classes, cx } = useStyles(
+            {
+                width,
+                height,
+                "currentWidth": iframeWidth,
+            },
+            { props },
+        );
 
         return (
             <section ref={ref} className={cx(classes.root, className)}>

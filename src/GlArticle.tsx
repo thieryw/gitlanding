@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { assert } from "tsafe";
 import { Markdown } from "./tools/Markdown";
-import { useMergedClasses } from "tss-react";
 
 export type GlArticleProps = {
     className?: string;
@@ -138,15 +137,17 @@ export const GlArticle = memo((props: GlArticleProps) => {
         "threshold": 0.2,
     });
 
-    let { classes, cx } = useStyles({
-        "illustrationPosition": illustrationPosition ?? "right",
-        "hasIllustration": illustration !== undefined,
-        "hasArticle":
-            title !== undefined ||
-            body !== undefined ||
-            buttonLabel !== undefined,
-    });
-    classes = useMergedClasses(classes, props.classes);
+    const { classes, cx } = useStyles(
+        {
+            "illustrationPosition": illustrationPosition ?? "right",
+            "hasIllustration": illustration !== undefined,
+            "hasArticle":
+                title !== undefined ||
+                body !== undefined ||
+                buttonLabel !== undefined,
+        },
+        { props },
+    );
 
     return (
         <section ref={ref} id={id} className={cx(classes.root, className)}>
