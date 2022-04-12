@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useRef } from "react";
+import { useEffect, useState, memo } from "react";
 import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
@@ -69,8 +69,6 @@ const GlTemplateInner = memo(
             hasTopOfPageLinkButton,
         } = props;
 
-        const rootRef = useRef<HTMLDivElement>(null);
-
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
 
@@ -125,15 +123,10 @@ const GlTemplateInner = memo(
 
         useEvt(
             ctx => {
-                if (headerOptions.isRetracted !== "smart" || !rootRef.current) {
-                    return;
-                }
-
                 let previousScrollTop = 0;
 
-                Evt.from(ctx, rootRef.current, "scroll").attach(() => {
-                    if (!rootRef.current) return;
-                    const scrollTop = rootRef.current?.scrollTop;
+                Evt.from(ctx, window, "scroll").attach(() => {
+                    const scrollTop = window.scrollY;
                     setIsSmartHeaderVisible(
                         scrollTop < previousScrollTop
                             ? true
@@ -160,11 +153,7 @@ const GlTemplateInner = memo(
         );
 
         return (
-            <div
-                ref={rootRef}
-                className={cx(classes.root, className)}
-                tabIndex={-1}
-            >
+            <div className={cx(classes.root, className)}>
                 <div ref={headerWrapperRef} className={classes.headerWrapper}>
                     {header}
                 </div>
@@ -230,10 +219,7 @@ const useStyles = makeStyles<{
         },
     ) => {
         return {
-            "root": {
-                "height": "100%",
-                "overflow": "auto",
-            },
+            "root": {},
             "headerWrapper": {
                 "padding": theme.spacing({
                     "rightLeft": `${theme.paddingRightLeft}px`,
@@ -286,8 +272,7 @@ const useStyles = makeStyles<{
             "footerWrapper": {
                 "marginTop": "auto",
                 "width": childrenWrapperWidth,
-                //"marginLeft": -theme.paddingRightLeft,
-                "transform": `translateX(${-theme.paddingRightLeft}px)`,
+                "marginLeft": -theme.paddingRightLeft,
             },
             "childrenWrapper": {
                 "display": "flex",
