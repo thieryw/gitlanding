@@ -34,7 +34,13 @@ export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
             }
 
             Evt.from(ctx, scrollableParent, "scroll").attach(() => {
-                const scrollTop = (scrollableParent as HTMLElement).scrollTop;
+                const scrollTop = (() => {
+                    if (scrollableParent === window) {
+                        return (scrollableParent as Window & typeof globalThis)
+                            .scrollY;
+                    }
+                    return (scrollableParent as HTMLElement).scrollTop;
+                })();
                 if (scrollTop / (window.innerHeight / 100) >= 70) {
                     setIsShown(true);
                     return;
