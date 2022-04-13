@@ -239,9 +239,7 @@ const useStyles = makeStyles<{
                     "topBottom": `${theme.spacing(3)}px`,
                 }),
                 ...(() => {
-                    let out: CSSObject = {
-                        "zIndex": 1,
-                    };
+                    let out: CSSObject = {};
                     if (
                         headerPosition === "fixed" ||
                         headerPosition === "sticky"
@@ -284,8 +282,6 @@ const useStyles = makeStyles<{
 
             "footerWrapper": {
                 "marginTop": "auto",
-                "width": childrenWrapperWidth,
-                "marginLeft": -theme.paddingRightLeft,
             },
             "childrenWrapper": {
                 "display": "flex",
@@ -293,17 +289,7 @@ const useStyles = makeStyles<{
                 "& > :first-child": {
                     "paddingTop":
                         headerPosition === "fixed" ? headerHeight : undefined,
-                    "width": childrenWrapperWidth,
-                    "marginLeft": -theme.paddingRightLeft,
-                    ...theme.spacing.rightLeft(
-                        "padding",
-                        `${theme.paddingRightLeft}px`,
-                    ),
                 },
-                ...theme.spacing.rightLeft(
-                    "padding",
-                    `${theme.paddingRightLeft}px`,
-                ),
                 "minHeight": window.innerHeight,
             },
         };
