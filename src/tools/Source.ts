@@ -1,6 +1,6 @@
 import type { DetailedHTMLProps, SourceHTMLAttributes } from "react";
 
-export type ImageSource = DetailedHTMLProps<
+export type Source = DetailedHTMLProps<
     SourceHTMLAttributes<HTMLSourceElement>,
     HTMLSourceElement
 >;
