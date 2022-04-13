@@ -10,9 +10,9 @@ import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
-
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
+import { useGetScrollableParent } from "./tools/useGetScrollableParent";
 
 disableEmotionWarnings();
 
@@ -119,14 +119,25 @@ const GlTemplateInner = memo(
             domRect: { width: childrenWrapperWidth },
         } = useDomRect();
 
+        const { ref: rootRef, scrollableParent } = useGetScrollableParent();
+
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
         useEvt(
             ctx => {
+                if (scrollableParent === undefined) {
+                    return;
+                }
                 let previousScrollTop = 0;
 
                 Evt.from(ctx, window, "scroll").attach(() => {
-                    const scrollTop = window.scrollY;
+                    const scrollTop = (() => {
+                        if (scrollableParent === window) {
+                            return scrollableParent.scrollY;
+                        }
+                        return (scrollableParent as HTMLElement).scrollTop;
+                    })();
+
                     setIsSmartHeaderVisible(
                         scrollTop < previousScrollTop
                             ? true
@@ -136,7 +147,7 @@ const GlTemplateInner = memo(
                     previousScrollTop = scrollTop;
                 });
             },
-            [headerHeight, headerOptions.isRetracted],
+            [headerHeight, headerOptions.isRetracted, scrollableParent],
         );
 
         const { classes, cx } = useStyles(
@@ -153,7 +164,7 @@ const GlTemplateInner = memo(
         );
 
         return (
-            <div className={cx(classes.root, className)}>
+            <div ref={rootRef} className={cx(classes.root, className)}>
                 <div ref={headerWrapperRef} className={classes.headerWrapper}>
                     {header}
                 </div>
@@ -219,7 +230,9 @@ const useStyles = makeStyles<{
         },
     ) => {
         return {
-            "root": {},
+            "root": {
+                "overflowX": "hidden",
+            },
             "headerWrapper": {
                 "padding": theme.spacing({
                     "rightLeft": `${theme.paddingRightLeft}px`,
