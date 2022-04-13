@@ -1,3 +1,25 @@
+## **0.12.0** (2022-04-13)  
+  
+- update stories  
+- update Source import  
+- Media Source type  
+- test new video component  
+- GlTemplate remove padding from children wrapper and zIndex from header  
+- GlIllustration add video type  
+- GlVideo component  
+- GlHero add video option and add padding  
+- add padding on components  
+- GlTemplate overflowX hidden and use getScrollableParent  
+- GlLinkToTop correct scrollable parent usage  
+- remove comments  
+- GlTemplate use native scroll  
+- temporary getScrollableParent function, did not manage to make powerhooks verison work in my case  
+- GlHeader correct scrollableParent usage  
+- update powerhooks  
+- use new tss merged classes functionality for all components  
+- add hasAnimation to dependency arrays  
+- GlLinkToTop add classes prop    
+  
 ### **0.11.6** (2022-04-09)  
   
 - Fix use of palette    
