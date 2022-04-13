@@ -1,6 +1,6 @@
 import { render } from "react-dom";
 import { GlTemplate } from "gitlanding/GlTemplate";
-import { GlHero } from "gitlanding/GlHero";
+import { GlHero } from "gitlanding/GlHero/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlFooter } from "gitlanding/GlFooter";
@@ -11,8 +11,10 @@ import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
-import heroImage2 from "./assets/test-images/test2.png";
 import { GlHeader } from "gitlanding/GlHeader";
+import videoSafari from "./assets/videos/vsafari.mp4";
+import videoChrome from "./assets/videos/vchrome.webm";
+import imageSrc from "./assets/test-images/test2.png";
 
 function App() {
     return (
@@ -75,9 +77,12 @@ function App() {
             <GlHero
                 title="Hero title"
                 subTitle={"Hero subtitle"}
-                imageSrc={heroImage2}
                 hasLinkToSectionBellow={true}
-                hasImageShadow={false}
+                hasIllustrationShadow={true}
+                illustration={{
+                    "type": "image",
+                    "imageSrc": imageSrc,
+                }}
             />
 
             <GlArticle
@@ -173,9 +178,18 @@ function App() {
                 }}
                 illustration={
                     <GlIllustration
-                        type="image"
-                        url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png"
                         hasShadow={false}
+                        type="video"
+                        sources={[
+                            {
+                                "src": videoSafari,
+                                "type": 'video/mp4; codecs="hvc1"',
+                            },
+                            {
+                                "src": videoChrome,
+                                "type": "video/webm",
+                            },
+                        ]}
                     />
                 }
                 hasAnimation={true}
