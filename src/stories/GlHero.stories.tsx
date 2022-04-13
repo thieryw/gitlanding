@@ -1,8 +1,8 @@
 import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
 import { GlHero } from "../GlHero";
-import type { GlHeroProps } from "../GlHero";
 import heroImgSrc from "./assets/img/contribution.png";
+import videoSrc from "./assets/videos/sspcloud.mp4";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
@@ -12,14 +12,27 @@ const { getStory, meta } = getStoryFactory({
 
 export default meta;
 
-const props: GlHeroProps = {
-    "imageSrc": heroImgSrc,
+export const VueWithImage = getStory({
+    "illustration": {
+        "type": "image",
+        "imageSrc": heroImgSrc,
+    },
     "title": "Hero Title",
     "subTitle": "Hero Subtitle",
     "hasLinkToSectionBellow": true,
-    "hasImageShadow": false,
-};
+});
 
-export const Vue = getStory({
-    ...props,
+export const VueWithVideo = getStory({
+    "illustration": {
+        "type": "video",
+        "sources": [
+            {
+                "src": videoSrc,
+                "type": "video/mp4",
+            },
+        ],
+    },
+    "title": "Hero Title",
+    "subTitle": "Hero Subtitle",
+    "hasLinkToSectionBellow": true,
 });
