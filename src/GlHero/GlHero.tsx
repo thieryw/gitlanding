@@ -9,7 +9,7 @@ import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
 import { GlArrow } from "../utils/GlArrow";
-import type { Source } from "../tools/ImageSource";
+import type { Source } from "../tools/Source";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useGetScrollableParent } from "../tools/useGetScrollableParent";
 import { GlHeroText } from "./GlHeroText";

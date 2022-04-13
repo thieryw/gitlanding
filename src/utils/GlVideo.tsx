@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Source } from "../tools/ImageSource";
+import { Source } from "../tools/Source";
 import { makeStyles } from "../theme";
 
 export type GlVideoProps = {

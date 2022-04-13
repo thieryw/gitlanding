@@ -2,7 +2,7 @@
 import { memo, useState } from "react";
 import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks";
-import { ImageSource } from "../tools/ImageSource";
+import { Source } from "../tools/Source";
 
 export type GlImageProps = {
     id?: string;
@@ -12,7 +12,7 @@ export type GlImageProps = {
     width?: number;
     height?: number;
     hasShadow?: boolean;
-    imageSources?: ImageSource[];
+    sources?: Source[];
     onLoad?: () => void;
 };
 
@@ -25,7 +25,7 @@ export const GlImage = memo((props: GlImageProps) => {
         height,
         width,
         hasShadow,
-        imageSources,
+        sources,
         onLoad: onLoadProp,
     } = props;
 
@@ -43,10 +43,10 @@ export const GlImage = memo((props: GlImageProps) => {
         isImageLoaded,
         "hasShadow": hasShadow ?? true,
     });
-    return !url.endsWith(".mp4") ? (
+    return (
         <picture>
-            {imageSources !== undefined &&
-                imageSources.map(source => <source {...source} />)}
+            {sources !== undefined &&
+                sources.map(source => <source {...source} />)}
             <img
                 id={id}
                 onLoad={onLoad}
@@ -57,20 +57,6 @@ export const GlImage = memo((props: GlImageProps) => {
                 height={height}
             />
         </picture>
-    ) : (
-        <video
-            id={id}
-            width={width}
-            height={height}
-            className={cx(classes.root, className)}
-            autoPlay={true}
-            muted={true}
-            loop={true}
-            onLoadStart={onLoadProp}
-        >
-            <source src={url} type="video/mp4" />
-            Your browser does not support HTML video.
-        </video>
     );
 });
 
