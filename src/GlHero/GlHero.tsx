@@ -9,23 +9,40 @@ import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
 import { GlArrow } from "../utils/GlArrow";
-import type { ImageSource } from "../tools/ImageSource";
+import type { Source } from "../tools/ImageSource";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useGetScrollableParent } from "../tools/useGetScrollableParent";
 import { GlHeroText } from "./GlHeroText";
+import { GlVideo } from "../utils/GlVideo";
+
+declare namespace IllustrationProps {
+    export type Illustration = Illustration.Image | Illustration.Video;
+    export namespace Illustration {
+        type Image = {
+            type: "image";
+            imageSrc: string;
+        };
+        type Video = {
+            type: "video";
+        };
+    }
+}
+
+type IllustrationProps = {
+    sources?: Source[];
+} & IllustrationProps.Illustration;
 
 export type GlHeroProps = {
     className?: string;
     title?: NonNullable<ReactNode>;
     subTitle?: NonNullable<ReactNode>;
-    imageSrc?: string;
-    imageSources?: ImageSource[];
+    illustration?: IllustrationProps;
     hasLinkToSectionBellow?: boolean;
-    hasImageShadow?: boolean;
+    hasIllustrationShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
-const imageId = "imageId";
+const illustrationId = "illustrationId";
 
 const textWrapperVariant = {
     "show": {},
@@ -56,10 +73,9 @@ export const GlHero = memo((props: GlHeroProps) => {
         title,
         subTitle,
         className,
-        imageSrc,
         hasLinkToSectionBellow,
-        hasImageShadow,
-        imageSources,
+        hasIllustrationShadow,
+        illustration,
     } = props;
 
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
@@ -68,7 +84,7 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const { ref, scrollableParent } = useGetScrollableParent();
 
-    const handleOnImageLoad = useConstCallback(async () => {
+    const handleOnIllustrationLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
         setIsImageLoaded(true);
     });
@@ -112,9 +128,9 @@ export const GlHero = memo((props: GlHeroProps) => {
     }, [isImageLoaded]);
 
     useEffect(() => {
-        const image = document.getElementById(imageId);
+        const image = document.getElementById(illustrationId);
 
-        if (!image || image.clientHeight === 0 || imageSrc === undefined) {
+        if (!image || image.clientHeight === 0 || illustration === undefined) {
             return;
         }
 
@@ -132,7 +148,7 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     const { classes, cx } = useStyles(
         {
-            "hasOnlyText": imageSrc === undefined,
+            "hasOnlyText": illustration === undefined,
             isImageLoaded,
             imageAspectRatio,
         },
@@ -177,20 +193,43 @@ export const GlHero = memo((props: GlHeroProps) => {
                     </motion.div>
                 )}
 
-                {imageSrc !== undefined && (
+                {illustration !== undefined && (
                     <motion.div
                         {...imageAnimProps}
                         className={classes.imageWrapper}
                     >
-                        <GlImage
-                            id={imageId}
-                            className={classes.image}
-                            hasShadow={hasImageShadow}
-                            url={imageSrc}
-                            alt="hero image"
-                            imageSources={imageSources}
-                            onLoad={handleOnImageLoad}
-                        />
+                        {(() => {
+                            switch (illustration.type) {
+                                case "image":
+                                    return (
+                                        <GlImage
+                                            id={illustrationId}
+                                            className={classes.image}
+                                            hasShadow={hasIllustrationShadow}
+                                            url={illustration.imageSrc}
+                                            alt="hero image"
+                                            sources={illustration.sources}
+                                            onLoad={handleOnIllustrationLoad}
+                                        />
+                                    );
+                                case "video":
+                                    return (
+                                        illustration.sources && (
+                                            <GlVideo
+                                                id={illustrationId}
+                                                hasShadow={
+                                                    hasIllustrationShadow
+                                                }
+                                                sources={illustration.sources}
+                                                className={classes.image}
+                                                onLoad={
+                                                    handleOnIllustrationLoad
+                                                }
+                                            />
+                                        )
+                                    );
+                            }
+                        })()}
                     </motion.div>
                 )}
             </div>
@@ -218,6 +257,10 @@ const useStyles = makeStyles<{
             "width": "100%",
             "paddingBottom": theme.spacing(7),
             "overflowX": "hidden",
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
         },
         "arrow": {
             "cursor": "pointer",
