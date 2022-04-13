@@ -44,7 +44,7 @@ function App() {
                 />
             }
             headerOptions={{
-                "position": "fixed",
+                "position": "sticky",
                 "isRetracted": "smart",
             }}
             footer={

@@ -256,7 +256,6 @@ const useStyles = makeStyles<{
         "root": {
             "width": "100%",
             "paddingBottom": theme.spacing(7),
-            "overflowX": "hidden",
             ...theme.spacing.rightLeft(
                 "padding",
                 `${theme.paddingRightLeft}px`,

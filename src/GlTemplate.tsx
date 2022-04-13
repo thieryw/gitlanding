@@ -230,9 +230,7 @@ const useStyles = makeStyles<{
         },
     ) => {
         return {
-            "root": {
-                "overflowX": "hidden",
-            },
+            "root": {},
             "headerWrapper": {
                 "padding": theme.spacing({
                     "rightLeft": `${theme.paddingRightLeft}px`,
@@ -284,6 +282,7 @@ const useStyles = makeStyles<{
                 "marginTop": "auto",
             },
             "childrenWrapper": {
+                "overflowX": "hidden",
                 "display": "flex",
                 "flexDirection": "column",
                 "& > :first-child": {
