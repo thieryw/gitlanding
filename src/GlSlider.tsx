@@ -145,13 +145,8 @@ const useStyles = makeStyles<{
     width: number | string | undefined;
 }>({ "name": { GlSlider } })((theme, { width }) => ({
     "root": {
-        ...(() => {
-            const value = theme.spacing(7);
-            return {
-                "marginTop": value,
-                "marginBottom": value,
-            };
-        })(),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+        ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
     },
     "heading": {
         "marginBottom": theme.spacing(7),

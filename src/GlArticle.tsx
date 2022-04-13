@@ -201,7 +201,10 @@ const useStyles = makeStyles<{
 }>({ "name": { GlArticle } })(
     (theme, { illustrationPosition, hasIllustration, hasArticle }) => ({
         "root": {
-            "overflowX": "hidden",
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
         },
         "contentWrapper": {
             "display": "flex",

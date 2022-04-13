@@ -48,13 +48,8 @@ const useStyles = makeStyles<{ numberOfCards: number }>({
     "name": { GlCards },
 })((theme, { numberOfCards }) => ({
     "root": {
-        ...(() => {
-            const value = theme.spacing(7);
-            return {
-                "marginTop": value,
-                "marginBottom": value,
-            };
-        })(),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+        ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
     },
     "title": {
         "textAlign": "center",

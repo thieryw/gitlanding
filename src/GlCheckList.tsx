@@ -83,7 +83,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         "threshold": 0.4,
     });
 
-    const { classes } = useStyles(
+    const { classes, cx } = useStyles(
         {
             "numberOfElements": elements === undefined ? 1 : elements.length,
         },
@@ -91,7 +91,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
     );
 
     return (
-        <section className={className}>
+        <section className={cx(classes.root, className)}>
             {(heading !== undefined || subHeading !== undefined) && (
                 <div className={classes.headingWrapper}>
                     {heading !== undefined && (
@@ -143,6 +143,9 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
 const useStyles = makeStyles<{ numberOfElements: number }>({
     "name": { GlCheckList },
 })((theme, { numberOfElements }) => ({
+    "root": {
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+    },
     "heading": {
         ...(() => {
             const value = "2rem";

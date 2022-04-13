@@ -136,6 +136,10 @@ const useStyles = makeStyles<{
             "display": "grid",
             "gridTemplateColumns": "1fr",
             "justifyItems": "center",
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
         },
         "title": {
             "textAlign": "center",
