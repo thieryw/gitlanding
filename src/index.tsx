@@ -42,17 +42,15 @@ function App() {
       links={[
         {
           "label": "GITHUB",
-          "link": { "href": "https://github.com/thieryw/gitlanding" },
+          "href": "https://github.com/thieryw/gitlanding",
         },
         {
           "label": "DOCUMENTATION",
-          "link": { "href": "https://docs.gitlanding.dev/" },
+          "href": "https://docs.gitlanding.dev/",
         },
         {
           "label": "COMPONENTS",
-          "link": {
-            "href": "https://www.gitlanding.dev/storybook"
-          }
+          "href": "https://www.gitlanding.dev/storybook"
         }
       ]}
       title={<GlLogo logoUrl={logoPng} width={200} />}
@@ -61,22 +59,21 @@ function App() {
       githubRepoUrl="https://github.com/thieryw/gitlanding"
       showGithubStarCount={true}
       githubButtonSize="large"
-      isCollapsible={true}
     />}
     footer={
       <GlFooter
         links={
           [
             {
-              "title": "Github",
+              "label": "Github",
               "href": "https://github.com/thieryw/gitlanding"
             },
             {
-              "title": "Documentation",
+              "label": "Documentation",
               "href": "https://docs.gitlanding.dev/"
             },
             {
-              "title": "Storybook",
+              "label": "Storybook",
               "href": "https://www.gitlanding.dev/storybook"
             }
           ]
@@ -88,9 +85,13 @@ function App() {
     <GlHero
       title="Showcase your GitHub repo with a good looking webpage"
       subTitle="It's 100% free and open source software and it only takes a few minutes to setup."
-      imageSrc={isDarkModeEnabled ? heroImageUrl : heroImageLightUrl}
-      linkToSectionBelowId="sectionBellow"
-      hasImageShadow={true}
+      //imageSrc={isDarkModeEnabled ? heroImageUrl : heroImageLightUrl}
+      illustration={{
+        "type": "image",
+        "imageSrc": isDarkModeEnabled ? heroImageUrl : heroImageLightUrl
+      }}
+
+      hasLinkToSectionBellow={true}
     />
 
     <GlArticle
@@ -108,8 +109,13 @@ Don't worry, you will be guided every step of the way!
 `}
       illustration={
         <GlIllustration
-          type="image"
-          url={sspcloudMp4}
+          type="video"
+          sources={[
+            {
+              "src": sspcloudMp4,
+              "type": "video/mp4"
+            }
+          ]}
           hasShadow={true}
         />
       }
@@ -145,8 +151,13 @@ This way your little landing page is a react project capable of growing into a m
       hasAnimation={true}
       illustration={
         <GlIllustration
-          type="image"
-          url={sspcloudRouteMp4}
+          type="video"
+          sources={[
+            {
+              "src": sspcloudRouteMp4,
+              "type": "video/mp4"
+            }
+          ]}
           hasShadow={true}
         />
       }
