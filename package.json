@@ -4,14 +4,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "gitlanding": "^0.12.0",
+    "gitlanding": "^0.12.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1",
-    "onyxia-ui": "^0.30.4",
-    "tss-react": "^3.6.0",
-    "powerhooks": "^0.14.0",
+    "onyxia-ui": "^0.31.4",
+    "tss-react": "^3.6.1",
+    "powerhooks": "^0.16.1",
     "@mui/material": "^5.5.2",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1"

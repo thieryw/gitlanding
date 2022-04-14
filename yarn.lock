@@ -5773,10 +5773,10 @@ github-buttons@^2.8.0:
   resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.19.1.tgz#9703755a4da1c5b229d3f1d875c2f787efa59bd5"
   integrity sha512-us6ZC0bFYLfBq2CkZJJRpdPP5JlB6+kWFTdw8iK3E7yoMKdoLhDkqQHelJ+39UVR2zQbfXN5gNt3cVYp4fAuXA==
 
-gitlanding@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/gitlanding/-/gitlanding-0.12.0.tgz#3feb94e904c85a297b3bc3ee85c2c8b35a7ed76b"
-  integrity sha512-mejEE7k84SNNw/vMQb56hqa3+croPg3j0tGPkJcJT7aWombcqIxke8SCBJaal70lGUbqRRnZS99OptPQhNOAVw==
+gitlanding@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/gitlanding/-/gitlanding-0.12.2.tgz#2ea2e2e3c2109d2c6fab32111b0f0df7e38751f6"
+  integrity sha512-6aGybKaWDB04K74aosAFXjleeRiVFEQyjjQKbFfddh7JqDPNL7/bu2Ags6sWkvGaDuHYr4++RQ4LXXdDN4ojzA==
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
@@ -8436,10 +8436,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.30.4:
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.30.4.tgz#b6730acc337ce79fa63025b10a935c47111b6f2b"
-  integrity sha512-8BoIgGujGBEtpkpPzXu3hf0f20+/mdxMCYVZZriLHXVfnf1HsWu2OHmJxThLI7/AXbqwv5NPg+IdfW1ciim7Cw==
+onyxia-ui@^0.31.4:
+  version "0.31.4"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.31.4.tgz#0e017734345bc9528512fc8086fb22aedf07e198"
+  integrity sha512-ydiMUOixxaqpTrDVEVr9qXXGx9vP9btj+TGxaiqWhxe5FXqUe54qOpzbKROXfuAL3zewNiX4ajpAH9UGGfdTuQ==
   dependencies:
     "@mui/icons-material" "^5.0.3"
     color "3.1.3"
@@ -8447,7 +8447,8 @@ onyxia-ui@^0.30.4:
     material-design-icons "^3.0.1"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.1"
-    powerhooks "^0.14.0"
+    powerhooks "^0.16.1"
+    run-exclusive "^2.2.14"
     tsafe "^0.8.1"
     tss-react "^3.5.2"
 
@@ -9544,16 +9545,6 @@ postcss@^8.1.0:
     nanocolors "^0.2.2"
     nanoid "^3.1.25"
     source-map-js "^0.6.2"
-
-powerhooks@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.14.0.tgz#44dd201f470761362a139ae2cb51eaa658ed5e3e"
-  integrity sha512-jWrRHyqev7Lh3MId7h1mNxs+fgegr8liHN17AaHxMgrXI6KxJ14B3Pe1It4FIRWJ4Z1dxsA734FerFGZ3Vgdkg==
-  dependencies:
-    evt "2.0.0-beta.39"
-    memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
-    tsafe "^0.8.1"
 
 powerhooks@^0.16.1:
   version "0.16.1"
@@ -11597,6 +11588,15 @@ tss-react@^3.5.2, tss-react@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-3.6.0.tgz#22b58a65a1390507891d6b9ac95f58d22c5cd666"
   integrity sha512-mtQ8VL0btMVZZtax5gwaGU+jSBdKtbYMLVCLGB26Bi+BcOI0GQ6GTn1EaeK1nSgN5qbe6FL0zEOC6qoY+8+MEg==
+  dependencies:
+    "@emotion/cache" "*"
+    "@emotion/serialize" "*"
+    "@emotion/utils" "*"
+
+tss-react@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-3.6.1.tgz#cbf3b54cb17ee6c37e76c0a13eeb33ccd40e564e"
+  integrity sha512-i2aVdPje2OrPp2ku0MhJwo1mkgdxqFRqdF2hlWT58p4OXkOQmau/gLkBlmrWc3/og9Xqluhg4Ytp8x2N4+XJsQ==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
