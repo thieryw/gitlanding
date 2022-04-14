@@ -1,10 +1,11 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
-import { useGetScrollableParent } from "../tools/useGetScrollableParent";
+import { getScrollableParent } from "../tools/getScrollableParent";
+import { assert } from "tsafe/assert";
 
 export type GlLinkToTopProps = {
     className?: string;
@@ -13,9 +14,22 @@ export type GlLinkToTopProps = {
 
 export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
     const { className } = props;
+    const ref = useRef<HTMLDivElement>(null);
     const [isShown, setIsShown] = useState(false);
+    const [scrollableParent, setScrollableParent] = useState<
+        ReturnType<typeof getScrollableParent> | undefined
+    >(undefined);
 
-    const { ref, scrollableParent } = useGetScrollableParent();
+    useEffect(() => {
+        assert(ref.current !== null);
+
+        setScrollableParent(
+            getScrollableParent({
+                "element": ref.current,
+                "doReturnElementIfScrollable": true,
+            }),
+        );
+    }, []);
 
     const onClick = useConstCallback(() => {
         if (scrollableParent === undefined) {
@@ -34,13 +48,7 @@ export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
             }
 
             Evt.from(ctx, scrollableParent, "scroll").attach(() => {
-                const scrollTop = (() => {
-                    if (scrollableParent === window) {
-                        return (scrollableParent as Window & typeof globalThis)
-                            .scrollY;
-                    }
-                    return (scrollableParent as HTMLElement).scrollTop;
-                })();
+                const { scrollTop } = scrollableParent;
                 if (scrollTop / (window.innerHeight / 100) >= 70) {
                     setIsShown(true);
                     return;

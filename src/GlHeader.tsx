@@ -9,9 +9,9 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { useClickAway } from "powerhooks/useClickAway";
 import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { Evt } from "evt";
-import { useEvt } from "evt/hooks/useEvt";
+import { useElementEvt } from "evt/hooks/useElementEvt";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
-import { useGetScrollableParent } from "./tools/useGetScrollableParent";
+import { getScrollableParent } from "./tools/getScrollableParent";
 import { symToStr } from "tsafe/symToStr";
 
 export type GlHeaderProps = {
@@ -67,7 +67,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const [buttonsWidth, setButtonsWidth] = useState(0);
     const [titleWidth, setTitleWidth] = useState(0);
 
-    const { scrollableParent } = useGetScrollableParent({ "ref": headerRef });
+    //const { scrollableParent } = useGetScrollableParent({ "ref": headerRef });
 
     useEffect(() => {
         if (!titleRef.current || !linksRef.current) {
@@ -91,26 +91,22 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setIsMenuUnfolded(!isMenuUnfolded);
     });
 
-    useEvt(
-        ctx => {
-            if (scrollableParent === undefined) {
-                return;
-            }
+    useElementEvt(
+        ({ ctx, element }) => {
+            const scrollableParent = getScrollableParent({
+                element,
+                "doReturnElementIfScrollable": true,
+            });
 
             Evt.from(ctx, scrollableParent, "scroll").attach(() => {
-                const scrollTop = (() => {
-                    if (scrollableParent === window) {
-                        return (scrollableParent as Window & typeof globalThis)
-                            .scrollY;
-                    }
+                const { scrollTop } = scrollableParent;
 
-                    return (scrollableParent as HTMLElement).scrollTop;
-                })();
                 if (headerHeight < scrollTop) {
                     setIsMenuUnfolded(false);
                 }
             });
         },
+        ref,
         [headerHeight],
     );
 

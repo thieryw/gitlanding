@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 import { makeStyles, ThemeProviderDefault } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
@@ -6,13 +6,13 @@ import type { ComponentType } from "./tools/ComponentType";
 import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { useDomRect } from "onyxia-ui";
-import { useEvt } from "evt/hooks/useEvt";
+import { useElementEvt } from "evt/hooks/useElementEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
-import { useGetScrollableParent } from "./tools/useGetScrollableParent";
+import { getScrollableParent } from "./tools/getScrollableParent";
 
 disableEmotionWarnings();
 
@@ -69,6 +69,8 @@ const GlTemplateInner = memo(
             hasTopOfPageLinkButton,
         } = props;
 
+        const rootRef = useRef<HTMLDivElement>(null);
+
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
 
@@ -119,24 +121,18 @@ const GlTemplateInner = memo(
             domRect: { width: childrenWrapperWidth },
         } = useDomRect();
 
-        const { ref: rootRef, scrollableParent } = useGetScrollableParent();
-
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        useEvt(
-            ctx => {
-                if (scrollableParent === undefined) {
-                    return;
-                }
+        useElementEvt(
+            ({ ctx, element }) => {
                 let previousScrollTop = 0;
+                const scrollableParent = getScrollableParent({
+                    element,
+                    "doReturnElementIfScrollable": true,
+                });
 
-                Evt.from(ctx, window, "scroll").attach(() => {
-                    const scrollTop = (() => {
-                        if (scrollableParent === window) {
-                            return scrollableParent.scrollY;
-                        }
-                        return (scrollableParent as HTMLElement).scrollTop;
-                    })();
+                Evt.from(ctx, scrollableParent, "scroll").attach(() => {
+                    const { scrollTop } = scrollableParent;
 
                     setIsSmartHeaderVisible(
                         scrollTop < previousScrollTop
@@ -147,7 +143,8 @@ const GlTemplateInner = memo(
                     previousScrollTop = scrollTop;
                 });
             },
-            [headerHeight, headerOptions.isRetracted, scrollableParent],
+            rootRef,
+            [headerHeight, headerOptions.isRetracted],
         );
 
         const { classes, cx } = useStyles(
@@ -237,7 +234,9 @@ const useStyles = makeStyles<{
                     "topBottom": `${theme.spacing(3)}px`,
                 }),
                 ...(() => {
-                    let out: CSSObject = {};
+                    let out: CSSObject = {
+                        "zIndex": 1,
+                    };
                     if (
                         headerPosition === "fixed" ||
                         headerPosition === "sticky"
