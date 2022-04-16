@@ -4,7 +4,7 @@ import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
-import { getScrollableParent } from "../tools/getScrollableParent";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { assert } from "tsafe/assert";
 
 export type GlLinkToTopProps = {

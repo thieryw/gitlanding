@@ -63,7 +63,7 @@
         "tsafe": "^0.8.1",
         "typeface-work-sans": "^1.1.13",
         "tss-react": "^3.6.0",
-        "powerhooks": "^0.16.1"
+        "powerhooks": "^0.16.2"
     },
     "devDependencies": {
         "@emotion/react": "^11.7.1",

@@ -11,7 +11,7 @@ import { breakpointsValues } from "../theme";
 import { GlArrow } from "../utils/GlArrow";
 import type { Source } from "../tools/Source";
 import { useConstCallback } from "powerhooks/useConstCallback";
-import { getScrollableParent } from "../tools/getScrollableParent";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { GlHeroText } from "./GlHeroText";
 import { GlVideo } from "../utils/GlVideo";
 

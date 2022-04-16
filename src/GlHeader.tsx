@@ -11,7 +11,7 @@ import { GlDarkModeSwitch } from "./utils/GlDarkModeSwitch";
 import { Evt } from "evt";
 import { useElementEvt } from "evt/hooks/useElementEvt";
 import { GlGithubStarCount } from "./utils/GlGithubStarCount";
-import { getScrollableParent } from "./tools/getScrollableParent";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { symToStr } from "tsafe/symToStr";
 
 export type GlHeaderProps = {

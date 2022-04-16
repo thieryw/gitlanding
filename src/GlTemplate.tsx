@@ -12,7 +12,7 @@ import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
-import { getScrollableParent } from "./tools/getScrollableParent";
+import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 disableEmotionWarnings();
 
