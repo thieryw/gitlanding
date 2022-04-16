@@ -1,3 +1,8 @@
+### **0.12.3** (2022-04-16)  
+  
+- update powerhooks and use getScrollableParent from powerhooks  
+- Delete test.ts    
+  
 ### **0.12.2** (2022-04-14)  
   
 - using getScrollableParent properly  
