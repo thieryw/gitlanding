@@ -1,3 +1,8 @@
+### **0.12.2** (2022-04-14)  
+  
+- using getScrollableParent properly  
+- getScrollableParent adaptation    
+  
 ### **0.12.1** (2022-04-13)  
   
 - remove overflow from root    
