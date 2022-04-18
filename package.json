@@ -48,9 +48,14 @@
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
         "@mui/material": "^5.5.0",
-        "@types/react": "^16.8.0 || ^17.0.0",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
         "onyxia-ui": "^0.30.2",
-        "react": "^16.8.0 || ^17.0.0"
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@types/react": {
+            "optional": true
+        }
     },
     "dependencies": {
         "@mui/icons-material": "^5.5.0",
