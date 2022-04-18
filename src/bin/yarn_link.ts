@@ -63,12 +63,9 @@ const commonThirdPartyDeps = (() => {
 
 const yarnHomeDirPath = pathJoin(tssReactDirPath, ".yarn_home");
 
-(() => {
-    if (fs.existsSync(yarnHomeDirPath)) {
-        fs.rmSync(yarnHomeDirPath, { "recursive": true });
-    }
-    fs.mkdirSync(yarnHomeDirPath);
-})();
+fs.rmSync(yarnHomeDirPath, { "recursive": true, "force": true });
+
+fs.mkdirSync(yarnHomeDirPath);
 
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
