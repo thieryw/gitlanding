@@ -1,3 +1,10 @@
+## **0.13.0** (2022-04-19)  
+  
+- Remove the option of providing theme provider to GlTemplate, remove header position fixed  
+- update onyxia-ui  
+- update test app dependencies  
+- Update peerDep compat    
+  
 ### **0.12.3** (2022-04-16)  
   
 - update powerhooks and use getScrollableParent from powerhooks  
