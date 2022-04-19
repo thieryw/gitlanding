@@ -1,9 +1,7 @@
 import { useEffect, useState, memo, useRef } from "react";
-import { makeStyles, ThemeProviderDefault } from "./theme";
+import { makeStyles, splashScreen } from "./theme";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
-import type { ComponentType } from "./tools/ComponentType";
-import type { ThemeProviderProps } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { useDomRect } from "onyxia-ui";
 import { useElementEvt } from "evt/hooks/useElementEvt";
@@ -13,20 +11,14 @@ import { GlLinkToTop } from "./utils/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
+import { createThemeProvider } from "onyxia-ui";
+import memoize from "memoizee";
 
 disableEmotionWarnings();
 
-export type HeaderOptions =
-    | HeaderOptions.Fixed
-    | HeaderOptions.TopOfPage
-    | HeaderOptions.Sticky;
+export type HeaderOptions = HeaderOptions.TopOfPage | HeaderOptions.Sticky;
 
 export namespace HeaderOptions {
-    export type Fixed = {
-        position: "fixed";
-        isRetracted?: boolean | "smart";
-    };
-
     export type TopOfPage = {
         position: "top of page";
         isRetracted?: boolean;
@@ -41,32 +33,28 @@ export namespace HeaderOptions {
 export type GlTemplateProps = {
     header?: ReactNode;
     footer?: ReactNode;
-    SplashScreenLogo?: ComponentType<{ className: string }>;
-    splashScreenLogoFillColor?: string;
     children: ReactNode;
-    ThemeProvider?: ComponentType<{
-        splashScreen?: NonNullable<ThemeProviderProps["splashScreen"]>;
-        children: ReactNode;
-    }>;
     headerOptions?: HeaderOptions;
     className?: string;
     hasTopOfPageLinkButton?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
+//NOTE: Here we are sure that we are wrapped into a <ThemeProvider />.
+//we can use useTheme, useStyles, ect...
 const GlTemplateInner = memo(
     (
-        props: Omit<GlTemplateProps, "SplashScreenLogo"> & {
-            isThemeProvidedOutside: boolean;
+        props: GlTemplateProps & {
+            doTakeChargeOfHidingRootSplashScreen: boolean;
         },
     ) => {
         const {
             header,
-            isThemeProvidedOutside,
             children,
             footer,
             className,
             hasTopOfPageLinkButton,
+            doTakeChargeOfHidingRootSplashScreen,
         } = props;
 
         const rootRef = useRef<HTMLDivElement>(null);
@@ -82,11 +70,6 @@ const GlTemplateInner = memo(
             }
 
             switch (headerOptions.position) {
-                case "fixed":
-                    return {
-                        ...headerOptions,
-                        "isRetracted": headerOptions.isRetracted ?? false,
-                    };
                 case "top of page":
                     return {
                         ...headerOptions,
@@ -104,7 +87,7 @@ const GlTemplateInner = memo(
             const { hideRootSplashScreen } = useSplashScreen();
 
             useEffect(() => {
-                if (isThemeProvidedOutside) {
+                if (!doTakeChargeOfHidingRootSplashScreen) {
                     return;
                 }
 
@@ -178,38 +161,46 @@ const GlTemplateInner = memo(
     },
 );
 
+//NOTE: If the theme provider is manually provided, the user is in charge of
+//hiding the splash screen.
 export const GlTemplate = memo((props: GlTemplateProps) => {
-    const {
-        ThemeProvider = ThemeProviderDefault,
-        SplashScreenLogo,
-        splashScreenLogoFillColor,
-        ...rest
-    } = props;
-
-    const isThemeProvided = useIsThemeProvided();
+    const { ThemeProvider } = useThemeProvider();
 
     const children = (
-        <GlTemplateInner {...rest} isThemeProvidedOutside={isThemeProvided} />
+        <GlTemplateInner
+            {...props}
+            doTakeChargeOfHidingRootSplashScreen={ThemeProvider !== undefined}
+        />
     );
 
-    return isThemeProvided ? (
+    return ThemeProvider === undefined ? (
         children
     ) : (
-        <ThemeProvider
-            splashScreen={
-                SplashScreenLogo === undefined
-                    ? undefined
-                    : {
-                          "Logo": SplashScreenLogo,
-                          "fillColor": splashScreenLogoFillColor,
-                          "minimumDisplayDuration": 0,
-                      }
-            }
-        >
-            {children}
-        </ThemeProvider>
+        <ThemeProvider splashScreen={splashScreen}>{children}</ThemeProvider>
     );
 });
+
+const { useThemeProvider } = (() => {
+    const getThemeProvider = memoize((isThemeProvided: boolean) => {
+        if (isThemeProvided) {
+            return undefined;
+        }
+
+        const { ThemeProvider } = createThemeProvider({});
+
+        return ThemeProvider;
+    });
+
+    function useThemeProvider() {
+        const isThemeProvided = useIsThemeProvided();
+
+        const ThemeProvider = getThemeProvider(isThemeProvided);
+
+        return { ThemeProvider };
+    }
+
+    return { useThemeProvider };
+})();
 
 const useStyles = makeStyles<{
     headerHeight: number;
@@ -237,10 +228,7 @@ const useStyles = makeStyles<{
                     let out: CSSObject = {
                         "zIndex": 1,
                     };
-                    if (
-                        headerPosition === "fixed" ||
-                        headerPosition === "sticky"
-                    ) {
+                    if (headerPosition === "sticky") {
                         out = {
                             ...out,
                             "width": childrenWrapperWidth,
@@ -254,12 +242,6 @@ const useStyles = makeStyles<{
                         };
                     }
                     switch (headerPosition) {
-                        case "fixed":
-                            out = {
-                                ...out,
-                                "position": "fixed",
-                            };
-                            break;
                         case "sticky":
                             out = {
                                 ...out,
@@ -276,7 +258,6 @@ const useStyles = makeStyles<{
                     return out;
                 })(),
             },
-
             "footerWrapper": {
                 "marginTop": "auto",
             },
@@ -284,10 +265,6 @@ const useStyles = makeStyles<{
                 "overflowX": "hidden",
                 "display": "flex",
                 "flexDirection": "column",
-                "& > :first-child": {
-                    "paddingTop":
-                        headerPosition === "fixed" ? headerHeight : undefined,
-                },
                 "minHeight": window.innerHeight,
             },
         };

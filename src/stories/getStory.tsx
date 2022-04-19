@@ -9,16 +9,15 @@ import {
 } from "onyxia-ui";
 import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
 import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
-import {
-    ThemeProviderDefault as ThemeProvider,
-    Text,
-    useTheme,
-} from "../theme";
+import { Text, useTheme } from "../theme";
 import { id } from "tsafe/id";
 import "onyxia-ui/assets/fonts/WorkSans/font.css";
 import { GlobalStyles } from "tss-react/compat";
 import { objectKeys } from "tsafe/objectKeys";
 import type { ReactNode } from "react";
+import { createThemeProvider } from "onyxia-ui";
+
+const { ThemeProvider } = createThemeProvider({});
 
 const propsByTitle = new Map<string, any>();
 
