@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 
-import { createThemeProvider } from "onyxia-ui";
+import type { ThemeProviderProps } from "onyxia-ui";
 import { createMakeStyles } from "tss-react/compat";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
@@ -14,8 +14,6 @@ import Brightness1RoundedIcon from "@mui/icons-material/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
-
-export const { ThemeProvider: ThemeProviderDefault } = createThemeProvider({});
 
 export function useTheme() {
     const { theme } = useStyles();
@@ -59,4 +57,9 @@ export const { Button } = createButton({ Icon });
 export const breakpointsValues = {
     ...defaultBreakpointsValues,
     "lg+": 1440 as const,
+};
+
+export const splashScreen: ThemeProviderProps["splashScreen"] = {
+    "Logo": () => null,
+    "minimumDisplayDuration": 0,
 };
