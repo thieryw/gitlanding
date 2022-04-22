@@ -15,22 +15,28 @@ import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { GlHeroText } from "./GlHeroText";
 import { GlVideo } from "../utils/GlVideo";
 
-declare namespace IllustrationProps {
-    export type Illustration = Illustration.Image | Illustration.Video;
-    export namespace Illustration {
-        type Image = {
-            type: "image";
-            imageSrc: string;
-        };
-        type Video = {
-            type: "video";
-        };
-    }
-}
+type IllustrationProps =
+    | Illustration.Image
+    | Illustration.Video
+    | Illustration.CustomNode;
 
-type IllustrationProps = {
-    sources?: Source[];
-} & IllustrationProps.Illustration;
+declare namespace Illustration {
+    export type Image = {
+        type: "image";
+        imageSrc: string;
+        sources?: Source[];
+    };
+
+    export type Video = {
+        type: "video";
+        sources: Source[];
+    };
+
+    export type CustomNode = {
+        type: "custom node";
+        node: ReactNode;
+    };
+}
 
 export type GlHeroProps = {
     className?: string;
@@ -216,20 +222,16 @@ export const GlHero = memo((props: GlHeroProps) => {
                                     );
                                 case "video":
                                     return (
-                                        illustration.sources && (
-                                            <GlVideo
-                                                id={illustrationId}
-                                                hasShadow={
-                                                    hasIllustrationShadow
-                                                }
-                                                sources={illustration.sources}
-                                                className={classes.image}
-                                                onLoad={
-                                                    handleOnIllustrationLoad
-                                                }
-                                            />
-                                        )
+                                        <GlVideo
+                                            id={illustrationId}
+                                            hasShadow={hasIllustrationShadow}
+                                            sources={illustration.sources}
+                                            className={classes.image}
+                                            onLoad={handleOnIllustrationLoad}
+                                        />
                                     );
+                                case "custom node":
+                                    return illustration.node;
                             }
                         })()}
                     </motion.div>
