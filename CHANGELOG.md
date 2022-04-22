@@ -1,3 +1,7 @@
+## **0.14.0** (2022-04-22)  
+  
+- Enable providing custom node for GlHero illustration    
+  
 ## **0.13.0** (2022-04-19)  
   
 - Remove the option of providing theme provider to GlTemplate, remove header position fixed  
