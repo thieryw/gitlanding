@@ -14,13 +14,14 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { GlHeroText } from "./GlHeroText";
 import { GlVideo } from "../utils/GlVideo";
+import type { ReactComponent } from "../tools/ReactComponent";
 
 type IllustrationProps =
-    | Illustration.Image
-    | Illustration.Video
-    | Illustration.CustomNode;
+    | IllustrationProps.Image
+    | IllustrationProps.Video
+    | IllustrationProps.CustomComponent;
 
-declare namespace Illustration {
+declare namespace IllustrationProps {
     export type Image = {
         type: "image";
         imageSrc: string;
@@ -32,9 +33,9 @@ declare namespace Illustration {
         sources: Source[];
     };
 
-    export type CustomNode = {
-        type: "custom node";
-        node: ReactNode;
+    export type CustomComponent = {
+        type: "custom component";
+        Component: ReactComponent<{ className: string }>;
     };
 }
 
@@ -230,8 +231,12 @@ export const GlHero = memo((props: GlHeroProps) => {
                                             onLoad={handleOnIllustrationLoad}
                                         />
                                     );
-                                case "custom node":
-                                    return illustration.node;
+                                case "custom component":
+                                    return (
+                                        <illustration.Component
+                                            className={classes.image}
+                                        />
+                                    );
                             }
                         })()}
                     </motion.div>
