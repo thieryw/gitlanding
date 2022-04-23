@@ -1,3 +1,7 @@
+## **0.15.0** (2022-04-23)  
+  
+- Enable to provide custom component to GlHero    
+  
 ## **0.14.0** (2022-04-22)  
   
 - Enable providing custom node for GlHero illustration    
