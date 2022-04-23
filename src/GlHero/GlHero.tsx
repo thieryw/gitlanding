@@ -350,6 +350,7 @@ const useStyles = makeStyles<{
             "textAlign": "center",
         },
         "image": {
+            "display": "inline-block", //So that text align center applies
             "width": "100%",
         },
 
