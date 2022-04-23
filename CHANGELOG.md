@@ -1,3 +1,7 @@
+### **0.15.1** (2022-04-23)  
+  
+- GlHero add onLoad function to be called by the custom component    
+  
 ## **0.15.0** (2022-04-23)  
   
 - Enable to provide custom component to GlHero    
