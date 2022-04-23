@@ -1,3 +1,7 @@
+### **0.15.2** (2022-04-23)  
+  
+- Center in Hero for when it's not width 100%    
+  
 ### **0.15.1** (2022-04-23)  
   
 - GlHero add onLoad function to be called by the custom component    
