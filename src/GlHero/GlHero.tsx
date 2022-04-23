@@ -347,6 +347,7 @@ const useStyles = makeStyles<{
                     "maxHeight": value / imageAspectRatio,
                 };
             })(),
+            "textAlign": "center",
         },
         "image": {
             "width": "100%",
