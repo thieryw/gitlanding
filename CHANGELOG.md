@@ -1,3 +1,7 @@
+### **0.15.3** (2022-04-23)  
+  
+- Fix text align center in GlHero    
+  
 ### **0.15.2** (2022-04-23)  
   
 - Center in Hero for when it's not width 100%    
