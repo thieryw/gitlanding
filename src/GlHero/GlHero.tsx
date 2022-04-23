@@ -35,7 +35,7 @@ declare namespace IllustrationProps {
 
     export type CustomComponent = {
         type: "custom component";
-        Component: ReactComponent<{ className: string }>;
+        Component: ReactComponent<{ className: string; onLoad: () => void }>;
     };
 }
 
@@ -235,6 +235,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                                     return (
                                         <illustration.Component
                                             className={classes.image}
+                                            onLoad={handleOnIllustrationLoad}
                                         />
                                     );
                             }
