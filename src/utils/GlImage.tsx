@@ -33,10 +33,7 @@ export const GlImage = memo((props: GlImageProps) => {
 
     const onLoad = useConstCallback(() => {
         setIsImageLoaded(true);
-        if (onLoadProp === undefined) {
-            return;
-        }
-        onLoadProp();
+        onLoadProp?.();
     });
 
     const { classes, cx } = useStyles({
