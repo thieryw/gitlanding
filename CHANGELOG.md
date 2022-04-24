@@ -1,3 +1,7 @@
+## **0.16.0** (2022-04-24)  
+  
+- GlHero custom component as illustration is in charge of setting it's id    
+  
 ### **0.15.3** (2022-04-23)  
   
 - Fix text align center in GlHero    
