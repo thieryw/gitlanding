@@ -35,7 +35,12 @@ declare namespace IllustrationProps {
 
     export type CustomComponent = {
         type: "custom component";
-        Component: ReactComponent<{ className: string; onLoad: () => void }>;
+        Component: ReactComponent<{
+            className: string;
+            onLoad: () => void;
+            /** An id that should be set on the root */
+            id: string;
+        }>;
     };
 }
 
@@ -234,6 +239,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                                 case "custom component":
                                     return (
                                         <illustration.Component
+                                            id={illustrationId}
                                             className={classes.image}
                                             onLoad={handleOnIllustrationLoad}
                                         />
