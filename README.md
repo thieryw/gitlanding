@@ -34,8 +34,8 @@ Setting up a GitLanding page is also a great practical introduction to [GitHub A
 
 There is no shortage of website generators that enable the creation of decent-looking landing pages.
 The problem, however, is that if your project grows you will eventually need to incorporate
-features like internationalisation, routing, and other functionalities that your website generator
-mat not be able to accommodate.
+features like i18n, routing, and other functionalities that your website generator
+may not be able to accommodate.
 
 The approach of `gitlanding` is to provide a library of customisable React component
 designed to be fitting budding blocks for a landing page.  
