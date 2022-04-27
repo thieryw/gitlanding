@@ -1,3 +1,7 @@
+### **0.16.2** (2022-04-27)  
+  
+- GlHeader center links    
+  
 ### **0.16.1** (2022-04-27)  
   
 - GlHeader use proper link  
