@@ -67,8 +67,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const [buttonsWidth, setButtonsWidth] = useState(0);
     const [titleWidth, setTitleWidth] = useState(0);
 
-    //const { scrollableParent } = useGetScrollableParent({ "ref": headerRef });
-
     useEffect(() => {
         if (!titleRef.current || !linksRef.current) {
             return;
@@ -252,7 +250,6 @@ const useStyles = makeStyles<{
                 "marginLeft": theme.spacing(2),
             },
             "smallDeviceLinksWrapper": {
-                //"zIndex": 4,
                 "position": "absolute",
                 "left": -theme.paddingRightLeft,
                 "backgroundColor": theme.colors.useCases.surfaces.background,
@@ -440,14 +437,12 @@ const { Link } = (() => {
         const { classes, cx } = useStyles({ elementWidth }, { props });
 
         return (
-            <div
-                ref={ref}
-                onClick={onClick ?? (() => (window.location.href = href))}
-                className={cx(classes.root, className)}
-            >
-                <Text typo="label 1" className={classes.text}>
-                    {label}
-                </Text>
+            <div ref={ref} className={cx(classes.root, className)}>
+                <a className={classes.link} href={href} onClick={onClick}>
+                    <Text typo="label 1" className={classes.text}>
+                        {label}
+                    </Text>
+                </a>
                 <div className={classes.underline}></div>
             </div>
         );
@@ -485,6 +480,9 @@ const { Link } = (() => {
             "text": {
                 ...theme.spacing.rightLeft("padding", `${theme.spacing(2)}px`),
                 "transition": "color 100ms",
+            },
+            "link": {
+                "textDecoration": "none",
             },
         };
     });
