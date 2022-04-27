@@ -396,7 +396,7 @@ const { Links } = (() => {
 
     const useStyles = makeStyles({
         "name": `${symToStr({ GlHeader })}${symToStr({ Links })}`,
-    })({
+    })(theme => ({
         "links": {
             "display": "flex",
             "justifyContent": "center",
@@ -409,8 +409,10 @@ const { Links } = (() => {
             "cursor": "pointer",
         },
         "linkUnderline": {},
-        "link": {},
-    });
+        "link": {
+            "marginTop": theme.spacing(2),
+        },
+    }));
 
     return { Links };
 })();
