@@ -23,8 +23,8 @@ import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 import { ThemeProvider } from "./theme";
 import { GlYoutubeVideoSection } from "gitlanding/GlYoutubeVideoSection";
 import { GlCheckList } from "gitlanding/GlCheckList";
-import { useTheme, ThemeProviderDefault } from "gitlanding/theme";
 import heroImageLightUrl from "./assets/img/hero-image-light.png";
+import { useTheme } from "gitlanding/theme";
 
 
 function App() {
@@ -32,11 +32,10 @@ function App() {
   const { isDarkModeEnabled } = useTheme();
 
   return <GlTemplate
-    ThemeProvider={ThemeProvider}
     hasTopOfPageLinkButton={true}
     headerOptions={{
-      "position": "fixed",
-      "isRetracted": "smart"
+      "isRetracted": "smart",
+      "position": "sticky"
     }}
     header={<GlHeader
       links={[
@@ -278,9 +277,9 @@ You can go from a simple landing page assembled in a few minutes to a fully-fled
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProviderDefault>
+    <ThemeProvider>
       <App />
-    </ThemeProviderDefault>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
