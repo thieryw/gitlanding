@@ -1,3 +1,8 @@
+### **0.16.1** (2022-04-27)  
+  
+- GlHeader use proper link  
+- Fix typos    
+  
 ## **0.16.0** (2022-04-24)  
   
 - GlHero custom component as illustration is in charge of setting it's id    
