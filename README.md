@@ -35,7 +35,7 @@ wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # in the package.json and declare mp4 as module so that you can import 
 # mp4 files.
 # Feel free to do that manually.
-node -e '(()=>{require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"),"homepage": (() => {let url = `${require("child_process").execSync("git remote get-url origin")}`.replace(/\n/g, "");if (url.endsWith(".git")) {url = url.slice(0, url.length - 4);}const [r, u] = (url.includes(":") ? url.replace(/:/g, "/") : url).replace(/\r?\n$/, "").split("/").reverse();return `https://${u}.github.io/${r}`;})()}, null, 2));})()'
+node -e '(()=>{require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"),"homepage": (() => {const [r, u] = `${require("child_process").execSync("git remote get-url origin")}`.replace(/\n/g, "").replace(".git", "").replace(/:/g, "/").replace(/\r?\n$/, "").split("/").reverse();return `https://${u}.github.io/${r}`;})()}, null, 2));})()'
 git add -A
 git commit -m "Initial commit"
 git push --set-upstream origin landingpage
@@ -61,7 +61,7 @@ curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # https://<your_github_username>.github.io/<your_repo_name> 
 # in the package.json.
 # Feel free to do that manually.
-node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'),'homepage': (() => {let url = ('' + require('child_process').execSync('git remote get-url origin')).replace(/\n/g, '');if (url.endsWith('.git')) {url = url.slice(0, url.length - 4);}const [r, u] = (url.includes(':') ? url.replace(/:/g, '/') : url).replace(/\r?\n$/, '').split('/').reverse();return 'https://' + u + '.github.io/' + r;})()}, null, 2));})()"
+node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'),'homepage': (() => {const [r, u] = ('' + require('child_process').execSync('git remote get-url origin')).replace(/\n/g, '').replace('.git', '').replace(/:/g, '/').replace(/\r?\n$/, '').split('/').reverse();return 'https://' + u + '.github.io/' + r;})()}, null, 2));})()"
 git add -A
 git commit -m "Initial commit"
 git push --set-upstream origin landingpage
@@ -100,7 +100,7 @@ wget gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 # in the package.json and declare mp4 as module so that you can import 
 # mp4 files.
 # Feel free to do that manually.
-node -e '(()=>{require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"),"homepage": (() => {let url = `${require("child_process").execSync("git remote get-url origin")}`.replace(/\n/g, "");if (url.endsWith(".git")) {url = url.slice(0, url.length - 4);}const [r, u] = (url.includes(":") ? url.replace(/:/g, "/") : url).replace(/\r?\n$/, "").split("/").reverse();return `https://${u}.github.io/${r}`;})()}, null, 2));})()'
+node -e '(()=>{require("fs").writeFileSync("package.json",JSON.stringify({...require("./package.json"),"homepage": (() => {const [r, u] = `${require("child_process").execSync("git remote get-url origin")}`.replace(/\n/g, "").replace(".git", "").replace(/:/g, "/").replace(/\r?\n$/, "").split("/").reverse();return `https://${u}.github.io/${r}`;})()}, null, 2));})()'
 git add -A
 git commit -m "Initial commit"
 git push --set-upstream origin landingpage
