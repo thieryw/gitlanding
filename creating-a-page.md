@@ -9,10 +9,21 @@ Now you are going yo actually create yout landing page! 🚀
 First install GitLanding and it's peer dependencies.
 
 ```
-yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-ui
+yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-u
 ```
 
-Then copyand paste the the following skeletton in `src/index.tsx`, run `yarn start` and start hacking around!
+If you wish to import files sush as `webm` or `mp4` files in you project you must declare theme as modules. Copy and paste the following code in `src/react-app-env.d.ts`.
+
+Replace `mp4` with the extention of your choice.
+
+```typescript
+declare module "*.mp4" {
+	const _default: string;
+	export default _default;
+}
+```
+
+Then copy and paste the the following skeletton in `src/index.tsx`, run `yarn start` and start hacking around!
 
 ```typescript
 import { render } from "react-dom";
