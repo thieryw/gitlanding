@@ -14,9 +14,8 @@ yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-u
 
 If you wish to import files sush as `webm` or `mp4` files in you project you must declare theme as modules. Copy and paste the following code in `src/react-app-env.d.ts`.
 
-Replace `mp4` with the extention of your choice.
-
 ```typescript
+//Replace <mp4> with the extension name of your choice
 declare module "*.mp4" {
 	const _default: string;
 	export default _default;
