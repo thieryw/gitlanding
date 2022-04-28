@@ -65,7 +65,7 @@ curl gitlanding.dev/deploy.yaml -O .github/workflows/deploy.yaml
 node -e "(()=>{require('fs').writeFileSync('package.json',JSON.stringify({...require('./package.json'),'homepage': (() => {let url = ('' + require('child_process').execSync('git remote get-url origin')).replace(/\n/g, '');if (url.endsWith('.git')) {url = url.slice(0, url.length - 4);}const [r, u] = (url.includes(':') ? url.replace(/:/g, '/') : url).replace(/\r?\n$/, '').split('/').reverse();return 'https://' + u + '.github.io/' + r;})()}, null, 2));})()"
 git add -A
 git commit -m "Initial commit"
-git push --set-upstream origin landingpa
+git push --set-upstream origin landingpage
 ```
 {% endtab %}
 
