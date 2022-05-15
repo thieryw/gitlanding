@@ -29,6 +29,7 @@ import { Helmet } from "react-helmet";
 
 const appDescription = "Gitlanding helps developers to create webpages to showcase their GitHub projects.";
 const appTitle = "Gitlanding";
+const appUrl = "https://gitlanding.dev";
 
 function App() {
 
@@ -41,16 +42,16 @@ function App() {
       <meta name="description" content={`${appDescription}`} />
 
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={process.env.PUBLIC_URL} />
+      <meta property="og:url" content={appUrl} />
       <meta property="og:title" content={appTitle} />
       <meta property="og:description" content={appDescription} />
-      <meta property="og:image" content={`${process.env.PUBLIC_URL}/preview.jpg`} />
+      <meta property="og:image" content={`${appUrl}/preview.jpg`} />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={process.env.PUBLIC_URL} />
+      <meta property="twitter:url" content={appUrl} />
       <meta property="twitter:title" content={appTitle} />
       <meta property="twitter:description" content={appDescription} />
-      <meta property="twitter:image" content={`${process.env.PUBLIC_URL}/preview.jpg`} />
+      <meta property="twitter:image" content={`${appUrl}/preview.jpg`} />
 
     </Helmet>
 
