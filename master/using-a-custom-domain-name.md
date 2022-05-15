@@ -7,12 +7,6 @@ Let's say you own the domain name: `yourdomain.com`.
 
 {% tabs %}
 {% tab title="Apex domain" %}
-Remove the hostname field in your `package.json`
-
-```diff
-- "homepage": "https://yourUsername.github.io/yourRepoName"
-```
-
 Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
 
 ```
@@ -42,12 +36,6 @@ Once your DNS records are available, update your `package.json` `homepage` field
 {% endtab %}
 
 {% tab title="Subdomain" %}
-Remove the hostname field in your `package.json`
-
-```diff
-- "homepage": "https://yourUsername.github.io/yourRepoName"
-```
-
 Create theses DNS records (don't forget to replace `yourUsername` by your GitHub username and `yourdomain.com` by your domain): &#x20;
 
 ```
