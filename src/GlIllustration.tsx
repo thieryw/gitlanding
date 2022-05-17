@@ -7,25 +7,34 @@ import { makeStyles } from "./theme";
 import type { GlVideoProps } from "./utils/GlVideo";
 import { GlVideo } from "./utils/GlVideo";
 
-export declare namespace GlIllustrationProps {
-    export type Illustration =
-        | Illustration.Code
-        | Illustration.Image
-        | Illustration.Video;
+//TODO: Remove this component
 
-    export namespace Illustration {
-        type Code = { type: "code" } & GlCodeBlockProps;
-        type Image = { type: "image" } & GlImageProps;
-        type Video = { type: "video" } & GlVideoProps;
-    }
+export type GlIllustrationProps =
+    | GlIllustrationProps.Code
+    | GlIllustrationProps.Image
+    | GlIllustrationProps.Video;
+export namespace GlIllustrationProps {
+    export type Common = {
+        className?: string;
+        hasShadow?: boolean;
+    };
+
+    export type Code = Common & { type: "code" } & Omit<
+            GlCodeBlockProps,
+            "className"
+        >;
+    export type Image = Common & { type: "image" } & Omit<
+            GlImageProps,
+            "className"
+        >;
+    export type Video = Common & { type: "video" } & Omit<
+            GlVideoProps,
+            "className"
+        >;
 }
 
-export type GlIllustrationProps = {
-    hasShadow?: boolean;
-} & GlIllustrationProps.Illustration;
-
 export const GlIllustration = memo((props: GlIllustrationProps) => {
-    const { className, hasShadow } = props;
+    const { className, hasShadow, ...rest } = props;
 
     const { classes, cx } = useStyles();
 
@@ -36,46 +45,21 @@ export const GlIllustration = memo((props: GlIllustrationProps) => {
                     hasShadow,
                     "className": classes.content,
                 };
-                switch (props.type) {
+                switch (rest.type) {
                     case "code":
-                        return <GlCodeBlock {...commonProps} {...props} />;
+                        return <GlCodeBlock {...commonProps} {...rest} />;
                     case "image":
-                        return <GlImage {...commonProps} {...props} />;
+                        return <GlImage {...commonProps} {...rest} />;
                     case "video":
-                        return <GlVideo {...commonProps} {...props} />;
+                        return <GlVideo {...commonProps} {...rest} />;
                 }
             })()}
-            {/*props.type === "image" ? (
-                <GlImage
-                    url={props.url}
-                    alt={props.alt}
-                    className={cx(classes.content, props.className)}
-                    hasShadow={hasShadow}
-                    height={props.height}
-                    width={props.width}
-                    imageSources={props.imageSources}
-                />
-            ) : (
-                <GlCodeBlock
-                    text={props.text}
-                    language={props.language}
-                    showLineNumbers={props.showLineNumbers}
-                    hasDecorativeVsCodeButtons={
-                        props.hasDecorativeVsCodeButtons
-                    }
-                    className={cx(classes.content, props.className)}
-                    hasShadow={hasShadow}
-                    isCopyBlock={props.isCopyBlock}
-                    copiedToClipboardMessage={props.copiedToClipboardMessage}
-                />
-                )*/}
         </div>
     );
 });
 
 const useStyles = makeStyles({ "name": { GlIllustration } })({
     "root": {},
-
     "content": {
         "width": "100%",
     },
