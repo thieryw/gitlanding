@@ -220,7 +220,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                                             id={illustrationId}
                                             className={classes.image}
                                             hasShadow={hasIllustrationShadow}
-                                            url={illustration.imageSrc}
+                                            src={illustration.imageSrc}
                                             alt="hero image"
                                             sources={illustration.sources}
                                             onLoad={handleOnIllustrationLoad}

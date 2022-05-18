@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { memo, useState } from "react";
+import { memo } from "react";
 import { makeStyles } from "../theme";
-import { useConstCallback } from "powerhooks";
 import { Source } from "../tools/Source";
 
 export type GlImageProps = {
     id?: string;
     className?: string;
-    url: string;
+    src: string;
     alt?: string;
     width?: number;
     height?: number;
@@ -20,24 +19,16 @@ export const GlImage = memo((props: GlImageProps) => {
     const {
         id,
         className,
-        url,
+        src,
         alt,
         height,
         width,
         hasShadow,
         sources,
-        onLoad: onLoadProp,
+        onLoad,
     } = props;
 
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-    const onLoad = useConstCallback(() => {
-        setIsImageLoaded(true);
-        onLoadProp?.();
-    });
-
     const { classes, cx } = useStyles({
-        isImageLoaded,
         "hasShadow": hasShadow ?? true,
     });
     return (
@@ -48,7 +39,7 @@ export const GlImage = memo((props: GlImageProps) => {
                 id={id}
                 onLoad={onLoad}
                 className={cx(classes.root, className)}
-                src={url}
+                src={src}
                 alt={alt}
                 width={width}
                 height={height}
@@ -57,14 +48,10 @@ export const GlImage = memo((props: GlImageProps) => {
     );
 });
 
-const useStyles = makeStyles<{ isImageLoaded: boolean; hasShadow: boolean }>({
+const useStyles = makeStyles<{ hasShadow: boolean }>({
     "name": { GlImage },
-})((theme, { isImageLoaded, hasShadow }) => ({
+})((theme, { hasShadow }) => ({
     "root": {
-        "width": isImageLoaded ? "100%" : undefined,
-        "height": isImageLoaded ? "auto" : undefined,
-        "objectFit": "cover",
-        "verticalAlign": "middle",
         "boxShadow": !hasShadow ? undefined : theme.customShadow,
     },
 }));
