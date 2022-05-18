@@ -2,7 +2,6 @@ import { render } from "react-dom";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHero } from "gitlanding/GlHero/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
-import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlCards } from "gitlanding/GlCards";
@@ -12,11 +11,26 @@ import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
 import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlHeader } from "gitlanding/GlHeader";
-import videoSafari from "./assets/videos/vsafari.mp4";
-import videoChrome from "./assets/videos/vchrome.webm";
+/*import videoSafari from "./assets/videos/vsafari.mp4";
+import videoChrome from "./assets/videos/vchrome.webm";*/
 import imageSrc from "./assets/test-images/test2.png";
+import contribImageSrc from "./assets/illustrations/contribution.png";
+import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
+import { GlCodeBlock } from "gitlanding/GlCodeBlock";
+import { createMakeStyles } from "tss-react";
+
+const { makeStyles } = createMakeStyles({
+    "useTheme": () => {},
+});
+
+const useStyles = makeStyles()({
+    "video": {
+        "borderRadius": "10px",
+    },
+});
 
 function App() {
+    const { classes } = useStyles();
     return (
         <GlTemplate
             hasTopOfPageLinkButton={true}
@@ -100,18 +114,20 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={
-                    <GlIllustration
-                        type="code"
-                        hasDecorativeVsCodeButtons={true}
-                        isCopyBlock={true}
-                        copiedToClipboardMessage="copied!"
-                        language="typescript"
-                        text={`function sum(x: number, y: number): number{
+                illustration={{
+                    "type": "custom",
+                    "reactNode": (
+                        <GlCodeBlock
+                            hasDecorativeVsCodeButtons={true}
+                            isCopyBlock={true}
+                            copiedToClipboardMessage="copied to clipboard!"
+                            language="typescript"
+                            text={`function sum(x: number, y: number): number{
     return x + y;
 }`}
-                    />
-                }
+                        />
+                    ),
+                }}
                 hasAnimation={true}
                 illustrationPosition="left"
             />
@@ -165,6 +181,9 @@ function App() {
             <GlSectionDivider />
 
             <GlArticle
+                classes={{
+                    "video": classes.video,
+                }}
                 title="Article title"
                 body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
         nisl nec hendrerit rutrum, 
@@ -176,22 +195,16 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={
-                    <GlIllustration
-                        hasShadow={false}
-                        type="video"
-                        sources={[
-                            {
-                                "src": videoSafari,
-                                "type": 'video/mp4; codecs="hvc1"',
-                            },
-                            {
-                                "src": videoChrome,
-                                "type": "video/webm",
-                            },
-                        ]}
-                    />
-                }
+                illustration={{
+                    "type": "video",
+                    "hasShadow": false,
+                    "sources": [
+                        {
+                            "src": sspcloudMp4,
+                            "type": "video/mp4",
+                        },
+                    ],
+                }}
                 hasAnimation={true}
             />
 
@@ -221,6 +234,26 @@ function App() {
             </GlCards>
 
             <GlSectionDivider />
+
+            <GlArticle
+                title="Article title"
+                body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+        nisl nec hendrerit rutrum, 
+        mi enim semper arcu, ut imperdiet urna libero non metus. 
+        Donec imperdiet ac nulla sit amet lacinia. 
+        Suspendisse volutpat lectus vitae libero luctus, a egestas magna egestas. 
+        Suspendisse potenti. In semper erat scelerisque sapien convallis porttitor.`}
+                buttonLabel="Article Button label"
+                buttonLink={{
+                    "href": "https://example.com",
+                }}
+                illustration={{
+                    "type": "image",
+                    "src": contribImageSrc,
+                    "hasShadow": false,
+                }}
+                hasAnimation={true}
+            />
 
             <GlCheckList
                 heading="Check List Heading"
