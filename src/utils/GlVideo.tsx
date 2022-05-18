@@ -38,7 +38,7 @@ export const GlVideo = memo((props: GlVideoProps) => {
     return (
         <video
             className={cx(classes.root, className)}
-            onLoadStart={onLoad}
+            onLoadedData={onLoad}
             loop={loop ?? true}
             muted={muted ?? true}
             autoPlay={autoPlay ?? true}
@@ -58,7 +58,6 @@ export const GlVideo = memo((props: GlVideoProps) => {
 const useStyles = makeStyles<{ hasShadow: boolean }>({ "name": { GlVideo } })(
     (theme, { hasShadow }) => ({
         "root": {
-            "width": "100%",
             "boxShadow": !hasShadow ? undefined : theme.customShadow,
         },
     }),
