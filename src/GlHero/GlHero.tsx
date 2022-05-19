@@ -22,6 +22,7 @@ export type GlHeroProps = {
     illustration?: IllustrationProps;
     hasLinkToSectionBellow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    hasAnimation?: boolean;
 };
 
 const illustrationId = "illustrationId";
@@ -51,12 +52,17 @@ const imageAnimProps = {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const { title, subTitle, className, hasLinkToSectionBellow, illustration } =
-        props;
+    const {
+        title,
+        subTitle,
+        className,
+        hasLinkToSectionBellow,
+        illustration,
+        hasAnimation,
+    } = props;
 
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
-    const [imageAspectRatio, setImageAspectRatio] = useState(0);
     const ref = useRef<HTMLDivElement>(null);
 
     const handleOnIllustrationLoad = useConstCallback(async () => {
@@ -89,27 +95,25 @@ export const GlHero = memo((props: GlHeroProps) => {
 
     useSplashScreen({
         "onHidden": () => {
-            if (isImageLoaded && isAnimationComplete) {
+            if (
+                isImageLoaded &&
+                isAnimationComplete &&
+                (hasAnimation || hasAnimation === undefined)
+            ) {
                 animate();
             }
         },
     });
 
     useEffect(() => {
-        if (!isImageLoaded || isAnimationComplete) {
+        if (
+            !isImageLoaded ||
+            isAnimationComplete ||
+            (!hasAnimation && hasAnimation !== undefined)
+        ) {
             return;
         }
         animate();
-    }, [isImageLoaded]);
-
-    useEffect(() => {
-        const image = document.getElementById(illustrationId);
-
-        if (!image || image.clientHeight === 0 || illustration === undefined) {
-            return;
-        }
-
-        setImageAspectRatio(image.clientWidth / image.clientHeight);
     }, [isImageLoaded]);
 
     const onClick = useConstCallback(() => {
@@ -128,7 +132,6 @@ export const GlHero = memo((props: GlHeroProps) => {
         {
             "hasOnlyText": illustration === undefined,
             isImageLoaded,
-            imageAspectRatio,
         },
         { props },
     );
@@ -138,13 +141,26 @@ export const GlHero = memo((props: GlHeroProps) => {
             <div className={classes.textAndImageWrapper}>
                 {(title !== undefined || subTitle !== undefined) && (
                     <motion.div
-                        variants={textWrapperVariant}
-                        initial="hidden"
-                        animate="show"
                         className={classes.textWrapper}
+                        {...(() => {
+                            if (!hasAnimation && hasAnimation !== undefined) {
+                                return;
+                            }
+                            return {
+                                "variants": textWrapperVariant,
+                                "initial": "hidden",
+                                "animate": "show",
+                            };
+                        })()}
                     >
                         {title !== undefined && (
-                            <motion.div variants={textVariant}>
+                            <motion.div
+                                variants={
+                                    hasAnimation || hasAnimation === undefined
+                                        ? textVariant
+                                        : undefined
+                                }
+                            >
                                 {typeof title === "string" ? (
                                     <GlHeroText className={classes.title}>
                                         {title}
@@ -155,7 +171,13 @@ export const GlHero = memo((props: GlHeroProps) => {
                             </motion.div>
                         )}
                         {subTitle !== undefined && (
-                            <motion.div variants={textVariant}>
+                            <motion.div
+                                variants={
+                                    hasAnimation || hasAnimation === undefined
+                                        ? textVariant
+                                        : undefined
+                                }
+                            >
                                 {typeof subTitle === "string" ? (
                                     <Text
                                         typo="subtitle"
@@ -173,7 +195,9 @@ export const GlHero = memo((props: GlHeroProps) => {
 
                 {illustration !== undefined && (
                     <motion.div
-                        {...imageAnimProps}
+                        {...(hasAnimation || hasAnimation === undefined
+                            ? imageAnimProps
+                            : undefined)}
                         className={classes.imageWrapper}
                     >
                         {(() => {
@@ -227,105 +251,88 @@ export const GlHero = memo((props: GlHeroProps) => {
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
     isImageLoaded: boolean;
-    imageAspectRatio: number;
-}>({ "name": { GlHero } })(
-    (theme, { hasOnlyText, isImageLoaded, imageAspectRatio }) => ({
-        "root": {
-            "width": "100%",
-            "paddingBottom": theme.spacing(7),
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-        },
-        "arrow": {
-            "cursor": "pointer",
-        },
-        "textAndImageWrapper": {
-            "padding": theme.spacing({
-                "topBottom": 5,
-                "rightLeft": 0,
-            }),
-            "minHeight": (window.innerHeight / 100) * 70,
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "center",
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "flexDirection": "column",
-                      "alignItems": "left",
-                  }
-                : {}),
-            "marginBottom": theme.spacing(6),
-        },
+}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
+    "root": {
+        "width": "100%",
+        "paddingBottom": theme.spacing(7),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+    },
+    "arrow": {
+        "cursor": "pointer",
+    },
+    "textAndImageWrapper": {
+        "margin": theme.spacing({
+            "topBottom": 5,
+            "rightLeft": 0,
+        }),
+        "minHeight": (window.innerHeight / 100) * 70,
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "flexDirection": "column",
+                  "alignItems": "left",
+              }
+            : {}),
+    },
 
-        "title": {
-            "marginBottom": theme.spacing(4),
-        },
-        "subtitle": {
-            "marginTop": theme.spacing(4),
-            "maxWidth": 650,
-            "color": theme.colors.useCases.typography.textSecondary,
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                    return undefined;
-                }
-                return theme.typography.variants["body 1"].style;
-            })(),
-        },
+    "title": {
+        "marginBottom": theme.spacing(4),
+    },
+    "subtitle": {
+        "marginTop": theme.spacing(4),
+        "maxWidth": 650,
+        "color": theme.colors.useCases.typography.textSecondary,
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                return undefined;
+            }
+            return theme.typography.variants["body 1"].style;
+        })(),
+    },
 
-        "textWrapper": {
-            "textAlign":
-                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                    ? "center"
-                    : undefined,
-            "alignItems": hasOnlyText ? "center" : undefined,
-            "flexDirection": "column",
-            "flex": 1,
-            "maxWidth": 1000,
-            "display": "flex",
-            ...(() => {
-                const value = theme.spacing(7);
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return {
-                        "marginRight": hasOnlyText ? undefined : value,
-                    };
-                }
-
+    "textWrapper": {
+        "textAlign":
+            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                ? "center"
+                : undefined,
+        "alignItems": hasOnlyText ? "center" : undefined,
+        "flexDirection": "column",
+        ...(() => {
+            if (theme.windowInnerWidth < breakpointsValues.md) {
+                return undefined;
+            }
+            return {
+                "maxWidth": 800,
+                "minWidth": 400,
+            };
+        })(),
+        "display": "flex",
+        ...(() => {
+            const value = theme.spacing(7);
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return {
-                    "marginBottom": value,
+                    "marginRight": hasOnlyText ? undefined : value,
                 };
-            })(),
-        },
+            }
 
-        "imageWrapper": {
-            "alignSelf": "center",
-            "flex": 1.5,
-            ...(() => {
-                if (imageAspectRatio === 0) {
-                    return {
-                        "maxHeight": 700,
-                    };
-                }
-                const value = 650 * imageAspectRatio;
+            return {
+                "marginBottom": value,
+            };
+        })(),
+    },
 
-                return {
-                    "maxWidth": value > 800 ? 800 : value,
-                    "maxHeight": value / imageAspectRatio,
-                };
-            })(),
-            "textAlign": "center",
-        },
-        "illustration": {
-            "display": "inline-block", //So that text align center applies
-            "width": "100%",
-        },
+    "imageWrapper": {},
+    "illustration": {
+        "display": "inline-block", //So that text align center applies
+        "width": "100%",
+    },
 
-        "linkToSectionBelowWrapper": {
-            "display": "flex",
-            "justifyContent": "center",
-            "transition": "opacity 300ms",
-            "opacity": isImageLoaded ? 1 : 0,
-        },
-    }),
-);
+    "linkToSectionBelowWrapper": {
+        "display": "flex",
+        "justifyContent": "center",
+        "transition": "opacity 300ms",
+        "opacity": isImageLoaded ? 1 : 0,
+    },
+}));
