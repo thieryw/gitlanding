@@ -13,7 +13,7 @@ import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlHeader } from "gitlanding/GlHeader";
 /*import videoSafari from "./assets/videos/vsafari.mp4";
 import videoChrome from "./assets/videos/vchrome.webm";*/
-import imageSrc from "./assets/test-images/test6.jpeg";
+import imageSrc from "./assets/test-images/test7.png";
 import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
@@ -89,9 +89,10 @@ function App() {
             }
         >
             <GlHero
-                title="Hero title"
-                subTitle={"Hero subtitle"}
+                title="Hero title very very long title indeed"
+                subTitle={"Hero subtitle very very long sub title indeed"}
                 hasLinkToSectionBellow={true}
+                hasAnimation={false}
                 illustration={{
                     "type": "image",
                     "src": imageSrc,
