@@ -47,20 +47,22 @@ const propsWithCode: GlArticleProps = {
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
     "buttonLabel": "Button",
     "illustration": {
-        "type": "custom",
-        "reactNode": (
-            <GlCodeBlock
-                hasDecorativeVsCodeButtons={true}
-                language="typescript"
-                text={`function getRandomInt(max) {
+        "type": "custom component",
+        "Component": () => {
+            return (
+                <GlCodeBlock
+                    hasDecorativeVsCodeButtons={true}
+                    language="typescript"
+                    text={`function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
 console.log(getRandomInt(3));
 console.log(getRandomInt(1));
 console.log(Math.random());
 		`}
-            />
-        ),
+                />
+            );
+        },
     },
     "hasAnimation": true,
 };

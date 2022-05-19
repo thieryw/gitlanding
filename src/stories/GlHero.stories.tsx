@@ -15,7 +15,8 @@ export default meta;
 export const VueWithImage = getStory({
     "illustration": {
         "type": "image",
-        "imageSrc": heroImgSrc,
+        "src": heroImgSrc,
+        "hasShadow": false,
     },
     "title": "Hero Title",
     "subTitle": "Hero Subtitle",
