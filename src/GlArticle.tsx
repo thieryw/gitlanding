@@ -9,37 +9,8 @@ import { Markdown } from "./tools/Markdown";
 import { Text } from "./theme";
 import { GlImage } from "./utils/GlImage";
 import { GlVideo } from "./utils/GlVideo";
-import type { Source } from "./tools/Source";
 import { useConstCallback } from "powerhooks/useConstCallback";
-
-type IllustrationProps =
-    | IllustrationProps.Image
-    | IllustrationProps.Video
-    | IllustrationProps.Custom;
-
-declare namespace IllustrationProps {
-    export type Image = {
-        type: "image";
-        sources?: Source[];
-        src: string;
-        hasShadow?: boolean;
-    };
-
-    export type Video = {
-        type: "video";
-        sources: Source[];
-        hasShadow?: boolean;
-        autoPlay?: boolean;
-        muted?: boolean;
-        loop?: boolean;
-        controls?: boolean;
-    };
-
-    export type Custom = {
-        type: "custom";
-        reactNode: ReactNode;
-    };
-}
+import { IllustrationProps } from "./tools/IllustrationProps";
 
 export type GlArticleProps = {
     className?: string;
@@ -128,7 +99,10 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [isIllustrationLoaded, setIsIllustrationLoaded] = useState(() => {
-        if (illustration === undefined || illustration.type === "custom") {
+        if (
+            illustration === undefined ||
+            illustration.type === "custom component"
+        ) {
             return true;
         }
         return false;
@@ -173,7 +147,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
     );
 
     const onIllustrationLoaded = useConstCallback(() => {
-        console.log("ok");
         setIsIllustrationLoaded(true);
     });
 
@@ -257,8 +230,14 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 >
                     {(() => {
                         switch (illustration.type) {
-                            case "custom":
-                                return illustration.reactNode;
+                            case "custom component":
+                                return (
+                                    <illustration.Component
+                                        onLoad={onIllustrationLoaded}
+                                        id="customComponentId"
+                                        className={classes.customComponent}
+                                    />
+                                );
                             case "image":
                                 return (
                                     <GlImage
@@ -386,5 +365,6 @@ const useStyles = makeStyles<{
         "video": {
             "width": "100%",
         },
+        "customComponent": {},
     }),
 );

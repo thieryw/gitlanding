@@ -9,40 +9,11 @@ import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
 import { GlArrow } from "../utils/GlArrow";
-import type { Source } from "../tools/Source";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { GlHeroText } from "./GlHeroText";
 import { GlVideo } from "../utils/GlVideo";
-import type { ReactComponent } from "../tools/ReactComponent";
-
-type IllustrationProps =
-    | IllustrationProps.Image
-    | IllustrationProps.Video
-    | IllustrationProps.CustomComponent;
-
-declare namespace IllustrationProps {
-    export type Image = {
-        type: "image";
-        imageSrc: string;
-        sources?: Source[];
-    };
-
-    export type Video = {
-        type: "video";
-        sources: Source[];
-    };
-
-    export type CustomComponent = {
-        type: "custom component";
-        Component: ReactComponent<{
-            className: string;
-            onLoad: () => void;
-            /** An id that should be set on the root */
-            id: string;
-        }>;
-    };
-}
+import type { IllustrationProps } from "../tools/IllustrationProps";
 
 export type GlHeroProps = {
     className?: string;
@@ -50,7 +21,6 @@ export type GlHeroProps = {
     subTitle?: NonNullable<ReactNode>;
     illustration?: IllustrationProps;
     hasLinkToSectionBellow?: boolean;
-    hasIllustrationShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
@@ -81,14 +51,8 @@ const imageAnimProps = {
 };
 
 export const GlHero = memo((props: GlHeroProps) => {
-    const {
-        title,
-        subTitle,
-        className,
-        hasLinkToSectionBellow,
-        hasIllustrationShadow,
-        illustration,
-    } = props;
+    const { title, subTitle, className, hasLinkToSectionBellow, illustration } =
+        props;
 
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -218,29 +182,26 @@ export const GlHero = memo((props: GlHeroProps) => {
                                     return (
                                         <GlImage
                                             id={illustrationId}
-                                            className={classes.image}
-                                            hasShadow={hasIllustrationShadow}
-                                            src={illustration.imageSrc}
+                                            className={classes.illustration}
                                             alt="hero image"
-                                            sources={illustration.sources}
                                             onLoad={handleOnIllustrationLoad}
+                                            {...illustration}
                                         />
                                     );
                                 case "video":
                                     return (
                                         <GlVideo
                                             id={illustrationId}
-                                            hasShadow={hasIllustrationShadow}
-                                            sources={illustration.sources}
-                                            className={classes.image}
+                                            className={classes.illustration}
                                             onLoad={handleOnIllustrationLoad}
+                                            {...illustration}
                                         />
                                     );
                                 case "custom component":
                                     return (
                                         <illustration.Component
                                             id={illustrationId}
-                                            className={classes.image}
+                                            className={classes.illustration}
                                             onLoad={handleOnIllustrationLoad}
                                         />
                                     );
@@ -355,7 +316,7 @@ const useStyles = makeStyles<{
             })(),
             "textAlign": "center",
         },
-        "image": {
+        "illustration": {
             "display": "inline-block", //So that text align center applies
             "width": "100%",
         },
