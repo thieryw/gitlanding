@@ -13,7 +13,7 @@ import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlHeader } from "gitlanding/GlHeader";
 /*import videoSafari from "./assets/videos/vsafari.mp4";
 import videoChrome from "./assets/videos/vchrome.webm";*/
-import imageSrc from "./assets/test-images/test2.png";
+import imageSrc from "./assets/test-images/test6.jpeg";
 import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
@@ -92,10 +92,9 @@ function App() {
                 title="Hero title"
                 subTitle={"Hero subtitle"}
                 hasLinkToSectionBellow={true}
-                hasIllustrationShadow={true}
                 illustration={{
                     "type": "image",
-                    "imageSrc": imageSrc,
+                    "src": imageSrc,
                 }}
             />
 
@@ -115,8 +114,8 @@ function App() {
                     "href": "https://example.com",
                 }}
                 illustration={{
-                    "type": "custom",
-                    "reactNode": (
+                    "type": "custom component",
+                    "Component": () => (
                         <GlCodeBlock
                             hasDecorativeVsCodeButtons={true}
                             isCopyBlock={true}
