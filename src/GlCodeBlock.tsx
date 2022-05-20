@@ -1,5 +1,5 @@
 import { CodeBlock, railscast } from "react-code-blocks";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { makeStyles } from "./theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
@@ -38,6 +38,7 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
 
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [isCopiedMessageShowing, setIsCopiedMessageShowing] = useState(false);
+    const [seconds, setSeconds] = useState(0);
 
     const copyCode = useConstCallback(() => {
         if (text === undefined) {
@@ -45,14 +46,25 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         }
         navigator.clipboard.writeText(text);
         setIsMouseDown(false);
+        setSeconds(2);
         if (isCopiedMessageShowing) {
             return;
         }
         setIsCopiedMessageShowing(true);
-        setTimeout(() => {
-            setIsCopiedMessageShowing(false);
-        }, 2000);
     });
+
+    useEffect(() => {
+        if (seconds === 0) {
+            setIsCopiedMessageShowing(false);
+            return;
+        }
+
+        const interval = setInterval(() => {
+            setSeconds(seconds - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [seconds]);
 
     const onMouseDown = useConstCallback(() => {
         if (isMouseDown) {
@@ -155,6 +167,7 @@ const useStyles = makeStyles<{
             "paddingBottom": theme.spacing(1),
             "paddingRight": theme.spacing(2),
             "textAlign": "right",
+            "color": theme.colors.palette.light.greyVariant1,
         },
     }),
 );
@@ -175,11 +188,12 @@ const { VsCodeButtons } = (() => {
                         colors.tomatoRed,
                         colors.goldenRoad,
                         colors.limeGreen,
-                    ].map(color => {
+                    ].map((color, index) => {
                         return (
                             <div
                                 className={cx(
                                     classes.icon,
+                                    index === 1 ? classes.middleButton : "",
                                     css({
                                         "backgroundColor": color,
                                     }),
@@ -200,7 +214,6 @@ const { VsCodeButtons } = (() => {
         },
         "buttons": {
             "display": "flex",
-            "gap": theme.spacing(1),
             ...(() => {
                 const value = theme.spacing(2);
                 return {
@@ -208,6 +221,9 @@ const { VsCodeButtons } = (() => {
                     "marginLeft": value,
                 };
             })(),
+        },
+        "middleButton": {
+            ...theme.spacing.rightLeft("margin", `${theme.spacing(1)}px`),
         },
         "icon": {
             ...(() => {
