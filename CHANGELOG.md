@@ -1,3 +1,21 @@
+## **0.17.0** (2022-05-20)  
+  
+- GlCodeBlock: use margins instead of gap and reset copied message time every time the user clicks to avoid flashes  
+- update react-code-block  
+- test GlHero  
+- GlHero refactor  
+- test Refactored components  
+- migrate stories to IllustrationProps  
+- use IllustrationProps in GlArticle and GlHero  
+- create IllustrationProps  
+- GlArticle test  
+- correct GlArticle stories  
+- useIntersectionObserver: add dependencyList  
+- GlVideo: remove width and set onLoadedData  
+- GlImage: refactor  
+- delete GlIllustration  
+- GlArticle: refactor    
+  
 ### **0.16.3** (2022-05-17)  
   
 - Update GlIllustration    
