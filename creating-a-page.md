@@ -9,7 +9,7 @@ Now you are going yo actually create yout landing page! 🚀
 First install GitLanding and it's peer dependencies.
 
 ```
-yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-ui
+yarn add gitlanding @mui/material @emotion/react @emotion/styled onyxia-u
 ```
 
 If you wish to import files sush as `webm` or `mp4` files in you project you must declare theme as modules. Copy and paste the following code in `src/react-app-env.d.ts`.
@@ -30,6 +30,7 @@ import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHeader } from "gitlanding/GlHeader";
 import { GlHero } from "gitlanding/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
+import { GlIllustration } from "gitlanding/GlIllustration";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlCards } from "gitlanding/GlCards";
@@ -65,7 +66,7 @@ function App() {
                 />
             }
             headerOptions={{
-                "position": "sticky",
+                "position": "fixed",
                 "isRetracted": "smart",
             }}
             footer={
@@ -93,12 +94,9 @@ function App() {
             <GlHero
                 title="Hero title"
                 subTitle="Hero subtitle"
-                illustration={{
-                    "type": "image",
-                    "src": "https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png",
-                    "hasShadow": false
-                }}
+                imageSrc="https://user-images.githubusercontent.com/39378411/135731749-4a723d4e-52ea-49b7-83c1-7da4db8f3f59.png"
                 hasLinkToSectionBellow={true}
+                hasImageShadow={false}
             />
 
             <GlArticle
@@ -114,11 +112,13 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={{
-                    "type": "image",
-                    "src": "https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png",
-                    "hasShadow": false
-                }}
+                illustration={
+                    <GlIllustration
+                        hasShadow={false}
+                        type="image"
+                        url="https://user-images.githubusercontent.com/39378411/135731808-6cf3e4dd-1047-4a0a-95be-65fdd6947315.png"
+                    />
+                }
                 hasAnimation={true}
                 illustrationPosition="left"
             />
@@ -180,11 +180,13 @@ function App() {
                 buttonLink={{
                     "href": "https://example.com",
                 }}
-                illustration={{
-                    "type": "image",
-                    "src": "https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png",
-                    "hasShadow": false
-                }}
+                illustration={
+                    <GlIllustration
+                        type="image"
+                        url="https://user-images.githubusercontent.com/39378411/135731816-5ba39459-d95e-413d-b515-92a7b0dc5acf.png"
+                        hasShadow={false}
+                    />
+                }
                 hasAnimation={true}
             />
 
