@@ -37,6 +37,7 @@ function App() {
             header={
                 <GlHeader
                     title="Title"
+                    titleSmallScreenDark="title smallScreen dark"
                     links={[
                         {
                             "label": "link 1",

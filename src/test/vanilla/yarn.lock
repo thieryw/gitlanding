@@ -5321,14 +5321,14 @@ github-buttons@^2.8.0:
   integrity sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==
 
 "gitlanding@file:../../../dist":
-  version "0.12.3"
+  version "0.17.0"
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
     framer-motion "^4.1.17"
     memoizee "^0.4.15"
     powerhooks "^0.16.3"
-    react-code-blocks "^0.0.8"
+    react-code-blocks "^0.0.9-0"
     react-github-btn "^1.2.0"
     react-markdown "^5.0.3"
     react-svg "^13.0.4"
@@ -9313,16 +9313,15 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-code-blocks@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/react-code-blocks/-/react-code-blocks-0.0.8.tgz#3bb70b9b60510dba6c6b7ef350d1977cf022ff15"
-  integrity sha512-xGw05QLvaEteWnlmPKr7pe/F7WrhUT7GbL5h+Yf3zmErVDmZJbQgJVxSnDSEw30V32fo4EFb8wo/3mhO4pZSsw==
+react-code-blocks@^0.0.9-0:
+  version "0.0.9-0"
+  resolved "https://registry.yarnpkg.com/react-code-blocks/-/react-code-blocks-0.0.9-0.tgz#0c6d04d8a40b74cffe95f24f1a8e62a0fda8c014"
+  integrity sha512-jdYJVZwGtsr6WIUaqILy5fkF1acf57YV5s0V3+w5o9v3omYnqBeO6EuZi1Vf2x1hahkYGEedsp46+ofdkYlqyw==
   dependencies:
     "@babel/runtime" "^7.10.4"
     react-syntax-highlighter "^12.2.1"
     styled-components "^5.1.1"
     tslib "^2.0.0"
-    typescript-plugin-styled-components "^1.4.4"
 
 react-dev-utils@^11.0.3:
   version "11.0.4"
@@ -11115,11 +11114,6 @@ typeface-work-sans@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-work-sans/-/typeface-work-sans-1.1.13.tgz#344ac638cbebcd55611fc4c2d08c7c9b47792157"
   integrity sha512-LA5agpsXPLWFaUB88mhxsjtwius4Eu2AHuy5gaKeRY8RMHpEzJbDCES8DWbJ/vAYOljaE1OIoKeqrFdDqjKDtQ==
-
-typescript-plugin-styled-components@^1.4.4:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/typescript-plugin-styled-components/-/typescript-plugin-styled-components-1.6.0.tgz#6ee1d2b079490ad101055112fda1974d761f2e96"
-  integrity sha512-cUCbOuY0iNr1JjPYC5MqCiABrfv2ouLift+7gi4vS0gBPQySUT006wHCjwzynMfU5LGMQaZqpssAgzRRjt30Ng==
 
 typescript@^4.1.2:
   version "4.5.4"
