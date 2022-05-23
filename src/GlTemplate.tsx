@@ -35,6 +35,7 @@ export type GlTemplateProps = {
     footer?: ReactNode;
     children: ReactNode;
     headerOptions?: HeaderOptions;
+    applyHeaderPadding?: boolean;
     className?: string;
     hasTopOfPageLinkButton?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
@@ -55,6 +56,7 @@ const GlTemplateInner = memo(
             className,
             hasTopOfPageLinkButton,
             doTakeChargeOfHidingRootSplashScreen,
+            applyHeaderPadding,
         } = props;
 
         const rootRef = useRef<HTMLDivElement>(null);
@@ -139,6 +141,7 @@ const GlTemplateInner = memo(
                         ? !isSmartHeaderVisible
                         : headerOptions.isRetracted,
                 "headerPosition": headerOptions.position,
+                "applyHeaderPadding": applyHeaderPadding ?? false,
             },
             { props },
         );
@@ -207,6 +210,7 @@ const useStyles = makeStyles<{
     childrenWrapperWidth: number;
     isHeaderRetracted: boolean;
     headerPosition: Required<HeaderOptions>["position"];
+    applyHeaderPadding: boolean;
 }>({ "name": { GlTemplate } })(
     (
         theme,
@@ -215,15 +219,18 @@ const useStyles = makeStyles<{
             childrenWrapperWidth,
             isHeaderRetracted,
             headerPosition,
+            applyHeaderPadding,
         },
     ) => {
         return {
             "root": {},
             "headerWrapper": {
-                "padding": theme.spacing({
-                    "rightLeft": `${theme.paddingRightLeft}px`,
-                    "topBottom": `${theme.spacing(3)}px`,
-                }),
+                "padding": applyHeaderPadding
+                    ? theme.spacing({
+                          "rightLeft": `${theme.paddingRightLeft}px`,
+                          "topBottom": `${theme.spacing(3)}px`,
+                      })
+                    : undefined,
                 ...(() => {
                     let out: CSSObject = {
                         "zIndex": 1,
