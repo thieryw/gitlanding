@@ -36,20 +36,30 @@ function App() {
             hasTopOfPageLinkButton={true}
             header={
                 <GlHeader
-                    title="Title"
-                    titleSmallScreenDark="title smallScreen dark"
+                    title="Title large screen light"
                     links={[
                         {
-                            "label": "link 1",
+                            "label": "link1",
                             "href": "https://example.com",
                         },
                         {
-                            "label":
-                                "A very very very very very long link label",
+                            "label": "Averyveryveryveryverylonglinklabel",
                             "href": "https://example.com",
                         },
                         {
-                            "label": "link 3",
+                            "label": "link3",
+                            "href": "https://example.com",
+                        },
+                        {
+                            "label": "link1",
+                            "href": "https://example.com",
+                        },
+                        {
+                            "label": "Averyveryveryveryverylonglinklabel",
+                            "href": "https://example.com",
+                        },
+                        {
+                            "label": "link3",
                             "href": "https://example.com",
                         },
                     ]}
