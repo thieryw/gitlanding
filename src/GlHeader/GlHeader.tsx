@@ -69,10 +69,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     } = useDomRect({
         ref,
     });
-    const {
-        ref: linksRef,
-        domRect: { height: linksHeight },
-    } = useDomRect();
 
     useElementEvt(
         ({ ctx, element }) => {
@@ -96,17 +92,8 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const { theme, classes, cx } = useStyles({ isSmallDevice }, { props });
 
     useEffect(() => {
-        if (linksHeight === 0 || !linksRef.current) {
-            return;
-        }
-        const lineHeight = parseInt(
-            getComputedStyle(linksRef.current).lineHeight.replace("px", ""),
-        );
-        setIsSmallDevice(
-            linksHeight >= lineHeight * 2 ||
-                theme.windowInnerWidth < breakpointsValues.sm,
-        );
-    }, [linksHeight, theme.windowInnerWidth]);
+        setIsSmallDevice(theme.windowInnerWidth < breakpointsValues.sm);
+    }, [theme.windowInnerWidth]);
 
     useEffect(() => {
         if (isSmallDevice) {
@@ -118,54 +105,51 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     return (
         <header ref={ref} className={cx(classes.root, className)}>
             {(() => {
-                const transformElementIfString = (element: ReactNode) => {
-                    if (typeof element === "string") {
-                        return (
-                            <Text className={classes.titleText} typo="subtitle">
-                                {element}
-                            </Text>
-                        );
-                    }
-                    return element;
-                };
-
                 return (
                     <div className={classes.titleWrapper}>
-                        {title !== undefined && (
-                            <div
-                                className={cx(classes.titleInner, "innerTitle")}
-                            >
-                                {transformElementIfString(title)}
-                            </div>
-                        )}
-                        {titleDark !== undefined && (
-                            <div
-                                className={cx(classes.titleInner, "innerTitle")}
-                            >
-                                {transformElementIfString(titleDark)}
-                            </div>
-                        )}
-                        {titleSmallScreen !== undefined && (
-                            <div
-                                className={cx(classes.titleInner, "innerTitle")}
-                            >
-                                {transformElementIfString(titleSmallScreen)}
-                            </div>
-                        )}
-                        {titleSmallScreenDark !== undefined && (
-                            <div
-                                className={cx(classes.titleInner, "innerTitle")}
-                            >
-                                {transformElementIfString(titleSmallScreenDark)}
-                            </div>
-                        )}
+                        {(() => {
+                            const transformElementIfString = (
+                                element: ReactNode,
+                            ) => {
+                                if (typeof element === "string") {
+                                    return (
+                                        <Text typo="subtitle">{element}</Text>
+                                    );
+                                }
+                                return element;
+                            };
+
+                            if (
+                                theme.windowInnerWidth >= breakpointsValues.md
+                            ) {
+                                if (!theme.isDarkModeEnabled) {
+                                    return transformElementIfString(title);
+                                }
+                                return transformElementIfString(
+                                    titleDark ?? title,
+                                );
+                            }
+
+                            if (!theme.isDarkModeEnabled) {
+                                return transformElementIfString(
+                                    titleSmallScreen ?? title,
+                                );
+                            }
+
+                            return transformElementIfString(
+                                titleSmallScreenDark ??
+                                    titleSmallScreen ??
+                                    titleDark ??
+                                    title,
+                            );
+                        })()}
                     </div>
                 );
             })()}
 
             <div className={classes.linkAndButtonWrapper}>
                 {customItemStart !== undefined && customItemStart}
-                <div className={classes.linksWrapperLargeScreen} ref={linksRef}>
+                <div className={classes.linksWrapperLargeScreen}>
                     <GlHeaderLinks
                         classes={{
                             "contentWrapper": classes.linksContentWrapper,
@@ -241,12 +225,6 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
         },
         "titleWrapper": {
             "marginRight": theme.spacing(8),
-            "position": "relative",
-            "border": "solid red 2px",
-        },
-        "titleInner": {
-            "position": "absolute",
-            "border": "solid red 2px",
         },
         "titleText": {
             "whiteSpace": "nowrap",
@@ -272,7 +250,7 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
         },
         "links": {
             "order": 2,
-            "opacity": isSmallDevice ? 0 : 1,
+            "display": isSmallDevice ? "none" : "flex",
             "pointerEvents": isSmallDevice ? "none" : undefined,
         },
         "linksWrapperLargeScreen": {
