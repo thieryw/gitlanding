@@ -90,7 +90,7 @@ const useStyles = makeStyles<{
                 : theme.colors.useCases.typography.textPrimary,
             "textDecoration": "none",
             ...theme.spacing.rightLeft("padding", `${theme.spacing(3)}px`),
-            "wordBreak": "break-word",
+            "whiteSpace": "nowrap",
         },
         "underline": {
             "width": isUnderlined ? width - theme.spacing(3) : 0,

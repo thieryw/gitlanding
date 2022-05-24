@@ -53,6 +53,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const [isSmallDevice, setIsSmallDevice] = useState<boolean | undefined>(
         undefined,
     );
+    const [breakpoint, setBreakpoint] = useState<number | undefined>(undefined);
 
     const toggleMenuUnfolded = useConstCallback(() => {
         setIsMenuUnfolded(!isMenuUnfolded);
@@ -65,10 +66,41 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     });
 
     const {
-        domRect: { height: headerHeight },
-    } = useDomRect({
-        ref,
-    });
+        domRect: { height: headerHeight, width: headerWidth },
+    } = useDomRect({ ref });
+
+    const {
+        ref: titleRef,
+        domRect: { width: titleWidth },
+    } = useDomRect();
+
+    const {
+        ref: buttonsAndLinksRef,
+        domRect: { width: buttonsAndLinksWidth },
+    } = useDomRect();
+
+    useEffect(() => {
+        if (
+            isSmallDevice ||
+            titleWidth === 0 ||
+            buttonsAndLinksWidth === 0 ||
+            headerWidth === 0
+        ) {
+            return;
+        }
+
+        const contentWidth =
+            titleWidth +
+            buttonsAndLinksWidth +
+            theme.spacing(8) +
+            2 * theme.paddingRightLeft;
+
+        if (headerWidth < contentWidth && breakpoint !== undefined) {
+            return;
+        }
+
+        setBreakpoint(contentWidth);
+    }, [titleWidth, buttonsAndLinksWidth, headerWidth, isSmallDevice]);
 
     useElementEvt(
         ({ ctx, element }) => {
@@ -92,8 +124,14 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const { theme, classes, cx } = useStyles({ isSmallDevice }, { props });
 
     useEffect(() => {
-        setIsSmallDevice(theme.windowInnerWidth < breakpointsValues.sm);
-    }, [theme.windowInnerWidth]);
+        if (breakpoint === undefined) {
+            return;
+        }
+        setIsSmallDevice(
+            theme.windowInnerWidth < breakpoint ||
+                theme.windowInnerWidth < breakpointsValues.sm,
+        );
+    }, [theme.windowInnerWidth, breakpoint]);
 
     useEffect(() => {
         if (isSmallDevice) {
@@ -106,14 +144,19 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         <header ref={ref} className={cx(classes.root, className)}>
             {(() => {
                 return (
-                    <div className={classes.titleWrapper}>
+                    <div ref={titleRef} className={classes.titleWrapper}>
                         {(() => {
                             const transformElementIfString = (
                                 element: ReactNode,
                             ) => {
                                 if (typeof element === "string") {
                                     return (
-                                        <Text typo="subtitle">{element}</Text>
+                                        <Text
+                                            className={classes.titleText}
+                                            typo="subtitle"
+                                        >
+                                            {element}
+                                        </Text>
                                     );
                                 }
                                 return element;
@@ -147,7 +190,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 );
             })()}
 
-            <div className={classes.linkAndButtonWrapper}>
+            <div
+                ref={buttonsAndLinksRef}
+                className={classes.linkAndButtonWrapper}
+            >
                 {customItemStart !== undefined && customItemStart}
                 <div className={classes.linksWrapperLargeScreen}>
                     <GlHeaderLinks
@@ -222,6 +268,8 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
             "justifyContent": "space-between",
             "alignItems": "center",
             "opacity": isSmallDevice === undefined ? 0 : 1,
+            "maxWidth": "100%",
+            "overflowX": !isSmallDevice ? "hidden" : undefined,
         },
         "titleWrapper": {
             "marginRight": theme.spacing(8),
