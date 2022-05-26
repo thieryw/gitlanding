@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import { Link } from "@mui/material";
 import { makeStyles } from "../theme";
 import { symToStr } from "tsafe/symToStr";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
@@ -54,7 +53,7 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
 
     return (
         <div ref={ref} className={cx(classes.root, className)}>
-            <Link
+            <a
                 onMouseLeave={handleHoverFactory("leave")}
                 onMouseEnter={handleHoverFactory("enter")}
                 onMouseDown={handleClickFactory("down")}
@@ -64,7 +63,7 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
                 onClick={onClick}
             >
                 {label}
-            </Link>
+            </a>
             <div className={classes.underline}></div>
         </div>
     );

@@ -47,7 +47,7 @@ export const GlHeaderLinks = memo((props: GlHeaderLinksProps) => {
                         classes={{
                             "root": cx(classes.linkRoot, link.classes?.root),
                             "link": cx(classes.link, link.classes?.link),
-                            ...link.classes,
+                            "underline": link.classes?.underline,
                         }}
                     />
                 ))}
