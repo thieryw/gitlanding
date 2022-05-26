@@ -1,3 +1,8 @@
+### **0.17.3** (2022-05-26)  
+  
+- bump version  
+- reduce header title margin and remove it on small devices    
+  
 ### **0.17.2** (2022-05-26)  
   
 - stop using mui link and correct classes atribution    
