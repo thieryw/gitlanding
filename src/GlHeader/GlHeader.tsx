@@ -102,7 +102,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         const contentWidth =
             titleWidth +
             buttonsAndLinksWidth +
-            theme.spacing(8) +
+            theme.spacing(7) +
             2 * theme.paddingRightLeft;
 
         if (headerWidth < contentWidth && breakpoint !== undefined) {
@@ -279,7 +279,7 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
             "overflowX": !isSmallDevice ? "hidden" : undefined,
         },
         "titleWrapper": {
-            "marginRight": theme.spacing(8),
+            "marginRight": isSmallDevice ? undefined : theme.spacing(8),
         },
         "titleText": {
             "whiteSpace": "nowrap",
