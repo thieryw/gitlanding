@@ -1,3 +1,14 @@
+### **0.17.1** (2022-05-26)  
+  
+- remove old header and add customBreakpoint in new header  
+- GlHeader breakpoint detection, better solution  
+- GlHeaderLink handle active  
+- GlHeader remove auto small device detection for the moment  
+- GlHeader testing  
+- GlHeader continue  
+- GlTemplate add header padding option  
+- GlHeader new version not finished yet    
+  
 ## **0.17.0** (2022-05-20)  
   
 - GlCodeBlock: use margins instead of gap and reset copied message time every time the user clicks to avoid flashes  
