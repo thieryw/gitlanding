@@ -1,3 +1,7 @@
+### **0.17.2** (2022-05-26)  
+  
+- stop using mui link and correct classes atribution    
+  
 ### **0.17.1** (2022-05-26)  
   
 - remove old header and add customBreakpoint in new header  
