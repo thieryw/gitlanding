@@ -36,6 +36,7 @@ function App() {
             hasTopOfPageLinkButton={true}
             header={
                 <GlHeader
+                    customBreakpoint={1200}
                     title="Title large screen light"
                     links={[
                         {
@@ -43,19 +44,7 @@ function App() {
                             "href": "https://example.com",
                         },
                         {
-                            "label": "Averyveryveryveryverylonglinklabel",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link3",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "link1",
-                            "href": "https://example.com",
-                        },
-                        {
-                            "label": "Averyveryveryveryverylonglinklabel",
+                            "label": "link2",
                             "href": "https://example.com",
                         },
                         {

@@ -24,6 +24,7 @@ export type GlHeaderProps = {
     titleDark?: ReactNode;
     titleSmallScreen?: ReactNode;
     titleSmallScreenDark?: ReactNode;
+    customBreakpoint?: number;
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     enableDarkModeSwitch?: boolean;
@@ -47,6 +48,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         titleDark,
         titleSmallScreen,
         titleSmallScreenDark,
+        customBreakpoint,
     } = props;
 
     const [isMenuUnfolded, setIsMenuUnfolded] = useState(false);
@@ -80,11 +82,19 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     } = useDomRect();
 
     useEffect(() => {
+        if (isSmallDevice) {
+            return;
+        }
+        setIsMenuUnfolded(false);
+    }, [isSmallDevice]);
+
+    useEffect(() => {
         if (
             isSmallDevice ||
             titleWidth === 0 ||
             buttonsAndLinksWidth === 0 ||
-            headerWidth === 0
+            headerWidth === 0 ||
+            customBreakpoint !== undefined
         ) {
             return;
         }
@@ -124,6 +134,10 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     const { theme, classes, cx } = useStyles({ isSmallDevice }, { props });
 
     useEffect(() => {
+        if (customBreakpoint !== undefined) {
+            setIsSmallDevice(theme.windowInnerWidth < customBreakpoint);
+            return;
+        }
         if (breakpoint === undefined) {
             return;
         }
@@ -132,13 +146,6 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 theme.windowInnerWidth < breakpointsValues.sm,
         );
     }, [theme.windowInnerWidth, breakpoint]);
-
-    useEffect(() => {
-        if (isSmallDevice) {
-            return;
-        }
-        setIsMenuUnfolded(false);
-    }, [isSmallDevice]);
 
     return (
         <header ref={ref} className={cx(classes.root, className)}>
