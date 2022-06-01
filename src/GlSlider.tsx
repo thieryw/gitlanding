@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { makeStyles, Text } from "./theme";
@@ -23,7 +23,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
     const [isPlaying, setIsPlaying] = useState(false);
-    const interval = useRef<NodeJS.Timeout>();
+    const [interval, setInt] = useState<NodeJS.Timeout>();
 
     useEvt(ctx => {
         if (autoPlayTimeInterval === undefined) {
@@ -49,29 +49,34 @@ export const GlSlider = memo((props: GlSliderProps) => {
         }
 
         if (!isPlaying) {
-            if (interval.current !== undefined) {
-                clearInterval(interval.current);
+            if (interval !== undefined) {
+                clearInterval(interval);
             }
             return;
         }
 
-        interval.current = setInterval(async () => {
-            emblaApi.scrollNext();
-        }, autoPlayTimeInterval * 1000);
+        setInt(
+            setInterval(async () => {
+                emblaApi.scrollNext();
+            }, autoPlayTimeInterval * 1000),
+        );
     }, [autoPlayTimeInterval, emblaApi, isPlaying]);
 
-    const { ref } = useIntersectionObserver({
-        "callback": useConstCallback(({ entry, observer }) => {
-            if (
-                autoPlayTimeInterval === undefined ||
-                autoPlayTimeInterval === 0
-            ) {
-                observer.unobserve(entry.target);
-                return;
-            }
-            setIsPlaying(entry.isIntersecting);
-        }),
-    });
+    const { ref } = useIntersectionObserver(
+        {
+            "callback": useConstCallback(({ entry, observer }) => {
+                if (
+                    autoPlayTimeInterval === undefined ||
+                    autoPlayTimeInterval === 0
+                ) {
+                    observer.unobserve(entry.target);
+                    return;
+                }
+                setIsPlaying(entry.isIntersecting);
+            }),
+        },
+        [],
+    );
 
     const onClickFactory = useCallbackFactory(
         ([direction]: ["left" | "right"]) => {

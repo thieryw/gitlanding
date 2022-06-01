@@ -1,10 +1,11 @@
-import { useEffect, useState, memo, useRef } from "react";
+import { useEffect, useState, memo } from "react";
 import { makeStyles, splashScreen } from "./theme";
+import { useStateRef } from "powerhooks/useStateRef";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui";
 import { useIsThemeProvided } from "onyxia-ui/lib/ThemeProvider";
 import { useDomRect } from "onyxia-ui";
-import { useElementEvt } from "evt/hooks/useElementEvt";
+import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui";
 import { GlLinkToTop } from "./utils/GlLinkToTop";
@@ -59,7 +60,7 @@ const GlTemplateInner = memo(
             applyHeaderPadding,
         } = props;
 
-        const rootRef = useRef<HTMLDivElement>(null);
+        const rootRef = useStateRef<HTMLDivElement>(null);
 
         const headerOptions: Required<HeaderOptions> = (() => {
             const { headerOptions } = props;
@@ -108,8 +109,12 @@ const GlTemplateInner = memo(
 
         const [isSmartHeaderVisible, setIsSmartHeaderVisible] = useState(true);
 
-        useElementEvt(
-            ({ ctx, element }) => {
+        useEvt(
+            ctx => {
+                const element = rootRef.current;
+                if (!element) {
+                    return;
+                }
                 let previousScrollTop = 0;
                 const scrollableParent = getScrollableParent({
                     element,
@@ -128,8 +133,7 @@ const GlTemplateInner = memo(
                     previousScrollTop = scrollTop;
                 });
             },
-            rootRef,
-            [headerHeight, headerOptions.isRetracted],
+            [rootRef.current, headerHeight, headerOptions.isRetracted],
         );
 
         const { classes, cx } = useStyles(

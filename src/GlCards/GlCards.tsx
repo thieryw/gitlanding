@@ -4,7 +4,8 @@ import type { ReactNode } from "react";
 import { Text } from "../theme";
 import { makeStyles } from "../theme";
 import { breakpointsValues } from "../theme";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useStateRef } from "powerhooks/useStateRef";
 
 export type GlCardsProps = {
     className?: string;
@@ -16,7 +17,7 @@ export type GlCardsProps = {
 
 export const GlCards = memo((props: GlCardsProps) => {
     const { title, children, className, id } = props;
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useStateRef<HTMLDivElement>(null);
 
     const [numberOfCards, setNumberOfCards] = useState(0);
 

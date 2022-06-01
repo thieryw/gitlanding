@@ -9,7 +9,7 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { useClickAway } from "powerhooks/useClickAway";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { useDomRect } from "powerhooks/useDomRect";
-import { useElementEvt } from "evt/hooks/useElementEvt";
+import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 
 //todo: fix titleWrapper width to the largest available title
@@ -112,10 +112,13 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         setBreakpoint(contentWidth);
     }, [titleWidth, buttonsAndLinksWidth, headerWidth, isSmallDevice]);
 
-    useElementEvt(
-        ({ ctx, element }) => {
+    useEvt(
+        ctx => {
+            if (!ref.current) {
+                return;
+            }
             const scrollableParent = getScrollableParent({
-                element,
+                "element": ref.current,
                 "doReturnElementIfScrollable": true,
             });
 
@@ -127,8 +130,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                 }
             });
         },
-        ref,
-        [headerHeight],
+        [ref.current, headerHeight],
     );
 
     const { theme, classes, cx } = useStyles({ isSmallDevice }, { props });

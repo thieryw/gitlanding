@@ -1,6 +1,7 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import type { RefObject } from "react";
 import type { DependencyList } from "react";
+import { useStateRef } from "powerhooks";
 
 export function useIntersectionObserver<T extends HTMLElement = any>(
     params: {
@@ -12,13 +13,12 @@ export function useIntersectionObserver<T extends HTMLElement = any>(
         root?: Element | Document;
         threshold?: number | number[];
     },
-    dependencyList?: DependencyList,
+    dependencyList: DependencyList,
 ): {
     ref: RefObject<T>;
 } {
     const { callback, ...rest } = params;
-
-    const ref = useRef<T>(null);
+    const ref = useStateRef<T>(null);
 
     const observer = useMemo(() => {
         return new IntersectionObserver(
@@ -36,6 +36,7 @@ export function useIntersectionObserver<T extends HTMLElement = any>(
         if (!ref.current) {
             return;
         }
+
         observer.observe(ref.current);
     }, dependencyList);
 

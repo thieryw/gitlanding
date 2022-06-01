@@ -126,6 +126,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                 }
 
                 if (entry.isIntersecting && isIllustrationLoaded) {
+                    console.log("pipi");
                     illustrationAnimationProps.animate = {
                         "opacity": 1,
                         "x": 0,

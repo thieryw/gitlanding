@@ -60,27 +60,30 @@ export const GlYoutubeVideoSection = memo(
             };
         }, []);
 
-        const { ref } = useIntersectionObserver({
-            "callback": ({ entry, observer }) => {
-                if (
-                    hasAnimation === undefined ||
-                    !hasAnimation ||
-                    animationProps === undefined
-                ) {
-                    observer.unobserve(entry.target);
-                    return;
-                }
+        const { ref } = useIntersectionObserver(
+            {
+                "callback": ({ entry, observer }) => {
+                    if (
+                        hasAnimation === undefined ||
+                        !hasAnimation ||
+                        animationProps === undefined
+                    ) {
+                        observer.unobserve(entry.target);
+                        return;
+                    }
 
-                if (entry.isIntersecting) {
-                    animationProps.animate = {
-                        "opacity": 1,
-                    };
-                    observer.unobserve(entry.target);
-                    forceUpdate();
-                }
+                    if (entry.isIntersecting) {
+                        animationProps.animate = {
+                            "opacity": 1,
+                        };
+                        observer.unobserve(entry.target);
+                        forceUpdate();
+                    }
+                },
+                "threshold": 0.5,
             },
-            "threshold": 0.5,
-        });
+            [],
+        );
 
         const { classes, cx } = useStyles(
             {

@@ -1,11 +1,11 @@
-import { memo, useState, useEffect, useRef } from "react";
+import { memo, useState, useEffect } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { makeStyles } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
-import { assert } from "tsafe/assert";
+import { useStateRef } from "powerhooks/useStateRef";
 
 export type GlLinkToTopProps = {
     className?: string;
@@ -14,18 +14,22 @@ export type GlLinkToTopProps = {
 
 export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
     const { className } = props;
-    const ref = useRef<HTMLDivElement>(null);
     const [isShown, setIsShown] = useState(false);
     const [scrollableParent, setScrollableParent] = useState<
         ReturnType<typeof getScrollableParent> | undefined
     >(undefined);
 
+    const ref = useStateRef<HTMLDivElement>(null);
+
     useEffect(() => {
-        assert(ref.current !== null);
+        const element = ref.current;
+        if (!element) {
+            return;
+        }
 
         setScrollableParent(
             getScrollableParent({
-                "element": ref.current,
+                element,
                 "doReturnElementIfScrollable": true,
             }),
         );

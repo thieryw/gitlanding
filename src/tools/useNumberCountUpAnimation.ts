@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import type { RefObject, Dispatch, SetStateAction } from "react";
+import { useStateRef } from "powerhooks/useStateRef";
 
 export type UseNumberCountUpAnimationParams = {
     number: number | undefined;
@@ -14,11 +15,11 @@ export function useNumberCountUpAnimation<T extends HTMLElement = any>(
 } {
     const { number, intervalMs } = params;
     const [renderedNumber, setRenderedNumber] = useState(0);
-
-    const ref = useRef<T>(null);
+    const ref = useStateRef<T>(null);
 
     useEffect(() => {
-        if (!ref.current) {
+        const element = ref.current;
+        if (!element) {
             animate({
                 number,
                 intervalMs,
@@ -36,7 +37,7 @@ export function useNumberCountUpAnimation<T extends HTMLElement = any>(
             observer.unobserve(entries[0].target);
         });
 
-        observer.observe(ref.current);
+        observer.observe(element);
     }, [number]);
 
     return { renderedNumber, ref };

@@ -47,41 +47,44 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         };
     }, [hasAnimation]);
 
-    const { ref } = useIntersectionObserver({
-        "callback": ({ observer, entry }) => {
-            if (hasAnimation === undefined || !hasAnimation) {
-                observer.unobserve(entry.target);
-                return;
-            }
+    const { ref } = useIntersectionObserver(
+        {
+            "callback": ({ observer, entry }) => {
+                if (hasAnimation === undefined || !hasAnimation) {
+                    observer.unobserve(entry.target);
+                    return;
+                }
 
-            if (container === undefined || listItem === undefined) {
-                observer.unobserve(entry.target);
-                return;
-            }
+                if (container === undefined || listItem === undefined) {
+                    observer.unobserve(entry.target);
+                    return;
+                }
 
-            if (entry.isIntersecting) {
-                container.show = {
-                    "transition": {
-                        "staggerChildren": 0.2,
-                    },
-                    "opacity": 1,
-                };
+                if (entry.isIntersecting) {
+                    container.show = {
+                        "transition": {
+                            "staggerChildren": 0.2,
+                        },
+                        "opacity": 1,
+                    };
 
-                listItem.show = {
-                    "opacity": 1,
-                    "y": 0,
-                    "transition": {
-                        "duration": 0.6,
-                        "ease": "easeOut",
-                    },
-                };
+                    listItem.show = {
+                        "opacity": 1,
+                        "y": 0,
+                        "transition": {
+                            "duration": 0.6,
+                            "ease": "easeOut",
+                        },
+                    };
 
-                observer.unobserve(entry.target);
-                forceUpdate();
-            }
+                    observer.unobserve(entry.target);
+                    forceUpdate();
+                }
+            },
+            "threshold": 0.4,
         },
-        "threshold": 0.4,
-    });
+        [],
+    );
 
     const { classes, cx } = useStyles(
         {
