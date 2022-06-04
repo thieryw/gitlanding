@@ -4784,6 +4784,15 @@ evt@2.0.0-beta.39:
     run-exclusive "^2.2.14"
     tsafe "^0.4.1"
 
+evt@2.0.0-beta.44:
+  version "2.0.0-beta.44"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.0.0-beta.44.tgz#7b936e65b3a8c2536e21f1c2af9e85fb95cc32ec"
+  integrity sha512-2XKKP3UhwLY1jOe8Ta0iL44ZZCy8iG1fGRHeyuU8W/aRcpcKy0PFi/FkVhaaI3tkWjqqfNJQ0wRgDovNP6N3KQ==
+  dependencies:
+    minimal-polyfills "^2.2.1"
+    run-exclusive "^2.2.14"
+    tsafe "^0.4.1"
+
 exec-sh@^0.3.2:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.6.tgz#ff264f9e325519a60cb5e273692943483cca63bc"
@@ -5321,13 +5330,13 @@ github-buttons@^2.8.0:
   integrity sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==
 
 "gitlanding@file:../../../dist":
-  version "0.17.0"
+  version "0.17.3"
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
     framer-motion "^4.1.17"
     memoizee "^0.4.15"
-    powerhooks "^0.16.3"
+    powerhooks "^0.19.0"
     react-code-blocks "^0.0.9-0"
     react-github-btn "^1.2.0"
     react-markdown "^5.0.3"
@@ -9036,6 +9045,16 @@ powerhooks@^0.16.3:
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.8.1"
+
+powerhooks@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.19.0.tgz#2c3283e62539d47c1baaad06ca53ebb2874c5f8f"
+  integrity sha512-K/zJCvYIZhqGJK964yTOdqDomUDAGTWhCGRCcSN4M46Xqss9ZJxq8k0j/EEW9rMYad14+EZqnknENkg+94V7jw==
+  dependencies:
+    evt "2.0.0-beta.44"
+    memoizee "^0.4.15"
+    resize-observer-polyfill "^1.5.1"
+    tsafe "^0.10.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
