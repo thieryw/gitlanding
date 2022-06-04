@@ -87,7 +87,6 @@ const useStyles = makeStyles({ "name": { GlMetricCard } })(theme => ({
             "rightLeft": 3,
             "topBottom": 4,
         }),
-        "zIndex": 1,
         "margin": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.lg) {
                 return undefined;
