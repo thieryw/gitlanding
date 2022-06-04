@@ -1,3 +1,10 @@
+### **0.17.4** (2022-06-04)  
+  
+- bump version  
+- update GlCards and GlMetricCard  
+- update dependencys  
+- update onyxia-ui powerhooks and evt    
+  
 ### **0.17.3** (2022-05-26)  
   
 - bump version  
