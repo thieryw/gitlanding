@@ -6,6 +6,7 @@ import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlCards } from "gitlanding/GlCards";
 import { GlLogoCard } from "gitlanding/GlCards/GlLogoCard";
+import { GlMetricCard } from "gitlanding/GlCards/GlMetricCard";
 import { GlProjectCard } from "gitlanding/GlCards/GlProjectCard";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlSlider } from "gitlanding/GlSlider";
@@ -98,6 +99,27 @@ function App() {
                     "src": imageSrc,
                 }}
             />
+
+            <GlCards title={<div>pipi</div>}>
+                <GlMetricCard
+                    buttonLabel="button label"
+                    isNumberAnimated={true}
+                    number={44}
+                    subHeading="sub heading"
+                />
+                <GlMetricCard
+                    buttonLabel="button label"
+                    isNumberAnimated={true}
+                    number={44}
+                    subHeading="sub heading"
+                />
+                <GlMetricCard
+                    buttonLabel="button label"
+                    isNumberAnimated={true}
+                    number={44}
+                    subHeading="sub heading"
+                />
+            </GlCards>
 
             <GlArticle
                 id="firstSection"

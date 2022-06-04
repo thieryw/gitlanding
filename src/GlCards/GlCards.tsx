@@ -11,7 +11,7 @@ export type GlCardsProps = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     id?: string;
-    title?: string;
+    title?: ReactNode;
     children?: ReactNode;
 };
 
@@ -33,11 +33,15 @@ export const GlCards = memo((props: GlCardsProps) => {
 
     return (
         <section id={id} className={cx(classes.root, className)}>
-            {title && (
-                <Text className={classes.title} typo="page heading">
-                    {title}
-                </Text>
-            )}
+            <div className={classes.titleWrapper}>
+                {typeof title === "string" ? (
+                    <Text className={classes.title} typo="page heading">
+                        {title}
+                    </Text>
+                ) : (
+                    title
+                )}
+            </div>
             <div ref={ref} className={classes.cardsWrapper}>
                 {children}
             </div>
@@ -52,20 +56,13 @@ const useStyles = makeStyles<{ numberOfCards: number }>({
         ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
         ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
     },
-    "title": {
-        "textAlign": "center",
+    "titleWrapper": {
         "marginTop": theme.spacing(5),
         "marginBottom": theme.spacing(7),
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                return {};
-            }
-            return {
-                "fontSize": "22px",
-                "lineHeight": "24px",
-            };
-        })(),
+        "display": "flex",
+        "justifyContent": "center",
     },
+    "title": {},
     "cardsWrapper": {
         "display": "grid",
         "gridTemplateColumns": (() => {
