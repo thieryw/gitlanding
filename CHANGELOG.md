@@ -1,3 +1,8 @@
+### **0.17.5** (2022-06-05)  
+  
+- bump version  
+- update GlCards and GlMetricCard    
+  
 ### **0.17.4** (2022-06-04)  
   
 - bump version  
