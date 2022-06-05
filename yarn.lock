@@ -10529,10 +10529,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.41.1:
-  version "0.41.1"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.41.1.tgz#953d35b121ef4ba8fee00e8a86a850d772c864fe"
-  integrity sha512-SOK6zNKjFsFeZnqNOhjvA6Lk6YaAySaRFjSupmvEQamLXkeZj/KCVJF78q1SLY5EetAe6aBXPg9LBdHP2e0HvA==
+onyxia-ui@^0.41.2:
+  version "0.41.2"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.41.2.tgz#99aeef38c3e2fe4f1993571d04b4b0b399156323"
+  integrity sha512-y1vDRZ/V4I0DL/obh2TjqA7uQ/Lh6cnUIU2lCIlScffu4QOiQAoJSSz2HzpyN3Hf8+G1MogkNm7j00ACcaRIxQ==
   dependencies:
     "@mui/icons-material" "^5.8.2"
     color "3.1.3"
@@ -10540,7 +10540,7 @@ onyxia-ui@^0.41.1:
     material-design-icons "^3.0.1"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.1"
-    powerhooks "^0.17.2"
+    powerhooks "^0.19.0"
     run-exclusive "^2.2.14"
     tsafe "^0.10.0"
     tss-react "^3.7.0"
@@ -11723,16 +11723,6 @@ postcss@^8.1.0:
     nanoid "^3.3.1"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-powerhooks@^0.17.2:
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.17.2.tgz#262f86027ddbf7aa5b9ba5cbd262855b20453d9b"
-  integrity sha512-xArS3mnJedaCHotBpR/8JcmI8ucNEG3/aG6BgEQZkwVZ+EE3P+jRqGrRPCY3lXIggMjHX4YgckaZCarWJwxXRA==
-  dependencies:
-    evt "2.0.0-beta.44"
-    memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
-    tsafe "^0.10.0"
 
 powerhooks@^0.19.0:
   version "0.19.0"
@@ -14240,15 +14230,6 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
-
-tss-react@^3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-3.6.2.tgz#5e995d8b82ca730ba04a21203ae68f1c5372a85e"
-  integrity sha512-+ecQIqCNFVlVJVk3NiCWZY2+5DhVKMVUVxIbEwv9nYsTRQA/KxyKCU8g+KMj5ByqFv9LW76+TUYzbWck/IHkfA==
-  dependencies:
-    "@emotion/cache" "*"
-    "@emotion/serialize" "*"
-    "@emotion/utils" "*"
 
 tss-react@^3.7.0:
   version "3.7.0"
