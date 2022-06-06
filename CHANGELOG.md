@@ -1,3 +1,8 @@
+### **0.17.6** (2022-06-06)  
+  
+- bump version  
+- add illustration maxWidth options    
+  
 ### **0.17.5** (2022-06-05)  
   
 - bump version  
