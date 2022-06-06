@@ -12,6 +12,8 @@ declare namespace IllustrationProps {
         sources?: Source[];
         src: string;
         hasShadow?: boolean;
+        maxWidth?: number | string;
+        maxWidthSmallScreen?: number | string;
     };
 
     export type Video = {
@@ -22,6 +24,8 @@ declare namespace IllustrationProps {
         muted?: boolean;
         loop?: boolean;
         controls?: boolean;
+        maxWidth?: number | string | string;
+        maxWidthSmallScreen?: number | string | string;
     };
 
     export type CustomComponent = {

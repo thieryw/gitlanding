@@ -97,6 +97,7 @@ function App() {
                 illustration={{
                     "type": "image",
                     "src": imageSrc,
+                    "maxWidth": 800,
                 }}
             />
 
@@ -219,6 +220,7 @@ function App() {
                 }}
                 illustration={{
                     "type": "video",
+                    "maxWidth": "50%",
                     "hasShadow": false,
                     "sources": [
                         {

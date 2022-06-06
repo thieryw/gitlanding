@@ -134,6 +134,23 @@ export const GlHero = memo((props: GlHeroProps) => {
         {
             "hasOnlyText": illustration === undefined,
             isImageLoaded,
+            ...(() => {
+                if (
+                    illustration === undefined ||
+                    illustration.type === "custom component"
+                ) {
+                    return {
+                        "illustrationMaxWidth": undefined,
+                        "illustrationMaxWidthSmallScreen": undefined,
+                    };
+                }
+
+                return {
+                    "illustrationMaxWidth": illustration.maxWidth,
+                    "illustrationMaxWidthSmallScreen":
+                        illustration.maxWidthSmallScreen,
+                };
+            })(),
         },
         { props },
     );
@@ -200,7 +217,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                         {...(hasAnimation || hasAnimation === undefined
                             ? imageAnimProps
                             : undefined)}
-                        className={classes.imageWrapper}
+                        className={classes.illustrationWrapper}
                     >
                         {(() => {
                             switch (illustration.type) {
@@ -253,88 +270,111 @@ export const GlHero = memo((props: GlHeroProps) => {
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
     isImageLoaded: boolean;
-}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
-    "root": {
-        "width": "100%",
-        "paddingBottom": theme.spacing(7),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-    },
-    "arrow": {
-        "cursor": "pointer",
-    },
-    "textAndImageWrapper": {
-        "margin": theme.spacing({
-            "topBottom": 5,
-            "rightLeft": 0,
-        }),
-        "minHeight": (window.innerHeight / 100) * 70,
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "flexDirection": "column",
-                  "alignItems": "left",
-              }
-            : {}),
-    },
+    illustrationMaxWidth: number | string | undefined;
+    illustrationMaxWidthSmallScreen: number | string | undefined;
+}>({ "name": { GlHero } })(
+    (
+        theme,
+        {
+            hasOnlyText,
+            isImageLoaded,
+            illustrationMaxWidth,
+            illustrationMaxWidthSmallScreen,
+        },
+    ) => ({
+        "root": {
+            "width": "100%",
+            "paddingBottom": theme.spacing(7),
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+        },
+        "arrow": {
+            "cursor": "pointer",
+        },
+        "textAndImageWrapper": {
+            "margin": theme.spacing({
+                "topBottom": 5,
+                "rightLeft": 0,
+            }),
+            "minHeight": (window.innerHeight / 100) * 70,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "flexDirection": "column",
+                      "alignItems": "left",
+                  }
+                : {}),
+        },
 
-    "title": {
-        "marginBottom": theme.spacing(4),
-    },
-    "subtitle": {
-        "marginTop": theme.spacing(4),
-        "maxWidth": 650,
-        "color": theme.colors.useCases.typography.textSecondary,
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return undefined;
-            }
-            return theme.typography.variants["body 1"].style;
-        })(),
-    },
+        "title": {
+            "marginBottom": theme.spacing(4),
+        },
+        "subtitle": {
+            "marginTop": theme.spacing(4),
+            "maxWidth": 650,
+            "color": theme.colors.useCases.typography.textSecondary,
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                    return undefined;
+                }
+                return theme.typography.variants["body 1"].style;
+            })(),
+        },
 
-    "textWrapper": {
-        "textAlign":
-            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                ? "center"
-                : undefined,
-        "alignItems": hasOnlyText ? "center" : undefined,
-        "flexDirection": "column",
-        ...(() => {
-            if (theme.windowInnerWidth < breakpointsValues.md) {
-                return undefined;
-            }
-            return {
-                "maxWidth": 800,
-                "minWidth": 400,
-            };
-        })(),
-        "display": "flex",
-        ...(() => {
-            const value = theme.spacing(7);
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+        "textWrapper": {
+            "textAlign":
+                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                    ? "center"
+                    : undefined,
+            "alignItems": hasOnlyText ? "center" : undefined,
+            "flexDirection": "column",
+            ...(() => {
+                if (theme.windowInnerWidth < breakpointsValues.md) {
+                    return undefined;
+                }
                 return {
-                    "marginRight": hasOnlyText ? undefined : value,
+                    "maxWidth": 800,
+                    "minWidth": 400,
                 };
-            }
+            })(),
+            "display": "flex",
+            ...(() => {
+                const value = theme.spacing(7);
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {
+                        "marginRight": hasOnlyText ? undefined : value,
+                    };
+                }
 
-            return {
-                "marginBottom": value,
-            };
-        })(),
-    },
+                return {
+                    "marginBottom": value,
+                };
+            })(),
+        },
 
-    "imageWrapper": {},
-    "illustration": {
-        "display": "inline-block", //So that text align center applies
-        "width": "100%",
-    },
+        "illustrationWrapper": {
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "maxWidth": illustrationMaxWidthSmallScreen,
+                  }
+                : {
+                      "maxWidth": illustrationMaxWidth,
+                  }),
+        },
+        "illustration": {
+            "display": "inline-block", //So that text align center applies
+            "width": "100%",
+        },
 
-    "linkToSectionBelowWrapper": {
-        "display": "flex",
-        "justifyContent": "center",
-        "transition": "opacity 300ms",
-        "opacity": isImageLoaded ? 1 : 0,
-    },
-}));
+        "linkToSectionBelowWrapper": {
+            "display": "flex",
+            "justifyContent": "center",
+            "transition": "opacity 300ms",
+            "opacity": isImageLoaded ? 1 : 0,
+        },
+    }),
+);
