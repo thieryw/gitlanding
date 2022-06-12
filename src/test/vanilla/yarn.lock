@@ -5330,19 +5330,19 @@ github-buttons@^2.8.0:
   integrity sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==
 
 "gitlanding@file:../../../dist":
-  version "0.17.3"
+  version "0.17.6"
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
     framer-motion "^4.1.17"
     memoizee "^0.4.15"
-    powerhooks "^0.19.0"
+    powerhooks "^0.20.0"
     react-code-blocks "^0.0.9-0"
     react-github-btn "^1.2.0"
     react-markdown "^5.0.3"
     react-svg "^13.0.4"
     tsafe "^0.10.0"
-    tss-react "^3.6.2"
+    tss-react "^3.7.0"
     typeface-work-sans "^1.1.13"
 
 glob-parent@^3.1.0:
@@ -9046,10 +9046,10 @@ powerhooks@^0.16.3:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.8.1"
 
-powerhooks@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.19.0.tgz#2c3283e62539d47c1baaad06ca53ebb2874c5f8f"
-  integrity sha512-K/zJCvYIZhqGJK964yTOdqDomUDAGTWhCGRCcSN4M46Xqss9ZJxq8k0j/EEW9rMYad14+EZqnknENkg+94V7jw==
+powerhooks@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.0.tgz#00a0f90c5d038a2988771c7a3d304aa72ffe3f7f"
+  integrity sha512-Da2rAQl6UcpUSOr6FNcmdNyMLl+P9+X6W9t6GuDiSkm6FpyzoFFcV1B1t0qJ4ANNEmN0QJDnLho2KBIs2WbboA==
   dependencies:
     evt "2.0.0-beta.44"
     memoizee "^0.4.15"
@@ -11038,6 +11038,15 @@ tss-react@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-3.6.2.tgz#5e995d8b82ca730ba04a21203ae68f1c5372a85e"
   integrity sha512-+ecQIqCNFVlVJVk3NiCWZY2+5DhVKMVUVxIbEwv9nYsTRQA/KxyKCU8g+KMj5ByqFv9LW76+TUYzbWck/IHkfA==
+  dependencies:
+    "@emotion/cache" "*"
+    "@emotion/serialize" "*"
+    "@emotion/utils" "*"
+
+tss-react@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-3.7.0.tgz#664b4259c36800eb5285a583f6d8c1d5d1d1a30f"
+  integrity sha512-thvJWR+sr3ZGMcV/Ryo1F5RzjXd1gMTzYV/ckfUEBhu701uTYE3KyL9DNxv827uRFPFSLYG7bKefuc7kmYMB9Q==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"

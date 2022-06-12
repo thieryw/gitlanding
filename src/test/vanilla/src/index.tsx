@@ -19,6 +19,7 @@ import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
 import { createMakeStyles } from "tss-react";
+import { ReactComponent as TileSvg } from "./assets/svg/tile.svg";
 
 const { makeStyles } = createMakeStyles({
     "useTheme": () => {},
@@ -282,6 +283,7 @@ function App() {
             <GlCheckList
                 heading="Check List Heading"
                 hasAnimation={true}
+                CheckIcon={TileSvg}
                 elements={[
                     {
                         "title": "List element title",
@@ -316,20 +318,14 @@ function App() {
             `,
                     },
                     {
-                        "title": "List element title",
-                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
+                        "description": `(Only description) Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
               nisl nec hendrerit rutrum, 
               mi enim semper arcu, ut imperdiet urna libero non metus. 
               Donec imperdiet ac nulla sit amet lacinia.
             `,
                     },
                     {
-                        "title": "List element title",
-                        "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `,
+                        "title": "(Only title) List element title",
                     },
                 ]}
             />

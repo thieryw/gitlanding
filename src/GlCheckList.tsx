@@ -1,10 +1,13 @@
 import { memo, useMemo, useReducer } from "react";
-import CheckIcon from "@mui/icons-material/Check";
+import MuiCheckIcon from "@mui/icons-material/Check";
 import { Text } from "./theme";
 import { Markdown } from "./tools/Markdown";
 import { makeStyles, breakpointsValues } from "./theme";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { motion } from "framer-motion";
+import { createIcon } from "onyxia-ui/Icon";
+import type { MuiIconLike, SvgComponentLike } from "onyxia-ui/Icon";
+import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 
 export type GlCheckListProps = {
     className?: string;
@@ -16,10 +19,18 @@ export type GlCheckListProps = {
         title?: string;
         description?: string;
     }[];
+    CheckIcon?: MuiIconLike | SvgComponentLike;
 };
 
 export const GlCheckList = memo((props: GlCheckListProps) => {
-    const { className, elements, heading, subHeading, hasAnimation } = props;
+    const {
+        className,
+        elements,
+        heading,
+        subHeading,
+        hasAnimation,
+        CheckIcon = MuiCheckIcon,
+    } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -134,6 +145,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                                     "titleAndDescriptionWrapper":
                                         classes.elementTitleAndDescriptionWrapper,
                                 }}
+                                CheckIcon={CheckIcon}
                                 {...elementProps}
                             />
                         </motion.div>
@@ -205,27 +217,27 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
 const { CheckListElement } = (() => {
     type Props = Required<GlCheckListProps>["elements"][number] & {
         className?: string;
-        classes?: Partial<ReturnType<typeof useStyles>["classes"]> & {
-            checkIcon?: string;
-            titleAndDescriptionWrapper?: string;
-        };
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+        CheckIcon: MuiIconLike | SvgComponentLike;
     };
 
     const CheckListElement = memo((props: Props) => {
-        const { description, title, className, classes: classesProp } = props;
+        const { description, title, className, CheckIcon } = props;
 
         const { classes, cx } = useStyles(undefined, { props });
+
+        const { Icon } = useGuaranteedMemo(
+            () => createIcon({ "check": CheckIcon }),
+            [CheckIcon],
+        );
 
         return (
             <div className={cx(classes.root, className)}>
                 <div className={classes.checkIconWrapper}>
-                    <CheckIcon
-                        className={classesProp?.checkIcon}
-                        color="success"
-                    />
+                    <Icon iconId="check" className={classes.checkIcon} />
                 </div>
 
-                <div className={classesProp?.titleAndDescriptionWrapper}>
+                <div className={classes.titleAndDescriptionWrapper}>
                     {title !== undefined && (
                         <Markdown className={classes.title}>{title}</Markdown>
                     )}
@@ -247,6 +259,9 @@ const { CheckListElement } = (() => {
                     : undefined,
             "display": "flex",
         },
+        "checkIcon": {
+            "color": theme.colors.useCases.alertSeverity.success.main,
+        },
         "checkIconWrapper": {
             "paddingTop": theme.spacing(3.5),
             "marginRight": theme.spacing(3),
@@ -258,6 +273,7 @@ const { CheckListElement } = (() => {
         "title": {
             ...theme.typography.variants["object heading"].style,
         },
+        "titleAndDescriptionWrapper": {},
     }));
 
     return { CheckListElement };
