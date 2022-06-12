@@ -14,7 +14,7 @@ export type GlCheckListProps = {
     subHeading?: string;
     elements?: {
         title?: string;
-        description: string;
+        description?: string;
     }[];
 };
 
@@ -229,9 +229,11 @@ const { CheckListElement } = (() => {
                     {title !== undefined && (
                         <Markdown className={classes.title}>{title}</Markdown>
                     )}
-                    <Markdown className={classes.description}>
-                        {description}
-                    </Markdown>
+                    {description !== undefined && (
+                        <Markdown className={classes.description}>
+                            {description}
+                        </Markdown>
+                    )}
                 </div>
             </div>
         );
