@@ -14,7 +14,7 @@ import { GlReviewSlide } from "gitlanding/GlReviewSlide";
 import { GlHeader } from "gitlanding/GlHeader";
 /*import videoSafari from "./assets/videos/vsafari.mp4";
 import videoChrome from "./assets/videos/vchrome.webm";*/
-import imageSrc from "./assets/test-images/test7.png";
+import imageSrc from "./assets/test-images/test6.jpeg";
 import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
@@ -98,8 +98,8 @@ function App() {
                 illustration={{
                     "type": "image",
                     "src": imageSrc,
-                    "maxWidth": 800,
                 }}
+                illustrationZoomFactor={1.2}
             />
 
             <GlCards title="Title">
@@ -221,7 +221,6 @@ function App() {
                 }}
                 illustration={{
                     "type": "video",
-                    "maxWidth": "50%",
                     "hasShadow": false,
                     "sources": [
                         {
