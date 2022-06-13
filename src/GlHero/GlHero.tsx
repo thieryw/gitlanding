@@ -15,12 +15,14 @@ import { GlHeroText } from "./GlHeroText";
 import { GlVideo } from "../utils/GlVideo";
 import type { IllustrationProps } from "../tools/IllustrationProps";
 import { useStateRef } from "powerhooks/useStateRef";
+import { useMediaAspectRatio } from "../tools/useMediaAspectRatio";
 
 export type GlHeroProps = {
     className?: string;
     title?: NonNullable<ReactNode>;
     subTitle?: NonNullable<ReactNode>;
     illustration?: IllustrationProps;
+    illustrationZoomFactor?: number;
     hasLinkToSectionBellow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     hasAnimation?: boolean;
@@ -60,11 +62,14 @@ export const GlHero = memo((props: GlHeroProps) => {
         hasLinkToSectionBellow,
         illustration,
         hasAnimation,
+        illustrationZoomFactor,
     } = props;
 
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const ref = useStateRef<HTMLDivElement>(null);
+
+    const { ref: mediaRef, aspectRatio } = useMediaAspectRatio();
 
     const handleOnIllustrationLoad = useConstCallback(async () => {
         await new Promise<void>(resolve => setTimeout(resolve, 50));
@@ -134,23 +139,8 @@ export const GlHero = memo((props: GlHeroProps) => {
         {
             "hasOnlyText": illustration === undefined,
             isImageLoaded,
-            ...(() => {
-                if (
-                    illustration === undefined ||
-                    illustration.type === "custom component"
-                ) {
-                    return {
-                        "illustrationMaxWidth": undefined,
-                        "illustrationMaxWidthSmallScreen": undefined,
-                    };
-                }
-
-                return {
-                    "illustrationMaxWidth": illustration.maxWidth,
-                    "illustrationMaxWidthSmallScreen":
-                        illustration.maxWidthSmallScreen,
-                };
-            })(),
+            aspectRatio,
+            illustrationZoomFactor,
         },
         { props },
     );
@@ -224,6 +214,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                                 case "image":
                                     return (
                                         <GlImage
+                                            ref={mediaRef}
                                             id={illustrationId}
                                             className={classes.illustration}
                                             alt="hero image"
@@ -234,6 +225,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                                 case "video":
                                     return (
                                         <GlVideo
+                                            ref={mediaRef}
                                             id={illustrationId}
                                             className={classes.illustration}
                                             onLoad={handleOnIllustrationLoad}
@@ -270,17 +262,12 @@ export const GlHero = memo((props: GlHeroProps) => {
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
     isImageLoaded: boolean;
-    illustrationMaxWidth: number | string | undefined;
-    illustrationMaxWidthSmallScreen: number | string | undefined;
+    aspectRatio: number | undefined;
+    illustrationZoomFactor: number | undefined;
 }>({ "name": { GlHero } })(
     (
         theme,
-        {
-            hasOnlyText,
-            isImageLoaded,
-            illustrationMaxWidth,
-            illustrationMaxWidthSmallScreen,
-        },
+        { hasOnlyText, isImageLoaded, aspectRatio, illustrationZoomFactor },
     ) => ({
         "root": {
             "width": "100%",
@@ -338,7 +325,6 @@ const useStyles = makeStyles<{
                 }
                 return {
                     "maxWidth": 800,
-                    "minWidth": 400,
                 };
             })(),
             "display": "flex",
@@ -357,13 +343,32 @@ const useStyles = makeStyles<{
         },
 
         "illustrationWrapper": {
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "maxWidth": illustrationMaxWidthSmallScreen,
-                  }
-                : {
-                      "maxWidth": illustrationMaxWidth,
-                  }),
+            ...(() => {
+                if (aspectRatio === undefined) {
+                    return {
+                        "opacity": 0,
+                    };
+                }
+                const value =
+                    (() => {
+                        if (aspectRatio <= 1) {
+                            return 600 * aspectRatio;
+                        }
+
+                        return 600;
+                    })() * (illustrationZoomFactor ?? 1);
+                return {
+                    "maxWidth": value,
+                    "minWidth":
+                        theme.windowInnerWidth < breakpointsValues.md
+                            ? undefined
+                            : value,
+                    "alignSelf":
+                        theme.windowInnerWidth < breakpointsValues.md
+                            ? "center"
+                            : undefined,
+                };
+            })(),
         },
         "illustration": {
             "display": "inline-block", //So that text align center applies
