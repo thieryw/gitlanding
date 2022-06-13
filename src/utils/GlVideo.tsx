@@ -1,4 +1,5 @@
-import { memo } from "react";
+import { memo, forwardRef } from "react";
+import type { ForwardedRef } from "react";
 import { Source } from "../tools/Source";
 import { makeStyles } from "../theme";
 
@@ -16,44 +17,47 @@ export type GlVideoProps = {
     controls?: boolean;
 };
 
-export const GlVideo = memo((props: GlVideoProps) => {
-    const {
-        sources,
-        className,
-        hasShadow,
-        height,
-        id,
-        width,
-        autoPlay,
-        loop,
-        muted,
-        controls,
-        onLoad,
-    } = props;
+export const GlVideo = memo(
+    forwardRef((props: GlVideoProps, ref: ForwardedRef<HTMLVideoElement>) => {
+        const {
+            sources,
+            className,
+            hasShadow,
+            height,
+            id,
+            width,
+            autoPlay,
+            loop,
+            muted,
+            controls,
+            onLoad,
+        } = props;
 
-    const { classes, cx } = useStyles({
-        "hasShadow": hasShadow ?? true,
-    });
+        const { classes, cx } = useStyles({
+            "hasShadow": hasShadow ?? true,
+        });
 
-    return (
-        <video
-            className={cx(classes.root, className)}
-            onLoadedData={onLoad}
-            loop={loop ?? true}
-            muted={muted ?? true}
-            autoPlay={autoPlay ?? true}
-            id={id}
-            width={width}
-            height={height}
-            playsInline={autoPlay ?? true}
-            controls={controls ?? false}
-        >
-            {sources.map(source => (
-                <source {...source} />
-            ))}
-        </video>
-    );
-});
+        return (
+            <video
+                ref={ref}
+                className={cx(classes.root, className)}
+                onLoadedData={onLoad}
+                loop={loop ?? true}
+                muted={muted ?? true}
+                autoPlay={autoPlay ?? true}
+                id={id}
+                width={width}
+                height={height}
+                playsInline={autoPlay ?? true}
+                controls={controls ?? false}
+            >
+                {sources.map(source => (
+                    <source {...source} />
+                ))}
+            </video>
+        );
+    }),
+);
 
 const useStyles = makeStyles<{ hasShadow: boolean }>({ "name": { GlVideo } })(
     (theme, { hasShadow }) => ({
