@@ -1,3 +1,9 @@
+## **0.18.0** (2022-06-13)  
+  
+- Enable changing check icon in checklist and update dependencies  
+- Update powerhooks  
+- Description can be optional as well    
+  
 ### **0.17.6** (2022-06-06)  
   
 - bump version  
