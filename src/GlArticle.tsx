@@ -161,22 +161,6 @@ export const GlArticle = memo((props: GlArticleProps) => {
             hasIllustration,
             hasArticle,
             isIllustrationLoaded,
-            ...(() => {
-                if (
-                    illustration === undefined ||
-                    illustration.type === "custom component"
-                ) {
-                    return {
-                        "illustrationMaxWidth": undefined,
-                        "illustrationMaxWidthSmallScreen": undefined,
-                    };
-                }
-                return {
-                    "illustrationMaxWidth": illustration.maxWidth,
-                    "illustrationMaxWidthSmallScreen":
-                        illustration.maxWidthSmallScreen,
-                };
-            })(),
         },
         { props },
     );
@@ -283,8 +267,6 @@ const useStyles = makeStyles<{
     hasIllustration: boolean;
     hasArticle: boolean;
     isIllustrationLoaded: boolean;
-    illustrationMaxWidth: number | string | undefined;
-    illustrationMaxWidthSmallScreen: number | string | undefined;
 }>({ "name": { GlArticle } })(
     (
         theme,
@@ -293,8 +275,6 @@ const useStyles = makeStyles<{
             hasIllustration,
             hasArticle,
             isIllustrationLoaded,
-            illustrationMaxWidth,
-            illustrationMaxWidthSmallScreen,
         },
     ) => ({
         "root": {
@@ -349,13 +329,6 @@ const useStyles = makeStyles<{
             })(),
         },
         "aside": {
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "maxWidth": illustrationMaxWidthSmallScreen,
-                  }
-                : {
-                      "maxWidth": illustrationMaxWidth,
-                  }),
             ...(() => {
                 if (
                     !hasArticle ||
