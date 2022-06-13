@@ -32,7 +32,7 @@ const useStyles = makeStyles()({
 });
 
 function App() {
-    const { classes } = useStyles();
+    const { classes, css } = useStyles();
     return (
         <GlTemplate
             hasTopOfPageLinkButton={true}
@@ -284,6 +284,14 @@ function App() {
                 heading="Check List Heading"
                 hasAnimation={true}
                 CheckIcon={TileSvg}
+                classes={{
+                    "checkIcon": css({
+                        "& g": {
+                            //TODO: Refactor so we can access the theme
+                            "fill": "orange",
+                        },
+                    }),
+                }}
                 elements={[
                     {
                         "title": "List element title",
