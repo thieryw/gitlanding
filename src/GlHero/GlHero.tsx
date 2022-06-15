@@ -16,6 +16,7 @@ import { GlVideo } from "../utils/GlVideo";
 import type { IllustrationProps } from "../tools/IllustrationProps";
 import { useStateRef } from "powerhooks/useStateRef";
 import { useMediaAspectRatio } from "../tools/useMediaAspectRatio";
+import { useIllustrationStyles } from "../theme";
 
 export type GlHeroProps = {
     className?: string;
@@ -139,11 +140,15 @@ export const GlHero = memo((props: GlHeroProps) => {
         {
             "hasOnlyText": illustration === undefined,
             isImageLoaded,
-            aspectRatio,
-            illustrationZoomFactor,
         },
         { props },
     );
+
+    const { classes: illustrationClasses } = useIllustrationStyles({
+        illustrationZoomFactor,
+        aspectRatio,
+        "type": props.illustration?.type,
+    });
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>
@@ -207,7 +212,10 @@ export const GlHero = memo((props: GlHeroProps) => {
                         {...(hasAnimation || hasAnimation === undefined
                             ? imageAnimProps
                             : undefined)}
-                        className={classes.illustrationWrapper}
+                        className={cx(
+                            illustrationClasses.root,
+                            classes.illustrationWrapper,
+                        )}
                     >
                         {(() => {
                             switch (illustration.type) {
@@ -262,124 +270,88 @@ export const GlHero = memo((props: GlHeroProps) => {
 const useStyles = makeStyles<{
     hasOnlyText: boolean;
     isImageLoaded: boolean;
-    aspectRatio: number | undefined;
-    illustrationZoomFactor: number | undefined;
-}>({ "name": { GlHero } })(
-    (
-        theme,
-        { hasOnlyText, isImageLoaded, aspectRatio, illustrationZoomFactor },
-    ) => ({
-        "root": {
-            "width": "100%",
-            "paddingBottom": theme.spacing(7),
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-        },
-        "arrow": {
-            "cursor": "pointer",
-        },
-        "textAndImageWrapper": {
-            "margin": theme.spacing({
-                "topBottom": 5,
-                "rightLeft": 0,
-            }),
-            "minHeight": (window.innerHeight / 100) * 70,
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "center",
-            ...(theme.windowInnerWidth < breakpointsValues.md
-                ? {
-                      "flexDirection": "column",
-                      "alignItems": "left",
-                  }
-                : {}),
-        },
+}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
+    "root": {
+        "width": "100%",
+        "paddingBottom": theme.spacing(7),
+        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+    },
+    "arrow": {
+        "cursor": "pointer",
+    },
+    "textAndImageWrapper": {
+        "margin": theme.spacing({
+            "topBottom": 5,
+            "rightLeft": 0,
+        }),
+        "minHeight": (window.innerHeight / 100) * 70,
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        ...(theme.windowInnerWidth < breakpointsValues.md
+            ? {
+                  "flexDirection": "column",
+                  "alignItems": "left",
+              }
+            : {}),
+    },
 
-        "title": {
-            "marginBottom": theme.spacing(4),
-        },
-        "subtitle": {
-            "marginTop": theme.spacing(4),
-            "maxWidth": 650,
-            "color": theme.colors.useCases.typography.textSecondary,
-            ...(() => {
-                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                    return undefined;
-                }
-                return theme.typography.variants["body 1"].style;
-            })(),
-        },
+    "title": {
+        "marginBottom": theme.spacing(4),
+    },
+    "subtitle": {
+        "marginTop": theme.spacing(4),
+        "maxWidth": 650,
+        "color": theme.colors.useCases.typography.textSecondary,
+        ...(() => {
+            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                return undefined;
+            }
+            return theme.typography.variants["body 1"].style;
+        })(),
+    },
 
-        "textWrapper": {
-            "textAlign":
-                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                    ? "center"
-                    : undefined,
-            "alignItems": hasOnlyText ? "center" : undefined,
-            "flexDirection": "column",
-            ...(() => {
-                if (theme.windowInnerWidth < breakpointsValues.md) {
-                    return undefined;
-                }
+    "textWrapper": {
+        "textAlign":
+            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                ? "center"
+                : undefined,
+        "alignItems": hasOnlyText ? "center" : undefined,
+        "flexDirection": "column",
+        ...(() => {
+            if (theme.windowInnerWidth < breakpointsValues.md) {
+                return undefined;
+            }
+            return {
+                "maxWidth": 800,
+            };
+        })(),
+        "display": "flex",
+        ...(() => {
+            const value = theme.spacing(7);
+            if (theme.windowInnerWidth >= breakpointsValues.md) {
                 return {
-                    "maxWidth": 800,
+                    "marginRight": hasOnlyText ? undefined : value,
                 };
-            })(),
-            "display": "flex",
-            ...(() => {
-                const value = theme.spacing(7);
-                if (theme.windowInnerWidth >= breakpointsValues.md) {
-                    return {
-                        "marginRight": hasOnlyText ? undefined : value,
-                    };
-                }
+            }
 
-                return {
-                    "marginBottom": value,
-                };
-            })(),
-        },
+            return {
+                "marginBottom": value,
+            };
+        })(),
+    },
 
-        "illustrationWrapper": {
-            ...(() => {
-                if (aspectRatio === undefined) {
-                    return {
-                        "opacity": 0,
-                    };
-                }
-                const value =
-                    (() => {
-                        if (aspectRatio <= 1) {
-                            return 600 * aspectRatio;
-                        }
+    "illustrationWrapper": {},
 
-                        return 600;
-                    })() * (illustrationZoomFactor ?? 1);
-                return {
-                    "maxWidth": value,
-                    "minWidth":
-                        theme.windowInnerWidth < breakpointsValues.md
-                            ? undefined
-                            : value,
-                    "alignSelf":
-                        theme.windowInnerWidth < breakpointsValues.md
-                            ? "center"
-                            : undefined,
-                };
-            })(),
-        },
-        "illustration": {
-            "display": "inline-block", //So that text align center applies
-            "width": "100%",
-        },
+    "illustration": {
+        "display": "inline-block", //So that text align center applies
+        "width": "100%",
+    },
 
-        "linkToSectionBelowWrapper": {
-            "display": "flex",
-            "justifyContent": "center",
-            "transition": "opacity 300ms",
-            "opacity": isImageLoaded ? 1 : 0,
-        },
-    }),
-);
+    "linkToSectionBelowWrapper": {
+        "display": "flex",
+        "justifyContent": "center",
+        "transition": "opacity 300ms",
+        "opacity": isImageLoaded ? 1 : 0,
+    },
+}));

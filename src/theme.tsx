@@ -14,6 +14,7 @@ import Brightness1RoundedIcon from "@mui/icons-material/Brightness1Rounded";
 import { createText } from "onyxia-ui/Text";
 import { breakpointsValues as defaultBreakpointsValues } from "onyxia-ui";
 import { useStyles } from "onyxia-ui/lib/ThemeProvider";
+import type { IllustrationProps } from "./tools/IllustrationProps";
 
 export function useTheme() {
     const { theme } = useStyles();
@@ -63,3 +64,43 @@ export const splashScreen: ThemeProviderProps["splashScreen"] = {
     "Logo": () => null,
     "minimumDisplayDuration": 0,
 };
+
+export const useIllustrationStyles = makeStyles<{
+    aspectRatio: number;
+    illustrationZoomFactor: number | undefined;
+    type: IllustrationProps["type"] | undefined;
+}>()((theme, { aspectRatio, illustrationZoomFactor, type }) => ({
+    "root": {
+        ...(() => {
+            if (type === "custom component" || type === undefined) {
+                return undefined;
+            }
+
+            if (isNaN(aspectRatio)) {
+                return {
+                    "opacity": 0,
+                };
+            }
+
+            const value =
+                (() => {
+                    if (aspectRatio <= 1) {
+                        return 600 * aspectRatio;
+                    }
+
+                    return 600;
+                })() * (illustrationZoomFactor ?? 1);
+            return {
+                "maxWidth": value,
+                "minWidth":
+                    theme.windowInnerWidth < breakpointsValues.md
+                        ? undefined
+                        : value,
+                "alignSelf":
+                    theme.windowInnerWidth < breakpointsValues.md
+                        ? "center"
+                        : undefined,
+            };
+        })(),
+    },
+}));

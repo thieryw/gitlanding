@@ -11,6 +11,8 @@ import { GlImage } from "./utils/GlImage";
 import { GlVideo } from "./utils/GlVideo";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { IllustrationProps } from "./tools/IllustrationProps";
+import { useMediaAspectRatio } from "./tools/useMediaAspectRatio";
+import { useIllustrationStyles } from "./theme";
 
 export type GlArticleProps = {
     className?: string;
@@ -26,6 +28,7 @@ export type GlArticleProps = {
     illustrationPosition?: "left" | "right";
     illustration?: IllustrationProps;
     hasAnimation?: boolean;
+    illustrationZoomFactor?: number;
 };
 
 const textTransitionParameters = {
@@ -95,6 +98,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
         id,
         buttonLink,
         hasAnimation,
+        illustrationZoomFactor,
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -146,6 +150,8 @@ export const GlArticle = memo((props: GlArticleProps) => {
         [isIllustrationLoaded],
     );
 
+    const { aspectRatio, ref: mediaRef } = useMediaAspectRatio();
+
     const onIllustrationLoaded = useConstCallback(() => {
         setIsIllustrationLoaded(true);
     });
@@ -161,9 +167,16 @@ export const GlArticle = memo((props: GlArticleProps) => {
             hasIllustration,
             hasArticle,
             isIllustrationLoaded,
+            aspectRatio,
         },
         { props },
     );
+
+    const { classes: illustrationClasses } = useIllustrationStyles({
+        aspectRatio,
+        illustrationZoomFactor,
+        "type": props.illustration?.type,
+    });
 
     return (
         <section ref={ref} id={id} className={cx(classes.root, className)}>
@@ -219,7 +232,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
             )}
             {hasIllustration && (
                 <motion.aside
-                    className={classes.aside}
+                    className={cx(illustrationClasses.root, classes.aside)}
                     {...(() => {
                         if (!hasAnimation) {
                             return undefined;
@@ -244,6 +257,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                                         className={classes.image}
                                         onLoad={onIllustrationLoaded}
                                         {...illustration}
+                                        ref={mediaRef}
                                     />
                                 );
                             case "video":
@@ -252,6 +266,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                                         className={classes.video}
                                         onLoad={onIllustrationLoaded}
                                         {...illustration}
+                                        ref={mediaRef}
                                     />
                                 );
                         }
@@ -267,6 +282,7 @@ const useStyles = makeStyles<{
     hasIllustration: boolean;
     hasArticle: boolean;
     isIllustrationLoaded: boolean;
+    aspectRatio: number;
 }>({ "name": { GlArticle } })(
     (
         theme,
@@ -275,6 +291,7 @@ const useStyles = makeStyles<{
             hasIllustration,
             hasArticle,
             isIllustrationLoaded,
+            aspectRatio,
         },
     ) => ({
         "root": {
@@ -301,8 +318,18 @@ const useStyles = makeStyles<{
         "article": {
             "display": "flex",
             "flexDirection": "column",
-            "minWidth":
-                theme.windowInnerWidth < breakpointsValues.md ? undefined : 300,
+            "minWidth": (() => {
+                if (
+                    isNaN(aspectRatio) ||
+                    theme.windowInnerWidth >= breakpointsValues.lg
+                ) {
+                    return 300;
+                }
+                if (theme.windowInnerWidth < breakpointsValues.md) {
+                    return undefined;
+                }
+                return 200;
+            })(),
             "flex": hasIllustration ? 0.7 : undefined,
             "marginBottom":
                 theme.windowInnerWidth >= breakpointsValues.md ||
@@ -336,7 +363,17 @@ const useStyles = makeStyles<{
                 ) {
                     return undefined;
                 }
-                const value = theme.spacing(10);
+
+                const value = (() => {
+                    if (
+                        isNaN(aspectRatio) ||
+                        theme.windowInnerWidth >= breakpointsValues.lg
+                    ) {
+                        return theme.spacing(10);
+                    }
+
+                    return theme.spacing(8);
+                })();
                 switch (illustrationPosition) {
                     case "left":
                         return {

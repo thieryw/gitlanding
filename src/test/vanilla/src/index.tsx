@@ -99,7 +99,7 @@ function App() {
                     "type": "image",
                     "src": imageSrc,
                 }}
-                illustrationZoomFactor={1.2}
+                //illustrationZoomFactor={1.2}
             />
 
             <GlCards title="Title">
