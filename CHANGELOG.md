@@ -1,3 +1,15 @@
+## **0.19.0** (2022-06-15)  
+  
+- bump version  
+- extend illustration zoom factor and illustration fixed width  
+- test  
+- GlHero: illustration zoom factor and fix illustration width acording to aspect ratio  
+- GlImage & video: wrap in forwardRef  
+- GlArticle: Remove illustration max width props  
+- IllustrationProps: remove maxWidth props  
+- useMediaAspectRatio function  
+- use check icon customization    
+  
 ## **0.18.0** (2022-06-13)  
   
 - Enable changing check icon in checklist and update dependencies  
