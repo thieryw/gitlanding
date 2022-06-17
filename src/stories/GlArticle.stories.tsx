@@ -51,7 +51,6 @@ const propsWithCode: GlArticleProps = {
         "Component": () => {
             return (
                 <GlCodeBlock
-                    hasDecorativeVsCodeButtons={true}
                     language="typescript"
                     text={`function getRandomInt(max) {
 	return Math.floor(Math.random() * max);

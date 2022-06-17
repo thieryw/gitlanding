@@ -10,7 +10,6 @@ const { getStory, meta } = getStoryFactory({
 export default meta;
 
 export const Vue = getStory({
-    "hasDecorativeVsCodeButtons": true,
     "hasShadow": true,
     "language": "typescript",
     "text": `declare function listFilesOfDirectory(dirPath: string): string[];
