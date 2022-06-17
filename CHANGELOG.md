@@ -1,3 +1,12 @@
+### **0.19.1** (2022-06-17)  
+  
+- bump version  
+- tests  
+- update stories  
+- add default border radius to illustrations  
+- create new code block component  
+- update dependencies    
+  
 ## **0.19.0** (2022-06-15)  
   
 - bump version  
