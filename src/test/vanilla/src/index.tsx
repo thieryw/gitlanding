@@ -18,21 +18,10 @@ import imageSrc from "./assets/test-images/test6.jpeg";
 import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
-import { createMakeStyles } from "tss-react";
 import { ReactComponent as TileSvg } from "./assets/svg/tile.svg";
-
-const { makeStyles } = createMakeStyles({
-    "useTheme": () => {},
-});
-
-const useStyles = makeStyles()({
-    "video": {
-        "borderRadius": "10px",
-    },
-});
+import { css } from "tss-react/@emotion/css";
 
 function App() {
-    const { classes, css } = useStyles();
     return (
         <GlTemplate
             hasTopOfPageLinkButton={true}
@@ -142,11 +131,10 @@ function App() {
                     "type": "custom component",
                     "Component": () => (
                         <GlCodeBlock
-                            hasDecorativeVsCodeButtons={true}
-                            isCopyBlock={true}
-                            copiedToClipboardMessage="copied to clipboard!"
+                            hasCopyButton={true}
+                            showLineNumbers={true}
                             language="typescript"
-                            text={`function sum(x: number, y: number): number{
+                            text={`function sum(x: number, y: number): number {
     return x + y;
 }`}
                         />
@@ -205,9 +193,6 @@ function App() {
             <GlSectionDivider />
 
             <GlArticle
-                classes={{
-                    "video": classes.video,
-                }}
                 title="Article title"
                 body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
         nisl nec hendrerit rutrum, 
