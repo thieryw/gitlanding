@@ -12,6 +12,7 @@ export type GlImageProps = {
     width?: number;
     height?: number;
     hasShadow?: boolean;
+    hasBorderRadius?: boolean;
     sources?: Source[];
     onLoad?: () => void;
 };
@@ -19,19 +20,21 @@ export type GlImageProps = {
 export const GlImage = memo(
     forwardRef((props: GlImageProps, ref: ForwardedRef<HTMLImageElement>) => {
         const {
+            hasBorderRadius = true,
             id,
             className,
             src,
             alt,
             height,
             width,
-            hasShadow,
+            hasShadow = true,
             sources,
             onLoad,
         } = props;
 
         const { classes, cx } = useStyles({
-            "hasShadow": hasShadow ?? true,
+            hasShadow,
+            hasBorderRadius,
         });
         return (
             <picture>
@@ -52,10 +55,11 @@ export const GlImage = memo(
     }),
 );
 
-const useStyles = makeStyles<{ hasShadow: boolean }>({
+const useStyles = makeStyles<{ hasShadow: boolean; hasBorderRadius: boolean }>({
     "name": { GlImage },
-})((theme, { hasShadow }) => ({
+})((theme, { hasShadow, hasBorderRadius }) => ({
     "root": {
         "boxShadow": !hasShadow ? undefined : theme.customShadow,
+        "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
     },
 }));

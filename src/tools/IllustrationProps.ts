@@ -12,6 +12,8 @@ declare namespace IllustrationProps {
         sources?: Source[];
         src: string;
         hasShadow?: boolean;
+        hasBorderRadius?: boolean;
+        alt?: string;
     };
 
     export type Video = {
@@ -22,6 +24,7 @@ declare namespace IllustrationProps {
         muted?: boolean;
         loop?: boolean;
         controls?: boolean;
+        hasBorderRadius?: boolean;
     };
 
     export type CustomComponent = {

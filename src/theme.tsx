@@ -34,7 +34,8 @@ export function useTheme() {
                 return 4;
             })(),
         ),
-        "customShadow": "2px 3px 35px -1px rgba(0,0,0,0.45);",
+        "customShadow": "2px 3px 35px -1px rgba(0,0,0,0.45)",
+        "borderRadius": theme.spacing(1),
     };
 }
 

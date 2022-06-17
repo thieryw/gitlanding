@@ -15,6 +15,7 @@ export type GlVideoProps = {
     muted?: boolean;
     loop?: boolean;
     controls?: boolean;
+    hasBorderRadius?: boolean;
 };
 
 export const GlVideo = memo(
@@ -22,7 +23,8 @@ export const GlVideo = memo(
         const {
             sources,
             className,
-            hasShadow,
+            hasShadow = true,
+            hasBorderRadius = true,
             height,
             id,
             width,
@@ -34,7 +36,8 @@ export const GlVideo = memo(
         } = props;
 
         const { classes, cx } = useStyles({
-            "hasShadow": hasShadow ?? true,
+            hasShadow,
+            hasBorderRadius,
         });
 
         return (
@@ -59,10 +62,11 @@ export const GlVideo = memo(
     }),
 );
 
-const useStyles = makeStyles<{ hasShadow: boolean }>({ "name": { GlVideo } })(
-    (theme, { hasShadow }) => ({
-        "root": {
-            "boxShadow": !hasShadow ? undefined : theme.customShadow,
-        },
-    }),
-);
+const useStyles = makeStyles<{ hasShadow: boolean; hasBorderRadius: boolean }>({
+    "name": { GlVideo },
+})((theme, { hasShadow, hasBorderRadius }) => ({
+    "root": {
+        "boxShadow": !hasShadow ? undefined : theme.customShadow,
+        "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
+    },
+}));
