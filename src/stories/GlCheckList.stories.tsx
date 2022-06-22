@@ -5,7 +5,6 @@ import { GlCheckList } from "../GlCheckList";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlCheckList },
-    "defaultWidth": 1200,
 });
 
 export default meta;

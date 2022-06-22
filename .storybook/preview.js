@@ -1,11 +1,23 @@
-export const parameters = {
-    actions: { argTypesRegex: "^on[A-Z].*" },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
+import { customViewPorts } from "./customViewPorts";
+import {darkTheme, lightTheme} from "./customTheme";
 
-    layout: "centered"
-  }
+
+
+export const parameters = {
+  "actions": { argTypesRegex: "^on[A-Z].*" },
+  "controls": {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  "darkMode": {
+    "light": lightTheme,
+    "dark": darkTheme
+
+  },
+  "viewport": {
+    "viewports": customViewPorts
+  },
+  "defaultViewport": "someDefault"
+}

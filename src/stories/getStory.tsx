@@ -1,166 +1,63 @@
-import type { Meta, Story } from "@storybook/react";
-import type { ArgType } from "@storybook/addons";
-import { useEffect, useCallback, useMemo, memo } from "react";
-import { symToStr } from "tsafe/symToStr";
-import {
-    useIsDarkModeEnabled,
-    chromeFontSizesFactors,
-    breakpointsValues,
-} from "onyxia-ui";
-import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
-import type { ThemeProviderProps, ChromeFontSize } from "onyxia-ui";
-import { Text, useTheme } from "../theme";
-import { id } from "tsafe/id";
-import "onyxia-ui/assets/fonts/WorkSans/font.css";
-import { GlobalStyles } from "tss-react/compat";
-import { objectKeys } from "tsafe/objectKeys";
+import { memo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { createThemeProvider } from "onyxia-ui";
+import type { Meta, Story } from "@storybook/react";
+import type { ArgType } from "@storybook/addons";
+import { id } from "tsafe/id";
+import { symToStr } from "tsafe/symToStr";
+import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 
 const { ThemeProvider } = createThemeProvider({});
-
-const propsByTitle = new Map<string, any>();
 
 export function getStoryFactory<Props>(params: {
     sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
-    /** https://storybook.js.org/docs/react/essentials/controls */
-    argTypes?: Partial<Record<keyof Props, ArgType>>;
     defaultWidth?: number;
+    argTypes?: Partial<Record<keyof Props, ArgType>>;
 }) {
     const {
-        sectionName,
         wrappedComponent,
-        argTypes = {},
+        sectionName,
         defaultWidth,
+        argTypes = {},
     } = params;
-
     const title = `${sectionName}/${symToStr(wrappedComponent)}`;
 
     const Component: React.ComponentType<Props> = Object.entries(
         wrappedComponent,
     ).map(([, component]) => component)[0];
 
-    function ScreenSize() {
-        const { windowInnerWidth } = useWindowInnerSize();
-
-        const range = useMemo(() => {
-            if (windowInnerWidth >= breakpointsValues["xl"]) {
-                return "xl-∞";
-            }
-
-            if (windowInnerWidth >= breakpointsValues["lg"]) {
-                return "lg-xl";
-            }
-
-            if (windowInnerWidth >= breakpointsValues["md"]) {
-                return "md-lg";
-            }
-
-            if (windowInnerWidth >= breakpointsValues["sm"]) {
-                return "sm-md";
-            }
-
-            return "0-sm";
-        }, [windowInnerWidth]);
-
-        return (
-            <Text typo="body 1">
-                {windowInnerWidth}px width: {range}
-            </Text>
-        );
-    }
-
-    const Template: Story<
-        Props & {
-            darkMode: boolean;
-            width: number;
-            chromeFontSize: ChromeFontSize;
-            targetWindowInnerWidth: number;
-        }
-    > = templateProps => {
+    const Template: Story<Props & { darkMode: boolean }> = args => {
+        const { darkMode } = args;
         const { setIsDarkModeEnabled } = useIsDarkModeEnabled();
-
-        const {
-            chromeFontSize,
-            darkMode,
-            targetWindowInnerWidth,
-            width,
-            ...props
-        } = Object.assign(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            propsByTitle.get(title)!,
-            templateProps,
-        ) as typeof templateProps;
-
         useEffect(() => {
             setIsDarkModeEnabled(darkMode);
         }, [darkMode]);
 
-        const getViewPortConfig = useCallback<
-            NonNullable<ThemeProviderProps["getViewPortConfig"]>
-        >(
-            ({ windowInnerWidth }) => ({
-                "targetBrowserFontSizeFactor":
-                    chromeFontSizesFactors[chromeFontSize],
-                "targetWindowInnerWidth":
-                    targetWindowInnerWidth || windowInnerWidth,
-            }),
-            [targetWindowInnerWidth, chromeFontSize],
-        );
-
         return (
-            <ThemeProvider getViewPortConfig={getViewPortConfig}>
+            <ThemeProvider>
                 <ContentWrapper
-                    width={width}
-                    ScreenSize={ScreenSize}
-                    Component={<Component {...(props as any)} />}
+                    Component={<Component {...args} />}
+                    width={defaultWidth}
                 />
             </ThemeProvider>
         );
     };
 
-    function getStory(props: Props): typeof Template {
+    const getStory = (props: Props): typeof Template => {
         const out = Template.bind({});
-
         out.args = {
             "darkMode": false,
-            "width": defaultWidth ?? 0,
-            "targetWindowInnerWidth": 0,
-            "chromeFontSize": "Medium (Recommended)",
             ...props,
         };
-
-        propsByTitle.set(title, out.args);
-
         return out;
-    }
+    };
 
     return {
         "meta": id<Meta>({
             title,
             "component": Component,
             "argTypes": {
-                "width": {
-                    "control": {
-                        "type": "range",
-                        "min": 0,
-                        "max": 1920,
-                        "step": 1,
-                    },
-                },
-                "targetWindowInnerWidth": {
-                    "control": {
-                        "type": "range",
-                        "min": 0,
-                        "max": 2560,
-                        "step": 10,
-                    },
-                },
-                "chromeFontSize": {
-                    "options": objectKeys(chromeFontSizesFactors),
-                    "control": { "type": "select" },
-                },
                 ...argTypes,
             },
         }),
@@ -168,55 +65,21 @@ export function getStoryFactory<Props>(params: {
     };
 }
 
-export function logCallbacks<T extends string>(
-    propertyNames: readonly T[],
-): Record<T, () => void> {
-    const out: Record<T, () => void> = id<Record<string, never>>({});
-
-    propertyNames.forEach(
-        propertyName =>
-            (out[propertyName] = console.log.bind(console, propertyName)),
-    );
-
-    return out;
-}
-
 const { ContentWrapper } = (() => {
     type Props = {
-        ScreenSize: () => JSX.Element;
-        width: number;
+        width?: number;
         Component: ReactNode;
     };
-
     const ContentWrapper = memo((props: Props) => {
-        const { Component, ScreenSize, width } = props;
-
-        const theme = useTheme();
-
+        const { Component, width } = props;
         return (
-            <>
-                <GlobalStyles
-                    styles={{
-                        "html": {
-                            "font-size": "100% !important",
-                        },
-                        "body": {
-                            "padding": `0 !important`,
-                            "backgroundColor": `${theme.colors.useCases.surfaces.background} !important`,
-                        },
-                    }}
-                />
-                <ScreenSize />
-                <div
-                    style={{
-                        "width": width || undefined,
-                        "border": "1px dotted grey",
-                        "display": "inline-block",
-                    }}
-                >
-                    {Component}
-                </div>
-            </>
+            <div
+                style={{
+                    "maxWidth": width,
+                }}
+            >
+                {Component}
+            </div>
         );
     });
 

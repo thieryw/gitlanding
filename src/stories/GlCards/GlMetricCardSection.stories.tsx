@@ -9,7 +9,6 @@ const { getStory, meta } = getStoryFactory({
     "wrappedComponent": {
         GlMetricCardSection,
     },
-    "defaultWidth": 1200,
 });
 
 export default meta;

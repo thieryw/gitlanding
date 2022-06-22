@@ -10,7 +10,6 @@ const { getStory, meta } = getStoryFactory({
     "wrappedComponent": {
         GlFooter,
     },
-    "defaultWidth": 1200,
 });
 
 export default meta;

@@ -8,7 +8,6 @@ import { GlLogo } from "../utils/GlLogo";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlHeader },
-    "defaultWidth": 1200,
 });
 
 export default meta;

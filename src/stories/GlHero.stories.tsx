@@ -7,7 +7,6 @@ import videoSrc from "./assets/videos/sspcloud.mp4";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlHero },
-    "defaultWidth": 1200,
 });
 
 export default meta;

@@ -5,7 +5,6 @@ import { GlYoutubeVideoSection } from "../GlYoutubeVideoSection";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlYoutubeVideoSection },
-    "defaultWidth": 1200,
 });
 
 export default meta;

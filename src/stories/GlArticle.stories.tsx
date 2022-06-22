@@ -9,7 +9,6 @@ import { GlCodeBlock } from "../GlCodeBlock";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlArticle },
-    "defaultWidth": 1200,
 });
 
 export default meta;

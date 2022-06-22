@@ -5,7 +5,6 @@ import { GlSectionDivider } from "../GlSectionDivider";
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlSectionDivider },
-    "defaultWidth": 1200,
 });
 
 export default meta;
