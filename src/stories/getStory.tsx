@@ -47,7 +47,7 @@ export function getStoryFactory<Props>(params: {
     const getStory = (props: Props): typeof Template => {
         const out = Template.bind({});
         out.args = {
-            "darkMode": false,
+            "darkMode": true,
             ...props,
         };
         return out;
