@@ -1,77 +1,97 @@
-import downArrow from "../assets/svg/downArrow.svg";
-import { ReactSVG } from "react-svg";
+import DownArrow from "@mui/icons-material/KeyboardArrowDown";
 
 import { memo } from "react";
 import { makeStyles } from "../theme";
 
 export type GlArrowProps = {
     className?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     direction: "up" | "down" | "left" | "right";
     hasCircularBorder?: boolean;
     onClick?: () => void;
+    colorLight?: string;
+    colorDark?: string;
 };
 
 export const GlArrow = memo((props: GlArrowProps) => {
-    const { className, direction, hasCircularBorder, onClick } = props;
-
-    const { classes, cx } = useStyles({
+    const {
+        className,
         direction,
-        "hasCircularBorder": hasCircularBorder ?? false,
-    });
+        hasCircularBorder,
+        onClick,
+        colorDark,
+        colorLight,
+    } = props;
+
+    const { classes, cx } = useStyles(
+        {
+            direction,
+            "hasCircularBorder": hasCircularBorder ?? false,
+            "colorDark": colorDark ?? "",
+            "colorLight": colorLight ?? "",
+        },
+        { props },
+    );
 
     return (
         <div onClick={onClick} className={cx(classes.root, className)}>
-            <ReactSVG src={downArrow} />
+            <DownArrow className={classes.arrow} />
         </div>
     );
 });
 
-const useStyles = makeStyles<{
-    direction: GlArrowProps["direction"];
-    hasCircularBorder: boolean;
-}>({ "name": { GlArrow } })((theme, { direction, hasCircularBorder }) => ({
-    "root": {
-        "border": hasCircularBorder
-            ? `solid ${
-                  theme.isDarkModeEnabled
-                      ? theme.colors.palette.light.main
-                      : theme.colors.palette.dark.main
-              } 2px`
-            : undefined,
-        "padding": 10,
-        "borderRadius": "50%",
-        ...(() => {
-            const value = theme.spacing(5);
-
-            return {
-                "width": value,
-                "height": value,
-            };
-        })(),
-        "transform": (() => {
-            switch (direction) {
-                case "down":
-                    return undefined;
-                case "up":
-                    return "rotate(180deg)";
-                case "left":
-                    return "rotate(90deg)";
-                case "right":
-                    return "rotate(-90deg)";
-            }
-        })(),
-        "alignItems": "center",
-        "justifyContent": "center",
-        "display": "flex",
-
-        "& >div": {
-            "display": "flex",
-            "width": "12px",
-            "& >svg": {
-                "fill": theme.isDarkModeEnabled
+const useStyles = makeStyles<
+    Required<Omit<GlArrowProps, "onClick" | "classes" | "className">>
+>({ "name": { GlArrow } })(
+    (theme, { direction, hasCircularBorder, colorDark, colorLight }) => {
+        const color = (() => {
+            if (theme.isDarkModeEnabled) {
+                return colorDark.length === 0
                     ? theme.colors.palette.light.main
-                    : theme.colors.palette.dark.main,
+                    : colorDark;
+            }
+
+            return colorLight.length === 0
+                ? theme.colors.palette.dark.main
+                : colorLight;
+        })();
+
+        return {
+            "root": {
+                "border": hasCircularBorder
+                    ? `
+                    solid ${color} 2px
+                `
+                    : undefined,
+                "padding": 10,
+                "borderRadius": "50%",
+                ...(() => {
+                    const value = theme.spacing(5);
+
+                    return {
+                        "width": value,
+                        "height": value,
+                    };
+                })(),
+                "transform": (() => {
+                    switch (direction) {
+                        case "down":
+                            return undefined;
+                        case "up":
+                            return "rotate(180deg)";
+                        case "left":
+                            return "rotate(90deg)";
+                        case "right":
+                            return "rotate(-90deg)";
+                    }
+                })(),
+                "alignItems": "center",
+                "justifyContent": "center",
+                "display": "flex",
             },
-        },
+            "arrow": {
+                "fill": color,
+            },
+        };
     },
-}));
+);
