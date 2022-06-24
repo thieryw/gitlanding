@@ -1,4 +1,5 @@
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
+import React from "react";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHero } from "gitlanding/GlHero/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
@@ -366,4 +367,10 @@ function App() {
     );
 }
 
-render(<App />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+);
