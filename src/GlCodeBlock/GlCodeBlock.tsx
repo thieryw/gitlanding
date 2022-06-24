@@ -144,6 +144,7 @@ const useStyles = makeStyles<{
             "borderRadius": hasBorderRadius ? theme.borderRadius : undefined,
             "boxShadow": hasShadow ? theme.customShadow : undefined,
             "overflow": "hidden",
+            "justifyContent": "space-between",
         },
         "copyButton": {
             "fill": isMouseDown
