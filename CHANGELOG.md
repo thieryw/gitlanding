@@ -1,3 +1,13 @@
+## **0.20.0** (2022-06-24)  
+  
+- bump version  
+- install eslint-config-react-app  
+- correct GlCodeBlock content layout  
+- update GlArrow  
+- update react and storybook for webpack 5  
+- resolve @types/eslint and set dark mode by default stories  
+- update storybook    
+  
 ### **0.19.1** (2022-06-17)  
   
 - bump version  
