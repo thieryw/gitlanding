@@ -1,3 +1,10 @@
+### **0.20.1** (2022-06-24)  
+  
+- Stop pinning babel-loader  
+- Remove hacks from previous Storybook versions  
+- Inconcequential refactor  
+- Stop pinning @types/react    
+  
 ## **0.20.0** (2022-06-24)  
   
 - bump version  
