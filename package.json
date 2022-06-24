@@ -109,8 +109,6 @@
         "eslint-config-react-app": "^7.0.1"
     },
     "resolutions": {
-        "babel-loader": "8.2.3",
-        "@types/eslint": "7.29.0",
-        "@types/react": "18.0.14"
+        "babel-loader": "8.2.3"
     }
 }
