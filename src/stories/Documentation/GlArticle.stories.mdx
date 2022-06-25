@@ -1,0 +1,207 @@
+import { Canvas, Story, Meta } from "@storybook/addon-docs";
+import { GlArticle } from "../../GlArticle";
+import { GlCodeBlock } from "../../GlCodeBlock";
+import { StoryProviderWrapper } from "../getStory";
+import heroImgSrc from "../assets/img/contribution.png";
+import sspcloudMp4 from "../assets/videos/sspcloud.mp4";
+
+
+
+<Meta title='Documentation/GlArticle' component={GlArticle} />
+
+# GlArticle
+
+This components displays an article composed of a title, paragraph
+and button, and an illustration along side it. The illustration 
+can be an image, video or a custom component.
+
+## Props
+<br />
+
+### GlArticle has the following Props:
+
+- className : Give a class name to the root element.
+- classes : Target any of the elements inside with a class name.
+- id : Set an id on the root element.
+- title : string or react node.
+- body : string or react node.
+- buttonLabel : string or react node.
+- buttonLink : Set the link and function to be triggered when 
+you click on the article button. <br />
+```typescript
+buttonLink?: {
+    href: string;
+    onClick?: () => void;
+}
+```
+- illustration : Display an illustration tha can be of type image,
+video or customComponent. The properties that will be infered by 
+typescript will change depending on witch type you choose.
+- illustrationPosition : Set witch side the illustration 
+is to apear on.
+- illustrationZoomFactor : The initial size of the illustration 
+will be multiplied by the value that you set.
+- hasAnimation: Decide if you want an animation to be triggered 
+when the component enters the view port. Value is true by default.
+
+
+## Examples
+
+- [With image](#with-image)
+- [With video](#with-video)
+- [With custom component](#with-custom-component)
+
+
+
+### With image
+
+<Canvas>
+    <Story name="With image">
+        <StoryProviderWrapper>
+            <GlArticle 
+                title="Title" 
+                body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+                buttonLabel="Button Label"
+                buttonLink={{
+                    "href": "https://example.com/"
+                }}
+                illustration={{
+                    "type": "image",
+                    "src": heroImgSrc,
+                    "hasShadow": false,
+                    "alt": "article image",
+                    "hasBorderRadius": false
+                }}
+            />
+        </StoryProviderWrapper>
+    </Story>
+</Canvas>
+
+```tsx
+<GlArticle 
+    title="Title" 
+    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+    buttonLabel="Button Label"
+    buttonLink={{
+        "href": "https://example.com/"
+    }}
+    illustration={{
+        "type": "image",
+        "src": heroImgSrc,
+        //You can also set the sources property to load 
+        //optimised images when the browser supports it
+        "sources": [
+            {
+                "srcSet": heroImgWebp,
+                "type": "image/webp"
+            }
+        ]
+        "hasShadow": false,
+        "alt": "article image",
+        "hasBorderRadius": false
+    }}
+/>
+```
+
+### With video
+
+<Canvas>
+    <Story name="With video">
+        <StoryProviderWrapper>
+            <GlArticle 
+                title="Title" 
+                body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+                buttonLabel="Button Label"
+                buttonLink={{
+                    "href": "https://example.com/"
+                }}
+                illustration={{
+                    "type": "video",
+                    "sources": [
+                        {
+                            "src": sspcloudMp4,
+                            "type": "video/mp4"
+                        }
+                    ]
+                }}
+                illustrationPosition="left"
+            />
+        </StoryProviderWrapper>
+    </Story>
+</Canvas>
+
+```tsx
+<GlArticle 
+    title="Title" 
+    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+    buttonLabel="Button Label"
+    buttonLink={{
+        "href": "https://example.com/"
+    }}
+    illustration={{
+        "type": "video",
+        "sources": [
+            {
+                "src": sspcloudMp4,
+                "type": "video/mp4"
+            }
+        ]
+    }}
+    //Position illustration on the left
+    illustrationPosition="left"
+/>
+```
+
+### With custom component
+
+<Canvas>
+    <Story name="With custom component">
+        <StoryProviderWrapper>
+            <GlArticle 
+                title="Title" 
+                body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+                buttonLabel="Button Label"
+                buttonLink={{
+                    "href": "https://example.com/"
+                }}
+                illustration={{
+                    "type": "custom component",
+                    "Component": () => {
+                        return ( 
+                            <GlCodeBlock
+                                language="typescript"
+                                text={`function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+}
+console.log(getRandomInt(3));
+console.log(getRandomInt(1));
+console.log(Math.random());
+		`}
+                    />)
+                    }
+                }}
+            />
+        </StoryProviderWrapper>
+    </Story>
+</Canvas>
+
+```tsx
+<GlArticle 
+    title="Title" 
+    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt."
+    buttonLabel="Button Label"
+    buttonLink={{
+        "href": "https://example.com/"
+    }}
+    illustration={{
+        "type": "custom component",
+        "Component": () => {
+            return ( 
+                <GlCodeBlock
+                    language="typescript"
+                    text={`console.log("hello world!")`}
+                />)
+        }
+    }}
+/>
+```

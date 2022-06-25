@@ -6,20 +6,40 @@ import type { ArgType } from "@storybook/addons";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
+import type { Parameters } from "@storybook/react";
 
-const { ThemeProvider } = createThemeProvider({});
+export const { useTheme, StoryProvider, ThemeProvider } = createThemeProvider(
+    {},
+);
+
+export const StoryProviderWrapper = memo((props: { children: JSX.Element }) => {
+    const { children } = props;
+    const { colors } = useTheme();
+    return (
+        <div
+            style={{
+                "overflow": "hidden",
+                "backgroundColor": colors.palette.light.main,
+            }}
+        >
+            <StoryProvider>{children}</StoryProvider>
+        </div>
+    );
+});
 
 export function getStoryFactory<Props>(params: {
     sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
     defaultWidth?: number;
     argTypes?: Partial<Record<keyof Props, ArgType>>;
+    parameters?: Parameters;
 }) {
     const {
         wrappedComponent,
         sectionName,
         defaultWidth,
         argTypes = {},
+        parameters,
     } = params;
     const title = `${sectionName}/${symToStr(wrappedComponent)}`;
 
@@ -60,6 +80,7 @@ export function getStoryFactory<Props>(params: {
             "argTypes": {
                 ...argTypes,
             },
+            parameters,
         }),
         getStory,
     };
@@ -72,10 +93,13 @@ const { ContentWrapper } = (() => {
     };
     const ContentWrapper = memo((props: Props) => {
         const { Component, width } = props;
+        const { colors } = useTheme();
         return (
             <div
                 style={{
                     "maxWidth": width,
+                    "backgroundColor": colors.useCases.surfaces.background,
+                    "overflow": "hidden",
                 }}
             >
                 {Component}
