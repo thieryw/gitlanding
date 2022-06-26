@@ -3,6 +3,7 @@ import { sectionName } from "./sectionName";
 import { GlHero } from "GlHero";
 import heroImgSrc from "../assets/img/contribution.png";
 import videoSrc from "../assets/videos/sspcloud.mp4";
+import type { GlHeroProps } from "GlHero";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
@@ -11,15 +12,19 @@ const { getStory, meta } = getStoryFactory({
 
 export default meta;
 
+const commonProps: GlHeroProps = {
+    "title": "Hero Title",
+    "subTitle": "Hero Subtitle",
+    "hasLinkToSectionBellow": true,
+};
+
 export const VueWithImage = getStory({
     "illustration": {
         "type": "image",
         "src": heroImgSrc,
         "hasShadow": false,
     },
-    "title": "Hero Title",
-    "subTitle": "Hero Subtitle",
-    "hasLinkToSectionBellow": true,
+    ...commonProps,
 });
 
 export const VueWithVideo = getStory({
@@ -32,7 +37,5 @@ export const VueWithVideo = getStory({
             },
         ],
     },
-    "title": "Hero Title",
-    "subTitle": "Hero Subtitle",
-    "hasLinkToSectionBellow": true,
+    ...commonProps,
 });

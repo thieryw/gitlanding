@@ -5,30 +5,36 @@ import type { GlArticleProps } from "GlArticle";
 import heroImgSrc from "../assets/img/contribution.png";
 import sspcloudMp4 from "../assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "GlCodeBlock";
+import { getGlArticleStoryStyle } from "../getGlArticleStyle";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,
     "wrappedComponent": { GlArticle },
+    "parameters": {},
 });
 
 export default meta;
 
-const propsWithImage: GlArticleProps = {
+const commonProps: GlArticleProps = {
     "title": "Title",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
     "buttonLabel": "Button",
+};
+
+export const VueWithImage = getStory({
+    ...commonProps,
+    "classes": getGlArticleStoryStyle({ "illustrationPosition": "right" }),
     "illustration": {
         "type": "image",
         "src": heroImgSrc,
         "hasShadow": false,
     },
-    "hasAnimation": true,
-};
+    "illustrationZoomFactor": 0.8,
+});
 
-const propsWithMp4: GlArticleProps = {
-    "title": "Title",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
-    "buttonLabel": "Button",
+export const VueWithCode = getStory({
+    ...commonProps,
+    "classes": getGlArticleStoryStyle({ "illustrationPosition": "right" }),
     "illustration": {
         "type": "video",
         "sources": [
@@ -38,13 +44,11 @@ const propsWithMp4: GlArticleProps = {
             },
         ],
     },
-    "hasAnimation": true,
-};
+});
 
-const propsWithCode: GlArticleProps = {
-    "title": "Title",
-    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate leo ac imperdiet hendrerit. Morbi semper ut erat et dignissim. Nullam tempus sapien quis ligula blandit euismod. In imperdiet a neque quis fermentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id quam eget libero tincidunt tincidunt.",
-    "buttonLabel": "Button",
+export const VueWithMp4 = getStory({
+    ...commonProps,
+    "classes": getGlArticleStoryStyle({ "illustrationPosition": "right" }),
     "illustration": {
         "type": "custom component",
         "Component": () => {
@@ -62,17 +66,4 @@ console.log(Math.random());
             );
         },
     },
-    "hasAnimation": true,
-};
-
-export const VueWithImage = getStory({
-    ...propsWithImage,
-});
-
-export const VueWithCode = getStory({
-    ...propsWithCode,
-});
-
-export const VueWithMp4 = getStory({
-    ...propsWithMp4,
 });
