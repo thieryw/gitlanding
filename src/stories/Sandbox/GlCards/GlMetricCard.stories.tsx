@@ -1,6 +1,6 @@
-import { GlMetricCard } from "../../GlCards/GlMetricCard";
+import { GlMetricCard } from "../../../GlCards/GlMetricCard";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import twitterImgUrl from "../../assets/svg/twitter.svg";
 
 const { getStory, meta } = getStoryFactory({

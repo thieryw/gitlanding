@@ -1,7 +1,7 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
-import { GlReviewSlide } from "../../GlReviewSlide";
-import redditIconUrl from "../assets/svg/reddit.svg";
+import { GlReviewSlide } from "GlReviewSlide";
+import redditIconUrl from "../../assets/svg/reddit.svg";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

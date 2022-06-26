@@ -1,7 +1,7 @@
-import { GlProjectCard } from "../../GlCards/GlProjectCard";
+import { GlProjectCard } from "GlCards/GlProjectCard";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
-import ExampleImgUrl from "../assets/img/thumbnail1.png";
+import { getStoryFactory } from "../../getStory";
+import ExampleImgUrl from "../../assets/img/thumbnail1.png";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

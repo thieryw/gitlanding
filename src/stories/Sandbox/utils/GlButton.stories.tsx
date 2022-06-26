@@ -1,6 +1,6 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
-import { GlButton } from "../../utils/GlButton";
+import { GlButton } from "utils/GlButton";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

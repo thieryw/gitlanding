@@ -1,6 +1,6 @@
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlSectionDivider } from "../GlSectionDivider";
+import { GlSectionDivider } from "GlSectionDivider";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

@@ -1,10 +1,10 @@
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlArticle } from "../GlArticle";
-import type { GlArticleProps } from "../GlArticle";
-import heroImgSrc from "./assets/img/contribution.png";
-import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
-import { GlCodeBlock } from "../GlCodeBlock";
+import { GlArticle } from "GlArticle";
+import type { GlArticleProps } from "GlArticle";
+import heroImgSrc from "../assets/img/contribution.png";
+import sspcloudMp4 from "../assets/videos/sspcloud.mp4";
+import { GlCodeBlock } from "GlCodeBlock";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

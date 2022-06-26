@@ -1,10 +1,10 @@
-import { GlLogoCard } from "../../GlCards/GlLogoCard";
+import { GlLogoCard } from "../../../GlCards/GlLogoCard";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
-import githubPng from "../assets/img/github.png";
-import balloonPng from "../assets/img/balloon.png";
-import tchapPng from "../assets/img/tchap.png";
-import drawioPng from "../assets/img/drawio.png";
+import { getStoryFactory } from "../../getStory";
+import githubPng from "../../assets/img/github.png";
+import balloonPng from "../../assets/img/balloon.png";
+import tchapPng from "../../assets/img/tchap.png";
+import drawioPng from "../../assets/img/drawio.png";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

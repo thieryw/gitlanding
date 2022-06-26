@@ -1,6 +1,6 @@
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlYoutubeVideoSection } from "../GlYoutubeVideoSection";
+import { GlYoutubeVideoSection } from "GlYoutubeVideoSection";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

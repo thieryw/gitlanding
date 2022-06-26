@@ -1,10 +1,10 @@
-import { GlProjectCard } from "../../GlCards/GlProjectCard";
-import thumbnailPngSrc from "../assets/img/thumbnail1.png";
-import kubernetesPngSrc from "../assets/img/kubernetes.png";
-import pokemonPngSrc from "../assets/img/pokemon.png";
+import { GlProjectCard } from "GlCards/GlProjectCard";
+import thumbnailPngSrc from "../../assets/img/thumbnail1.png";
+import kubernetesPngSrc from "../../assets/img/kubernetes.png";
+import pokemonPngSrc from "../../assets/img/pokemon.png";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
-import { GlCards as GlProjectCardSection } from "../../GlCards/GlCards";
+import { getStoryFactory } from "../../getStory";
+import { GlCards as GlProjectCardSection } from "GlCards/GlCards";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

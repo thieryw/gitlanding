@@ -1,5 +1,5 @@
-import { getStoryFactory } from "./getStory";
-import { GlCodeBlock } from "../GlCodeBlock";
+import { getStoryFactory } from "../getStory";
+import { GlCodeBlock } from "GlCodeBlock";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({

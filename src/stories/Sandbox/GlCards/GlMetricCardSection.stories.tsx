@@ -1,7 +1,7 @@
-import { GlCards as GlMetricCardSection } from "../../GlCards/GlCards";
-import { GlMetricCard } from "../../GlCards/GlMetricCard";
+import { GlCards as GlMetricCardSection } from "../../../GlCards/GlCards";
+import { GlMetricCard } from "../../../GlCards/GlMetricCard";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import twitterImgUrl from "../../assets/svg/twitter.svg";
 
 const { getStory, meta } = getStoryFactory({

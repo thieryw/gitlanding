@@ -1,10 +1,10 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
-import { GlSlider } from "../../GlSlider";
-import { GlReviewSlide } from "../../GlReviewSlide";
-import twitterIconUrl from "../assets/svg/twitter.svg";
-import redditIconUrl from "../assets/svg/reddit.svg";
-import youtubeIconUrl from "../assets/svg/youtube.svg";
+import { GlSlider } from "GlSlider";
+import { GlReviewSlide } from "GlReviewSlide";
+import twitterIconUrl from "../../assets/svg/twitter.svg";
+import redditIconUrl from "../../assets/svg/reddit.svg";
+import youtubeIconUrl from "../../assets/svg/youtube.svg";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

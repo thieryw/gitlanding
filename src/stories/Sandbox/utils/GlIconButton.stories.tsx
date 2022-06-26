@@ -1,5 +1,5 @@
-import { getStoryFactory } from "../getStory";
-import { GlIconButton } from "../../utils/GlIconButton";
+import { getStoryFactory } from "../../getStory";
+import { GlIconButton } from "utils/GlIconButton";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({

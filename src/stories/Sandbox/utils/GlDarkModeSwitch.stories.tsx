@@ -1,5 +1,5 @@
-import { GlDarkModeSwitch } from "../../utils/GlDarkModeSwitch";
-import { getStoryFactory } from "../getStory";
+import { GlDarkModeSwitch } from "utils/GlDarkModeSwitch";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({

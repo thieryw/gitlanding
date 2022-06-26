@@ -1,5 +1,5 @@
-import { GlGithubStarCount } from "../../utils/GlGithubStarCount";
-import { getStoryFactory } from "../getStory";
+import { GlGithubStarCount } from "utils/GlGithubStarCount";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({

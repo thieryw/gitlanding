@@ -1,6 +1,6 @@
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory } from "../getStory";
 import { sectionName } from "./sectionName";
-import { GlCheckList } from "../GlCheckList";
+import { GlCheckList } from "GlCheckList";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

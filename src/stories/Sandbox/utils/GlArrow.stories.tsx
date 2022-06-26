@@ -1,5 +1,5 @@
-import { getStoryFactory } from "../getStory";
-import { GlArrow } from "../../utils/GlArrow";
+import { getStoryFactory } from "../../getStory";
+import { GlArrow } from "utils/GlArrow";
 import { sectionName } from "./sectionName";
 
 const { getStory, meta } = getStoryFactory({
