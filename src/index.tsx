@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHeader } from "gitlanding/GlHeader";
 import { GlLogo } from "gitlanding/utils/GlLogo";
 import { GlHero } from "gitlanding/GlHero";
 import heroImageUrl from "./assets/img/hero-image.png";
 import { GlArticle } from "gitlanding/GlArticle"
-import { GlIllustration } from "gitlanding/GlIllustration"
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlCards } from "gitlanding/GlCards"
@@ -111,7 +110,7 @@ function App() {
         //imageSrc={isDarkModeEnabled ? heroImageUrl : heroImageLightUrl}
         illustration={{
           "type": "image",
-          "imageSrc": isDarkModeEnabled ? heroImageUrl : heroImageLightUrl
+          "src": isDarkModeEnabled ? heroImageUrl : heroImageLightUrl
         }}
 
         hasLinkToSectionBellow={true}
@@ -130,18 +129,19 @@ It works in 3 steps:
 
 Don't worry, you will be guided every step of the way!
 `}
-        illustration={
-          <GlIllustration
-            type="video"
-            sources={[
+        illustration={{
+          "type": "video",
+          "sources":
+            [
               {
                 "src": sspcloudMp4,
                 "type": "video/mp4"
               }
-            ]}
-            hasShadow={true}
-          />
-        }
+
+            ],
+          "hasShadow": true
+
+        }}
         hasAnimation={true}
         buttonLabel="Get started  🚀"
         buttonLink={{
@@ -151,11 +151,11 @@ Don't worry, you will be guided every step of the way!
       <GlSectionDivider />
 
       <GlArticle
-        illustration={<GlIllustration
-          type="image"
-          hasShadow={true}
-          url={materialUiPngUrl}
-        />}
+        illustration={{
+          "type": "image",
+          "hasShadow": true,
+          "src": materialUiPngUrl
+        }}
         title="MUI integration"
         body={`You can use components from [\`@mui/material\`](https://mui.com/), they will automatically adjust to your GitLanding theme and blend in perfectly.`}
         hasAnimation={true}
@@ -172,18 +172,16 @@ The approach of gitlanding is to provide a library of customizable React compone
 This way your little landing page is a react project capable of growing into a more mature project if need be.
 `}
         hasAnimation={true}
-        illustration={
-          <GlIllustration
-            type="video"
-            sources={[
+        illustration={{
+            "type": "video",
+            "sources": [
               {
                 "src": sspcloudRouteMp4,
                 "type": "video/mp4"
               }
-            ]}
-            hasShadow={true}
-          />
-        }
+            ],
+            "hasShadow": true
+        }}
         buttonLabel="Documentation 📙"
         buttonLink={{
           "href": "https://docs.gitlanding.dev"
@@ -201,12 +199,10 @@ This way your little landing page is a react project capable of growing into a m
         buttonLink={{
           "href": "https://github.com/InseeFrLab/onyxia-ui"
         }}
-        illustration={
-          <GlIllustration
-            type="image"
-            url={onyxiaPng}
-          />
-        }
+        illustration={{
+            "type": "image",
+            "src": onyxiaPng
+        }}
         hasAnimation={true}
       />
 
@@ -271,7 +267,7 @@ This way your little landing page is a react project capable of growing into a m
             "description": `
 Every block of text is rendered as \`Markdown\`. 
 You can **easily** apply *formatting* just like you are used to in your [READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
-            `
+  `
           },
           {
             "title": "Scalable",
@@ -300,12 +296,12 @@ You can go from a simple landing page assembled in a few minutes to a fully-fled
   </>
 }
 
-ReactDOM.render(
+
+createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  </React.StrictMode>
+)
 
