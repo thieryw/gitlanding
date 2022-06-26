@@ -11,8 +11,8 @@ import sspcloudMp4 from "../assets/videos/sspcloud.mp4";
 
 # GlArticle
 
-This components displays an article composed of a title, paragraph
-and button, and an illustration along side it. The illustration 
+This component displays an article composed of a title, paragraph
+and button, and an illustration alongside it. The illustration 
 can be an image, video or a custom component.
 
 ## Props
@@ -20,13 +20,13 @@ can be an image, video or a custom component.
 
 ### GlArticle has the following Props:
 
-- className : Give a class name to the root element.
-- classes : Target any of the elements inside with a class name.
-- id : Set an id on the root element.
-- title : string or react node.
-- body : string or react node.
-- buttonLabel : string or react node.
-- buttonLink : Set the link and function to be triggered when 
+- **className** : Give a class name to the root element.
+- **classes** : Target any of the elements inside with a class name.
+- **id** : Set an id on the root element.
+- **title** : string or react node.
+- **body** : string or react node.
+- **buttonLabel** : string or react node.
+- **buttonLink** : Set the link and function to be triggered when 
 you click on the article button. <br />
 ```typescript
 buttonLink?: {
@@ -34,14 +34,14 @@ buttonLink?: {
     onClick?: () => void;
 }
 ```
-- illustration : Display an illustration tha can be of type image,
-video or customComponent. The properties that will be infered by 
-typescript will change depending on witch type you choose.
-- illustrationPosition : Set witch side the illustration 
-is to apear on.
-- illustrationZoomFactor : The initial size of the illustration 
+- **illustration** : Display an illustration that can be of type image,
+video or custom component. The properties that will be inferred by 
+typescript will change depending on which type you choose.
+- **illustrationPosition** : Set which side the illustration 
+is to appear on.
+- **illustrationZoomFactor** : The initial size of the illustration 
 will be multiplied by the value that you set.
-- hasAnimation: Decide if you want an animation to be triggered 
+- **hasAnimation** : Decide if you want an animation to be triggered 
 when the component enters the view port. Value is true by default.
 
 
@@ -53,7 +53,7 @@ when the component enters the view port. Value is true by default.
 
 
 
-### With image
+### With image <a id="with-image"></a>
 
 <Canvas>
     <Story name="With image">
@@ -103,7 +103,7 @@ when the component enters the view port. Value is true by default.
 />
 ```
 
-### With video
+### With video <a id="with-video"></a>
 
 <Canvas>
     <Story name="With video">
@@ -152,7 +152,7 @@ when the component enters the view port. Value is true by default.
 />
 ```
 
-### With custom component
+### With custom component <a id="with-custom-component"></a>
 
 <Canvas>
     <Story name="With custom component">
