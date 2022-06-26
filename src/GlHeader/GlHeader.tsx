@@ -12,8 +12,6 @@ import { useDomRect } from "powerhooks/useDomRect";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 
-//todo: fix titleWrapper width to the largest available title
-
 export type GlHeaderProps = {
     links: {
         label: string;
