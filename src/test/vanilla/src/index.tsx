@@ -48,11 +48,11 @@ function App() {
                     githubButtonSize="large"
                     customItemEnd={{
                         "item": <button>Custom Item Start</button>,
-                        "behaviorOnSmallDevice": "hide"
+                        "behaviorOnSmallDevice": "hide",
                     }}
                     customItemStart={{
                         "item": <button>Custom Item End</button>,
-                        "behaviorOnSmallDevice": "wrap"
+                        "behaviorOnSmallDevice": "wrap",
                     }}
                 />
             }

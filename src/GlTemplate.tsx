@@ -276,7 +276,7 @@ const useStyles = makeStyles<{
                 "overflowX": "hidden",
                 "display": "flex",
                 "flexDirection": "column",
-                "minHeight": window.innerHeight,
+                "minHeight": window.innerHeight - headerHeight,
             },
         };
     },
