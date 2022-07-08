@@ -160,6 +160,7 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
 })((theme, { numberOfElements }) => ({
     "root": {
         ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
+        ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
     },
     "heading": {
         ...(() => {
