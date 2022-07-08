@@ -97,7 +97,6 @@ const useStyles = makeStyles({ "name": { GlFooter } })(theme => ({
         "flexDirection": "column",
         "alignItems": "center",
         "justifyContent": "center",
-        "marginTop": theme.spacing(7),
         "backgroundColor": theme.colors.useCases.surfaces.surface2,
         ...(() => {
             const value = theme.spacing(4);
