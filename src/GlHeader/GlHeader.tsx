@@ -149,95 +149,134 @@ export const GlHeader = memo((props: GlHeaderProps) => {
 
     return (
         <header ref={ref} className={cx(classes.root, className)}>
-            {(() => {
-                return (
-                    <div ref={titleRef} className={classes.titleWrapper}>
-                        {(() => {
-                            const transformElementIfString = (
-                                element: ReactNode,
-                            ) => {
-                                if (typeof element === "string") {
-                                    return (
-                                        <Text
-                                            className={classes.titleText}
-                                            typo="subtitle"
-                                        >
-                                            {element}
-                                        </Text>
+            <div className={classes.largeScreenContentWrapper}>
+                {(() => {
+                    return (
+                        <div ref={titleRef} className={classes.titleWrapper}>
+                            {(() => {
+                                const transformElementIfString = (
+                                    element: ReactNode,
+                                ) => {
+                                    if (typeof element === "string") {
+                                        return (
+                                            <Text
+                                                className={classes.titleText}
+                                                typo="subtitle"
+                                            >
+                                                {element}
+                                            </Text>
+                                        );
+                                    }
+                                    return element;
+                                };
+
+                                if (
+                                    theme.windowInnerWidth >=
+                                    breakpointsValues.md
+                                ) {
+                                    if (!theme.isDarkModeEnabled) {
+                                        return transformElementIfString(title);
+                                    }
+                                    return transformElementIfString(
+                                        titleDark ?? title,
                                     );
                                 }
-                                return element;
-                            };
 
-                            if (
-                                theme.windowInnerWidth >= breakpointsValues.md
-                            ) {
                                 if (!theme.isDarkModeEnabled) {
-                                    return transformElementIfString(title);
+                                    return transformElementIfString(
+                                        titleSmallScreen ?? title,
+                                    );
                                 }
+
                                 return transformElementIfString(
-                                    titleDark ?? title,
+                                    titleSmallScreenDark ??
+                                        titleSmallScreen ??
+                                        titleDark ??
+                                        title,
                                 );
-                            }
-
-                            if (!theme.isDarkModeEnabled) {
-                                return transformElementIfString(
-                                    titleSmallScreen ?? title,
-                                );
-                            }
-
-                            return transformElementIfString(
-                                titleSmallScreenDark ??
-                                    titleSmallScreen ??
-                                    titleDark ??
-                                    title,
-                            );
-                        })()}
-                    </div>
-                );
-            })()}
-
-            <div
-                ref={buttonsAndLinksRef}
-                className={classes.linkAndButtonWrapper}
-            >
-                {customItemStart !== undefined && customItemStart}
-                <div className={classes.linksWrapperLargeScreen}>
-                    <GlHeaderLinks
-                        classes={{
-                            "contentWrapper": classes.linksContentWrapper,
-                        }}
-                        className={classes.links}
-                        links={links.map(link => ({
-                            ...link,
-                            "classes": {
-                                "link": classes.link,
-                                "underline": classes.underline,
-                            },
-                            "className": classes.linkRoot,
-                        }))}
-                        type="largeScreen"
-                    />
-                </div>
-                {githubRepoUrl !== undefined && (
-                    <GlGithubStarCount
-                        repoUrl={githubRepoUrl}
-                        size={githubButtonSize}
-                        showCount={showGithubStarCount}
-                        className={classes.githubStar}
-                    />
-                )}
-                {enableDarkModeSwitch !== undefined && enableDarkModeSwitch && (
-                    <GlDarkModeSwitch className={classes.darkModeSwitch} />
-                )}
-
-                {customItemEnd !== undefined && customItemEnd}
+                            })()}
+                        </div>
+                    );
+                })()}
 
                 <div
-                    className={classes.unfoldIconWrapper}
-                    onClick={toggleMenuUnfolded}
+                    ref={buttonsAndLinksRef}
+                    className={classes.linkAndButtonWrapper}
                 >
-                    <UnfoldIcon className={classes.unfoldIcon} />
+                    <div
+                        className={cx(
+                            classes.commonCustomItemWrapper,
+                            classes.customItemStartWrapper,
+                        )}
+                    >
+                        {customItemStart !== undefined && customItemStart}
+                    </div>
+                    <div className={classes.linksWrapperLargeScreen}>
+                        <GlHeaderLinks
+                            classes={{
+                                "contentWrapper": classes.linksContentWrapper,
+                            }}
+                            className={classes.links}
+                            links={links.map(link => ({
+                                ...link,
+                                "classes": {
+                                    "link": classes.link,
+                                    "underline": classes.underline,
+                                },
+                                "className": classes.linkRoot,
+                            }))}
+                            type="largeScreen"
+                        />
+                    </div>
+                    {githubRepoUrl !== undefined && (
+                        <GlGithubStarCount
+                            repoUrl={githubRepoUrl}
+                            size={githubButtonSize}
+                            showCount={showGithubStarCount}
+                            className={classes.githubStar}
+                        />
+                    )}
+                    {enableDarkModeSwitch !== undefined &&
+                        enableDarkModeSwitch && (
+                            <GlDarkModeSwitch
+                                className={classes.darkModeSwitch}
+                            />
+                        )}
+
+                    <div
+                        className={cx(
+                            classes.commonCustomItemWrapper,
+                            classes.customItemEndWrapper,
+                        )}
+                    >
+                        {customItemEnd !== undefined && customItemEnd}
+                    </div>
+
+                    <div
+                        className={classes.unfoldIconWrapper}
+                        onClick={toggleMenuUnfolded}
+                    >
+                        <UnfoldIcon className={classes.unfoldIcon} />
+                    </div>
+                </div>
+            </div>
+            <div className={classes.smallDeviceCustomItemsWrapper}>
+                <div
+                    className={cx(
+                        classes.commonSmallDeviceCustomItemWrapper,
+                        classes.smallDeviceCustomItemStartWrapper,
+                    )}
+                >
+                    {customItemStart !== undefined && customItemStart}
+                </div>
+
+                <div
+                    className={cx(
+                        classes.commonSmallDeviceCustomItemWrapper,
+                        classes.smallDeviceCustomItemEndWrapper,
+                    )}
+                >
+                    {customItemEnd !== undefined && customItemEnd}
                 </div>
             </div>
             <GlHeaderLinks
@@ -271,12 +310,14 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
                 "topBottom": `${theme.spacing(3)}px`,
             }),
             "position": "relative",
-            "display": "flex",
-            "justifyContent": "space-between",
-            "alignItems": "center",
             "opacity": isSmallDevice === undefined ? 0 : 1,
             "maxWidth": "100%",
             "overflowX": !isSmallDevice ? "hidden" : undefined,
+        },
+        "largeScreenContentWrapper": {
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "center",
         },
         "titleWrapper": {
             "marginRight": isSmallDevice ? undefined : theme.spacing(8),
@@ -311,6 +352,29 @@ const useStyles = makeStyles<{ isSmallDevice: boolean | undefined }>({
         "linksWrapperLargeScreen": {
             "order": isSmallDevice ? -1 : undefined,
         },
+        "commonCustomItemWrapper": {
+            "display": isSmallDevice ? "none" : "block",
+        },
+        "smallDeviceCustomItemsWrapper": {
+            "display": isSmallDevice ? "grid" : "none",
+            "gridAutoFlow": "row",
+            "alignItems": "end",
+            ...(() => {
+                const value = theme.spacing(3);
+                return {
+                    "gap": value,
+                    ...theme.spacing.topBottom("margin", `${value}px`),
+                };
+            })(),
+        },
+        "commonSmallDeviceCustomItemWrapper": {
+            "display": "flex",
+            "justifyContent": "flex-end",
+        },
+        "smallDeviceCustomItemStartWrapper": {},
+        "smallDeviceCustomItemEndWrapper": {},
+        "customItemStartWrapper": {},
+        "customItemEndWrapper": {},
         "unfoldIcon": {},
         "githubStar": {},
         "darkModeSwitch": {},
