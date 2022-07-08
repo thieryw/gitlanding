@@ -28,7 +28,6 @@ function App() {
             hasTopOfPageLinkButton={true}
             header={
                 <GlHeader
-                    customBreakpoint={1200}
                     title="Title large screen light"
                     links={[
                         {
@@ -47,6 +46,8 @@ function App() {
                     enableDarkModeSwitch={true}
                     githubRepoUrl="https://github.com/torvalds/linux"
                     githubButtonSize="large"
+                    customItemEnd={<button>Custom Item Start</button>}
+                    customItemStart={<button>Custom Item End</button>}
                 />
             }
             headerOptions={{
