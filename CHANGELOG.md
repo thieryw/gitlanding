@@ -1,3 +1,21 @@
+### **0.20.2** (2022-07-08)  
+  
+- bump version  
+- test  
+- GlHeader accomodate custom items for small screens  
+- GlFooter remove top margin  
+- GlCheckList add margins top bottom  
+- correct GlArticle story rendering in docs and refactor  
+- Reorganise story arborescence  
+- GlArticle storybook docs: correct spelling and add anchor links  
+- remove Component type  
+- GlHeader : remove todo coment  
+- tsconfig : set baseUrl to scr  
+- create GlArticle storybook docs  
+- Pin what's need to be pinned  
+- update yarn lock  
+- This should be pinned    
+  
 ### **0.20.1** (2022-06-24)  
   
 - Stop pinning babel-loader  
