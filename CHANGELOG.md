@@ -1,3 +1,10 @@
+### **0.20.3** (2022-07-08)  
+  
+- bump version  
+- GlTemplate correct height for children wrapper  
+- test  
+- GlHeader accomodate custom items for small screens    
+  
 ### **0.20.1** (2022-06-24)  
   
 - Stop pinning babel-loader  
