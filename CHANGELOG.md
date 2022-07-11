@@ -1,3 +1,8 @@
+## **0.21.0** (2022-07-11)  
+  
+- bump version  
+- GlTemplate has body pro instead of children    
+  
 ### **0.20.3** (2022-07-08)  
   
 - bump version  
