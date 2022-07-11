@@ -33,8 +33,8 @@ export namespace HeaderOptions {
 
 export type GlTemplateProps = {
     header?: ReactNode;
+    body?: ReactNode;
     footer?: ReactNode;
-    children: ReactNode;
     headerOptions?: HeaderOptions;
     applyHeaderPadding?: boolean;
     className?: string;
@@ -52,7 +52,7 @@ const GlTemplateInner = memo(
     ) => {
         const {
             header,
-            children,
+            body,
             footer,
             className,
             hasTopOfPageLinkButton,
@@ -103,7 +103,7 @@ const GlTemplateInner = memo(
             domRect: { height: headerHeight },
         } = useDomRect();
         const {
-            ref: childrenWrapperRef,
+            ref: bodyAndFooterWrapperRef,
             domRect: { width: childrenWrapperWidth },
         } = useDomRect();
 
@@ -156,10 +156,10 @@ const GlTemplateInner = memo(
                     {header}
                 </div>
                 <div
-                    className={classes.childrenWrapper}
-                    ref={childrenWrapperRef}
+                    className={classes.bodyAndFooterWrapper}
+                    ref={bodyAndFooterWrapperRef}
                 >
-                    {children}
+                    {body}
                     {hasTopOfPageLinkButton && <GlLinkToTop />}
                     <div className={classes.footerWrapper}>{footer}</div>
                 </div>
@@ -272,7 +272,7 @@ const useStyles = makeStyles<{
             "footerWrapper": {
                 "marginTop": "auto",
             },
-            "childrenWrapper": {
+            "bodyAndFooterWrapper": {
                 "overflowX": "hidden",
                 "display": "flex",
                 "flexDirection": "column",
