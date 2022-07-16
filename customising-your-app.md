@@ -20,7 +20,7 @@ declare module "*.webm" {
 ```
 
 {% hint style="success" %}
-Host your assets by placing them [in a dedicated directory in your `src` folder](https://github.com/thieryw/gitlanding/tree/006bc0507cabe327e4b0d7df5613877caa146142/src/assets/img). An then [importing them as URLs directly in your code](https://github.com/thieryw/gitlanding/blob/006bc0507cabe327e4b0d7df5613877caa146142/src/index.tsx#L10).
+Host your assets by placing them [in a dedicated directory in your `src` folder](https://github.com/thieryw/test-gl-template/tree/b076e2e75d80da9dc832e1f2519636f6ebde450f/src/assets/img). An then [importing them as URLs directly in your code](https://github.com/thieryw/test-gl-template/blob/b076e2e75d80da9dc832e1f2519636f6ebde450f/src/pages/Home.tsx#L8-L14).
 {% endhint %}
 
 {% hint style="info" %}
