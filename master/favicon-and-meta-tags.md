@@ -16,4 +16,4 @@
 You can use [metatags.io](https://metatags.io/) to generate your metatags but you must change the default url they provide to `%PUBLIC_URL%`.
 {% endhint %}
 
-![Here is an example when I send my example project link via Whatsapp](<.gitbook/assets/Screenshot 2021-10-17 at 21.05.07.png>)
+![Here is an example when I send my example project link via Whatsapp](<../.gitbook/assets/Screenshot 2021-10-17 at 21.05.07.png>)

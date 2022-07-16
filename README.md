@@ -8,8 +8,6 @@ Let's check how [the landingpage of GitLangind itself](https://www.gitlanding.de
 
 The code of the website lies on a [dedicated branch](https://github.com/thieryw/gitlanding/tree/4e5a33ed312227efcf7d26332ea87c19331f1eed) of the [GitLanding repo](https://github.com/thieryw/gitlanding/tree/2105d99c84b76f6c6b0647484171c5e09a61dbf5). The files that are actualy served by [GitHub Page](https://pages.github.com/) lies on the [`gh_page`](https://github.com/thieryw/gitlanding/tree/b11d5dab0df08a84b7acc72a25d0c3fa7c78cc6b) branch and is put there using [this GitHub Action](https://github.com/thieryw/gitlanding/blob/eb85ca1fea7ce0ce21837d1e0ba7a6bb1a784b19/.github/workflows/deploy.yml#L21).
 
-{% embed url="https://www.youtube.com/watch?v=taDGhL0z7wc" %}
-
 ### Step by step guide
 
 {% tabs %}
@@ -95,6 +93,6 @@ You may need to wait a few minutes for the initial gh-pages branche to be create
 
 If all went as expected you page should be up and running
 
-![](.gitbook/assets/react-app-screen-shot.png)
+![](<.gitbook/assets/Screenshot 2022-07-16 at 15.15.53.png>)
 
-You're now ready to start customizing this page with `Gitlanding`.
+You're now ready to customise your app.
