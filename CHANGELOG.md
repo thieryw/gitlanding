@@ -1,3 +1,7 @@
+### **0.21.1** (2022-07-17)  
+  
+- update evt powerhooks tss-react onyxia-ui    
+  
 ## **0.21.0** (2022-07-11)  
   
 - bump version  
