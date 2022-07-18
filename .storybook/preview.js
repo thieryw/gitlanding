@@ -1,5 +1,6 @@
 import { customViewPorts } from "./customViewPorts";
-import {darkTheme, lightTheme} from "./customTheme";
+import { darkTheme, lightTheme } from "./customTheme";
+import { DocsContainer } from "./DocsContainer"
 
 
 
@@ -14,7 +15,9 @@ export const parameters = {
   "darkMode": {
     "light": lightTheme,
     "dark": darkTheme
-
+  },
+  "docs": {
+    "container": DocsContainer
   },
   "viewport": {
     "viewports": customViewPorts
