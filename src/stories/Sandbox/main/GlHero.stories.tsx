@@ -1,8 +1,8 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
 import { GlHero } from "GlHero";
-import heroImgSrc from "../assets/img/contribution.png";
-import videoSrc from "../assets/videos/sspcloud.mp4";
+import heroImgSrc from "../../assets/img/contribution.png";
+import videoSrc from "../../assets/videos/sspcloud.mp4";
 import type { GlHeroProps } from "GlHero";
 
 const { getStory, meta } = getStoryFactory({

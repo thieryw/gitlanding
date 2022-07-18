@@ -1,8 +1,8 @@
 import { GlHeader } from "GlHeader";
 import type { GlHeaderProps } from "GlHeader";
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
-import githubLogoPng from "../assets/img/github.png";
+import githubLogoPng from "../../assets/img/github.png";
 import { GlLogo } from "utils/GlLogo";
 
 const { getStory, meta } = getStoryFactory({

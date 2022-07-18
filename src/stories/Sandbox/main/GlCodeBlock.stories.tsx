@@ -1,4 +1,4 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { GlCodeBlock } from "GlCodeBlock";
 import { sectionName } from "./sectionName";
 

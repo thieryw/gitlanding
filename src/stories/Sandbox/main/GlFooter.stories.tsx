@@ -1,9 +1,9 @@
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { GlFooter } from "GlFooter";
-import twitterSvg from "../assets/svg/twitter.svg";
-import redditSvg from "../assets/svg/reddit.svg";
-import youtubeSvg from "../assets/svg/youtube.svg";
+import twitterSvg from "../../assets/svg/twitter.svg";
+import redditSvg from "../../assets/svg/reddit.svg";
+import youtubeSvg from "../../assets/svg/youtube.svg";
 
 const { getStory, meta } = getStoryFactory({
     sectionName,

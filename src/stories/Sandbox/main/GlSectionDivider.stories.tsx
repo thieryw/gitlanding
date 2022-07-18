@@ -1,4 +1,4 @@
-import { getStoryFactory } from "../getStory";
+import { getStoryFactory } from "../../getStory";
 import { sectionName } from "./sectionName";
 import { GlSectionDivider } from "GlSectionDivider";
 
