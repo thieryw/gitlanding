@@ -12,21 +12,6 @@ export const { useTheme, StoryProvider, ThemeProvider } = createThemeProvider(
     {},
 );
 
-export const StoryProviderWrapper = memo((props: { children: JSX.Element }) => {
-    const { children } = props;
-    const { colors } = useTheme();
-    return (
-        <div
-            style={{
-                "overflow": "hidden",
-                "backgroundColor": colors.palette.light.main,
-            }}
-        >
-            <StoryProvider>{children}</StoryProvider>
-        </div>
-    );
-});
-
 export function getStoryFactory<Props>(params: {
     sectionName: string;
     wrappedComponent: Record<string, (props: Props) => ReturnType<React.FC>>;
@@ -80,7 +65,15 @@ export function getStoryFactory<Props>(params: {
             "argTypes": {
                 ...argTypes,
             },
-            parameters,
+            "parameters": {
+                ...parameters,
+                "viewMode": "story",
+                "previewTabs": {
+                    "storybook/docs/panel": {
+                        "hidden": true,
+                    },
+                },
+            },
         }),
         getStory,
     };
