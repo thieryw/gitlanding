@@ -1,4 +1,4 @@
-import { Parameters } from "@storybook/react";
+import type { Parameters } from "@storybook/react";
 import { useDarkMode } from "storybook-dark-mode";
 import { Meta } from "@storybook/react";
 import { StoryProvider } from "../getStory";
@@ -8,9 +8,9 @@ export const metaProps: {
     parameters: Parameters;
 } = {
     "parameters": {
-        "viewMode": "docs",
         "previewTabs": {
             "canvas": { "hidden": true },
+            "storybook/docs/panel": { "hidden": true },
         },
     },
     "decorators": [
