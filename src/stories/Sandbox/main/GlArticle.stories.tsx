@@ -32,7 +32,7 @@ export const VueWithImage = getStory({
     "illustrationZoomFactor": 0.8,
 });
 
-export const VueWithCode = getStory({
+export const VueWithVideo = getStory({
     ...commonProps,
     "classes": getGlArticleStoryStyle({ "illustrationPosition": "right" }),
     "illustration": {
@@ -46,7 +46,7 @@ export const VueWithCode = getStory({
     },
 });
 
-export const VueWithMp4 = getStory({
+export const VueWithCode = getStory({
     ...commonProps,
     "classes": getGlArticleStoryStyle({ "illustrationPosition": "right" }),
     "illustration": {
