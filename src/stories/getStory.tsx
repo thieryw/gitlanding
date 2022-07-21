@@ -1,16 +1,12 @@
 import { memo, useEffect } from "react";
 import type { ReactNode } from "react";
-import { createThemeProvider } from "onyxia-ui";
 import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { id } from "tsafe/id";
 import { symToStr } from "tsafe/symToStr";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 import type { Parameters } from "@storybook/react";
-
-export const { useTheme, StoryProvider, ThemeProvider } = createThemeProvider(
-    {},
-);
+import { ThemeProvider, useTheme } from "./theme";
 
 export function getStoryFactory<Props>(params: {
     sectionName: string;

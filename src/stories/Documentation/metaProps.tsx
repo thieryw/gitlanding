@@ -1,7 +1,7 @@
 import type { Parameters } from "@storybook/react";
 import { useDarkMode } from "storybook-dark-mode";
 import { Meta } from "@storybook/react";
-import { StoryProvider } from "../getStory";
+import { StoryProvider } from "../theme";
 
 export const metaProps: {
     decorators: Meta["decorators"];
