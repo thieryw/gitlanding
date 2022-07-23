@@ -11,25 +11,19 @@ jobs:
 
   test_lint:
     runs-on: ubuntu-latest
-    if: ${{ !github.event.created && github.repository != 'garronej/ts_ci' }}
+    if: ${{ !github.event.created && github.repository != 'garronej/ts-ci' }}
     steps:
     - uses: actions/checkout@v2.3.4
     - uses: actions/setup-node@v2.1.3
-    - name: Making sure 'npm run lint' and 'npm run format' does not changes anything.
+    - uses: bahmutov/npm-install@v1
+    - name: If this step fails run 'npm run lint' and 'npm run format' then commit again.
       run: |
         PACKAGE_MANAGER=npm
         if [ -f "./yarn.lock" ]; then
             PACKAGE_MANAGER=yarn
         fi
-
-        if [ "$PACKAGE_MANAGER" = "yarn" ]; then
-            yarn install --frozen-lockfile                                                                                                                                                                                        
-        else
-            npm ci
-        fi
         $PACKAGE_MANAGER run lint:check
         $PACKAGE_MANAGER run format:check
-
   test:
     runs-on: ${{ matrix.os }}
     needs: test_lint
@@ -41,62 +35,53 @@ jobs:
     steps:
     - name: Tell if project is using npm or yarn
       id: step1
-      uses: garronej/github_actions_toolkit@v2.2
+      uses: garronej/ts-ci@v1.1.4
       with: 
         action_name: tell_if_project_uses_npm_or_yarn
     - uses: actions/checkout@v2.3.4
     - uses: actions/setup-node@v2.1.3
       with:
         node-version: ${{ matrix.node }}
+    - uses: bahmutov/npm-install@v1
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
-        yarn install --frozen-lockfile                                                                                                                                                                                        
         yarn build
+        yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
-        npm ci                                                                                                                                                                                        
         npm run build
-
-  deploy_storybook:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.3
-      with:
-        node-version: '16'
-    - uses: bahmutov/npm-install@v1
-    - run: yarn build-storybook --static-dir ./.storybook/static -o ./build_storybook
-    - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npx -y -p gh-pages@3.0.0 gh-pages -d ./build_storybook --dest storybook --add -u "github-actions-bot <actions@github.com>" 
-
+        npm test
   check_if_version_upgraded:
     name: Check if version upgrade
-    if: github.event_name == 'push'
+    # We run this only if it's a push on the default branch or if it's a PR from a 
+    # branch (meaning not a PR from a fork). It would be more straightforward to test if secrets.NPM_TOKEN is 
+    # defined but GitHub Action don't allow it yet.
+    if: |
+      github.event_name == 'push' || 
+      github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login 
     runs-on: ubuntu-latest
     needs: test
     outputs:
       from_version: ${{ steps.step1.outputs.from_version }}
       to_version: ${{ steps.step1.outputs.to_version }}
-      is_upgraded_version: ${{steps.step1.outputs.is_upgraded_version }}
+      is_upgraded_version: ${{ steps.step1.outputs.is_upgraded_version }}
+      is_release_beta: ${{steps.step1.outputs.is_release_beta }}
     steps:
-    - uses: garronej/github_actions_toolkit@v2.2
+    - uses: garronej/ts-ci@v1.1.4
       id: step1
       with: 
         action_name: is_package_json_version_upgraded
+        branch: ${{ github.head_ref || github.ref }}
 
   update_changelog:
     runs-on: ubuntu-latest
     needs: check_if_version_upgraded
     if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
     steps:
-    - uses: garronej/github_actions_toolkit@v2.2
+    - uses: garronej/ts-ci@v1.1.4
       with:
         action_name: update_changelog
-        branch: ${{ github.ref }}
-        commit_author_email: ts_ci@github.com
+        branch: ${{ github.head_ref || github.ref }}
 
   create_github_release:
     runs-on: ubuntu-latest
@@ -104,9 +89,6 @@ jobs:
       - update_changelog
       - check_if_version_upgraded
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.ref }}
     - name: Build GitHub release body
       id: step1
       run: |
@@ -118,14 +100,14 @@ jobs:
       env: 
         FROM_VERSION: ${{ needs.check_if_version_upgraded.outputs.from_version }}
         TO_VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
-    - uses: garronej/action-gh-release@v0.2.0
+    - uses: softprops/action-gh-release@v1
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
-        target_commitish: ${{ github.ref }}
-        body: ${{ steps.step1.outputs.body }}
+        target_commitish: ${{ github.head_ref || github.ref }}
+        generate_release_notes: true
         draft: false
-        prerelease: false
+        prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
@@ -140,17 +122,13 @@ jobs:
         ref: ${{ github.ref }}
     - uses: actions/setup-node@v2.1.3
       with:
-        node-version: '16'
+        node-version: '15'
+        registry-url: https://registry.npmjs.org/
+    - uses: bahmutov/npm-install@v1
     - run: |
         PACKAGE_MANAGER=npm
         if [ -f "./yarn.lock" ]; then
             PACKAGE_MANAGER=yarn
-        fi
-
-        if [ "$PACKAGE_MANAGER" = "yarn" ]; then
-            yarn install --frozen-lockfile                                                                                                                                                                                        
-        else
-            npm ci
         fi
         $PACKAGE_MANAGER run build
     - run: npx -y -p denoify@0.6.5 denoify_enable_short_npm_import_path
@@ -162,13 +140,16 @@ jobs:
           echo "This version is already published"
           exit 0
         fi
-        if [ "$NPM_TOKEN" = "" ]; then
+        if [ "$NODE_AUTH_TOKEN" = "" ]; then
           echo "Can't publish on NPM, You must first create a secret called NPM_TOKEN that contains your NPM auth token. https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
           false
         fi
-        echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-        npm publish
-        rm .npmrc
+        EXTRA_ARGS=""
+        if [ "$IS_BETA" = "true" ]; then
+            EXTRA_ARGS="--tag beta"
+        fi
+        npm publish $EXTRA_ARGS
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
+        IS_BETA: ${{ needs.check_if_version_upgraded.outputs.is_release_beta }}
