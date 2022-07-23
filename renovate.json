@@ -1,4 +1,40 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["config:base"]
+    "extends": ["config:base"],
+    "dependencyDashboard": false,
+    "bumpVersion": "patch",
+    "rangeStrategy": "bump",
+    "ignorePaths": [".github/**"],
+    "branchPrefix": "renovate_",
+    "vulnerabilityAlerts": {
+        "enabled": false
+    },
+    "packageRules": [
+        {
+            "packagePatterns": ["*"],
+            "excludePackagePatterns": [
+                "onyxia-ui",
+                "i18nifty",
+                "tss-react",
+                "powerhooks",
+                "tsafe",
+                "evt"
+            ],
+            "enabled": false
+        },
+        {
+            "packagePatterns": [
+                "onyxia-ui",
+                "i18nifty",
+                "tss-react",
+                "powerhooks",
+                "tsafe",
+                "evt"
+            ],
+            "matchUpdateTypes": ["minor", "patch"],
+            "automerge": true,
+            "automergeType": "branch",
+            "groupName": "inhouse_modules_update"
+        }
+    ]
 }
