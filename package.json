@@ -84,7 +84,7 @@
         "@storybook/manager-webpack5": "^6.5.9",
         "@storybook/node-logger": "^6.5.9",
         "@storybook/react": "^6.5.9",
-        "@types/memoizee": "0.4.7",
+        "@types/memoizee": "0.4.8",
         "@types/node": "^15.0.2",
         "@types/react": "^18.0.14",
         "@types/react-dom": "^18.0.5",
