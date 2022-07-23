@@ -121,6 +121,8 @@ function App() {
                                 <GlCodeBlock
                                     hasCopyButton={true}
                                     showLineNumbers={true}
+                                    darkTheme="duotone-space"
+                                    lightTheme="one-light"
                                     language="typescript"
                                     text={`function sum(x: number, y: number): number {
     return x + y;
@@ -382,8 +384,4 @@ function App() {
     );
 }
 
-createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-);
+createRoot(document.getElementById("root")!).render(<App />);
