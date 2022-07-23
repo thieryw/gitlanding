@@ -1,16 +1,15 @@
 import { memo, useState, useEffect } from "react";
 import { makeStyles } from "../theme";
-import { PrismAsyncLight as SyntaxHighLighter } from "react-syntax-highlighter";
-import {
-    atomDark as darkStyle,
-    solarizedlight as lightStyle,
-} from "react-syntax-highlighter/dist/esm/styles/prism";
+import SyntaxHighLighter from "react-syntax-highlighter/dist/esm/prism-async-light";
+import darkImportedTheme from "react-syntax-highlighter/dist/esm/styles/prism/atom-dark";
+import lightImportedTheme from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
 import { useStateRef } from "powerhooks/useStateRef";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { Text } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useDomRect } from "powerhooks/useDomRect";
 import type { Language } from "./Language";
+import type { Theme } from "./Theme";
 
 export type GlCodeBlockProps = {
     className?: string;
@@ -22,6 +21,8 @@ export type GlCodeBlockProps = {
     hasCopyButton?: boolean;
     copiedMessage?: string;
     hasBorderRadius?: boolean;
+    darkTheme?: Theme;
+    lightTheme?: Theme;
 };
 
 export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
@@ -34,6 +35,8 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         hasCopyButton = false,
         copiedMessage = "Copied !",
         hasBorderRadius = true,
+        darkTheme: darkThemeUserInput,
+        lightTheme: lightThemeUserInput,
     } = props;
 
     const ref = useStateRef<HTMLDivElement>(null);
@@ -77,6 +80,31 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         },
         { props },
     );
+    const [lightTheme, setLightTheme] = useState(lightImportedTheme);
+    const [darkTheme, setDarkTheme] = useState(darkImportedTheme);
+
+    useEffect(() => {
+        [
+            {
+                "theme": lightThemeUserInput,
+                "themeSetter": setLightTheme,
+            },
+            {
+                "theme": darkThemeUserInput,
+                "themeSetter": setDarkTheme,
+            },
+        ].forEach(obj => {
+            const { theme, themeSetter } = obj;
+            if (theme === undefined) {
+                return;
+            }
+            import(
+                `react-syntax-highlighter/dist/esm/styles/prism/${theme}`
+            ).then(theme => {
+                themeSetter(theme["default"]);
+            });
+        });
+    }, [darkThemeUserInput, lightThemeUserInput]);
 
     useEffect(() => {
         if (!ref.current?.firstElementChild) {
@@ -87,14 +115,14 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
             window.getComputedStyle(ref.current.firstElementChild)
                 .backgroundColor,
         );
-    }, [ref.current, theme.isDarkModeEnabled]);
+    }, [ref.current, theme.isDarkModeEnabled, darkTheme, lightTheme]);
 
     return (
         <div ref={ref} className={cx(classes.root, className)}>
             <SyntaxHighLighter
                 language={language}
-                style={theme.isDarkModeEnabled ? darkStyle : lightStyle}
-                showLineNumbers={showLineNumbers}
+                showInlineLineNumbers={showLineNumbers}
+                style={theme.isDarkModeEnabled ? darkTheme : lightTheme}
             >
                 {text}
             </SyntaxHighLighter>
