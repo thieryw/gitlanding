@@ -34,7 +34,6 @@
             ],
             "matchUpdateTypes": ["minor", "patch"],
             "automerge": true,
-            "automergeType": "branch",
             "groupName": "inhouse_modules_update"
         }
     ]
