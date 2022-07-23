@@ -5527,8 +5527,10 @@ github-buttons@^2.8.0:
   resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.21.1.tgz#9e55eb83b70c9149a21c235db2e971c53d4d98a2"
   integrity sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==
 
-"gitlanding@file:../../../dist":
-  version "0.21.0"
+gitlanding@latest:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/gitlanding/-/gitlanding-0.21.1.tgz#e795700dec12d3d9d1190cc907577479efd282a4"
+  integrity sha512-UQw3Udo++UqW/r9Ce/c5uvSWPRSRL6vQHuLLHcjIToY/5jzfmdMX7SyoltPD5AErVdiOsDnRVGePn6Tfo0jsYw==
   dependencies:
     "@mui/icons-material" "^5.5.0"
     embla-carousel "^4.1.5"
