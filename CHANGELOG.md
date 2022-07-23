@@ -1,3 +1,29 @@
+### **0.21.2** (2022-07-23)  
+  
+- Merge pull request #22 from thieryw/renovate_inhouse_modules_update
+
+chore(deps): update inhouse_modules_update  
+- chore(deps): update inhouse_modules_update  
+- Gitlanding in testap point to latest  
+- update renovate config  
+- Merge pull request #21 from thieryw/renovate/react-dom-18.x
+
+chore(deps): update dependency @types/react-dom to v18.0.6  
+- chore(deps): update dependency @types/react-dom to v18.0.6  
+- update renovate.json  
+- Merge pull request #16 from thieryw/renovate/configure
+
+Configure Renovate  
+- chore(deps): add renovate.json  
+- create DocsComponentWrapper to avoid users displaying code  
+- create theme provider for stories  
+- GlArticle story correct vue names  
+- fix docs loading on canvas  
+- remove canvas from docs and put dark mode on docs  
+- reorganise dir arborescence  
+- getStory: remove StoryProviderWrapper and remove docs tab from sandbox  
+- add docs container    
+  
 ### **0.21.1** (2022-07-17)  
   
 - update evt powerhooks tss-react onyxia-ui    
