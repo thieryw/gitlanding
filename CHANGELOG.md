@@ -1,3 +1,13 @@
+### **0.21.3** (2022-07-25)  
+  
+- omit yarn test from ci  
+- optimize GlCode block so that it takes a minimum amount of space in bundle  
+- vanilla rewired-scripts  
+- update vanilla for bundle analyser  
+- dynamic imports for code block theme  
+- Update renovate.json  
+- Update renovate.json    
+  
 ### **0.21.2** (2022-07-23)  
   
 - Merge pull request #22 from thieryw/renovate_inhouse_modules_update
