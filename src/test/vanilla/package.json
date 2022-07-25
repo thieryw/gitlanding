@@ -19,8 +19,10 @@
         "react-app-rewired": "^2.2.1"
     },
     "scripts": {
-        "start": "react-app-rewired start",
-        "build": "react-app-rewired build"
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "build-rewired": "react-app-rewired build",
+        "start-rewired": "react-app-rewired start"
     },
     "eslintConfig": {
         "extends": [
