@@ -1,7 +1,7 @@
 {
   "name": "gl-landing-page",
   "homepage": "https://www.gitlanding.dev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "gitlanding": "^0.20.1",
@@ -9,9 +9,9 @@
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^1.0.1",
-    "onyxia-ui": "^0.45.2",
-    "tss-react": "^3.7.0",
-    "powerhooks": "^0.20.1",
+    "onyxia-ui": "^0.46.6",
+    "tss-react": "^3.7.1",
+    "powerhooks": "^0.20.8",
     "@mui/material": "^5.8.5",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
