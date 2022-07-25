@@ -1,14 +1,14 @@
 import { memo, useState, useEffect } from "react";
 import { makeStyles } from "../theme";
 import SyntaxHighLighter from "react-syntax-highlighter/dist/esm/prism-async-light";
-import darkImportedTheme from "react-syntax-highlighter/dist/esm/styles/prism/atom-dark";
-import lightImportedTheme from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
 import { useStateRef } from "powerhooks/useStateRef";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import { Text } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useDomRect } from "powerhooks/useDomRect";
 import type { Language } from "./Language";
+import type { ThemeName } from "./ThemeName";
+import { getTheme } from "./getTheme";
 import type { Theme } from "./Theme";
 
 export type GlCodeBlockProps = {
@@ -21,8 +21,8 @@ export type GlCodeBlockProps = {
     hasCopyButton?: boolean;
     copiedMessage?: string;
     hasBorderRadius?: boolean;
-    darkTheme?: Theme;
-    lightTheme?: Theme;
+    darkTheme?: ThemeName;
+    lightTheme?: ThemeName;
 };
 
 export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
@@ -35,8 +35,8 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         hasCopyButton = false,
         copiedMessage = "Copied !",
         hasBorderRadius = true,
-        darkTheme: darkThemeUserInput,
-        lightTheme: lightThemeUserInput,
+        darkTheme: darkThemeUserInput = "atom-dark",
+        lightTheme: lightThemeUserInput = "solarizedlight",
     } = props;
 
     const ref = useStateRef<HTMLDivElement>(null);
@@ -80,29 +80,18 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         },
         { props },
     );
-    const [lightTheme, setLightTheme] = useState(lightImportedTheme);
-    const [darkTheme, setDarkTheme] = useState(darkImportedTheme);
+    const [lightTheme, setLightTheme] = useState<undefined | Theme>();
+    const [darkTheme, setDarkTheme] = useState<undefined | Theme>();
 
     useEffect(() => {
-        [
-            {
-                "theme": lightThemeUserInput,
-                "themeSetter": setLightTheme,
-            },
-            {
-                "theme": darkThemeUserInput,
-                "themeSetter": setDarkTheme,
-            },
-        ].forEach(obj => {
-            const { theme, themeSetter } = obj;
-            if (theme === undefined) {
-                return;
-            }
-            import(
-                `react-syntax-highlighter/dist/esm/styles/prism/${theme}`
-            ).then(theme => {
-                themeSetter(theme["default"]);
-            });
+        getTheme({
+            "dark": darkThemeUserInput,
+            "light": lightThemeUserInput,
+        }).then(theme => {
+            const { dark, light } = theme;
+
+            setLightTheme(light);
+            setDarkTheme(dark);
         });
     }, [darkThemeUserInput, lightThemeUserInput]);
 
