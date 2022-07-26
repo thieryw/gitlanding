@@ -5,7 +5,7 @@
     "dependencyDashboard": false,
     "bumpVersion": "patch",
     "rangeStrategy": "bump",
-    "ignorePaths": [".github/**"],
+    "ignorePaths": [".github/**", "Dockerfile"],
     "branchPrefix": "renovate_",
     "vulnerabilityAlerts": {
         "enabled": false
@@ -34,7 +34,9 @@
             ],
             "matchUpdateTypes": ["minor", "patch"],
             "automerge": true,
-            "groupName": "inhouse_modules_update"
+            "automergeType": "pr",
+            "platformAutomerge": true,
+            "groupName": "garronej_modules_update"
         }
     ]
 }
