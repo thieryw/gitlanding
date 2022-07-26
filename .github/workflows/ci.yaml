@@ -29,8 +29,8 @@ jobs:
     needs: test_lint
     strategy:
       matrix:
-        node: [ '15', '14' ]
-        os: [ windows-latest, ubuntu-latest ]
+        node: [ '16' ]
+        os: [ ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - name: Tell if project is using npm or yarn
@@ -46,11 +46,11 @@ jobs:
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
         yarn build
-        yarn test
+      # yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
         npm run build
-        npm test
+      # npm test
   check_if_version_upgraded:
     name: Check if version upgrade
     # We run this only if it's a push on the default branch or if it's a PR from a 
