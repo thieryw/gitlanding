@@ -5,8 +5,8 @@
     "dependencyDashboard": false,
     "bumpVersion": "patch",
     "rangeStrategy": "bump",
-    "ignorePaths": [".github/**", "Dockerfile"],
-    "branchPrefix": "renovate_",
+    "ignorePaths": [".github/**"],
+    "branchPrefix": "renovate_landingpage_",
     "vulnerabilityAlerts": {
         "enabled": false
     },
@@ -14,13 +14,8 @@
         {
             "packagePatterns": ["*"],
             "excludePackagePatterns": [
-                "sill-api",
                 "onyxia-ui",
                 "gitlanding",
-                "i18nifty",
-                "redux-clean-architecture",
-                "cra-envs",
-                "keycloakify",
                 "tss-react",
                 "powerhooks"
             ],
@@ -28,13 +23,8 @@
         },
         {
             "packagePatterns": [
-                "sill-api",
                 "onyxia-ui",
                 "gitlanding",
-                "i18nifty",
-                "redux-clean-architecture",
-                "cra-envs",
-                "keycloakify",
                 "tss-react",
                 "powerhooks"
             ],
