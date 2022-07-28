@@ -121,7 +121,7 @@ function App() {
                                 <GlCodeBlock
                                     hasCopyButton={true}
                                     showLineNumbers={true}
-                                    language="typescript"
+                                    programingLanguage="typescript"
                                     text={`function sum(x: number, y: number): number {
     return x + y;
 }`}
