@@ -54,7 +54,7 @@ export const VueWithCode = getStory({
         "Component": () => {
             return (
                 <GlCodeBlock
-                    language="typescript"
+                    programingLanguage="typescript"
                     text={`function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }

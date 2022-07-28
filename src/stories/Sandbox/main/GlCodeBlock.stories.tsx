@@ -11,7 +11,7 @@ export default meta;
 
 export const Vue = getStory({
     "hasShadow": true,
-    "language": "typescript",
+    "programingLanguage": "typescript",
     "text": `declare function listFilesOfDirectory(dirPath: string): string[];
 declare function isDirectory(): boolean;
 
