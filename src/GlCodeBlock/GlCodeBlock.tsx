@@ -14,7 +14,7 @@ import type { Theme } from "./Theme";
 export type GlCodeBlockProps = {
     className?: string;
     text: string;
-    language?: Language;
+    programingLanguage?: Language;
     showLineNumbers?: boolean;
     hasShadow?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
@@ -30,7 +30,7 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         text,
         className,
         hasShadow = true,
-        language = "javascript",
+        programingLanguage: language = "typescript",
         showLineNumbers = false,
         hasCopyButton = false,
         copiedMessage = "Copied !",
