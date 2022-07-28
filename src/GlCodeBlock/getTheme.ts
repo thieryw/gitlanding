@@ -4,8 +4,8 @@ import type { Theme } from "./Theme";
 export async function getTheme(params: { dark: ThemeName; light: ThemeName }) {
     const out: any = {};
 
-    await new Promise<void>(resolve => {
-        Object.keys(params).forEach(key => {
+    for (const key of Object.keys(params)) {
+        await new Promise<void>(resolve => {
             switch (params[key as "dark" | "light"]) {
                 case "a11y-dark":
                     import(
@@ -273,7 +273,7 @@ export async function getTheme(params: { dark: ThemeName; light: ThemeName }) {
                     break;
             }
         });
-    });
+    }
 
     return out as {
         dark: Theme;
