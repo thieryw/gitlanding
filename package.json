@@ -18,7 +18,7 @@
         "format:check": "npm run _format -- --list-different",
         "storybook": "start-storybook -p 5005",
         "build-storybook": "build-storybook -s public",
-        "yarn_link": "ts-node src/bin/yarn_link.ts",
+        "yarn_link": "ts-node --skip-project src/bin/yarn_link.ts",
         "start_vanilla": "yarn yarn_link && cd src/test/vanilla && yarn start"
     },
     "lint-staged": {
