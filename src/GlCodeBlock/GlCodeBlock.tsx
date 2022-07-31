@@ -8,7 +8,6 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { useDomRect } from "powerhooks/useDomRect";
 import type { Language } from "./Language";
 import type { ThemeName } from "./ThemeName";
-import { getTheme } from "./getTheme";
 import type { Theme } from "./Theme";
 
 export type GlCodeBlockProps = {
@@ -84,14 +83,23 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
     const [darkTheme, setDarkTheme] = useState<undefined | Theme>();
 
     useEffect(() => {
-        getTheme({
-            "dark": darkThemeUserInput,
-            "light": lightThemeUserInput,
-        }).then(theme => {
-            const { dark, light } = theme;
-
-            setLightTheme(light);
-            setDarkTheme(dark);
+        [
+            {
+                "theme": darkThemeUserInput,
+                "themeSetter": setDarkTheme,
+            },
+            {
+                "theme": lightThemeUserInput,
+                "themeSetter": setLightTheme,
+            },
+        ].forEach(async ({ theme, themeSetter }) => {
+            themeSetter(
+                (
+                    await import(
+                        `react-syntax-highlighter/dist/esm/styles/prism/${theme}`
+                    )
+                )["default"],
+            );
         });
     }, [darkThemeUserInput, lightThemeUserInput]);
 
