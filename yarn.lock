@@ -10868,10 +10868,10 @@ onetime@^5.1.0, onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.46.12:
-  version "0.46.12"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.12.tgz#d0b4647ccfdbd7b786dcc213dd6ca5f2cc1f3bc5"
-  integrity sha512-F3+/iiM7zsejL7dd4lZ0RAq7Vq5orWTlvqPruxypDMhwM2W9bdl3tC1rO0uSiJy6MKXEnBwkvfsGdcW3XfaaUA==
+onyxia-ui@^0.46.13:
+  version "0.46.13"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.13.tgz#171fa525c31c28dd5ec7c77b2a0e83bee30dabbf"
+  integrity sha512-SVDFOT4E66HfKjzPYiQdViFC8Wj9UAhQBPIfZV0WiMFbPcwuEpDYcpwtx/ASC0EN2yF0GJovPCxADoxBRh7dIg==
   dependencies:
     "@mui/icons-material" "^5.8.2"
     color "3.1.3"
@@ -10879,7 +10879,7 @@ onyxia-ui@^0.46.12:
     material-design-icons "^3.0.1"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.1"
-    powerhooks "^0.20.11"
+    powerhooks "^0.20.12"
     run-exclusive "^2.2.16"
     tsafe "^1.0.0"
     tss-react "^3.7.1"
@@ -11966,16 +11966,6 @@ postcss@^8.2.15, postcss@^8.3.5, postcss@^8.4.14, postcss@^8.4.4, postcss@^8.4.7
     nanoid "^3.3.4"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-powerhooks@^0.20.11:
-  version "0.20.11"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.11.tgz#68f8dd2826e4bce09c5676a152b4779544780db9"
-  integrity sha512-nQOtMkQrccRnSO33eqjIPBl4OKljFRst1hOTRNajU6ZXVcJg4jbcKnXomfSplZHcjZqYjIF+GvPAlLnjcksnXg==
-  dependencies:
-    evt "^2.3.2"
-    memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
-    tsafe "^0.10.1"
 
 powerhooks@^0.20.12:
   version "0.20.12"
@@ -14331,11 +14321,6 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
-
-tsafe@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.1.tgz#8f100b901e4467c43c0484f56a063f4276683ce0"
-  integrity sha512-S+LrpSjoH5Pah201KS0MxtJn88HVtKf4ZxUoQuW/Hnl4IK6ALu9Qwjed7RbohDeHn+iMuug4c5Mk/z1Cq2G3nw==
 
 tsafe@^1.0.0:
   version "1.0.0"
