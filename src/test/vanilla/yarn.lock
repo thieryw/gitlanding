@@ -7382,15 +7382,15 @@ powerhooks@^0.20.10:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.10.1"
 
-powerhooks@^0.20.11:
-  version "0.20.11"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.11.tgz#68f8dd2826e4bce09c5676a152b4779544780db9"
-  integrity sha512-nQOtMkQrccRnSO33eqjIPBl4OKljFRst1hOTRNajU6ZXVcJg4jbcKnXomfSplZHcjZqYjIF+GvPAlLnjcksnXg==
+powerhooks@^0.20.12:
+  version "0.20.12"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.12.tgz#38a5e47c7e5646e33f89d199d0ac2043588139c4"
+  integrity sha512-kT3S2Vr53ZHGuPXU04HBEyD5X+rqCF57HsdgfW9SlTY5u6l3P8+wB9XyefjAoFJtlgO95T0Z6aXhRKTQCQogpA==
   dependencies:
     evt "^2.3.2"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
-    tsafe "^0.10.1"
+    tsafe "^1.0.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
