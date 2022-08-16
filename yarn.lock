@@ -6899,10 +6899,10 @@ onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.46.11:
-  version "0.46.11"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.11.tgz#8077cd0d0ab1173832f7aae716b7d710ae2d1802"
-  integrity sha512-6XwIu0CJNuhqVXefBYr59m6NgUgNT9yqJoaKWJZrpiiyAgzuxtL98xKPbXVz1CsHSiCTQ57LOppUEwtEuirfZA==
+onyxia-ui@^0.46.13:
+  version "0.46.13"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.13.tgz#171fa525c31c28dd5ec7c77b2a0e83bee30dabbf"
+  integrity sha512-SVDFOT4E66HfKjzPYiQdViFC8Wj9UAhQBPIfZV0WiMFbPcwuEpDYcpwtx/ASC0EN2yF0GJovPCxADoxBRh7dIg==
   dependencies:
     "@mui/icons-material" "^5.8.2"
     color "3.1.3"
@@ -6910,9 +6910,9 @@ onyxia-ui@^0.46.11:
     material-design-icons "^3.0.1"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.1"
-    powerhooks "^0.20.11"
+    powerhooks "^0.20.12"
     run-exclusive "^2.2.16"
-    tsafe "^0.10.1"
+    tsafe "^1.0.0"
     tss-react "^3.7.1"
 
 open@^8.0.9, open@^8.4.0:
@@ -7717,15 +7717,15 @@ powerhooks@^0.20.1:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.10.0"
 
-powerhooks@^0.20.11:
-  version "0.20.11"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.11.tgz#68f8dd2826e4bce09c5676a152b4779544780db9"
-  integrity sha512-nQOtMkQrccRnSO33eqjIPBl4OKljFRst1hOTRNajU6ZXVcJg4jbcKnXomfSplZHcjZqYjIF+GvPAlLnjcksnXg==
+powerhooks@^0.20.12:
+  version "0.20.12"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.12.tgz#38a5e47c7e5646e33f89d199d0ac2043588139c4"
+  integrity sha512-kT3S2Vr53ZHGuPXU04HBEyD5X+rqCF57HsdgfW9SlTY5u6l3P8+wB9XyefjAoFJtlgO95T0Z6aXhRKTQCQogpA==
   dependencies:
     evt "^2.3.2"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
-    tsafe "^0.10.1"
+    tsafe "^1.0.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -9145,11 +9145,6 @@ tsafe@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.0.tgz#c4fba365a49467ea6167e8c9482ddb94ee51b795"
   integrity sha512-CFfa1uJKfU0DDRbuB8bf2mfXjkOqiTsrltexzMMLxq5gjd1LttFECNGsO8dYUALJDbShb6+f3CwAppW/wf9BrA==
-
-tsafe@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.1.tgz#8f100b901e4467c43c0484f56a063f4276683ce0"
-  integrity sha512-S+LrpSjoH5Pah201KS0MxtJn88HVtKf4ZxUoQuW/Hnl4IK6ALu9Qwjed7RbohDeHn+iMuug4c5Mk/z1Cq2G3nw==
 
 tsafe@^0.4.1:
   version "0.4.1"
