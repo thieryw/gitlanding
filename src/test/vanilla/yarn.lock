@@ -4242,12 +4242,12 @@ evt@^2.3.1:
     run-exclusive "^2.2.16"
     tsafe "^0.10.1"
 
-evt@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.3.3.tgz#7cba96e7498e482dc24d711127318ac7f8a6f360"
-  integrity sha512-uTsqIsTDIJ1OWmRbBMXY0FV7hGPtwPxt1iwg9xhDxSwmkIJXLCP/3PnkWBjRQkBzVsV9k9CCG6HJMge5SK1iPg==
+evt@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.3.4.tgz#34cf46e3522223d09122e57472acbf5ea12acae2"
+  integrity sha512-enLfY+aJ4PcygUydutkzdnWY9Z+Au6Sg7YFucxi7Pu3JdiY3yZqcpheSj+Yj4jwxRMbkb+N53nRMF04eey1/sQ==
   dependencies:
-    minimal-polyfills "^2.2.1"
+    minimal-polyfills "^2.2.2"
     run-exclusive "^2.2.16"
     tsafe "^1.0.1"
 
@@ -6312,6 +6312,11 @@ minimal-polyfills@^2.2.1:
   resolved "https://registry.yarnpkg.com/minimal-polyfills/-/minimal-polyfills-2.2.1.tgz#7249d7ece666d3b4e1ec1c1b8f949eb9d44e2308"
   integrity sha512-WLmHQrsZob4rVYf8yHapZPNJZ3sspGa/sN8abuSD59b0FifDEE7HMfLUi24z7mPZqTpBXy4Svp+iGvAmclCmXg==
 
+minimal-polyfills@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/minimal-polyfills/-/minimal-polyfills-2.2.2.tgz#6b06a004acce420eb91cf94698f5e6e7f2518378"
+  integrity sha512-eEOUq/LH/DbLWihrxUP050Wi7H/N/I2dQT98Ep6SqOpmIbk4sXOI4wqalve66QoZa+6oljbZWU6I6T4dehQGmw==
+
 minimalistic-assert@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
@@ -7382,12 +7387,12 @@ powerhooks@^0.20.10:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.10.1"
 
-powerhooks@^0.20.13:
-  version "0.20.13"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.13.tgz#f13391cf02646c9f42359232c9875dd66c96e190"
-  integrity sha512-yRXbDT0dkaHeaRDG+AOKtSMMGOKewgCSrgzKrCDXKMp15n+XT/JzYdngP9Y10AFifBK/37BMcnilIBgGJBFXyw==
+powerhooks@^0.20.14:
+  version "0.20.14"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.14.tgz#3eeaac5b6b55a1eccf4c21fd6d13aad69cca5ad9"
+  integrity sha512-uLEdlOqXxUg/+mo2Hsx6Lh1u303/eag69LC0/YGKEbJbFgzjYSmX/HwwR0mIn6Y9dsv4ng5TCz1aVo9Yv4RjDg==
   dependencies:
-    evt "^2.3.3"
+    evt "^2.3.4"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
     tsafe "^1.0.1"
