@@ -1,0 +1,239 @@
+import { Canvas, Meta } from "@storybook/addon-docs";
+import { GlHeader } from "GlHeader";
+import { sectionName } from "./sectionName";
+import { getMetaProps } from "../getMetaProps";
+import { DocsComponentWrapper } from "../DocsComponentWrapper";
+import { GlLogo } from "utils/GlLogo";
+import logoSvg from "../../assets/svg/reddit.svg";
+
+
+<Meta
+    title={`${sectionName}/GlHeader`}
+    component={GlHeader}
+    parameters={
+        getMetaProps().parameters
+    }
+    decorators= {
+        getMetaProps().decorators
+    }
+/>
+
+# GlHeader
+
+The GlHeader component is the header of your app. You can display
+your logo, links to other pages, a github star count button and
+dark mode switch.
+
+## Props:
+
+<br />
+
+-   **className** : Give a class name to the root element.
+-   **classes** : Target any of the elements inside with a class name.
+-   **title** : The title prop is of type ReactNode, you pass your logo or a simple text.
+-   **titleDark** : If you have a different title for dark mode.
+-   **titleSmallScreen**: If you have a different title for small screens.
+-   **titleSmallScreenDark**: If you have a different title for dark mode and small screens.
+-   **links**: Set the links to other pages. <br />
+
+```typescript
+links: {
+    label: string;
+    href: string;
+    onClick?: () => void;
+}[];
+```
+
+-   **customBreakPoint** : Set a custom breakpoint value for small device.
+-   **enableDarkModeSwitch**
+-   **githubRepoUrl** : Display a link to your github project.
+-   **githubButtonSize** : Normal or large.
+-   **showGithubStarCount** : Display the number of stars of you github project.
+-   **customItemStart** : Display an item before the links.
+-   **customItemEnd** : Display an item after the links.<br/>
+
+```typescript
+type CustomItem = {
+    item: NonNullable<ReactNode>
+    behaviorOnSmallDevice?: "hide" | "wrap" | "normal"
+};
+```
+
+## Examples
+
+-   [Simple example](#simple-example)
+-   [Example with star count](#example-star-count)
+-   [Example with Logo](#example-logo)
+
+
+### Simple example <a id="simple-example"></a> 
+
+<br />
+
+<DocsComponentWrapper
+    component={
+        <GlHeader
+            title="Title large screen light"
+            links={[
+                {
+                    "label": "link1",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link2",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link3",
+                    "href": "https://example.com",
+                },
+            ]}
+            enableDarkModeSwitch={true}
+            githubRepoUrl="https://github.com/torvalds/linux"
+            githubButtonSize="large"
+        />
+    }
+/>
+
+```tsx
+import { GlHeader } from "gitlanding/GlHeader";
+
+<GlHeader
+    title="Title large screen light"
+    links={[
+        {
+            "label": "link1",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link2",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link3",
+            "href": "https://example.com",
+        },
+    ]}
+    enableDarkModeSwitch={true}
+    githubRepoUrl="https://github.com/torvalds/linux"
+    githubButtonSize="large"
+/>
+```
+
+### Example with star count <a id="example-star-count"></a>
+
+<br />
+
+<DocsComponentWrapper
+    component={
+        <GlHeader
+            title="Title large screen light"
+            links={[
+                {
+                    "label": "link1",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link2",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link3",
+                    "href": "https://example.com",
+                },
+            ]}
+            enableDarkModeSwitch={true}
+            showGithubStarCount={true}
+            githubRepoUrl="https://github.com/torvalds/linux"
+            githubButtonSize="large"
+        />
+    }
+/>
+
+```tsx
+import { GlHeader } from "gitlanding/GlHeader";
+
+<GlHeader
+    title="Title large screen light"
+    links={[
+        {
+            "label": "link1",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link2",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link3",
+            "href": "https://example.com",
+        },
+    ]}
+    enableDarkModeSwitch={true}
+    githubRepoUrl="https://github.com/torvalds/linux"
+    showGithubStarCount={true}
+    githubButtonSize="large"
+/>
+```
+
+### Example with logo <a id="example-logo"></a>
+
+<br />
+
+<DocsComponentWrapper
+    component={
+        <GlHeader
+            title={<GlLogo fill="orange" logoUrl={logoSvg} width={50} />}
+            links={[
+                {
+                    "label": "link1",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link2",
+                    "href": "https://example.com",
+                },
+                {
+                    "label": "link3",
+                    "href": "https://example.com",
+                },
+            ]}
+            enableDarkModeSwitch={true}
+            showGithubStarCount={true}
+            githubRepoUrl="https://github.com/torvalds/linux"
+            githubButtonSize="large"
+        />
+    }
+/>
+
+```tsx
+import { GlHeader } from "gitlanding/GlHeader";
+import { GlLogo } from "gitlanding/utils/GlLogo";
+import logoSvg from "assets/svg/yourLogo.svg";
+
+<GlHeader
+    title={<GlLogo 
+        fill="orange"
+        logoUrl={logoSvg}
+        width={50}
+    />}
+    links={[
+        {
+            "label": "link1",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link2",
+            "href": "https://example.com",
+        },
+        {
+            "label": "link3",
+            "href": "https://example.com",
+        },
+    ]}
+    enableDarkModeSwitch={true}
+    githubRepoUrl="https://github.com/torvalds/linux"
+    showGithubStarCount={true}
+    githubButtonSize="large"
+/>
+```
