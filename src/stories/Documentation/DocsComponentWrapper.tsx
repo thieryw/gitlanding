@@ -33,5 +33,6 @@ const useStyles = makeStyles()(theme => ({
         "border": `solid ${theme.colors.useCases.borderColor} 1px`,
         "borderRadius": theme.borderRadius,
         "boxShadow": theme.boxShadow,
+        "backgroundColor": theme.colors.useCases.surfaces.background,
     },
 }));
