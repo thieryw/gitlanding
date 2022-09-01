@@ -47,7 +47,7 @@
     "keywords": [],
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
-        "@mui/material": "^5.5.0",
+        "@mui/material": "^5.9.3",
         "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
         "onyxia-ui": "^0.46.20",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
@@ -68,13 +68,14 @@
         "react-svg": "^15.0.4",
         "react-syntax-highlighter": "^15.5.0",
         "tsafe": "^1.0.1",
-        "tss-react": "^3.7.1",
+        "tss-react": "^4.0.0",
         "typeface-work-sans": "^1.1.13"
     },
     "devDependencies": {
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.3.0",
-        "@mui/material": "^5.5.0",
+        "@mui/material": "^5.10.3",
+        "@emotion/css": "^11.10.0",
         "@storybook/addon-actions": "^6.5.9",
         "@storybook/addon-docs": "^6.5.9",
         "@storybook/addon-essentials": "^6.5.9",

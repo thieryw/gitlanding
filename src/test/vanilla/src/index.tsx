@@ -20,7 +20,6 @@ import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
 import { ReactComponent as TileSvg } from "./assets/svg/tile.svg";
-import { css } from "tss-react/@emotion/css";
 
 function App() {
     return (
@@ -256,14 +255,6 @@ function App() {
                         heading="Check List Heading"
                         hasAnimation={true}
                         CheckIcon={TileSvg}
-                        classes={{
-                            "checkIcon": css({
-                                "& g": {
-                                    //TODO: Refactor so we can access the theme
-                                    "fill": "orange",
-                                },
-                            }),
-                        }}
                         elements={[
                             {
                                 "title": "List element title",

@@ -1,1 +1,2 @@
-export * from "tss-react/@emotion/css";
+export { useTheme, breakpointsValues, makeStyles } from "./theme";
+export { useStyles } from "onyxia-ui/lib/ThemeProvider";

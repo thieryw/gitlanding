@@ -4,10 +4,12 @@
     "private": true,
     "dependencies": {
         "gitlanding": "latest",
-        "powerhooks": "^0.20.15",
+        "@emotion/react": "^11.10.4",
+        "@emotion/styled": "^11.10.4",
+        "@mui/material": "^5.10.3",
+        "onyxia-ui": "^0.46.20",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "tss-react": "^3.7.1"
+        "react-dom": "^18.2.0"
     },
     "devDependencies": {
         "@types/node": "^12.0.0",

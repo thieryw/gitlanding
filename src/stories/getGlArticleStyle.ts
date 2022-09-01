@@ -1,5 +1,5 @@
 import type { GlArticleProps } from "GlArticle";
-import { css } from "tss-react/@emotion/css";
+import { css } from "@emotion/css";
 
 export function getGlArticleStoryStyle(params: {
     illustrationPosition: "left" | "right";
