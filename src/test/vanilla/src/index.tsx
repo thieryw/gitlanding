@@ -1,5 +1,4 @@
 import { createRoot } from "react-dom/client";
-import React from "react";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHero } from "gitlanding/GlHero/GlHero";
 import { GlArticle } from "gitlanding/GlArticle";
@@ -19,8 +18,7 @@ import imageSrc from "./assets/test-images/test6.jpeg";
 import contribImageSrc from "./assets/illustrations/contribution.png";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import { GlCodeBlock } from "gitlanding/GlCodeBlock";
-import { ReactComponent as TileSvg } from "./assets/svg/tile.svg";
-import { css } from "tss-react/@emotion/css";
+import { ReactComponent as TitleSvg } from "./assets/svg/redash.svg";
 
 function App() {
     return (
@@ -255,18 +253,13 @@ function App() {
                     <GlCheckList
                         heading="Check List Heading"
                         hasAnimation={true}
-                        CheckIcon={TileSvg}
-                        classes={{
-                            "checkIcon": css({
-                                "& g": {
-                                    //TODO: Refactor so we can access the theme
-                                    "fill": "orange",
-                                },
-                            }),
-                        }}
                         elements={[
                             {
                                 "title": "List element title",
+                                "setIconColorOverride": colors => ({
+                                    "iconColor":
+                                        colors.palette.greenSuccess.main,
+                                }),
                                 "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
               nisl nec hendrerit rutrum, 
               mi enim semper arcu, ut imperdiet urna libero non metus. 
@@ -275,6 +268,7 @@ function App() {
                             },
                             {
                                 "title": "List element title",
+                                "IconOverride": TitleSvg,
                                 "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
               nisl nec hendrerit rutrum, 
               mi enim semper arcu, ut imperdiet urna libero non metus. 
