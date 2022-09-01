@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { createIcon } from "onyxia-ui/Icon";
 import type { MuiIconLike, SvgComponentLike } from "onyxia-ui/Icon";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
+import { useTheme } from "./theme";
 
 export type GlCheckListProps = {
     className?: string;
@@ -15,12 +16,20 @@ export type GlCheckListProps = {
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     heading?: string;
     subHeading?: string;
+    setIconColor?: (colors: ReturnType<typeof useTheme>["colors"]) => {
+        iconColor: string;
+    };
+    Icon?: MuiIconLike | SvgComponentLike;
     elements?: {
         title?: string;
         description?: string;
+        IconOverride?: MuiIconLike | SvgComponentLike;
+        setIconColorOverride?: GlCheckListProps["setIconColor"];
+        isIconHidden?: boolean;
     }[];
-    CheckIcon?: MuiIconLike | SvgComponentLike;
 };
+
+const elementWidth = 300;
 
 export const GlCheckList = memo((props: GlCheckListProps) => {
     const {
@@ -29,7 +38,8 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         heading,
         subHeading,
         hasAnimation,
-        CheckIcon = MuiCheckIcon,
+        Icon,
+        setIconColor,
     } = props;
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -97,7 +107,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         [],
     );
 
-    const { classes, cx } = useStyles(
+    const { classes, cx, theme } = useStyles(
         {
             "numberOfElements": elements === undefined ? 1 : elements.length,
         },
@@ -132,8 +142,8 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                 className={classes.elements}
             >
                 {elements !== undefined &&
-                    elements.map((elementProps, index) => (
-                        <motion.div variants={listItem} key={index}>
+                    elements.map(({ setIconColorOverride, ...rest }) => (
+                        <motion.div variants={listItem} key={rest.title}>
                             <CheckListElement
                                 className={classes.element}
                                 classes={{
@@ -145,8 +155,13 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                                     "titleAndDescriptionWrapper":
                                         classes.elementTitleAndDescriptionWrapper,
                                 }}
-                                CheckIcon={CheckIcon}
-                                {...elementProps}
+                                iconColor={
+                                    setIconColor === undefined
+                                        ? theme.colors.palette.greenSuccess.main
+                                        : setIconColor(theme.colors).iconColor
+                                }
+                                Icon={Icon}
+                                {...rest}
                             />
                         </motion.div>
                     ))}
@@ -157,7 +172,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
 
 const useStyles = makeStyles<{ numberOfElements: number }>({
     "name": { GlCheckList },
-})((theme, { numberOfElements }) => ({
+})(theme => ({
     "root": {
         ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
         ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
@@ -183,24 +198,8 @@ const useStyles = makeStyles<{ numberOfElements: number }>({
                 ? undefined
                 : "center",
         "display": "grid",
-        "gridTemplateColumns": `repeat(${(() => {
-            if (theme.windowInnerWidth >= breakpointsValues.lg) {
-                if (numberOfElements >= 3) {
-                    return 3;
-                }
-                return numberOfElements;
-            }
-
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
-                if (numberOfElements >= 2) {
-                    return 2;
-                }
-
-                return 1;
-            }
-
-            return 1;
-        })()}, 1fr)`,
+        "columnCount": 3,
+        "gridTemplateColumns": `repeat(auto-fit, minmax(min(100%, max(${elementWidth}px, 25%)), 1fr))`,
         "gap": theme.spacing(6),
     },
     "subHeading": {
@@ -219,23 +218,58 @@ const { CheckListElement } = (() => {
     type Props = Required<GlCheckListProps>["elements"][number] & {
         className?: string;
         classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
-        CheckIcon: MuiIconLike | SvgComponentLike;
+        Icon?: MuiIconLike | SvgComponentLike;
+        iconColor: string;
     };
 
     const CheckListElement = memo((props: Props) => {
-        const { description, title, className, CheckIcon } = props;
+        const {
+            description,
+            title,
+            className,
+            isIconHidden,
+            IconOverride,
+            setIconColorOverride,
+        } = props;
 
-        const { classes, cx } = useStyles(undefined, { props });
+        const { classes, cx, theme, css } = useStyles(
+            {
+                "isIconHidden": isIconHidden ?? false,
+            },
+            { props },
+        );
+
+        const { iconColor } = useGuaranteedMemo((): { iconColor: string } => {
+            return {
+                "iconColor": (() => {
+                    if (setIconColorOverride === undefined) {
+                        return props.iconColor;
+                    }
+                    return setIconColorOverride(theme.colors).iconColor;
+                })(),
+            };
+        }, [setIconColorOverride]);
 
         const { Icon } = useGuaranteedMemo(
-            () => createIcon({ "check": CheckIcon }),
-            [CheckIcon],
+            () =>
+                createIcon({
+                    "check": IconOverride ?? props.Icon ?? MuiCheckIcon,
+                }),
+            [IconOverride],
         );
 
         return (
             <div className={cx(classes.root, className)}>
                 <div className={classes.checkIconWrapper}>
-                    <Icon iconId="check" className={classes.checkIcon} />
+                    <Icon
+                        iconId="check"
+                        className={cx(
+                            css({
+                                "fill": iconColor,
+                            }),
+                            classes.checkIcon,
+                        )}
+                    />
                 </div>
 
                 <div className={classes.titleAndDescriptionWrapper}>
@@ -252,30 +286,31 @@ const { CheckListElement } = (() => {
         );
     });
 
-    const useStyles = makeStyles()(theme => ({
-        "root": {
-            "width":
-                theme.windowInnerWidth >= breakpointsValues.sm
-                    ? 300
-                    : undefined,
-            "display": "flex",
-        },
-        "checkIcon": {
-            "color": theme.colors.useCases.alertSeverity.success.main,
-        },
-        "checkIconWrapper": {
-            "paddingTop": theme.spacing(3.5),
-            "marginRight": theme.spacing(3),
-        },
-        "description": {
-            "color": theme.colors.useCases.typography.textSecondary,
-            ...theme.typography.variants["body 1"].style,
-        },
-        "title": {
-            ...theme.typography.variants["object heading"].style,
-        },
-        "titleAndDescriptionWrapper": {},
-    }));
+    const useStyles = makeStyles<{ isIconHidden: boolean }>()(
+        (theme, { isIconHidden }) => ({
+            "root": {
+                "width":
+                    theme.windowInnerWidth >= breakpointsValues.sm
+                        ? elementWidth
+                        : undefined,
+                "display": "flex",
+            },
+            "checkIcon": {},
+            "checkIconWrapper": {
+                "paddingTop": theme.spacing(3.5),
+                "marginRight": theme.spacing(3),
+                "opacity": isIconHidden ? 0 : 1,
+            },
+            "description": {
+                "color": theme.colors.useCases.typography.textSecondary,
+                ...theme.typography.variants["body 1"].style,
+            },
+            "title": {
+                ...theme.typography.variants["object heading"].style,
+            },
+            "titleAndDescriptionWrapper": {},
+        }),
+    );
 
     return { CheckListElement };
 })();
