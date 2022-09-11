@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.23.3",
+    "version": "0.23.4",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -49,7 +49,7 @@
     "peerDependencies": {
         "@mui/material": "^5.9.3",
         "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-        "onyxia-ui": "^0.46.26",
+        "onyxia-ui": "^0.46.28",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
     },
     "peerDependenciesMeta": {
@@ -62,7 +62,7 @@
         "embla-carousel": "^4.1.5",
         "framer-motion": "^4.1.17",
         "memoizee": "^0.4.15",
-        "powerhooks": "^0.20.16",
+        "powerhooks": "^0.20.17",
         "react-github-btn": "^1.2.0",
         "react-markdown": "^5.0.3",
         "react-svg": "^15.0.4",
@@ -95,10 +95,10 @@
         "copyfiles": "^2.4.1",
         "eslint": "^7.20.0",
         "eslint-config-prettier": "^7.2.0",
-        "evt": "^2.4.1",
+        "evt": "^2.4.2",
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
-        "onyxia-ui": "^0.46.26",
+        "onyxia-ui": "^0.46.28",
         "prettier": "^2.7.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
