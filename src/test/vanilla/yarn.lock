@@ -6408,11 +6408,6 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-material-design-icons@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/material-design-icons/-/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
-  integrity sha512-t19Z+QZBwSZulxptEu05kIm+UyfIdJY1JDwI+nx02j269m6W414whiQz9qfvQIiLrdx71RQv+T48nHhuQXOCIQ==
-
 mdast-add-list-metadata@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdast-add-list-metadata/-/mdast-add-list-metadata-1.0.1.tgz#95e73640ce2fc1fa2dcb7ec443d09e2bfe7db4cf"
@@ -6808,15 +6803,14 @@ onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.46.28:
-  version "0.46.28"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.28.tgz#09fb50d7f51430db1b993ba8058d03d9228a1dac"
-  integrity sha512-QFY18xelvthinaanlNpOBJ7zT6YkMAM/HcWgDLppkkQFBBhERG0Ug6hUpsFshgTmzLYRcuhyNvt/tQEXGbuVZQ==
+onyxia-ui@^0.46.29:
+  version "0.46.29"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.46.29.tgz#0f8912816ec78938b74433ffee189855ad8f1207"
+  integrity sha512-Ch2JMnj2GSTJyUJx7yJIjHNQkUUWqhKZks+/hizvdonOs83VTec3lvTm653tMUj59aCTuGrbamSgx1lQfs/V7w==
   dependencies:
     "@mui/icons-material" "^5.10.3"
     color "3.1.3"
     evt "^2.4.2"
-    material-design-icons "^3.0.1"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.2"
     powerhooks "^0.20.17"
