@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { useEmblaCarousel } from "embla-carousel/react";
+import useEmblaCarousel from "embla-carousel-react";
 import { makeStyles, Text } from "./theme";
 import { Icon } from "./theme";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";

@@ -59,7 +59,7 @@
     },
     "dependencies": {
         "@mui/icons-material": "^5.5.0",
-        "embla-carousel": "^4.1.5",
+        "embla-carousel-react": "^7.0.3",
         "framer-motion": "^4.1.17",
         "memoizee": "^0.4.15",
         "powerhooks": "^0.20.17",
