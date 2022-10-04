@@ -6803,10 +6803,10 @@ onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.47.0:
-  version "0.47.0"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.47.0.tgz#9ecf87bcba099b77b50cec0a5dc346e785f1da96"
-  integrity sha512-HU7sj46Lhmg+fQf7S07WAUEhf9CVcbJRpVJ5KwG4jEdfmj/tAtaRsQbOB9Y8jWrjrnYVobCST9iG60MYBi17+g==
+onyxia-ui@^0.47.1:
+  version "0.47.1"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.47.1.tgz#271acaacee2f14001c98437d2b5eb2a0fd791568"
+  integrity sha512-CIdqwSbwRW1ymL9nv63am2PtJ3XvznvYlk/VjQx2r0LXKULyeNmKSwWMVL+idytXDI7O5z1bhhPgG7i3uV2I4w==
   dependencies:
     "@mui/icons-material" "^5.10.3"
     color "3.1.3"
@@ -6816,7 +6816,7 @@ onyxia-ui@^0.47.0:
     powerhooks "^0.20.20"
     run-exclusive "^2.2.16"
     tsafe "^1.1.1"
-    tss-react "^4.3.3"
+    tss-react "^4.3.4"
 
 open@^8.0.9, open@^8.4.0:
   version "8.4.0"
@@ -9061,10 +9061,10 @@ tss-react@^3.7.1:
     "@emotion/serialize" "*"
     "@emotion/utils" "*"
 
-tss-react@^4.3.3:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.3.3.tgz#fca93e91b93a2e52c40dc904c7067a2b1905a160"
-  integrity sha512-gXCocAaCDkLpMy0yYdr6AB9/FAetkiRsFnkoDYhjngMBni6ELyZStUwOmZ/LFdBGzKRFlrtext63J+UaaavgZg==
+tss-react@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.3.4.tgz#1e6d67f963562f4c232ec28ca4d90c8aac3a728b"
+  integrity sha512-PAEB9NxGtW2nEuPDm90WISi4nb9O+bmY/XyDKp17/CoPsoaW3UqaEi+gTjBmA/P65GCRuZhpZniTOkhLcTDQqg==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
