@@ -10,13 +10,14 @@ import { GlFooter } from "gitlanding/GlFooter";
 import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { GlCards } from "gitlanding/GlCards"
 import { GlLogoCard } from "gitlanding/GlCards/GlLogoCard";
-import onyxiaLogoSrc from "./assets/svg/OnyxiaLogo.svg";
-import tsafePngSrc from "./assets/img/tsafe.png";
+import onyxiaLogoSvgUrl from "./assets/svg/OnyxiaLogo.svg";
+import onyxiaLogoOrangeSvgUrl from "./assets/svg/OnyxiaLogoOrange.svg";
 import onyxiaPng from "./assets/img/onyxia-ui.png";
+import tssLogoPngUrl from "./assets/img/tss-logo.png";
+import keycloakifyLogoPng from "./assets/img/keycloakify-logo.png";
 import logoPng from "./assets/img/logo.png";
 import logoSmallPng from "./assets/img/logo-small.png";
 import materialUiPngUrl from "./assets/img/material-ui.png";
-import powerhooksLogoSrc from "./assets/svg/powerhooksLogo.svg";
 import sspcloudMp4 from "./assets/videos/sspcloud.mp4";
 import sspcloudRouteMp4 from "./assets/videos/sspcloud-route.mp4";
 import { ThemeProvider } from "./theme";
@@ -214,31 +215,38 @@ This way your little landing page is a react project capable of growing into a m
           <GlLogoCard
             title="SSP Cloud"
             paragraph="Community space for the French's public service for the statistics."
-            iconUrls={[onyxiaLogoSrc]}
+            iconUrls={[onyxiaLogoSvgUrl]}
             buttonLabel="View project"
             link={{
               "href": "https://www.sspcloud.fr/"
             }}
           />
-
           <GlLogoCard
-            title="Tsafe"
-            paragraph="A collection of utilities to step up your TypeScript game."
-            iconUrls={[tsafePngSrc]}
+            title="Keycloakify"
+            paragraph="Keycloak theming Made easy. With React."
+            iconUrls={[keycloakifyLogoPng]}
             buttonLabel="View project"
             link={{
-              "href": "https://www.tsafe.dev/"
+              "href": "https://www.keycloakify.dev/"
             }}
           />
-
           <GlLogoCard
-            title="Powerhooks"
-            paragraph="A collection of essential React hooks."
+            title="Onyxia"
+            paragraph="The modern datascience stack made accessible"
             buttonLabel="View project"
             link={{
-              "href": "https://www.powerhooks.dev/"
+              "href": "https://www.onyxia.sh/"
             }}
-            iconUrls={[powerhooksLogoSrc]}
+            iconUrls={[onyxiaLogoOrangeSvgUrl]}
+          />
+          <GlLogoCard
+            title="TSS"
+            paragraph="Dynamic CSS-in-TS styles engine, based on Emotion"
+            buttonLabel="View project"
+            link={{
+              "href": "https://www.tss-react.dev/"
+            }}
+            iconUrls={[tssLogoPngUrl]}
           />
         </GlCards>
 
