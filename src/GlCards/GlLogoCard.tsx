@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace */
+import type { ReactNode } from "react";
 import { memo } from "react";
 import { makeStyles, Text } from "../theme";
 import { GlLogo } from "../utils/GlLogo";
@@ -10,7 +10,7 @@ import { GlButton } from "../utils/GlButton";
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
     title?: string;
-    paragraph?: string;
+    paragraph?: NonNullable<ReactNode>;
     buttonLabel?: string;
     overlapIcons?: boolean;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
