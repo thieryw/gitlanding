@@ -6,8 +6,7 @@ module.exports = {
     ],
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint",
+        "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
         "no-extra-boolean-cast": "off",
