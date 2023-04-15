@@ -9,12 +9,12 @@
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^1.0.1",
-    "onyxia-ui": "^0.46.20",
-    "tss-react": "^4.0.0",
-    "powerhooks": "^0.20.15",
-    "@mui/material": "^5.10.3",
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
+    "onyxia-ui": "^0.51.0",
+    "tss-react": "^4.8.2",
+    "powerhooks": "^0.26.7",
+    "@mui/material": "^5.12.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
