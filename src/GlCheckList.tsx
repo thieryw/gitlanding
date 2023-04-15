@@ -142,6 +142,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                 className={classes.elements}
             >
                 {elements !== undefined &&
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     elements.map(({ setIconColorOverride, ...rest }) => (
                         <motion.div variants={listItem} key={rest.title}>
                             <CheckListElement
