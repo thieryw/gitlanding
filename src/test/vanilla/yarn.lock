@@ -1032,6 +1032,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.21.0":
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
+  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/template@^7.18.6", "@babel/template@^7.3.3":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.18.6.tgz#1283f4993e00b929d6e2d3c72fdc9168a2977a31"
@@ -1625,12 +1632,12 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.10.3.tgz#e17a3cd87c7814ff35592284b19ae39ad52b85ac"
   integrity sha512-mX2S0d1oboKBbWQqWIgRmyALAEzh37yiknpD3mKx8bcoMKbp1VtqzIt0aeHP16Uhsd0eValDFILxLNHWi0oddQ==
 
-"@mui/icons-material@^5.10.3":
-  version "5.10.3"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.10.3.tgz#33bd1d973c4727ab55d02928fc8973b7f16fff55"
-  integrity sha512-o0kbUlsWCBtCE0wP33cGKbyryCh7kpm2EECYMPDmWrLhbA+HUODXIdhiTFS26szp2xXo9HY1lEx0ufeJ+tddYw==
+"@mui/icons-material@^5.10.15":
+  version "5.11.16"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.11.16.tgz#417fa773c56672e39d6ccfed9ac55591985f0d38"
+  integrity sha512-oKkx9z9Kwg40NtcIajF9uOXhxiyTZrrm9nmIJ4UjkU2IdHpd4QVLbCc/5hZN/y0C6qzi2Zlxyr9TGddQx2vx2A==
   dependencies:
-    "@babel/runtime" "^7.18.9"
+    "@babel/runtime" "^7.21.0"
 
 "@mui/icons-material@^5.5.0":
   version "5.8.4"
@@ -4450,14 +4457,14 @@ evt@^2.3.1:
     run-exclusive "^2.2.16"
     tsafe "^0.10.1"
 
-evt@^2.4.10:
-  version "2.4.10"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.10.tgz#91b3c10e5ce50112656bdbe6c599c38f72617e51"
-  integrity sha512-HPepROqeyGpl54AvytYMJh+JoB5eGInaRG3Sqr7VAQX69jzWdou6mq8vNvy41lRSSsK2rQ7XJXoyEaqVnLDBSw==
+evt@^2.4.18:
+  version "2.4.18"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.18.tgz#931012610dcd3bc7c0877d61018a704e9e5511db"
+  integrity sha512-kMYW3DPrUWvFsOUf3cN1NMdg0MEFYLMLqC7hPSasNs8TOZCOBsDgazr6nXda2iUur/2L6BtRu0oCl2++oGYZxA==
   dependencies:
     minimal-polyfills "^2.2.2"
     run-exclusive "^2.2.18"
-    tsafe "^1.2.1"
+    tsafe "^1.6.0"
 
 execa@^5.0.0:
   version "5.1.1"
@@ -6803,20 +6810,20 @@ onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.47.16:
-  version "0.47.16"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.47.16.tgz#b7aa541a6c8ba46aad48f190f522331b392eae36"
-  integrity sha512-KiY7n6BisYe1DGkOvz4yzK27vn89T1PwmoJomshfQ5IQDooC5venORHKp+JdgVVW/rOCGFoCiSa3cY4bNahovQ==
+onyxia-ui@^0.51.0:
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.51.0.tgz#5dda45bd3e0265a1e05ba46eb00e5d11b9526963"
+  integrity sha512-WG0w9O5hAolzNkzKZQRYUVE0G/roAszwBxNu4i9BKCfnhrMKHk5dZkM0+Z8XAP2hywaJEna/a+PrUrWBufeN6w==
   dependencies:
-    "@mui/icons-material" "^5.10.3"
+    "@mui/icons-material" "^5.10.15"
     color "3.1.3"
-    evt "^2.4.10"
+    evt "^2.4.18"
     memoizee "^0.4.15"
     minimal-polyfills "^2.2.2"
-    powerhooks "^0.20.27"
+    powerhooks "^0.26.7"
     run-exclusive "^2.2.18"
-    tsafe "^1.2.1"
-    tss-react "^4.4.4"
+    tsafe "^1.6.0"
+    tss-react "^4.8.2"
 
 open@^8.0.9, open@^8.4.0:
   version "8.4.0"
@@ -7627,15 +7634,15 @@ powerhooks@^0.20.10:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.10.1"
 
-powerhooks@^0.20.27:
-  version "0.20.27"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.20.27.tgz#ac82dba8c525434929ba8af3674a0d0ba1485a4a"
-  integrity sha512-1xHmVKWXCA4WgSCkaQlYsNKfrLmrpn+jpRFpt4QIIEcWAV2+gswAujPu5+MCxXIOdmIsr0t16uJ1gN2Jc8xp2A==
+powerhooks@^0.26.7:
+  version "0.26.7"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.26.7.tgz#3c9709a6012207e073aa268a775b352905ea46f5"
+  integrity sha512-ghVMUbPj1Xxkiy6eOlCzMdFc70a6lvfLnM4MsPbTvSKuaAxSHn62sfKDJ3rYOFqVSxC4JwiOa2wCDwssKq1Glw==
   dependencies:
-    evt "^2.4.10"
+    evt "^2.4.18"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
-    tsafe "^1.2.1"
+    tsafe "^1.6.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -8055,6 +8062,11 @@ regenerate@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
+
+regenerator-runtime@^0.13.11:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.9:
   version "0.13.9"
@@ -9034,10 +9046,10 @@ tsafe@^0.10.1:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.1.tgz#8f100b901e4467c43c0484f56a063f4276683ce0"
   integrity sha512-S+LrpSjoH5Pah201KS0MxtJn88HVtKf4ZxUoQuW/Hnl4IK6ALu9Qwjed7RbohDeHn+iMuug4c5Mk/z1Cq2G3nw==
 
-tsafe@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.2.1.tgz#578f7acd22b5ff32b5b820b6eb551af9ad4024da"
-  integrity sha512-fDDbPiAG6xjZuyXXakHZi8ewGx7ERxGVJ3dwFtcoex+9lvp/nHm5ROlFAB6lyZSmspG0cjpYpFxrKyRnniiOdQ==
+tsafe@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.0.tgz#48a9bd0a4c43df43d289bdfc1d89f0d7fffbd612"
+  integrity sha512-wlUeRBnyN3EN2chXznpLm7vBEvJLEOziDU+MN6NRlD99AkwmXgtChNQhp+V97VyRa3Bp05IaL4Cocsc7JlyEUg==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
@@ -9068,10 +9080,10 @@ tss-react@^3.7.1:
     "@emotion/serialize" "*"
     "@emotion/utils" "*"
 
-tss-react@^4.4.4:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.4.4.tgz#12207842dfc58676a9f4d0f532741257428a78e7"
-  integrity sha512-Bzyg99bIQq3Lk4Rwc5XMOps58c1biw1rghCkApIX5XkAB+/VjGCIFSl63PePhmiRNvKRxJRpawGPPxHytiw1TA==
+tss-react@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.8.2.tgz#ea424965e8a6828ac02bc8c8f2a7a75bb87cf0ac"
+  integrity sha512-VT2tvbnfyG5oEMUsJjyp9KPa/A+lahCju+usy8of9SnvNOWFhkVKOMcvTn8KF10ncBF0T+O+XlkcCR4Eoqw1mw==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
