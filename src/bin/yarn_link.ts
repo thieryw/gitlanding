@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable */
 import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
@@ -89,7 +89,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 
 const testAppNames = ["vanilla"] as const;
 
-const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
+const getTestAppPath = (testAppName: (typeof testAppNames)[number]) =>
     pathJoin(tssReactDirPath, "src", "test", testAppName);
 
 testAppNames.forEach(testAppName =>
