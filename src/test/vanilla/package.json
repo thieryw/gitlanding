@@ -1,13 +1,13 @@
 {
     "name": "vanilla",
-    "version": "0.1.36",
+    "version": "0.1.37",
     "private": true,
     "dependencies": {
         "gitlanding": "latest",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@mui/material": "^5.10.3",
-        "onyxia-ui": "^0.55.0",
+        "onyxia-ui": "^0.55.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
