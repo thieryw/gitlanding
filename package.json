@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "0.24.15",
+    "version": "0.24.16",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -57,7 +57,7 @@
         "embla-carousel-react": "^7.0.3",
         "framer-motion": "^4.1.17",
         "memoizee": "^0.4.15",
-        "powerhooks": "^0.26.14",
+        "powerhooks": "^0.26.15",
         "react-github-btn": "^1.2.0",
         "react-markdown": "^5.0.3",
         "react-svg": "^15.0.4",
