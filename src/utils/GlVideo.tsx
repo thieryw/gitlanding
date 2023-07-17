@@ -1,4 +1,4 @@
-import { memo, forwardRef } from "react";
+import { memo, forwardRef, useEffect, useState, useId } from "react";
 import type { ForwardedRef } from "react";
 import { Source } from "../tools/Source";
 import { makeStyles } from "../theme";
@@ -12,6 +12,7 @@ export type GlVideoProps = {
     sources: Source[];
     onLoad?: () => void;
     autoPlay?: boolean;
+    delayBeforeAutoPlay?: number;
     muted?: boolean;
     loop?: boolean;
     controls?: boolean;
@@ -26,9 +27,10 @@ export const GlVideo = memo(
             hasShadow = true,
             hasBorderRadius = true,
             height,
-            id,
+            id: id_props,
             width,
-            autoPlay,
+            autoPlay = true,
+            delayBeforeAutoPlay = 0,
             loop,
             muted,
             controls,
@@ -40,14 +42,39 @@ export const GlVideo = memo(
             hasBorderRadius,
         });
 
+        const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+        const id = (function useClosure() {
+            const id = useId();
+            return id_props ?? id;
+        })();
+
+        useEffect(() => {
+            if (!isDataLoaded || !autoPlay) {
+                return;
+            }
+
+            const timer = setTimeout(() => {
+                //@ts-expect-error: we know is will work
+                document.getElementById(id).play();
+            }, delayBeforeAutoPlay);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }, [isDataLoaded]);
+
         return (
             <video
                 ref={ref}
                 className={cx(classes.root, className)}
-                onLoadedData={onLoad}
+                onLoadedData={() => {
+                    setIsDataLoaded(true);
+                    onLoad?.();
+                }}
                 loop={loop ?? true}
                 muted={muted ?? true}
-                autoPlay={autoPlay ?? true}
+                autoPlay={false}
                 id={id}
                 width={width}
                 height={height}

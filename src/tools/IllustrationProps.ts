@@ -21,6 +21,7 @@ declare namespace IllustrationProps {
         sources: Source[];
         hasShadow?: boolean;
         autoPlay?: boolean;
+        delayBeforeAutoPlay?: number;
         muted?: boolean;
         loop?: boolean;
         controls?: boolean;
