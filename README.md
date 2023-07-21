@@ -79,3 +79,34 @@ yarn start_vanilla
 ```
 
 Edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
+
+## Testing your changes in an external app (that uses yarn)
+
+You have made some changes to the code and you want to test them
+in your app before submitting a pull request?
+
+Assuming `you/my-app` have `gitlanding` as a dependency.
+
+```bash
+cd ~/github
+git clone https://github.com/you/my-app
+cd my-app
+yarn
+
+cd ~/github
+git clone https://github.com/thieryw/gitlanding
+cd #{REPO_NAME}#
+yarn
+yarn build
+yarn link-in-app my-app
+npx tsc -w
+
+# Open another terminal
+
+cd ~/github/my-app
+rm -rf node_modules/.cache
+yarn start # Or whatever my-app is using for starting the project
+```
+
+You don't have to use `~/github` as reference path. Just make sure `my-app` and `gitlanding`
+are in the same directory.

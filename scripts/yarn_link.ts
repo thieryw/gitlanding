@@ -3,16 +3,16 @@ import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
 
-const tssReactDirPath = pathJoin(__dirname, "..", "..");
+const rootDirPath = pathJoin(__dirname, "..");
 
 fs.writeFileSync(
-    pathJoin(tssReactDirPath, "dist", "package.json"),
+    pathJoin(rootDirPath, "dist", "package.json"),
     Buffer.from(
         JSON.stringify(
             (() => {
                 const packageJsonParsed = JSON.parse(
                     fs
-                        .readFileSync(pathJoin(tssReactDirPath, "package.json"))
+                        .readFileSync(pathJoin(rootDirPath, "package.json"))
                         .toString("utf8"),
                 );
 
@@ -46,7 +46,7 @@ const commonThirdPartyDeps = (() => {
                 fs
                     .readdirSync(
                         pathJoin(
-                            tssReactDirPath,
+                            rootDirPath,
                             "node_modules",
                             namespaceModuleName,
                         ),
@@ -61,7 +61,7 @@ const commonThirdPartyDeps = (() => {
     ];
 })();
 
-const yarnHomeDirPath = pathJoin(tssReactDirPath, ".yarn_home");
+const yarnHomeDirPath = pathJoin(rootDirPath, ".yarn_home");
 
 fs.rmSync(yarnHomeDirPath, { "recursive": true, "force": true });
 
@@ -76,7 +76,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
         ...(targetModuleName !== undefined ? [targetModuleName] : []),
     ].join(" ");
 
-    console.log(`$ cd ${pathRelative(tssReactDirPath, cwd) || "."} && ${cmd}`);
+    console.log(`$ cd ${pathRelative(rootDirPath, cwd) || "."} && ${cmd}`);
 
     execSync(cmd, {
         cwd,
@@ -90,7 +90,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 const testAppNames = ["vanilla"] as const;
 
 const getTestAppPath = (testAppName: (typeof testAppNames)[number]) =>
-    pathJoin(tssReactDirPath, "src", "test", testAppName);
+    pathJoin(rootDirPath, "src", "test", testAppName);
 
 testAppNames.forEach(testAppName =>
     execSync("yarn install", { "cwd": getTestAppPath(testAppName) }),
@@ -108,7 +108,7 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
 
     const localInstallPath = pathJoin(
         ...[
-            tssReactDirPath,
+            rootDirPath,
             "node_modules",
             ...(commonThirdPartyDep.startsWith("@")
                 ? commonThirdPartyDep.split("/")
@@ -128,7 +128,7 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
 
 console.log("=== Linking in house dependencies ===");
 
-execYarnLink({ "cwd": pathJoin(tssReactDirPath, "dist") });
+execYarnLink({ "cwd": pathJoin(rootDirPath, "dist") });
 
 testAppNames.forEach(testAppName =>
     execYarnLink({

@@ -16,7 +16,8 @@
         "format:check": "npm run _format -- --list-different",
         "storybook": "start-storybook -p 5005",
         "build-storybook": "build-storybook",
-        "yarn_link": "ts-node --skip-project src/bin/yarn_link.ts",
+        "yarn_link": "ts-node --skip-project scripts/yarn_link.ts",
+        "link-in-app": "ts-node --skip-project scripts/link-in-external-project.ts",
         "start_vanilla": "yarn yarn_link && cd src/test/vanilla && yarn start"
     },
     "lint-staged": {
@@ -34,7 +35,6 @@
     "files": [
         "src/",
         "!src/test/",
-        "!src/bin/",
         "dist/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo"
