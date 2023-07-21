@@ -102,7 +102,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                     forceUpdate();
                 }
             },
-            "threshold": 0.4,
+            "threshold": 0.05,
         },
         [],
     );
