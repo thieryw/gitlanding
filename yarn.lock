@@ -7099,10 +7099,10 @@ evt@^2.4.22:
     run-exclusive "^2.2.19"
     tsafe "^1.6.4"
 
-evt@^2.4.23:
-  version "2.4.23"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.23.tgz#207dc9ac6693ed47e65e65f577634fa669dce686"
-  integrity sha512-cvwEIS0xCu4OO5+kE6q6VlQDppNZW2rkywbaQ6R86iDutClkf3IbMjZ6WenNj8sxlHyLJVuasScx6n5pwni8gA==
+evt@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.0.tgz#e7dfc3d97ef93ffdc585644d6c9439022c44616f"
+  integrity sha512-dvyPRD1J8ruBiSJvEoE81Wfus2QMxLyjFigY5+uoe1yxWqC+UOS9U77oXrkD17B4jxixGWNdmxlusUzOCVrlcg==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
@@ -12040,12 +12040,12 @@ powerhooks@^0.27.0:
     resize-observer-polyfill "^1.5.1"
     tsafe "^1.6.4"
 
-powerhooks@^0.27.1:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.27.1.tgz#62ceac9304eb90ad6ac4b3026c4f9703e8c822d5"
-  integrity sha512-yVIX7cqPqRgrJDx792HNEaKyv16AzcxaOSFB2ysWhw60f/7cZofLRj8i6G7qGwwr0fMa4i/grUWJBwiE0zDxjg==
+powerhooks@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.27.2.tgz#2b7dbf4d206a209474231c50c34a58e4e8800950"
+  integrity sha512-8XNvMSR/JwxFykzbmijrnQ66INBmdgAQPPN0FqSHIGv8s/QSld6o6vko27H16R1S7S4FbsVrykJ0aIKy7H687w==
   dependencies:
-    evt "^2.4.23"
+    evt "^2.5.0"
     memoizee "^0.4.15"
     resize-observer-polyfill "^1.5.1"
     tsafe "^1.6.4"
