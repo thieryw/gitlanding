@@ -7108,10 +7108,10 @@ evt@^2.5.0:
     run-exclusive "^2.2.19"
     tsafe "^1.6.4"
 
-evt@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.1.tgz#349ed446f182220b5f7a5a2d00bbc59040588de5"
-  integrity sha512-fvtIhBjNjtQGsXK6MKybIYObTT7BgdEKCf8QXbuLhxj4fGq/nhfu0ab+9LTXTuuKfm4A0Kl2Zsjy6lGezZCxvg==
+evt@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.2.tgz#fe2c86657de488fd873195daae35323b96daefb2"
+  integrity sha512-N8+A+VJRMPDIOz7KDctin7JSMPIvS1edLSDSgH51OGN6MGlAdthZ6pSztRBe1dxvNb0CvlzLKu9kRK2zYiWukw==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
