@@ -2,7 +2,7 @@ import { memo, useMemo, useReducer } from "react";
 import MuiCheckIcon from "@mui/icons-material/Check";
 import { Text } from "./theme";
 import { Markdown } from "./tools/Markdown";
-import { makeStyles, breakpointsValues } from "./theme";
+import { tss, breakpointsValues } from "./theme";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { motion } from "framer-motion";
 import { createIcon } from "onyxia-ui/Icon";
@@ -107,12 +107,9 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         [],
     );
 
-    const { classes, cx, theme } = useStyles(
-        {
-            "numberOfElements": elements === undefined ? 1 : elements.length,
-        },
-        { props },
-    );
+    const { classes, cx, theme } = useStyles({
+        "classesOverrides": props.classes,
+    });
 
     return (
         <section className={cx(classes.root, className)}>
@@ -171,9 +168,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
     );
 });
 
-const useStyles = makeStyles<{ numberOfElements: number }>({
-    "name": { GlCheckList },
-})(theme => ({
+const useStyles = tss.withName({ GlCheckList }).create(({ theme }) => ({
     "root": {
         ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
         ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
@@ -233,12 +228,10 @@ const { CheckListElement } = (() => {
             setIconColorOverride,
         } = props;
 
-        const { classes, cx, theme, css } = useStyles(
-            {
-                "isIconHidden": isIconHidden ?? false,
-            },
-            { props },
-        );
+        const { classes, cx, theme, css } = useStyles({
+            "isIconHidden": isIconHidden ?? false,
+            "classesOverrides": props.classes,
+        });
 
         const { iconColor } = useGuaranteedMemo((): { iconColor: string } => {
             return {
@@ -287,8 +280,11 @@ const { CheckListElement } = (() => {
         );
     });
 
-    const useStyles = makeStyles<{ isIconHidden: boolean }>()(
-        (theme, { isIconHidden }) => ({
+    const useStyles = tss
+        .withParams<{
+            isIconHidden: boolean;
+        }>()
+        .create(({ theme, isIconHidden }) => ({
             "root": {
                 "width":
                     theme.windowInnerWidth >= breakpointsValues.sm
@@ -310,8 +306,7 @@ const { CheckListElement } = (() => {
                 ...theme.typography.variants["object heading"].style,
             },
             "titleAndDescriptionWrapper": {},
-        }),
-    );
+        }));
 
     return { CheckListElement };
 })();

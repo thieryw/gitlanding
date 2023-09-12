@@ -2,7 +2,7 @@ import { memo } from "react";
 import { validateEmail } from "../tools/validateEmail";
 import { validatePhoneNumber } from "../tools/validatePhoneNumber";
 import Link from "@mui/material/Link";
-import { makeStyles, Text } from "../theme";
+import { tss, Text } from "../theme";
 
 export type GlFooterInfoProps = {
     className?: string;
@@ -38,7 +38,7 @@ export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlFooterInfo } })(theme => ({
+const useStyles = tss.withName({ GlFooterInfo }).create(({ theme }) => ({
     "root": {
         "display": "flex",
         "flexDirection": "column",

@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { makeStyles, Text } from "./theme";
+import { tss, Text } from "./theme";
 import { Icon } from "./theme";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useConstCallback } from "powerhooks/useConstCallback";
@@ -102,12 +102,10 @@ export const GlSlider = memo((props: GlSliderProps) => {
         setIsPlaying(false);
     });
 
-    const { classes, cx } = useStyles(
-        {
-            width,
-        },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        width,
+        "classesOverrides": props.classes,
+    });
 
     return (
         <section ref={ref} className={cx(classes.root, className)}>
@@ -146,48 +144,54 @@ export const GlSlider = memo((props: GlSliderProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    width: number | string | undefined;
-}>({ "name": { GlSlider } })((theme, { width }) => ({
-    "root": {
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-        ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
-    },
-    "heading": {
-        "marginBottom": theme.spacing(7),
-        "textAlign": "center",
-    },
-    "sliderWrapper": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "width": width ?? "100%",
-    },
-    "viewport": {
-        "overflow": "hidden",
-        "userSelect": "none",
-    },
-    "container": {
-        "display": "flex",
-        "alignItems": "center",
-    },
-
-    "arrows": {
-        "transition": "transform 300ms",
-        ":hover": {
-            "transform": "scale(1.2)",
+const useStyles = tss
+    .withName({ GlSlider })
+    .withParams<{
+        width: number | string | undefined;
+    }>()
+    .create(({ theme, width }) => ({
+        "root": {
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+            ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
         },
-    },
-    "slide": {
-        "minWidth": "100%",
-        "display": "flex",
-        "justifyContent": "center",
-        "overflow": "hidden",
-        "padding": theme.spacing({
-            "rightLeft": 4,
-            "topBottom": 4,
-        }),
-    },
-    "prev": {},
-    "next": {},
-}));
+        "heading": {
+            "marginBottom": theme.spacing(7),
+            "textAlign": "center",
+        },
+        "sliderWrapper": {
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "width": width ?? "100%",
+        },
+        "viewport": {
+            "overflow": "hidden",
+            "userSelect": "none",
+        },
+        "container": {
+            "display": "flex",
+            "alignItems": "center",
+        },
+
+        "arrows": {
+            "transition": "transform 300ms",
+            ":hover": {
+                "transform": "scale(1.2)",
+            },
+        },
+        "slide": {
+            "minWidth": "100%",
+            "display": "flex",
+            "justifyContent": "center",
+            "overflow": "hidden",
+            "padding": theme.spacing({
+                "rightLeft": 4,
+                "topBottom": 4,
+            }),
+        },
+        "prev": {},
+        "next": {},
+    }));

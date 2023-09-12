@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import { GlButton } from "../utils/GlButton";
-import { makeStyles, Text } from "../theme";
+import { tss, Text } from "../theme";
 import { GlLogo } from "../utils/GlLogo";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
@@ -30,7 +30,9 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         timeIntervalBetweenNumbersMs,
     } = props;
 
-    const { classes, cx, theme } = useStyles(undefined, { props });
+    const { classes, cx, theme } = useStyles({
+        "classesOverrides": props.classes,
+    });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
@@ -78,7 +80,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlMetricCard } })(theme => ({
+const useStyles = tss.withName({ GlMetricCard }).create(({ theme }) => ({
     "root": {
         "display": "flex",
         "justifyContent": "space-between",
@@ -174,7 +176,7 @@ const { Number } = (() => {
         );
     });
 
-    const useStyles = makeStyles({ "name": { Number } })(theme => ({
+    const useStyles = tss.withName({ Number }).create(({ theme }) => ({
         "root": {
             "fontSize": "86px",
             ...(() => {

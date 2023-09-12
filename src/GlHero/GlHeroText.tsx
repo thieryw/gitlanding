@@ -1,7 +1,7 @@
 import { Text } from "../theme";
 import { memo } from "react";
 import type { ReactNode } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { breakpointsValues } from "../theme";
 
 export type GlHeroTextProps = {
@@ -25,7 +25,7 @@ export const GlHeroText = memo((props: GlHeroTextProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlHeroText } })(theme => ({
+const useStyles = tss.withName({ GlHeroText }).create(({ theme }) => ({
     "root": {
         "fontWeight": 700,
         ...(() => {

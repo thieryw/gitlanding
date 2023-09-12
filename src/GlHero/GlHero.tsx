@@ -4,7 +4,7 @@ import { Text } from "../theme";
 import { GlImage } from "../utils/GlImage";
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
@@ -136,13 +136,11 @@ export const GlHero = memo((props: GlHeroProps) => {
         });
     });
 
-    const { classes, cx } = useStyles(
-        {
-            "hasOnlyText": illustration === undefined,
-            isImageLoaded,
-        },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        "hasOnlyText": illustration === undefined,
+        isImageLoaded,
+        "classesOverrides": props.classes,
+    });
 
     const { classes: illustrationClasses } = useIllustrationStyles({
         illustrationZoomFactor,
@@ -267,91 +265,97 @@ export const GlHero = memo((props: GlHeroProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    hasOnlyText: boolean;
-    isImageLoaded: boolean;
-}>({ "name": { GlHero } })((theme, { hasOnlyText, isImageLoaded }) => ({
-    "root": {
-        "width": "100%",
-        "paddingBottom": theme.spacing(7),
-        ...theme.spacing.rightLeft("padding", `${theme.paddingRightLeft}px`),
-    },
-    "arrow": {
-        "cursor": "pointer",
-    },
-    "textAndImageWrapper": {
-        "margin": theme.spacing({
-            "topBottom": 5,
-            "rightLeft": 0,
-        }),
-        "minHeight": (window.innerHeight / 100) * 70,
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        ...(theme.windowInnerWidth < breakpointsValues.md
-            ? {
-                  "flexDirection": "column",
-                  "alignItems": "left",
-              }
-            : {}),
-    },
+const useStyles = tss
+    .withName({ GlHero })
+    .withParams<{
+        hasOnlyText: boolean;
+        isImageLoaded: boolean;
+    }>()
+    .create(({ theme, hasOnlyText, isImageLoaded }) => ({
+        "root": {
+            "width": "100%",
+            "paddingBottom": theme.spacing(7),
+            ...theme.spacing.rightLeft(
+                "padding",
+                `${theme.paddingRightLeft}px`,
+            ),
+        },
+        "arrow": {
+            "cursor": "pointer",
+        },
+        "textAndImageWrapper": {
+            "margin": theme.spacing({
+                "topBottom": 5,
+                "rightLeft": 0,
+            }),
+            "minHeight": (window.innerHeight / 100) * 70,
+            "display": "flex",
+            "alignItems": "center",
+            "justifyContent": "center",
+            ...(theme.windowInnerWidth < breakpointsValues.md
+                ? {
+                      "flexDirection": "column",
+                      "alignItems": "left",
+                  }
+                : {}),
+        },
 
-    "title": {
-        "marginBottom": theme.spacing(4),
-    },
-    "subtitle": {
-        "marginTop": theme.spacing(4),
-        "maxWidth": 650,
-        "color": theme.colors.useCases.typography.textSecondary,
-        ...(() => {
-            if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
-                return undefined;
-            }
-            return theme.typography.variants["body 1"].style;
-        })(),
-    },
+        "title": {
+            "marginBottom": theme.spacing(4),
+        },
+        "subtitle": {
+            "marginTop": theme.spacing(4),
+            "maxWidth": 650,
+            "color": theme.colors.useCases.typography.textSecondary,
+            ...(() => {
+                if (theme.windowInnerWidth >= breakpointsValues["lg+"]) {
+                    return undefined;
+                }
+                return theme.typography.variants["body 1"].style;
+            })(),
+        },
 
-    "textWrapper": {
-        "textAlign":
-            hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
-                ? "center"
-                : undefined,
-        "alignItems": hasOnlyText ? "center" : undefined,
-        "flexDirection": "column",
-        ...(() => {
-            if (theme.windowInnerWidth < breakpointsValues.md) {
-                return undefined;
-            }
-            return {
-                "maxWidth": 800,
-            };
-        })(),
-        "display": "flex",
-        ...(() => {
-            const value = theme.spacing(7);
-            if (theme.windowInnerWidth >= breakpointsValues.md) {
+        "textWrapper": {
+            "textAlign":
+                hasOnlyText && theme.windowInnerWidth >= breakpointsValues.sm
+                    ? "center"
+                    : undefined,
+            "alignItems": hasOnlyText ? "center" : undefined,
+            "flexDirection": "column",
+            ...(() => {
+                if (theme.windowInnerWidth < breakpointsValues.md) {
+                    return undefined;
+                }
                 return {
-                    "marginRight": hasOnlyText ? undefined : value,
+                    "maxWidth": 800,
                 };
-            }
+            })(),
+            "display": "flex",
+            ...(() => {
+                const value = theme.spacing(7);
+                if (theme.windowInnerWidth >= breakpointsValues.md) {
+                    return {
+                        "marginRight": hasOnlyText ? undefined : value,
+                    };
+                }
 
-            return {
-                "marginBottom": value,
-            };
-        })(),
-    },
+                return {
+                    "marginBottom": value,
+                };
+            })(),
+        },
 
-    "illustrationWrapper": {},
+        "illustrationWrapper": {},
 
-    "illustration": {
-        "display": "inline-block", //So that text align center applies
-        "width": "100%",
-    },
+        "illustration": {
+            "display": "inline-block", //So that text align center applies
+            "width": "100%",
+        },
 
-    "linkToSectionBelowWrapper": {
-        "display": "flex",
-        "justifyContent": "center",
-        "transition": "opacity 300ms",
-        "opacity": isImageLoaded ? 1 : 0,
-    },
-}));
+        "linkToSectionBelowWrapper": {
+            "display": "flex",
+            "justifyContent": "center",
+            "transition": "opacity 300ms",
+            "opacity": isImageLoaded ? 1 : 0,
+        },
+    }));

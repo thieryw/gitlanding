@@ -1,5 +1,5 @@
 import { memo, useState, useEffect } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import SyntaxHighLighter from "react-syntax-highlighter/dist/esm/prism-async-light";
 import { useStateRef } from "powerhooks/useStateRef";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
@@ -68,17 +68,15 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
         setIsMouseDown(true);
     });
 
-    const { classes, cx, theme } = useStyles(
-        {
-            hasShadow,
-            backgroundColor,
-            isCopiedMessageShowing,
-            isMouseDown,
-            hasBorderRadius,
-            copiedTextWidth,
-        },
-        { props },
-    );
+    const { classes, cx, theme } = useStyles({
+        hasShadow,
+        backgroundColor,
+        isCopiedMessageShowing,
+        isMouseDown,
+        hasBorderRadius,
+        copiedTextWidth,
+        "classesOverrides": props.classes,
+    });
     const [lightTheme, setLightTheme] = useState<undefined | Theme>();
     const [darkTheme, setDarkTheme] = useState<undefined | Theme>();
 
@@ -143,62 +141,65 @@ export const GlCodeBlock = memo((props: GlCodeBlockProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    hasShadow: boolean;
-    backgroundColor: string | undefined;
-    isCopiedMessageShowing: boolean;
-    isMouseDown: boolean;
-    hasBorderRadius: boolean;
-    copiedTextWidth: number;
-}>()(
-    (
-        theme,
-        {
+const useStyles = tss
+    .withName({ GlCodeBlock })
+    .withParams<{
+        hasShadow: boolean;
+        backgroundColor: string | undefined;
+        isCopiedMessageShowing: boolean;
+        isMouseDown: boolean;
+        hasBorderRadius: boolean;
+        copiedTextWidth: number;
+    }>()
+    .create(
+        ({
+            theme,
             hasShadow,
             backgroundColor,
             isCopiedMessageShowing,
             isMouseDown,
             hasBorderRadius,
             copiedTextWidth,
-        },
-    ) => ({
-        "root": {
-            "display": "flex",
-            "opacity": backgroundColor === undefined ? 0 : 1,
-            backgroundColor,
-            "borderRadius": hasBorderRadius ? theme.borderRadius : undefined,
-            "boxShadow": hasShadow ? theme.customShadow : undefined,
-            "overflow": "hidden",
-            "justifyContent": "space-between",
-        },
-        "copyButton": {
-            "fill": isMouseDown
-                ? theme.colors.palette.focus.main
-                : theme.colors.useCases.typography.textSecondary,
-            "cursor": "pointer",
-            ...(() => {
-                const value = theme.spacing(2);
-                return {
-                    "marginTop": value,
-                    "marginRight": value,
-                };
-            })(),
-        },
-        "copyWrapper": {
-            "position": "relative",
-        },
-        "copiedText": {
-            "transition": "opacity 200ms",
-            "opacity": isCopiedMessageShowing ? 1 : 0,
-            "position": "absolute",
-            "backgroundColor": theme.colors.palette.focus.main,
-            "padding": theme.spacing(2),
-            "borderRadius": "30px",
-            "whiteSpace": "nowrap",
-            "top": theme.spacing(1),
-            "left": -(copiedTextWidth + theme.spacing(2)),
-            "color": theme.colors.palette.light.main,
-            "pointerEvents": "none",
-        },
-    }),
-);
+        }) => ({
+            "root": {
+                "display": "flex",
+                "opacity": backgroundColor === undefined ? 0 : 1,
+                backgroundColor,
+                "borderRadius": hasBorderRadius
+                    ? theme.borderRadius
+                    : undefined,
+                "boxShadow": hasShadow ? theme.customShadow : undefined,
+                "overflow": "hidden",
+                "justifyContent": "space-between",
+            },
+            "copyButton": {
+                "fill": isMouseDown
+                    ? theme.colors.palette.focus.main
+                    : theme.colors.useCases.typography.textSecondary,
+                "cursor": "pointer",
+                ...(() => {
+                    const value = theme.spacing(2);
+                    return {
+                        "marginTop": value,
+                        "marginRight": value,
+                    };
+                })(),
+            },
+            "copyWrapper": {
+                "position": "relative",
+            },
+            "copiedText": {
+                "transition": "opacity 200ms",
+                "opacity": isCopiedMessageShowing ? 1 : 0,
+                "position": "absolute",
+                "backgroundColor": theme.colors.palette.focus.main,
+                "padding": theme.spacing(2),
+                "borderRadius": "30px",
+                "whiteSpace": "nowrap",
+                "top": theme.spacing(1),
+                "left": -(copiedTextWidth + theme.spacing(2)),
+                "color": theme.colors.palette.light.main,
+                "pointerEvents": "none",
+            },
+        }),
+    );

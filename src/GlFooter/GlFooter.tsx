@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { GlLogo } from "../utils/GlLogo";
 import Link from "@mui/material/Link";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { GlFooterInfo } from "./GlFooterInfo";
 import { Markdown } from "../tools/Markdown";
 
@@ -32,7 +32,9 @@ export const GlFooter = memo((props: GlFooterProps) => {
         links,
     } = props;
 
-    const { classes, cx } = useStyles(undefined, { props });
+    const { classes, cx } = useStyles({
+        "classesOverrides": props.classes,
+    });
 
     return (
         <footer className={cx(classes.root, className)}>
@@ -91,7 +93,7 @@ export const GlFooter = memo((props: GlFooterProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlFooter } })(theme => ({
+const useStyles = tss.withName({ GlFooter }).create(({ theme }) => ({
     "root": {
         "display": "flex",
         "flexDirection": "column",

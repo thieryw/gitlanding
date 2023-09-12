@@ -1,5 +1,5 @@
 import { memo, useMemo, useReducer } from "react";
-import { Text, breakpointsValues, makeStyles, Button } from "./theme";
+import { tss, Text, breakpointsValues, Button } from "./theme";
 import { useDomRect } from "powerhooks/useDomRect";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
@@ -85,14 +85,12 @@ export const GlYoutubeVideoSection = memo(
             [],
         );
 
-        const { classes, cx } = useStyles(
-            {
-                width,
-                height,
-                "currentWidth": iframeWidth,
-            },
-            { props },
-        );
+        const { classes, cx } = useStyles({
+            width,
+            height,
+            "currentWidth": iframeWidth,
+            "classesOverrides": props.classes,
+        });
 
         return (
             <section ref={ref} className={cx(classes.root, className)}>
@@ -129,12 +127,14 @@ export const GlYoutubeVideoSection = memo(
     },
 );
 
-const useStyles = makeStyles<{
-    width: string | number | undefined;
-    height: string | number | undefined;
-    currentWidth: number;
-}>({ "name": { GlYoutubeVideoSection } })(
-    (theme, { height, width, currentWidth }) => ({
+const useStyles = tss
+    .withName({ GlYoutubeVideoSection })
+    .withParams<{
+        width: string | number | undefined;
+        height: string | number | undefined;
+        currentWidth: number;
+    }>()
+    .create(({ theme, height, width, currentWidth }) => ({
         "root": {
             "display": "grid",
             "gridTemplateColumns": "1fr",
@@ -175,5 +175,4 @@ const useStyles = makeStyles<{
                 })(),
         },
         "button": {},
-    }),
-);
+    }));

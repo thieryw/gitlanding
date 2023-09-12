@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, forwardRef } from "react";
 import type { ForwardedRef } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { Source } from "../tools/Source";
 
 export type GlImageProps = {
@@ -55,11 +55,12 @@ export const GlImage = memo(
     }),
 );
 
-const useStyles = makeStyles<{ hasShadow: boolean; hasBorderRadius: boolean }>({
-    "name": { GlImage },
-})((theme, { hasShadow, hasBorderRadius }) => ({
-    "root": {
-        "boxShadow": !hasShadow ? undefined : theme.customShadow,
-        "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
-    },
-}));
+const useStyles = tss
+    .withParams<{ hasShadow: boolean; hasBorderRadius: boolean }>()
+    .withName({ GlImage })
+    .create(({ theme, hasShadow, hasBorderRadius }) => ({
+        "root": {
+            "boxShadow": !hasShadow ? undefined : theme.customShadow,
+            "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
+        },
+    }));

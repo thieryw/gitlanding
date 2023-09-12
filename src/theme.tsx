@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 
 import type { ThemeProviderProps } from "onyxia-ui";
-import { createMakeStyles } from "tss-react/compat";
+import { createTss, createMakeStyles } from "tss-react";
 import { createIcon } from "onyxia-ui/Icon";
 import { createIconButton } from "onyxia-ui/IconButton";
 import { createButton } from "onyxia-ui/Button";
@@ -39,6 +39,14 @@ export function useTheme() {
     };
 }
 
+export const { tss } = createTss({
+    "useContext": function useContext() {
+        const theme = useTheme();
+        return { theme };
+    },
+});
+
+/** @deprecated use tss instead */
 export const { makeStyles } = createMakeStyles({ useTheme });
 
 export const { Text } = createText({ useTheme });
@@ -66,42 +74,44 @@ export const splashScreen: ThemeProviderProps["splashScreen"] = {
     "minimumDisplayDuration": 0,
 };
 
-export const useIllustrationStyles = makeStyles<{
-    aspectRatio: number;
-    illustrationZoomFactor: number | undefined;
-    type: IllustrationProps["type"] | undefined;
-}>()((theme, { aspectRatio, illustrationZoomFactor, type }) => ({
-    "root": {
-        ...(() => {
-            if (type === "custom component" || type === undefined) {
-                return undefined;
-            }
+export const useIllustrationStyles = tss
+    .withParams<{
+        aspectRatio: number;
+        illustrationZoomFactor: number | undefined;
+        type: IllustrationProps["type"] | undefined;
+    }>()
+    .create(({ theme, aspectRatio, illustrationZoomFactor, type }) => ({
+        "root": {
+            ...(() => {
+                if (type === "custom component" || type === undefined) {
+                    return undefined;
+                }
 
-            if (isNaN(aspectRatio)) {
+                if (isNaN(aspectRatio)) {
+                    return {
+                        "opacity": 0,
+                    };
+                }
+
+                const value =
+                    (() => {
+                        if (aspectRatio <= 1) {
+                            return 600 * aspectRatio;
+                        }
+
+                        return 600;
+                    })() * (illustrationZoomFactor ?? 1);
                 return {
-                    "opacity": 0,
+                    "maxWidth": value,
+                    "minWidth":
+                        theme.windowInnerWidth < breakpointsValues.md
+                            ? undefined
+                            : value,
+                    "alignSelf":
+                        theme.windowInnerWidth < breakpointsValues.md
+                            ? "center"
+                            : undefined,
                 };
-            }
-
-            const value =
-                (() => {
-                    if (aspectRatio <= 1) {
-                        return 600 * aspectRatio;
-                    }
-
-                    return 600;
-                })() * (illustrationZoomFactor ?? 1);
-            return {
-                "maxWidth": value,
-                "minWidth":
-                    theme.windowInnerWidth < breakpointsValues.md
-                        ? undefined
-                        : value,
-                "alignSelf":
-                    theme.windowInnerWidth < breakpointsValues.md
-                        ? "center"
-                        : undefined,
-            };
-        })(),
-    },
-}));
+            })(),
+        },
+    }));

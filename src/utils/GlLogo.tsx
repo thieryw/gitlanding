@@ -1,6 +1,6 @@
 import { ReactSVG } from "react-svg";
 import { memo } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 
 type GlLogoProps = {
     logoUrl: string;
@@ -25,20 +25,23 @@ export const GlLogo = memo((props: GlLogoProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    fill: string | undefined;
-    width: number | undefined;
-    height: number | undefined;
-}>({ "name": { GlLogo } })((theme, { fill, height, width }) => ({
-    "root": {
-        width,
-        height,
-    },
-    "svg": {
-        "& svg": {
-            "fill": fill ?? theme.colors.useCases.typography.textPrimary,
-            "width": "100%",
-            "height": "100%",
+const useStyles = tss
+    .withName({ GlLogo })
+    .withParams<{
+        fill: string | undefined;
+        width: number | undefined;
+        height: number | undefined;
+    }>()
+    .create(({ theme, fill, height, width }) => ({
+        "root": {
+            width,
+            height,
         },
-    },
-}));
+        "svg": {
+            "& svg": {
+                "fill": fill ?? theme.colors.useCases.typography.textPrimary,
+                "width": "100%",
+                "height": "100%",
+            },
+        },
+    }));

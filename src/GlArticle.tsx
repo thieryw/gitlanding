@@ -1,6 +1,6 @@
 import { memo, useReducer, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { makeStyles } from "./theme";
+import { tss } from "./theme";
 import { breakpointsValues } from "./theme";
 import { GlButton } from "./utils/GlButton";
 import { motion } from "framer-motion";
@@ -161,16 +161,14 @@ export const GlArticle = memo((props: GlArticleProps) => {
 
     const hasIllustration = illustration !== undefined;
 
-    const { classes, cx } = useStyles(
-        {
-            "illustrationPosition": illustrationPosition ?? "right",
-            hasIllustration,
-            hasArticle,
-            isIllustrationLoaded,
-            aspectRatio,
-        },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        "illustrationPosition": illustrationPosition ?? "right",
+        hasIllustration,
+        hasArticle,
+        isIllustrationLoaded,
+        aspectRatio,
+        "classesOverrides": props.classes,
+    });
 
     const { classes: illustrationClasses } = useIllustrationStyles({
         aspectRatio,
@@ -277,131 +275,132 @@ export const GlArticle = memo((props: GlArticleProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    illustrationPosition: "left" | "right";
-    hasIllustration: boolean;
-    hasArticle: boolean;
-    isIllustrationLoaded: boolean;
-    aspectRatio: number;
-}>({ "name": { GlArticle } })(
-    (
-        theme,
-        {
+const useStyles = tss
+    .withName({ GlArticle })
+    .withParams<{
+        illustrationPosition: "left" | "right";
+        hasIllustration: boolean;
+        hasArticle: boolean;
+        isIllustrationLoaded: boolean;
+        aspectRatio: number;
+    }>()
+    .create(
+        ({
+            theme,
             illustrationPosition,
             hasIllustration,
             hasArticle,
             isIllustrationLoaded,
             aspectRatio,
-        },
-    ) => ({
-        "root": {
-            ...theme.spacing.rightLeft(
-                "padding",
-                `${theme.paddingRightLeft}px`,
-            ),
-            "display": "flex",
-            "alignItems": "center",
-            "justifyContent": "center",
-            "flexDirection": (() => {
-                if (theme.windowInnerWidth < breakpointsValues.md) {
-                    return "column";
-                }
-                switch (illustrationPosition) {
-                    case "left":
-                        return "row-reverse";
-                    case "right":
-                        return "row";
-                }
-            })(),
-            ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
-        },
-        "article": {
-            "display": "flex",
-            "flexDirection": "column",
-            "minWidth": (() => {
-                if (
-                    isNaN(aspectRatio) ||
-                    theme.windowInnerWidth >= breakpointsValues.lg
-                ) {
-                    return 300;
-                }
-                if (theme.windowInnerWidth < breakpointsValues.md) {
-                    return undefined;
-                }
-                return 200;
-            })(),
-            "flex": hasIllustration ? 0.7 : undefined,
-            "marginBottom":
-                theme.windowInnerWidth >= breakpointsValues.md ||
-                !hasIllustration
-                    ? undefined
-                    : theme.spacing(8),
-            ...(() => {
-                const value =
-                    theme.windowInnerWidth >= breakpointsValues.lg
-                        ? theme.spacing(9)
-                        : theme.spacing(5);
-                if (
-                    theme.windowInnerWidth < breakpointsValues.md ||
-                    !hasIllustration
-                ) {
-                    return undefined;
-                }
-                switch (illustrationPosition) {
-                    case "left":
-                        return { "marginRight": value };
-                    case "right":
-                        return { "marginLeft": value };
-                }
-            })(),
-        },
-        "aside": {
-            ...(() => {
-                if (
-                    !hasArticle ||
-                    theme.windowInnerWidth < breakpointsValues.md
-                ) {
-                    return undefined;
-                }
-
-                const value = (() => {
+        }) => ({
+            "root": {
+                ...theme.spacing.rightLeft(
+                    "padding",
+                    `${theme.paddingRightLeft}px`,
+                ),
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "center",
+                "flexDirection": (() => {
+                    if (theme.windowInnerWidth < breakpointsValues.md) {
+                        return "column";
+                    }
+                    switch (illustrationPosition) {
+                        case "left":
+                            return "row-reverse";
+                        case "right":
+                            return "row";
+                    }
+                })(),
+                ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
+            },
+            "article": {
+                "display": "flex",
+                "flexDirection": "column",
+                "minWidth": (() => {
                     if (
                         isNaN(aspectRatio) ||
                         theme.windowInnerWidth >= breakpointsValues.lg
                     ) {
-                        return theme.spacing(10);
+                        return 300;
+                    }
+                    if (theme.windowInnerWidth < breakpointsValues.md) {
+                        return undefined;
+                    }
+                    return 200;
+                })(),
+                "flex": hasIllustration ? 0.7 : undefined,
+                "marginBottom":
+                    theme.windowInnerWidth >= breakpointsValues.md ||
+                    !hasIllustration
+                        ? undefined
+                        : theme.spacing(8),
+                ...(() => {
+                    const value =
+                        theme.windowInnerWidth >= breakpointsValues.lg
+                            ? theme.spacing(9)
+                            : theme.spacing(5);
+                    if (
+                        theme.windowInnerWidth < breakpointsValues.md ||
+                        !hasIllustration
+                    ) {
+                        return undefined;
+                    }
+                    switch (illustrationPosition) {
+                        case "left":
+                            return { "marginRight": value };
+                        case "right":
+                            return { "marginLeft": value };
+                    }
+                })(),
+            },
+            "aside": {
+                ...(() => {
+                    if (
+                        !hasArticle ||
+                        theme.windowInnerWidth < breakpointsValues.md
+                    ) {
+                        return undefined;
                     }
 
-                    return theme.spacing(8);
-                })();
-                switch (illustrationPosition) {
-                    case "left":
-                        return {
-                            "marginRight": value,
-                        };
-                    case "right":
-                        return {
-                            "marginLeft": value,
-                        };
-                }
-            })(),
-        },
-        "body": {
-            "color": theme.colors.useCases.typography.textSecondary,
-        },
-        "button": {
-            "alignSelf": "end",
-            "opacity": isIllustrationLoaded ? 1 : 0,
-        },
-        "image": {
-            "width": "100%",
-            "height": "auto",
-            "objectFit": "cover",
-            "verticalAlign": "middle",
-        },
-        "video": {
-            "width": "100%",
-        },
-        "customComponent": {},
-    }),
-);
+                    const value = (() => {
+                        if (
+                            isNaN(aspectRatio) ||
+                            theme.windowInnerWidth >= breakpointsValues.lg
+                        ) {
+                            return theme.spacing(10);
+                        }
+
+                        return theme.spacing(8);
+                    })();
+                    switch (illustrationPosition) {
+                        case "left":
+                            return {
+                                "marginRight": value,
+                            };
+                        case "right":
+                            return {
+                                "marginLeft": value,
+                            };
+                    }
+                })(),
+            },
+            "body": {
+                "color": theme.colors.useCases.typography.textSecondary,
+            },
+            "button": {
+                "alignSelf": "end",
+                "opacity": isIllustrationLoaded ? 1 : 0,
+            },
+            "image": {
+                "width": "100%",
+                "height": "auto",
+                "objectFit": "cover",
+                "verticalAlign": "middle",
+            },
+            "video": {
+                "width": "100%",
+            },
+            "customComponent": {},
+        }),
+    );

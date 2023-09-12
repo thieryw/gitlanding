@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";
@@ -64,7 +64,10 @@ export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
         [scrollableParent],
     );
 
-    const { classes, cx } = useStyles({ isShown }, { props });
+    const { classes, cx } = useStyles({
+        isShown,
+        "classesOverrides": props.classes,
+    });
 
     return (
         <div
@@ -77,8 +80,10 @@ export const GlLinkToTop = memo((props: GlLinkToTopProps) => {
     );
 });
 
-const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
-    (theme, { isShown }) => ({
+const useStyles = tss
+    .withParams<{ isShown: boolean }>()
+    .withName({ GlLinkToTop })
+    .create(({ theme, isShown }) => ({
         "root": {
             "transition": "opacity, 500ms",
             "zIndex": 1,
@@ -97,5 +102,4 @@ const useStyles = makeStyles<{ isShown: boolean }>({ "name": { GlLinkToTop } })(
             "cursor": "pointer",
         },
         "arrowIcon": {},
-    }),
-);
+    }));

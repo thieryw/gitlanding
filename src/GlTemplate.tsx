@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import { makeStyles, splashScreen } from "./theme";
+import { tss, splashScreen } from "./theme";
 import { useStateRef } from "powerhooks/useStateRef";
 import type { ReactNode } from "react";
 import { useSplashScreen } from "onyxia-ui/lib/SplashScreen";
@@ -136,19 +136,17 @@ const GlTemplateInner = memo(
             [rootRef.current, headerHeight, headerOptions.isRetracted],
         );
 
-        const { classes, cx } = useStyles(
-            {
-                childrenWrapperWidth,
-                headerHeight,
-                "isHeaderRetracted":
-                    headerOptions.isRetracted === "smart"
-                        ? !isSmartHeaderVisible
-                        : headerOptions.isRetracted,
-                "headerPosition": headerOptions.position,
-                "applyHeaderPadding": applyHeaderPadding ?? false,
-            },
-            { props },
-        );
+        const { classes, cx } = useStyles({
+            childrenWrapperWidth,
+            headerHeight,
+            "isHeaderRetracted":
+                headerOptions.isRetracted === "smart"
+                    ? !isSmartHeaderVisible
+                    : headerOptions.isRetracted,
+            "headerPosition": headerOptions.position,
+            "applyHeaderPadding": applyHeaderPadding ?? false,
+            "classesOverrides": props.classes,
+        });
 
         return (
             <div ref={rootRef} className={cx(classes.root, className)}>
@@ -209,75 +207,77 @@ const { useThemeProvider } = (() => {
     return { useThemeProvider };
 })();
 
-const useStyles = makeStyles<{
-    headerHeight: number;
-    childrenWrapperWidth: number;
-    isHeaderRetracted: boolean;
-    headerPosition: Required<HeaderOptions>["position"];
-    applyHeaderPadding: boolean;
-}>({ "name": { GlTemplate } })(
-    (
-        theme,
-        {
+const useStyles = tss
+    .withName({ GlTemplate })
+    .withParams<{
+        headerHeight: number;
+        childrenWrapperWidth: number;
+        isHeaderRetracted: boolean;
+        headerPosition: Required<HeaderOptions>["position"];
+        applyHeaderPadding: boolean;
+    }>()
+    .create(
+        ({
+            theme,
             headerHeight,
             childrenWrapperWidth,
             isHeaderRetracted,
             headerPosition,
             applyHeaderPadding,
-        },
-    ) => {
-        return {
-            "root": {},
-            "headerWrapper": {
-                "padding": applyHeaderPadding
-                    ? theme.spacing({
-                          "rightLeft": `${theme.paddingRightLeft}px`,
-                          "topBottom": `${theme.spacing(3)}px`,
-                      })
-                    : undefined,
-                ...(() => {
-                    let out: CSSObject = {
-                        "zIndex": 1,
-                    };
-                    if (headerPosition === "sticky") {
-                        out = {
-                            ...out,
-                            "width": childrenWrapperWidth,
-                            "backgroundColor": changeColorOpacity({
-                                "color":
-                                    theme.colors.useCases.surfaces.background,
-                                "opacity": 0.94,
-                            }),
-                            "top": !isHeaderRetracted ? 0 : -headerHeight,
-                            "transition": "top 350ms",
+        }) => {
+            return {
+                "root": {},
+                "headerWrapper": {
+                    "padding": applyHeaderPadding
+                        ? theme.spacing({
+                              "rightLeft": `${theme.paddingRightLeft}px`,
+                              "topBottom": `${theme.spacing(3)}px`,
+                          })
+                        : undefined,
+                    ...(() => {
+                        let out: CSSObject = {
+                            "zIndex": 1,
                         };
-                    }
-                    switch (headerPosition) {
-                        case "sticky":
+                        if (headerPosition === "sticky") {
                             out = {
                                 ...out,
-                                "position": "sticky",
-                                "pointerEvents": isHeaderRetracted
-                                    ? "none"
-                                    : undefined,
+                                "width": childrenWrapperWidth,
+                                "backgroundColor": changeColorOpacity({
+                                    "color":
+                                        theme.colors.useCases.surfaces
+                                            .background,
+                                    "opacity": 0.94,
+                                }),
+                                "top": !isHeaderRetracted ? 0 : -headerHeight,
+                                "transition": "top 350ms",
                             };
-                            break;
-                        case "top of page":
-                            return {};
-                    }
+                        }
+                        switch (headerPosition) {
+                            case "sticky":
+                                out = {
+                                    ...out,
+                                    "position": "sticky",
+                                    "pointerEvents": isHeaderRetracted
+                                        ? "none"
+                                        : undefined,
+                                };
+                                break;
+                            case "top of page":
+                                return {};
+                        }
 
-                    return out;
-                })(),
-            },
-            "footerWrapper": {
-                "marginTop": "auto",
-            },
-            "bodyAndFooterWrapper": {
-                "overflowX": "hidden",
-                "display": "flex",
-                "flexDirection": "column",
-                "minHeight": window.innerHeight - headerHeight,
-            },
-        };
-    },
-);
+                        return out;
+                    })(),
+                },
+                "footerWrapper": {
+                    "marginTop": "auto",
+                },
+                "bodyAndFooterWrapper": {
+                    "overflowX": "hidden",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "minHeight": window.innerHeight - headerHeight,
+                },
+            };
+        },
+    );

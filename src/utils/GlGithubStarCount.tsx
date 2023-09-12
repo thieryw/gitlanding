@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import GithubBtn from "react-github-btn";
 
 export type GlGithubStarCountProps = {
@@ -41,7 +41,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlGithubStarCount } })({
+const useStyles = tss.withName({ GlGithubStarCount }).create({
     "root": {
         "& span": {
             "display": "flex",

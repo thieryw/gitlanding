@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { makeStyles } from "./theme";
+import { tss } from "./theme";
 
 export type GlSectionDividerProps = {
     className?: string;
@@ -17,7 +17,7 @@ export const GlSectionDivider = memo((props: GlSectionDividerProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlSectionDivider } })(theme => ({
+const useStyles = tss.withName({ GlSectionDivider }).create(({ theme }) => ({
     "root": {
         "display": "flex",
         "justifyContent": "center",

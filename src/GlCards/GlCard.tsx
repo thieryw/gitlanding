@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 
 export type GlCardProps = {
     className?: string;
@@ -29,7 +29,7 @@ export const GlCard = memo((props: GlCardProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlCard } })(theme => ({
+const useStyles = tss.withName({ GlCard }).create(({ theme }) => ({
     "root": {
         "borderRadius": 16,
         "transition": "box-shadow 200ms",

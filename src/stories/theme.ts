@@ -1,7 +1,12 @@
 import { createThemeProvider } from "onyxia-ui";
 import { createDefaultColorUseCases } from "onyxia-ui";
+import { createTss } from "tss-react";
 
-const providers = createThemeProvider({
+export const {
+    StoryProvider,
+    ThemeProvider,
+    useTheme: useDefaultTheme,
+} = createThemeProvider({
     "createColorUseCases": params => {
         return {
             ...createDefaultColorUseCases(params),
@@ -10,10 +15,8 @@ const providers = createThemeProvider({
     },
 });
 
-export const { StoryProvider, ThemeProvider } = providers;
-
 export function useTheme() {
-    const theme = providers.useTheme();
+    const theme = useDefaultTheme();
 
     return {
         ...theme,
@@ -23,3 +26,10 @@ export function useTheme() {
             : "rgb(0 0 0 / 10%) 0 1px 3px 0",
     };
 }
+
+export const { tss } = createTss({
+    "useContext": function useContext() {
+        const theme = useTheme();
+        return { theme };
+    },
+});

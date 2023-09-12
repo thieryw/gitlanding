@@ -1,5 +1,5 @@
 import { memo, useState } from "react";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { symToStr } from "tsafe/symToStr";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useDomRect } from "powerhooks/useDomRect";
@@ -46,10 +46,12 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
         domRect: { width },
     } = useDomRect();
 
-    const { classes, cx } = useStyles(
-        { isUnderlined, width, isActive },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        isUnderlined,
+        width,
+        isActive,
+        "classesOverrides": props.classes,
+    });
 
     return (
         <div ref={ref} className={cx(classes.root, className)}>
@@ -69,14 +71,14 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    isUnderlined: boolean;
-    isActive: boolean;
-    width: number;
-}>({
-    "name": `${symToStr({ GlHeaderLink })}`,
-})((theme, { isUnderlined, isActive, width }) => {
-    return {
+const useStyles = tss
+    .withName(`${symToStr({ GlHeaderLink })}`)
+    .withParams<{
+        isUnderlined: boolean;
+        isActive: boolean;
+        width: number;
+    }>()
+    .create(({ theme, isUnderlined, isActive, width }) => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -100,5 +102,4 @@ const useStyles = makeStyles<{
                 : theme.colors.useCases.typography.textPrimary,
             "transition": "width 200ms, background-color 200ms",
         },
-    };
-});
+    }));

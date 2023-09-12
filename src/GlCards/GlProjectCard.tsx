@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useEffect, useState } from "react";
 import { GlButton } from "../utils/GlButton";
-import { makeStyles, Text } from "../theme";
+import { tss, Text } from "../theme";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
@@ -50,16 +50,14 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         };
     }, [projectImageUrl]);
 
-    const { classes, cx } = useStyles(
-        {
-            badgeColor,
-            badgeBackgroundColor,
-            projectImageUrl,
-            headerWidth,
-            imgAspectRatio,
-        },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        badgeColor,
+        badgeBackgroundColor,
+        projectImageUrl,
+        headerWidth,
+        imgAspectRatio,
+        "classesOverrides": props.classes,
+    });
 
     return (
         <GlCard link={link} className={cx(classes.root, className)}>
@@ -95,87 +93,88 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
     );
 });
 
-const useStyles = makeStyles<
-    Pick<
-        GlProjectCardProps,
-        "badgeBackgroundColor" | "badgeColor" | "projectImageUrl"
-    > & {
-        headerWidth: number;
-        imgAspectRatio: number | undefined;
-    }
->()(
-    (
-        theme,
-        {
+const useStyles = tss
+    .withName({ GlProjectCard })
+    .withParams<
+        Pick<
+            GlProjectCardProps,
+            "badgeBackgroundColor" | "badgeColor" | "projectImageUrl"
+        > & {
+            headerWidth: number;
+            imgAspectRatio: number | undefined;
+        }
+    >()
+    .create(
+        ({
+            theme,
             badgeBackgroundColor,
             badgeColor,
             projectImageUrl,
             headerWidth,
             imgAspectRatio,
-        },
-    ) => ({
-        "root": {
-            "transition": "opacity 300ms",
-            "opacity":
-                headerWidth === 0 || imgAspectRatio === undefined ? 0 : 1,
-            "display": "flex",
-            "flexDirection": "column",
-            "overflow": "hidden",
-            "margin": (() => {
-                if (theme.windowInnerWidth >= breakpointsValues.lg) {
+        }) => ({
+            "root": {
+                "transition": "opacity 300ms",
+                "opacity":
+                    headerWidth === 0 || imgAspectRatio === undefined ? 0 : 1,
+                "display": "flex",
+                "flexDirection": "column",
+                "overflow": "hidden",
+                "margin": (() => {
+                    if (theme.windowInnerWidth >= breakpointsValues.lg) {
+                        return undefined;
+                    }
+
+                    return theme.spacing(1);
+                })(),
+            },
+
+            "footer": {
+                "flex": 1,
+                "backgroundColor": theme.isDarkModeEnabled
+                    ? theme.colors.palette.dark.greyVariant1
+                    : theme.colors.palette.light.light,
+                "padding": [4, 5, 4, 5]
+                    .map(spacing => `${theme.spacing(spacing)}px`)
+                    .join(" "),
+            },
+
+            "footerTitle": {
+                "marginBottom": theme.spacing(1),
+            },
+
+            "footerSubtitle": {
+                "marginBottom": theme.spacing(1),
+            },
+
+            "header": {
+                "width": "100%",
+                "margin": 0,
+                "background": `url("${projectImageUrl}")`,
+                "minHeight":
+                    imgAspectRatio === undefined
+                        ? undefined
+                        : headerWidth * imgAspectRatio,
+                "backgroundSize": "cover",
+                "backgroundPosition": "center",
+                "display": "flex",
+                "justifyContent": "flex-end",
+                "alignItems": "flex-start",
+                "padding": theme.spacing(3),
+            },
+
+            "button": {
+                "marinLeft": theme.spacing(7),
+                "border": "none",
+                "backgroundColor": badgeBackgroundColor ?? undefined,
+                "color": (() => {
+                    if (badgeColor !== undefined) {
+                        return `${badgeColor} !important`;
+                    }
+
                     return undefined;
-                }
-
-                return theme.spacing(1);
-            })(),
-        },
-
-        "footer": {
-            "flex": 1,
-            "backgroundColor": theme.isDarkModeEnabled
-                ? theme.colors.palette.dark.greyVariant1
-                : theme.colors.palette.light.light,
-            "padding": [4, 5, 4, 5]
-                .map(spacing => `${theme.spacing(spacing)}px`)
-                .join(" "),
-        },
-
-        "footerTitle": {
-            "marginBottom": theme.spacing(1),
-        },
-
-        "footerSubtitle": {
-            "marginBottom": theme.spacing(1),
-        },
-
-        "header": {
-            "width": "100%",
-            "margin": 0,
-            "background": `url("${projectImageUrl}")`,
-            "minHeight":
-                imgAspectRatio === undefined
-                    ? undefined
-                    : headerWidth * imgAspectRatio,
-            "backgroundSize": "cover",
-            "backgroundPosition": "center",
-            "display": "flex",
-            "justifyContent": "flex-end",
-            "alignItems": "flex-start",
-            "padding": theme.spacing(3),
-        },
-
-        "button": {
-            "marinLeft": theme.spacing(7),
-            "border": "none",
-            "backgroundColor": badgeBackgroundColor ?? undefined,
-            "color": (() => {
-                if (badgeColor !== undefined) {
-                    return `${badgeColor} !important`;
-                }
-
-                return undefined;
-            })(),
-        },
-        "footerText": {},
-    }),
-);
+                })(),
+            },
+            "footerText": {},
+        }),
+    );

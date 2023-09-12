@@ -1,7 +1,7 @@
 import { memo } from "react";
 import type { GlHeaderLinkProps } from "./GlHeaderLink";
 import { GlHeaderLink } from "./GlHeaderLink";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlHeaderLinksProps =
@@ -28,14 +28,12 @@ export const GlHeaderLinks = memo((props: GlHeaderLinksProps) => {
         ref: contentWrapperRef,
         domRect: { height: contentWrapperHeight },
     } = useDomRect();
-    const { classes, cx } = useStyles(
-        {
-            type,
-            contentWrapperHeight,
-            "isUnfolded": type === "largeScreen" ? undefined : props.isUnfolded,
-        },
-        { props },
-    );
+    const { classes, cx } = useStyles({
+        type,
+        contentWrapperHeight,
+        "isUnfolded": type === "largeScreen" ? undefined : props.isUnfolded,
+        "classesOverrides": props.classes,
+    });
 
     return (
         <div className={cx(className, classes.root)}>
@@ -56,89 +54,92 @@ export const GlHeaderLinks = memo((props: GlHeaderLinksProps) => {
     );
 });
 
-const useStyles = makeStyles<
-    Pick<GlHeaderLinksProps, "type"> & {
-        contentWrapperHeight: number;
-        isUnfolded: boolean | undefined;
-    }
->()((theme, { type, contentWrapperHeight, isUnfolded }) => ({
-    "root": {
-        ...(() => {
-            switch (type) {
-                case "largeScreen":
-                    return {};
-                case "smallScreen":
-                    return {
-                        "overflow": "hidden",
-                        "transition": "height 300ms",
-                        "height": isUnfolded ? contentWrapperHeight : 0,
-                        "backgroundColor":
-                            theme.colors.useCases.surfaces.background,
-                        "display": "flex",
-                        "alignItems": "center",
-                        "opacity": "0.94",
-                    };
-            }
-        })(),
-    },
-    "overline": {
-        "position": "absolute",
-        "height": 1,
-        "top": 0,
-        "width": "100%",
-        "transition": "background-color 300ms",
-        "backgroundColor": isUnfolded
-            ? theme.colors.useCases.typography.textSecondary
-            : undefined,
-    },
-    "contentWrapper": {
-        "display": "flex",
-        "justifyContent": "start",
-        ...(() => {
-            switch (type) {
-                case "largeScreen":
-                    return {
-                        "flexDirection": "row",
-                    };
-                case "smallScreen":
-                    return {
-                        "alignItems": "flex-start",
-                        "flexDirection": "column",
-                        "padding": theme.spacing({
-                            "rightLeft": `${theme.paddingRightLeft}px`,
-                            "topBottom": `${theme.spacing(3)}px`,
-                        }),
-                    };
-            }
-        })(),
-    },
-    "linkRoot": {
-        ...(() => {
-            switch (type) {
-                case "largeScreen":
-                    return {};
-                case "smallScreen":
-                    return {
-                        "alignItems": "flex-start",
-                        "paddingRight": theme.spacing(3),
-                        ...theme.spacing.topBottom(
-                            "margin",
-                            `${theme.spacing(2)}px`,
-                        ),
-                    };
-            }
-        })(),
-    },
-    "link": {
-        ...(() => {
-            switch (type) {
-                case "largeScreen":
-                    return {};
-                case "smallScreen":
-                    return {
-                        "paddingLeft": 0,
-                    };
-            }
-        })(),
-    },
-}));
+const useStyles = tss
+    .withName({ GlHeaderLinks })
+    .withParams<
+        Pick<GlHeaderLinksProps, "type"> & {
+            contentWrapperHeight: number;
+            isUnfolded: boolean | undefined;
+        }
+    >()
+    .create(({ theme, type, contentWrapperHeight, isUnfolded }) => ({
+        "root": {
+            ...(() => {
+                switch (type) {
+                    case "largeScreen":
+                        return {};
+                    case "smallScreen":
+                        return {
+                            "overflow": "hidden",
+                            "transition": "height 300ms",
+                            "height": isUnfolded ? contentWrapperHeight : 0,
+                            "backgroundColor":
+                                theme.colors.useCases.surfaces.background,
+                            "display": "flex",
+                            "alignItems": "center",
+                            "opacity": "0.94",
+                        };
+                }
+            })(),
+        },
+        "overline": {
+            "position": "absolute",
+            "height": 1,
+            "top": 0,
+            "width": "100%",
+            "transition": "background-color 300ms",
+            "backgroundColor": isUnfolded
+                ? theme.colors.useCases.typography.textSecondary
+                : undefined,
+        },
+        "contentWrapper": {
+            "display": "flex",
+            "justifyContent": "start",
+            ...(() => {
+                switch (type) {
+                    case "largeScreen":
+                        return {
+                            "flexDirection": "row",
+                        };
+                    case "smallScreen":
+                        return {
+                            "alignItems": "flex-start",
+                            "flexDirection": "column",
+                            "padding": theme.spacing({
+                                "rightLeft": `${theme.paddingRightLeft}px`,
+                                "topBottom": `${theme.spacing(3)}px`,
+                            }),
+                        };
+                }
+            })(),
+        },
+        "linkRoot": {
+            ...(() => {
+                switch (type) {
+                    case "largeScreen":
+                        return {};
+                    case "smallScreen":
+                        return {
+                            "alignItems": "flex-start",
+                            "paddingRight": theme.spacing(3),
+                            ...theme.spacing.topBottom(
+                                "margin",
+                                `${theme.spacing(2)}px`,
+                            ),
+                        };
+                }
+            })(),
+        },
+        "link": {
+            ...(() => {
+                switch (type) {
+                    case "largeScreen":
+                        return {};
+                    case "smallScreen":
+                        return {
+                            "paddingLeft": 0,
+                        };
+                }
+            })(),
+        },
+    }));

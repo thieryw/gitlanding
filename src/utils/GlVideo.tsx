@@ -1,7 +1,7 @@
 import { memo, forwardRef, useEffect, useState, useId } from "react";
 import type { ForwardedRef } from "react";
 import { Source } from "../tools/Source";
-import { makeStyles } from "../theme";
+import { tss } from "../theme";
 import { useIntersectionObserver } from "../tools/useIntersectionObserver";
 import { useMergeRefs } from "powerhooks/useMergeRefs";
 
@@ -116,11 +116,12 @@ export const GlVideo = memo(
     ),
 );
 
-const useStyles = makeStyles<{ hasShadow: boolean; hasBorderRadius: boolean }>({
-    "name": { GlVideo },
-})((theme, { hasShadow, hasBorderRadius }) => ({
-    "root": {
-        "boxShadow": !hasShadow ? undefined : theme.customShadow,
-        "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
-    },
-}));
+const useStyles = tss
+    .withParams<{ hasShadow: boolean; hasBorderRadius: boolean }>()
+    .withName({ GlVideo })
+    .create(({ theme, hasShadow, hasBorderRadius }) => ({
+        "root": {
+            "boxShadow": !hasShadow ? undefined : theme.customShadow,
+            "borderRadius": !hasBorderRadius ? undefined : theme.borderRadius,
+        },
+    }));

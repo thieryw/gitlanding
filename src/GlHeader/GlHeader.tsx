@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
-import { makeStyles, breakpointsValues, Text } from "../theme";
+import { tss, breakpointsValues, Text } from "../theme";
 import { GlHeaderLinks } from "./GlHeaderLinks";
 import { GlDarkModeSwitch } from "../utils/GlDarkModeSwitch";
 import { GlGithubStarCount } from "../utils/GlGithubStarCount";
@@ -152,15 +152,12 @@ export const GlHeader = memo((props: GlHeaderProps) => {
         ],
     );
 
-    const { theme, classes, cx } = useStyles(
-        {
-            isSmallDevice,
-            "customItemStartSmallBehavior":
-                getCustomItemBehavior(customItemStart),
-            "customItemEndSmallBehavior": getCustomItemBehavior(customItemEnd),
-        },
-        { props },
-    );
+    const { theme, classes, cx } = useStyles({
+        isSmallDevice,
+        "customItemStartSmallBehavior": getCustomItemBehavior(customItemStart),
+        "customItemEndSmallBehavior": getCustomItemBehavior(customItemEnd),
+        "classesOverrides": props.classes,
+    });
 
     useEffect(() => {
         if (customBreakpoint !== undefined) {
@@ -339,128 +336,129 @@ export const GlHeader = memo((props: GlHeaderProps) => {
     );
 });
 
-const useStyles = makeStyles<{
-    isSmallDevice: boolean | undefined;
-    customItemStartSmallBehavior: Behavior;
-    customItemEndSmallBehavior: Behavior;
-}>({
-    "name": { GlHeader },
-})(
-    (
-        theme,
-        {
+const useStyles = tss
+    .withName({ GlHeader })
+    .withParams<{
+        isSmallDevice: boolean | undefined;
+        customItemStartSmallBehavior: Behavior;
+        customItemEndSmallBehavior: Behavior;
+    }>()
+    .create(
+        ({
+            theme,
             isSmallDevice,
             customItemEndSmallBehavior,
             customItemStartSmallBehavior,
+        }) => {
+            function getSmallDeviceCustomItemDisplay(behavior: Behavior) {
+                if (isSmallDevice && behavior === "wrap") {
+                    return undefined;
+                }
+                return "none";
+            }
+
+            function getCustomItemDisplay(behavior: Behavior) {
+                if (!isSmallDevice) {
+                    return undefined;
+                }
+                return behavior === "normal" ? undefined : "none";
+            }
+
+            return {
+                "root": {
+                    "padding": theme.spacing({
+                        "rightLeft": `${theme.paddingRightLeft}px`,
+                        "topBottom": `${theme.spacing(3)}px`,
+                    }),
+                    "position": "relative",
+                    "opacity": isSmallDevice === undefined ? 0 : 1,
+                    "maxWidth": "100%",
+                    "overflowX": !isSmallDevice ? "hidden" : undefined,
+                },
+                "largeScreenContentWrapper": {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                    "alignItems": "center",
+                },
+                "titleWrapper": {
+                    "marginRight": isSmallDevice ? undefined : theme.spacing(8),
+                },
+                "titleText": {
+                    "whiteSpace": "nowrap",
+                },
+                "linkAndButtonWrapper": {
+                    "display": "grid",
+                    "gridAutoFlow": "column",
+                    "alignItems": "center",
+                    "gap": theme.spacing(3),
+                },
+                "link": {
+                    "marginTop": theme.spacing(1),
+                },
+                "smallDeviceLinks": {
+                    "position": "absolute",
+                    "top": "100%",
+                    "left": 0,
+                    "width": "100%",
+                },
+                "unfoldIconWrapper": {
+                    "display": isSmallDevice ? "flex" : "none",
+                    "alignItems": "center",
+                },
+                "links": {
+                    "order": 2,
+                    "display": isSmallDevice ? "none" : "flex",
+                    "pointerEvents": isSmallDevice ? "none" : undefined,
+                },
+                "linksWrapperLargeScreen": {
+                    "order": isSmallDevice ? -1 : undefined,
+                },
+                "smallDeviceCustomItemsWrapper": {
+                    "display": !isSmallDevice ? "none" : "grid",
+                    "gridAutoFlow": "row",
+                    "alignItems": "end",
+                    ...(() => {
+                        const value = theme.spacing(3);
+                        return {
+                            "gap": value,
+                            ...theme.spacing.topBottom("margin", `${value}px`),
+                        };
+                    })(),
+                },
+                "commonSmallDeviceCustomItemWrapper": {
+                    "display": "flex",
+                    "justifyContent": "flex-end",
+                },
+                "smallDeviceCustomItemStartWrapper": {
+                    "display": getSmallDeviceCustomItemDisplay(
+                        customItemStartSmallBehavior,
+                    ),
+                },
+                "smallDeviceCustomItemEndWrapper": {
+                    "display": getSmallDeviceCustomItemDisplay(
+                        customItemEndSmallBehavior,
+                    ),
+                },
+                "customItemStartWrapper": {
+                    "display": getCustomItemDisplay(
+                        customItemStartSmallBehavior,
+                    ),
+                },
+                "customItemEndWrapper": {
+                    "display": getCustomItemDisplay(customItemEndSmallBehavior),
+                },
+                "commonCustomItemWrapper": {},
+                "unfoldIcon": {},
+                "githubStar": {},
+                "darkModeSwitch": {},
+                "linkRoot": {},
+                "underline": {},
+                "linkRootSmallScreen": {},
+                "underlineSmallScreen": {},
+                "linkSmallScreen": {},
+                "linksContentWrapper": {},
+                "linksContentWrapperSmallScreen": {},
+                "linksOverline": {},
+            };
         },
-    ) => {
-        function getSmallDeviceCustomItemDisplay(behavior: Behavior) {
-            if (isSmallDevice && behavior === "wrap") {
-                return undefined;
-            }
-            return "none";
-        }
-
-        function getCustomItemDisplay(behavior: Behavior) {
-            if (!isSmallDevice) {
-                return undefined;
-            }
-            return behavior === "normal" ? undefined : "none";
-        }
-
-        return {
-            "root": {
-                "padding": theme.spacing({
-                    "rightLeft": `${theme.paddingRightLeft}px`,
-                    "topBottom": `${theme.spacing(3)}px`,
-                }),
-                "position": "relative",
-                "opacity": isSmallDevice === undefined ? 0 : 1,
-                "maxWidth": "100%",
-                "overflowX": !isSmallDevice ? "hidden" : undefined,
-            },
-            "largeScreenContentWrapper": {
-                "display": "flex",
-                "justifyContent": "space-between",
-                "alignItems": "center",
-            },
-            "titleWrapper": {
-                "marginRight": isSmallDevice ? undefined : theme.spacing(8),
-            },
-            "titleText": {
-                "whiteSpace": "nowrap",
-            },
-            "linkAndButtonWrapper": {
-                "display": "grid",
-                "gridAutoFlow": "column",
-                "alignItems": "center",
-                "gap": theme.spacing(3),
-            },
-            "link": {
-                "marginTop": theme.spacing(1),
-            },
-            "smallDeviceLinks": {
-                "position": "absolute",
-                "top": "100%",
-                "left": 0,
-                "width": "100%",
-            },
-            "unfoldIconWrapper": {
-                "display": isSmallDevice ? "flex" : "none",
-                "alignItems": "center",
-            },
-            "links": {
-                "order": 2,
-                "display": isSmallDevice ? "none" : "flex",
-                "pointerEvents": isSmallDevice ? "none" : undefined,
-            },
-            "linksWrapperLargeScreen": {
-                "order": isSmallDevice ? -1 : undefined,
-            },
-            "smallDeviceCustomItemsWrapper": {
-                "display": !isSmallDevice ? "none" : "grid",
-                "gridAutoFlow": "row",
-                "alignItems": "end",
-                ...(() => {
-                    const value = theme.spacing(3);
-                    return {
-                        "gap": value,
-                        ...theme.spacing.topBottom("margin", `${value}px`),
-                    };
-                })(),
-            },
-            "commonSmallDeviceCustomItemWrapper": {
-                "display": "flex",
-                "justifyContent": "flex-end",
-            },
-            "smallDeviceCustomItemStartWrapper": {
-                "display": getSmallDeviceCustomItemDisplay(
-                    customItemStartSmallBehavior,
-                ),
-            },
-            "smallDeviceCustomItemEndWrapper": {
-                "display": getSmallDeviceCustomItemDisplay(
-                    customItemEndSmallBehavior,
-                ),
-            },
-            "customItemStartWrapper": {
-                "display": getCustomItemDisplay(customItemStartSmallBehavior),
-            },
-            "customItemEndWrapper": {
-                "display": getCustomItemDisplay(customItemEndSmallBehavior),
-            },
-            "commonCustomItemWrapper": {},
-            "unfoldIcon": {},
-            "githubStar": {},
-            "darkModeSwitch": {},
-            "linkRoot": {},
-            "underline": {},
-            "linkRootSmallScreen": {},
-            "underlineSmallScreen": {},
-            "linkSmallScreen": {},
-            "linksContentWrapper": {},
-            "linksContentWrapperSmallScreen": {},
-            "linksOverline": {},
-        };
-    },
-);
+    );

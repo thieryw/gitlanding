@@ -1,4 +1,4 @@
-import { makeStyles, Text } from "./theme";
+import { tss, Text } from "./theme";
 import { memo } from "react";
 import { GlLogo } from "./utils/GlLogo";
 import Paper from "@mui/material/Paper";
@@ -25,7 +25,9 @@ export type GlReviewSlideProps = {
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     const { descriptionMd, className, signature, logoUrl, logoFill } = props;
 
-    const { classes, cx } = useStyles(undefined, { props });
+    const { classes, cx } = useStyles({
+        "classesOverrides": props.classes,
+    });
 
     return (
         <Paper className={cx(classes.root, className)}>
@@ -52,7 +54,7 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     );
 });
 
-const useStyles = makeStyles({ "name": { GlReviewSlide } })(theme => ({
+const useStyles = tss.withName({ GlReviewSlide }).create(({ theme }) => ({
     "root": {
         "display": "flex",
         "alignItems": "center",

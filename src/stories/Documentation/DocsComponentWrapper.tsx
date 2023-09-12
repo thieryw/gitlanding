@@ -2,10 +2,7 @@ import { memo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { useIsDarkModeEnabled } from "onyxia-ui/lib";
 import { useDarkMode } from "storybook-dark-mode";
-import { ThemeProvider, useTheme } from "../theme";
-import { createMakeStyles } from "tss-react";
-
-const { makeStyles } = createMakeStyles({ useTheme });
+import { ThemeProvider, tss } from "../theme";
 
 export type DocsComponentWrapperProps = {
     component: ReactNode;
@@ -28,7 +25,7 @@ export const DocsComponentWrapper = memo((props: DocsComponentWrapperProps) => {
     );
 });
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = tss.create(({ theme }) => ({
     "contentWrapper": {
         "border": `solid ${theme.colors.useCases.borderColor} 1px`,
         "borderRadius": theme.borderRadius,
