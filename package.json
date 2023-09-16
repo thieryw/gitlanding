@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -62,7 +62,7 @@
         "react-markdown": "^5.0.3",
         "react-svg": "^15.0.4",
         "react-syntax-highlighter": "^15.5.0",
-        "tsafe": "^1.6.4",
+        "tsafe": "^1.6.5",
         "tss-react": "^4.9.0",
         "typeface-work-sans": "^1.1.13"
     },
