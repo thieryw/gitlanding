@@ -4457,14 +4457,14 @@ evt@^2.3.1:
     run-exclusive "^2.2.16"
     tsafe "^0.10.1"
 
-evt@^2.4.22:
-  version "2.4.22"
-  resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.22.tgz#1a87471bca6e71909b66a9f8da86929bd34c8736"
-  integrity sha512-lxC4XLMhKXD2jj1p5O6AZ3tTFTIOt2qhD2NjX5phXPTfK/oIZhWUsZsqsdtrifxUOXf7PZ9TZF4PtylK/S5QGw==
+evt@^2.5.2, evt@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/evt/-/evt-2.5.3.tgz#eda564afdda6dfe1da687bb54933706af3f844d6"
+  integrity sha512-wZKx0JgXaTOVOXI2saNVxINU6VToOHDowMwb3NRcU6l+C59eW3w9dZgNxjokiM8rvMgc7/11yFG0cSDxn4qxgA==
   dependencies:
     minimal-polyfills "^2.2.3"
     run-exclusive "^2.2.19"
-    tsafe "^1.6.4"
+    tsafe "^1.6.5"
 
 execa@^5.0.0:
   version "5.1.1"
@@ -6810,17 +6810,16 @@ onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^0.58.2:
-  version "0.58.2"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-0.58.2.tgz#7512305fdf9163b35fa74cf881ad3b5dbb8c3065"
-  integrity sha512-EjEwmqUGfM9BD0BQd5WDUFtgFnCzkJIbO9DEWzBPt8Gkv1E4VVEG4zw3D9JeIpMD0xXZzJ9OIlvqZRoNkIPVnA==
+onyxia-ui@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-1.3.0.tgz#0b0798eee998f72ef60cb7684b47555b05752698"
+  integrity sha512-xoYBn79oed2oOqOjLYK6qyxgyWXR3/GikQEFf8bfgo0FGIPKH7TVP3FWIVNie2zUsytjrT/a8m5Zj9KmisD5OQ==
   dependencies:
     "@mui/icons-material" "^5.11.16"
     color "3.1.3"
-    evt "^2.4.22"
-    memoizee "^0.4.15"
+    evt "^2.5.2"
     minimal-polyfills "^2.2.3"
-    powerhooks "^0.27.0"
+    powerhooks "^1.0.0"
     run-exclusive "^2.2.19"
     tsafe "^1.6.4"
     tss-react "^4.9.0"
@@ -7634,15 +7633,14 @@ powerhooks@^0.20.10:
     resize-observer-polyfill "^1.5.1"
     tsafe "^0.10.1"
 
-powerhooks@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.27.0.tgz#600e750fae6c42682639634e80e1b12f59cfea4d"
-  integrity sha512-oA5t6jFI5wqxs5PSJrp5Q3DK51Z8k4/htlD6Hdpqzstth25wT44MOuBlEJITZnNMpOVWLpEzQnakSC4vV0Eaew==
+powerhooks@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.3.tgz#b5ab065d663f4ac03c9fa1638f9c0aa70ab09454"
+  integrity sha512-zvakanvHYkkbsnfOJmMKHV0jtCfgRF1ji37BPjX6/JA8jAiqkVm1OWlis2l+pK0mvEpOz7boZounD0/AxD5sSA==
   dependencies:
-    evt "^2.4.22"
+    evt "^2.5.3"
     memoizee "^0.4.15"
-    resize-observer-polyfill "^1.5.1"
-    tsafe "^1.6.4"
+    tsafe "^1.6.5"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -9050,6 +9048,11 @@ tsafe@^1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.4.tgz#048a114761714538c72f16abd25bb247d4e3780e"
   integrity sha512-l4Z54QFGHO8GF0gBpb3yPGHjkIkIirl8rwW+lMBmtEMzOJeRs8BdjkDEx6nU8Ak9PQVp/KNDtECxTja8MMIDoA==
+
+tsafe@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.5.tgz#74943b69190069168a53d2accd6d07891cf1cce8"
+  integrity sha512-895zss8xqqHKTc28sHGIfZKnt3C5jrstB1DyPr/h3/flK0zojsZUMQL1/W4ytdDW6KI4Oth62nb9rrxmA3s3Iw==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
