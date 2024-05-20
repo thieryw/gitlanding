@@ -1,8 +1,8 @@
 # Table of contents
 
-* [🏃♂ Getting started!](README.md)
+* [🏃‍♂️ Getting started!](README.md)
 * [📝 Customising pages](customising-your-app.md)
-* [🛤 Adding more pages](adding-more-pages.md)
+* [🛤️ Adding more pages](adding-more-pages.md)
 * [🔡 Custom fonts](master/custom-fonts.md)
 * [🎨 Theme customization](customization.md)
 * [🎇 Restyling components](restyling-components.md)
