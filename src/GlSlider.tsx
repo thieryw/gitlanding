@@ -11,6 +11,7 @@ import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 
 export type GlSliderProps = {
     className?: string;
+    id?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
     title?: string;
     slides?: ReactNode[];
@@ -19,7 +20,7 @@ export type GlSliderProps = {
 };
 
 export const GlSlider = memo((props: GlSliderProps) => {
-    const { className, slides, title, autoPlayTimeInterval, width } = props;
+    const { className, id, slides, title, autoPlayTimeInterval, width } = props;
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ "loop": true });
     const [isPlaying, setIsPlaying] = useState(false);
@@ -108,7 +109,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
     });
 
     return (
-        <section ref={ref} className={cx(classes.root, className)}>
+        <section ref={ref} id={id} className={cx(classes.root, className)}>
             {title !== undefined && (
                 <Text className={classes.heading} typo="page heading">
                     {title}
