@@ -1,7 +1,7 @@
-import { Text } from "../theme";
+import { Text } from "onyxia-ui/Text";
 import { memo } from "react";
 import type { ReactNode } from "react";
-import { tss } from "../theme";
+import { tss } from "tss";
 import { breakpointsValues } from "../theme";
 
 export type GlHeroTextProps = {

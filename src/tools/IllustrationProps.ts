@@ -1,5 +1,4 @@
 import type { Source } from "./Source";
-import type { ReactComponent } from "./ReactComponent";
 
 export type IllustrationProps =
     | IllustrationProps.Image
@@ -30,10 +29,10 @@ declare namespace IllustrationProps {
 
     export type CustomComponent = {
         type: "custom component";
-        Component: ReactComponent<{
-            className: string;
+        Component: (props: {
+            className?: string;
             onLoad: () => void;
             id: string;
-        }>;
+        }) => JSX.Element | null;
     };
 }

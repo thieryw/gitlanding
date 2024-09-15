@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { useIsDarkModeEnabled } from "onyxia-ui/lib";
-import { tss } from "../theme";
+import { useTheme } from "theme";
+import { tss } from "tss";
 import GithubBtn from "react-github-btn";
 
 export type GlGithubStarCountProps = {
@@ -16,7 +16,7 @@ export const GlGithubStarCount = memo((props: GlGithubStarCountProps) => {
     const { classes, cx } = useStyles();
 
     const { themeVariant } = (function useClosure() {
-        const { isDarkModeEnabled } = useIsDarkModeEnabled();
+        const { isDarkModeEnabled } = useTheme();
 
         const themeVariant = isDarkModeEnabled ? "dark" : ("light" as const);
 

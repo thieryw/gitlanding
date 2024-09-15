@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
 import type { ReactNode } from "react";
-import { Text } from "../theme";
-import { tss } from "../theme";
+import { Text } from "onyxia-ui/Text";
+import { tss } from "tss";
 import { breakpointsValues } from "../theme";
 import { useEffect, useState } from "react";
 import { useStateRef } from "powerhooks/useStateRef";

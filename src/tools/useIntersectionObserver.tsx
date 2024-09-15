@@ -1,44 +1,48 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import type { RefObject } from "react";
-import type { DependencyList } from "react";
 import { useStateRef } from "powerhooks";
+import { useConstCallback } from "powerhooks/useConstCallback";
 
-export function useIntersectionObserver<T extends HTMLElement = any>(
-    params: {
-        callback: (params: {
-            entry: IntersectionObserverEntry;
-            observer: IntersectionObserver;
-        }) => void;
-        rootMargin?: string;
-        root?: Element | Document;
-        threshold?: number | number[];
-    },
-    dependencyList: DependencyList,
-): {
+export function useIntersectionObserver<T extends HTMLElement = any>(params: {
+    callback: (params: {
+        entry: IntersectionObserverEntry;
+        observer: IntersectionObserver;
+    }) => void;
+    rootMargin?: string;
+    root?: Element | Document;
+    threshold?: number | number[];
+}): {
     ref: RefObject<T>;
 } {
-    const { callback, ...rest } = params;
+    const { rootMargin, root, threshold } = params;
     const ref = useStateRef<T>(null);
+    const callback = useConstCallback(params.callback);
 
-    const observer = useMemo(() => {
-        return new IntersectionObserver(
+    useEffect(() => {
+        if (ref.current === null) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
             entries => {
                 callback({
                     "entry": entries[0],
                     observer,
                 });
             },
-            { ...rest },
+            {
+                rootMargin,
+                root,
+                threshold,
+            },
         );
-    }, dependencyList);
-
-    useEffect(() => {
-        if (!ref.current) {
-            return;
-        }
 
         observer.observe(ref.current);
-    }, dependencyList);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [rootMargin, root, threshold, ref.current]);
 
     return { ref };
 }

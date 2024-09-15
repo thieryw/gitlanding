@@ -1,5 +1,8 @@
 import { memo, useMemo, useReducer } from "react";
-import { tss, Text, breakpointsValues, Button } from "./theme";
+import { tss } from "tss";
+import { Text } from "onyxia-ui/Text";
+import { breakpointsValues } from "theme";
+import { Button } from "onyxia-ui/Button";
 import { useDomRect } from "powerhooks/useDomRect";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
@@ -60,30 +63,27 @@ export const GlYoutubeVideoSection = memo(
             };
         }, []);
 
-        const { ref } = useIntersectionObserver(
-            {
-                "callback": ({ entry, observer }) => {
-                    if (
-                        hasAnimation === undefined ||
-                        !hasAnimation ||
-                        animationProps === undefined
-                    ) {
-                        observer.unobserve(entry.target);
-                        return;
-                    }
+        const { ref } = useIntersectionObserver({
+            "callback": ({ entry, observer }) => {
+                if (
+                    hasAnimation === undefined ||
+                    !hasAnimation ||
+                    animationProps === undefined
+                ) {
+                    observer.unobserve(entry.target);
+                    return;
+                }
 
-                    if (entry.isIntersecting) {
-                        animationProps.animate = {
-                            "opacity": 1,
-                        };
-                        observer.unobserve(entry.target);
-                        forceUpdate();
-                    }
-                },
-                "threshold": 0.5,
+                if (entry.isIntersecting) {
+                    animationProps.animate = {
+                        "opacity": 1,
+                    };
+                    observer.unobserve(entry.target);
+                    forceUpdate();
+                }
             },
-            [],
-        );
+            "threshold": 0.5,
+        });
 
         const { classes, cx } = useStyles({
             width,

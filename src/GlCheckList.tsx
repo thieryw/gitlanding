@@ -1,12 +1,12 @@
 import { memo, useMemo, useReducer } from "react";
-import MuiCheckIcon from "@mui/icons-material/Check";
-import { Text } from "./theme";
-import { Markdown } from "./tools/Markdown";
-import { tss, breakpointsValues } from "./theme";
+import CheckIcon from "@mui/icons-material/Check";
+import { Text } from "onyxia-ui/Text";
+import { Markdown } from "onyxia-ui/Markdown";
+import { tss } from "tss";
+import { breakpointsValues } from "./theme";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { motion } from "framer-motion";
-import { createIcon } from "onyxia-ui/Icon";
-import type { MuiIconLike, SvgComponentLike } from "onyxia-ui/Icon";
+import { Icon, type IconProps } from "onyxia-ui/Icon";
 import { useGuaranteedMemo } from "powerhooks/useGuaranteedMemo";
 import { useTheme } from "./theme";
 
@@ -19,11 +19,11 @@ export type GlCheckListProps = {
     setIconColor?: (colors: ReturnType<typeof useTheme>["colors"]) => {
         iconColor: string;
     };
-    Icon?: MuiIconLike | SvgComponentLike;
+    icon?: IconProps.Icon;
     elements?: {
         title?: string;
         description?: string;
-        IconOverride?: MuiIconLike | SvgComponentLike;
+        iconOverride?: IconProps.Icon;
         setIconColorOverride?: GlCheckListProps["setIconColor"];
         isIconHidden?: boolean;
     }[];
@@ -38,7 +38,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         heading,
         subHeading,
         hasAnimation,
-        Icon,
+        icon,
         setIconColor,
     } = props;
 
@@ -68,44 +68,41 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
         };
     }, [hasAnimation]);
 
-    const { ref } = useIntersectionObserver(
-        {
-            "callback": ({ observer, entry }) => {
-                if (hasAnimation === undefined || !hasAnimation) {
-                    observer.unobserve(entry.target);
-                    return;
-                }
+    const { ref } = useIntersectionObserver({
+        "callback": ({ observer, entry }) => {
+            if (hasAnimation === undefined || !hasAnimation) {
+                observer.unobserve(entry.target);
+                return;
+            }
 
-                if (container === undefined || listItem === undefined) {
-                    observer.unobserve(entry.target);
-                    return;
-                }
+            if (container === undefined || listItem === undefined) {
+                observer.unobserve(entry.target);
+                return;
+            }
 
-                if (entry.isIntersecting) {
-                    container.show = {
-                        "transition": {
-                            "staggerChildren": 0.2,
-                        },
-                        "opacity": 1,
-                    };
+            if (entry.isIntersecting) {
+                container.show = {
+                    "transition": {
+                        "staggerChildren": 0.2,
+                    },
+                    "opacity": 1,
+                };
 
-                    listItem.show = {
-                        "opacity": 1,
-                        "y": 0,
-                        "transition": {
-                            "duration": 0.6,
-                            "ease": "easeOut",
-                        },
-                    };
+                listItem.show = {
+                    "opacity": 1,
+                    "y": 0,
+                    "transition": {
+                        "duration": 0.6,
+                        "ease": "easeOut",
+                    },
+                };
 
-                    observer.unobserve(entry.target);
-                    forceUpdate();
-                }
-            },
-            "threshold": 0.05,
+                observer.unobserve(entry.target);
+                forceUpdate();
+            }
         },
-        [],
-    );
+        "threshold": 0.05,
+    });
 
     const { classes, cx, theme } = useStyles({
         "classesOverrides": props.classes,
@@ -158,7 +155,7 @@ export const GlCheckList = memo((props: GlCheckListProps) => {
                                         ? theme.colors.palette.greenSuccess.main
                                         : setIconColor(theme.colors).iconColor
                                 }
-                                Icon={Icon}
+                                icon={icon}
                                 {...rest}
                             />
                         </motion.div>
@@ -214,7 +211,7 @@ const { CheckListElement } = (() => {
     type Props = Required<GlCheckListProps>["elements"][number] & {
         className?: string;
         classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
-        Icon?: MuiIconLike | SvgComponentLike;
+        icon?: IconProps.Icon;
         iconColor: string;
     };
 
@@ -224,7 +221,7 @@ const { CheckListElement } = (() => {
             title,
             className,
             isIconHidden,
-            IconOverride,
+            iconOverride,
             setIconColorOverride,
         } = props;
 
@@ -244,19 +241,11 @@ const { CheckListElement } = (() => {
             };
         }, [setIconColorOverride]);
 
-        const { Icon } = useGuaranteedMemo(
-            () =>
-                createIcon({
-                    "check": IconOverride ?? props.Icon ?? MuiCheckIcon,
-                }),
-            [IconOverride],
-        );
-
         return (
             <div className={cx(classes.root, className)}>
                 <div className={classes.checkIconWrapper}>
                     <Icon
-                        iconId="check"
+                        icon={iconOverride ?? props.icon ?? CheckIcon}
                         className={cx(
                             css({
                                 "fill": iconColor,

@@ -1,8 +1,7 @@
 import { memo } from "react";
-import { validateEmail } from "../tools/validateEmail";
-import { validatePhoneNumber } from "../tools/validatePhoneNumber";
 import Link from "@mui/material/Link";
-import { tss, Text } from "../theme";
+import { tss } from "tss";
+import { Text } from "onyxia-ui/Text";
 
 export type GlFooterInfoProps = {
     className?: string;
@@ -12,14 +11,6 @@ export type GlFooterInfoProps = {
 
 export const GlFooterInfo = memo((props: GlFooterInfoProps) => {
     const { email, phoneNumber, className } = props;
-
-    if (email !== undefined && !validateEmail(email)) {
-        throw new Error("email entered as prop is not valid!");
-    }
-
-    if (phoneNumber !== undefined && !validatePhoneNumber(phoneNumber)) {
-        throw new Error("phone number not valid!");
-    }
 
     const { classes, cx } = useStyles();
 

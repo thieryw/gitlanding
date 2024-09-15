@@ -1,9 +1,10 @@
-import { tss, Text } from "./theme";
+import { tss } from "tss";
+import { Text } from "onyxia-ui/Text";
 import { memo } from "react";
-import { GlLogo } from "./utils/GlLogo";
+import { ThemedImage } from "onyxia-ui/ThemedImage";
 import Paper from "@mui/material/Paper";
 import { breakpointsValues } from "./theme";
-import { Markdown } from "./tools/Markdown";
+import { Markdown } from "onyxia-ui/Markdown";
 
 export type GlReviewSlideProps = {
     /**
@@ -17,13 +18,12 @@ export type GlReviewSlideProps = {
      * depending on the dark mode being active.
      */
     logoUrl?: string;
-    logoFill?: string;
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
 };
 
 export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
-    const { descriptionMd, className, signature, logoUrl, logoFill } = props;
+    const { descriptionMd, className, signature, logoUrl } = props;
 
     const { classes, cx } = useStyles({
         "classesOverrides": props.classes,
@@ -32,11 +32,7 @@ export const GlReviewSlide = memo((props: GlReviewSlideProps) => {
     return (
         <Paper className={cx(classes.root, className)}>
             {logoUrl !== undefined && (
-                <GlLogo
-                    fill={logoFill}
-                    logoUrl={logoUrl}
-                    className={classes.logo}
-                />
+                <ThemedImage url={logoUrl} className={classes.logo} />
             )}
             <div>
                 {descriptionMd !== undefined && (

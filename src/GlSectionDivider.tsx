@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { tss } from "./theme";
+import { tss } from "tss";
 
 export type GlSectionDividerProps = {
     className?: string;

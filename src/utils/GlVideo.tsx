@@ -1,7 +1,7 @@
 import { memo, forwardRef, useEffect, useState, useId } from "react";
 import type { ForwardedRef } from "react";
 import { Source } from "../tools/Source";
-import { tss } from "../theme";
+import { tss } from "tss";
 import { useIntersectionObserver } from "../tools/useIntersectionObserver";
 import { useMergeRefs } from "powerhooks/useMergeRefs";
 
@@ -56,18 +56,15 @@ export const GlVideo = memo(
                 return id_props ?? id;
             })();
 
-            const { ref: internalRef } = useIntersectionObserver(
-                {
-                    "callback": ({ observer, entry }) => {
-                        if (entry.isIntersecting) {
-                            observer.unobserve(entry.target);
-                            setIntersected(true);
-                        }
-                    },
-                    "threshold": 0.2,
+            const { ref: internalRef } = useIntersectionObserver({
+                "callback": ({ observer, entry }) => {
+                    if (entry.isIntersecting) {
+                        observer.unobserve(entry.target);
+                        setIntersected(true);
+                    }
                 },
-                [],
-            );
+                "threshold": 0.2,
+            });
 
             const ref = useMergeRefs([internalRef, ref_forwarded]);
 

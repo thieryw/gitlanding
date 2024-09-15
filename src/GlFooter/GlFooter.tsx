@@ -1,9 +1,9 @@
 import { memo } from "react";
-import { GlLogo } from "../utils/GlLogo";
+import { ThemedImage } from "onyxia-ui/ThemedImage";
 import Link from "@mui/material/Link";
-import { tss } from "../theme";
+import { tss } from "tss";
 import { GlFooterInfo } from "./GlFooterInfo";
-import { Markdown } from "../tools/Markdown";
+import { Markdown } from "onyxia-ui/Markdown";
 
 import type { ReactNode } from "react";
 
@@ -51,9 +51,9 @@ export const GlFooter = memo((props: GlFooterProps) => {
                             }
                             className={classes.iconWrapper}
                         >
-                            <GlLogo
+                            <ThemedImage
                                 className={classes.icon}
-                                logoUrl={iconLink.iconUrl}
+                                url={iconLink.iconUrl}
                             />
                         </div>
                     ))}

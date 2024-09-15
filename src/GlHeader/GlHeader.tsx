@@ -1,8 +1,10 @@
 import { memo, useState, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
-import { tss, breakpointsValues, Text } from "../theme";
+import { tss } from "tss";
+import { breakpointsValues } from "theme";
+import { Text } from "onyxia-ui/Text";
 import { GlHeaderLinks } from "./GlHeaderLinks";
-import { GlDarkModeSwitch } from "../utils/GlDarkModeSwitch";
+import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
 import { GlGithubStarCount } from "../utils/GlGithubStarCount";
 import UnfoldIcon from "@mui/icons-material/FormatLineSpacing";
 import { useConstCallback } from "powerhooks/useConstCallback";
@@ -266,7 +268,7 @@ export const GlHeader = memo((props: GlHeaderProps) => {
                     )}
                     {enableDarkModeSwitch !== undefined &&
                         enableDarkModeSwitch && (
-                            <GlDarkModeSwitch
+                            <DarkModeSwitch
                                 className={classes.darkModeSwitch}
                             />
                         )}
