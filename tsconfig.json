@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "src",
         "module": "ES2020",
         "moduleResolution": "node",
         "target": "es5",

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo } from "react";
-import { GlButton } from "../utils/GlButton";
-import { tss, Text } from "../theme";
-import { GlLogo } from "../utils/GlLogo";
+import { Button } from "onyxia-ui/Button";
+import { tss } from "../tss";
+import { Text } from "onyxia-ui/Text";
+import { ThemedImage } from "onyxia-ui/ThemedImage";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
@@ -30,7 +31,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
         timeIntervalBetweenNumbersMs,
     } = props;
 
-    const { classes, cx, theme } = useStyles({
+    const { classes, cx } = useStyles({
         "classesOverrides": props.classes,
     });
 
@@ -49,11 +50,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 )}
 
                 {iconUrl !== undefined && (
-                    <GlLogo
-                        fill={theme.colors.useCases.buttons.actionHoverPrimary}
-                        className={classes.icon}
-                        logoUrl={iconUrl}
-                    />
+                    <ThemedImage className={classes.icon} url={iconUrl} />
                 )}
             </div>
 
@@ -65,7 +62,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
 
             {buttonLabel && (
                 <div className={classes.buttonWrapper}>
-                    <GlButton
+                    <Button
                         className={props.classes?.button}
                         type="submit"
                         href={link?.href}
@@ -73,7 +70,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                         onClick={link?.onClick}
                     >
                         {buttonLabel}
-                    </GlButton>
+                    </Button>
                 </div>
             )}
         </GlCard>

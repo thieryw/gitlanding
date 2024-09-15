@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useEffect, useState } from "react";
-import { GlButton } from "../utils/GlButton";
-import { tss, Text } from "../theme";
+import { Button } from "onyxia-ui/Button";
+import { tss } from "../tss";
+import { Text } from "onyxia-ui/Text";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
-
 import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlProjectCardProps = GlCardProps & {
@@ -63,7 +63,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
         <GlCard link={link} className={cx(classes.root, className)}>
             <div ref={headerRef} className={classes.header}>
                 {badgeLabel !== undefined && (
-                    <GlButton
+                    <Button
                         type="submit"
                         className={classes.button}
                         variant="ternary"
@@ -71,7 +71,7 @@ export const GlProjectCard = memo((props: GlProjectCardProps) => {
                         onClick={link?.onClick}
                     >
                         {badgeLabel}
-                    </GlButton>
+                    </Button>
                 )}
             </div>
             <div className={classes.footer}>

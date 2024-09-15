@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { tss, Text } from "../theme";
-import { GlLogo } from "../utils/GlLogo";
+import { tss } from "../tss";
+import { Button } from "onyxia-ui/Button";
+import { Text } from "onyxia-ui/Text";
+import { ThemedImage } from "onyxia-ui/ThemedImage";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";
 import { breakpointsValues } from "../theme";
-import { GlButton } from "../utils/GlButton";
 
 export type GlLogoCardProps = GlCardProps & {
     iconUrls?: string[];
@@ -27,7 +28,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
         link,
     } = props;
 
-    const { classes, cx, css } = useStyles({
+    const { classes, cx } = useStyles({
         "overlapIcons": overlapIcons ?? false,
         "classesOverrides": props.classes,
     });
@@ -38,15 +39,9 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                 <div className={classes.iconWrapper}>
                     {iconUrls
                         .map((url, index) => (
-                            <GlLogo
-                                className={cx(
-                                    classes.icon,
-                                    css({
-                                        //"zIndex": iconUrls.length - index,
-                                        //"order": iconUrls.length - index
-                                    }),
-                                )}
-                                logoUrl={url}
+                            <ThemedImage
+                                className={classes.icon}
+                                url={url}
                                 key={index}
                             />
                         ))
@@ -68,7 +63,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
             </div>
 
             {buttonLabel !== undefined && (
-                <GlButton
+                <Button
                     type="submit"
                     href={link?.href}
                     variant="secondary"
@@ -76,7 +71,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
                     className={classes.button}
                 >
                     {buttonLabel}
-                </GlButton>
+                </Button>
             )}
         </GlCard>
     );

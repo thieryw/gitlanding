@@ -1,18 +1,18 @@
 import { memo, useReducer, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { tss } from "./theme";
+import { tss } from "./tss";
 import { breakpointsValues } from "./theme";
-import { GlButton } from "./utils/GlButton";
+import { Button } from "onyxia-ui/Button";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
-import { Markdown } from "./tools/Markdown";
-import { Text } from "./theme";
-import { GlImage } from "./utils/GlImage";
-import { GlVideo } from "./utils/GlVideo";
+import { Markdown } from "onyxia-ui/Markdown";
+import { Text } from "onyxia-ui/Text";
+import { GlImage } from "./shared/GlImage";
+import { GlVideo } from "./shared/GlVideo";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { IllustrationProps } from "./tools/IllustrationProps";
 import { useMediaAspectRatio } from "./tools/useMediaAspectRatio";
-import { useIllustrationStyles } from "./theme";
+import { useIllustrationStyles } from "./shared/useIllustrationStyles";
 
 export type GlArticleProps = {
     className?: string;
@@ -121,34 +121,31 @@ export const GlArticle = memo((props: GlArticleProps) => {
         [illustrationAnimationProps],
     );
 
-    const { ref } = useIntersectionObserver(
-        {
-            "callback": ({ observer, entry }) => {
-                if (hasAnimation === undefined || !hasAnimation) {
-                    observer.unobserve(entry.target);
-                    return;
-                }
+    const { ref } = useIntersectionObserver({
+        "callback": ({ observer, entry }) => {
+            if (hasAnimation === undefined || !hasAnimation) {
+                observer.unobserve(entry.target);
+                return;
+            }
 
-                if (entry.isIntersecting && isIllustrationLoaded) {
-                    illustrationAnimationProps.animate = {
-                        "opacity": 1,
-                        "x": 0,
-                    };
-                    titleAnimationProps.animate = {
-                        "opacity": 1,
-                        "x": 0,
-                    };
-                    bodyAnimationProps.animate = {
-                        "opacity": 1,
-                    };
-                    observer.unobserve(entry.target);
-                    forceUpdate();
-                }
-            },
-            "threshold": 0.2,
+            if (entry.isIntersecting && isIllustrationLoaded) {
+                illustrationAnimationProps.animate = {
+                    "opacity": 1,
+                    "x": 0,
+                };
+                titleAnimationProps.animate = {
+                    "opacity": 1,
+                    "x": 0,
+                };
+                bodyAnimationProps.animate = {
+                    "opacity": 1,
+                };
+                observer.unobserve(entry.target);
+                forceUpdate();
+            }
         },
-        [isIllustrationLoaded],
-    );
+        "threshold": 0.2,
+    });
 
     const { aspectRatio, ref: mediaRef } = useMediaAspectRatio();
 
@@ -216,7 +213,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                         </motion.div>
                     )}
                     {buttonLabel && (
-                        <GlButton
+                        <Button
                             type="submit"
                             href={buttonLink?.href}
                             onClick={buttonLink?.onClick}
@@ -224,7 +221,7 @@ export const GlArticle = memo((props: GlArticleProps) => {
                             className={classes.button}
                         >
                             {buttonLabel}
-                        </GlButton>
+                        </Button>
                     )}
                 </article>
             )}

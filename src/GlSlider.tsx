@@ -1,8 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { tss, Text } from "./theme";
-import { Icon } from "./theme";
+import { tss } from "./tss";
+import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
+import { Text } from "onyxia-ui/Text";
+import { Icon } from "onyxia-ui/Icon";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useEvt } from "evt/hooks/useEvt";
@@ -63,21 +65,18 @@ export const GlSlider = memo((props: GlSliderProps) => {
         );
     }, [autoPlayTimeInterval, emblaApi, isPlaying]);
 
-    const { ref } = useIntersectionObserver(
-        {
-            "callback": useConstCallback(({ entry, observer }) => {
-                if (
-                    autoPlayTimeInterval === undefined ||
-                    autoPlayTimeInterval === 0
-                ) {
-                    observer.unobserve(entry.target);
-                    return;
-                }
-                setIsPlaying(entry.isIntersecting);
-            }),
-        },
-        [],
-    );
+    const { ref } = useIntersectionObserver({
+        "callback": useConstCallback(({ entry, observer }) => {
+            if (
+                autoPlayTimeInterval === undefined ||
+                autoPlayTimeInterval === 0
+            ) {
+                observer.unobserve(entry.target);
+                return;
+            }
+            setIsPlaying(entry.isIntersecting);
+        }),
+    });
 
     const onClickFactory = useCallbackFactory(
         ([direction]: ["left" | "right"]) => {
@@ -117,7 +116,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
             )}
             <div className={classes.sliderWrapper}>
                 <Icon
-                    iconId="arrowBackIos"
+                    icon={ArrowForwardIos}
                     className={classes.arrows}
                     onClick={onClickFactory("left")}
                 />
@@ -136,7 +135,7 @@ export const GlSlider = memo((props: GlSliderProps) => {
                     </div>
                 </div>
                 <Icon
-                    iconId="arrowForwardIos"
+                    icon={ArrowForwardIos}
                     className={classes.arrows}
                     onClick={onClickFactory("right")}
                 />
