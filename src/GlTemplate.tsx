@@ -6,7 +6,7 @@ import { useDomRect } from "powerhooks/useDomRect";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
 import { changeColorOpacity } from "onyxia-ui/lib/color";
-import { GlLinkToTop } from "./utils/GlLinkToTop";
+import { GlLinkToTop } from "./shared/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
 import { getScrollableParent } from "powerhooks/getScrollableParent";

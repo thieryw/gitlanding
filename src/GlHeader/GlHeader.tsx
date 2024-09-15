@@ -5,7 +5,7 @@ import { breakpointsValues } from "../theme";
 import { Text } from "onyxia-ui/Text";
 import { GlHeaderLinks } from "./GlHeaderLinks";
 import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";
-import { GlGithubStarCount } from "../utils/GlGithubStarCount";
+import { GlGithubStarCount } from "../shared/GlGithubStarCount";
 import UnfoldIcon from "@mui/icons-material/FormatLineSpacing";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useClickAway } from "powerhooks/useClickAway";

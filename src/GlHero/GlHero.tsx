@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Text } from "onyxia-ui/Text";
-import { GlImage } from "../utils/GlImage";
+import { GlImage } from "../shared/GlImage";
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { tss } from "../tss";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
-import { GlArrow } from "../utils/GlArrow";
+import { GlArrow } from "../shared/GlArrow";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
 import { GlHeroText } from "./GlHeroText";
-import { GlVideo } from "../utils/GlVideo";
+import { GlVideo } from "../shared/GlVideo";
 import type { IllustrationProps } from "../tools/IllustrationProps";
 import { useStateRef } from "powerhooks/useStateRef";
 import { useMediaAspectRatio } from "../tools/useMediaAspectRatio";
-import { useIllustrationStyles } from "../utils/useIllustrationStyles";
+import { useIllustrationStyles } from "../shared/useIllustrationStyles";
 
 export type GlHeroProps = {
     className?: string;

@@ -7,12 +7,12 @@ import { motion } from "framer-motion";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { Markdown } from "onyxia-ui/Markdown";
 import { Text } from "onyxia-ui/Text";
-import { GlImage } from "./utils/GlImage";
-import { GlVideo } from "./utils/GlVideo";
+import { GlImage } from "./shared/GlImage";
+import { GlVideo } from "./shared/GlVideo";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { IllustrationProps } from "./tools/IllustrationProps";
 import { useMediaAspectRatio } from "./tools/useMediaAspectRatio";
-import { useIllustrationStyles } from "./utils/useIllustrationStyles";
+import { useIllustrationStyles } from "./shared/useIllustrationStyles";
 
 export type GlArticleProps = {
     className?: string;
