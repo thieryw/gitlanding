@@ -39,7 +39,7 @@ yarn
 yarn dev
 ```
 
-> [!TL;DR]  
+> [!NOTE]  
 > This project is an extension of [onyxia-ui](https://github.com/InseeFrLab/onyxia-ui) the
 > gitlanding components needs be inside the `<OnyxiaUI>` provider.  
 > Besides the required dependencies of onyxia-ui you only need to install `gitlanding`.
@@ -53,7 +53,12 @@ cd ~/github
 git clone https://github.com/thieryw/gitlanding
 git clone https://github.com/garronej/gitlanding-demo
 cd gitlanding
-yarn build
-# To start the test project
-yarn start_vanilla
+yarn link-in-demo
+```
+
+In another terminal:
+
+```bash
+cd ~/github/gitlanding-demo
+yarn dev
 ```
