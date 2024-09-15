@@ -40,7 +40,7 @@ export type GlTemplateProps = {
 
 //NOTE: Here we are sure that we are wrapped into a <ThemeProvider />.
 //we can use useTheme, useStyles, ect...
-function GlTemplate(props: GlTemplateProps) {
+export function GlTemplate(props: GlTemplateProps) {
     const {
         header,
         body,
