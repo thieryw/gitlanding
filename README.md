@@ -2,58 +2,27 @@
     <img src="https://user-images.githubusercontent.com/6702424/149700453-81e535ba-7196-4765-88bd-ab2b30e6875b.png">  
 </p>
 <p align="center">
-    <i>✒️ Showcase your open source project with a good-looking webpage ✒️</i>
+    <i>✒️ A set of components for creating landing pages with onyxia-ui ✒️</i>
     <br>
     <br>
     <a href="https://github.com/thieryw/gitlanding/actions">
       <img src="https://github.com/thieryw/gitlanding/workflows/ci/badge.svg?branch=main">
     </a>
-    <a href="https://github.com/thieryw/gitlanding/blob/cfa7b01db162602fa6622160377f4d4e3485d4fc/tsconfig.json#L14">
-        <img src="https://camo.githubusercontent.com/0f9fcc0ac1b8617ad4989364f60f78b2d6b32985ad6a508f215f14d8f897b8d3/68747470733a2f2f62616467656e2e6e65742f62616467652f547970655363726970742f7374726963742532302546302539462539322541412f626c7565">
-    </a>
     <a href="https://github.com/garronej/gitlanding/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/gitlanding">
     </a>
 </p>
-<p align="center">
-  <a href="https://www.gitlanding.dev/">Home</a> - 
-  <a href="https://www.gitlanding.dev/storybook">Components</a> - 
-  <a href="https://docs.gitlanding.dev/">Documentation</a>
-</p>
 
-Gitlanding helps you create a beautiful landing page for your GitHub projects in three simple steps:
+Gitlanding is an extension for [onyxia-ui](https://github.com/InseeFrLab/onyxia-ui) that features a set of
+component for creating landing pages.
 
--   Start from a blank [React App](https://create-react-app.dev/) on a branch of your repository.
--   Import some [`gitlanding` components](https://www.gitlanding.dev/storybook/).
--   Auto deploy with [GitHub Actions](https://github.com/features/actions), host it using [GitHub page](https://pages.github.com/)!
+Example of gitlanding landing page:
 
-Don't worry, you will be guided every step of the way with [specific instruction for **MacOS**, **Widows** and **GNU/Linux**](https://docs.gitlanding.dev/#step-by-step-guide).  
-Setting up a GitLanding page is also a great practical introduction to [GitHub Actions](https://github.com/features/actions) and [GitHub page](https://pages.github.com/).
-
-# Motivation
-
-There is no shortage of website generators that enable the creation of decent-looking landing pages.
-The problem, however, is that if your project grows you will eventually need to incorporate
-features like i18n, routing, and other functionalities that your website generator
-may not be able to accommodate.
-
-The approach of `gitlanding` is to provide a library of customisable React component
-designed to be fitting budding blocks for a landing page.  
-This way your little landing page is a react project capable of growing into a more mature project if need be.
-
-> You can have both a landing page (e.g.: `www.your-project.dev`) and a documentation website (e.g.: `docs.your-project.dev`).  
-> For creating documentation website [GitBook](https://gitbook.com) is better fit than Gitlanding. GitBook is free for open source
-> projects (you just need to [issue a request](https://user-images.githubusercontent.com/6702424/148654719-bf393721-4bf4-4814-a8ef-cf57a3318a7f.png)).
-
-# Showcase
-
-Websites using gitlanding.
-
--   [Gitlanding.dev itself](https://www.gitlanding.dev/)
--   [SSPCloud.fr](https://www.sspcloud.fr)
--   [tss-react.dev](https://www.tss-react.dev/)
--   [keycloakify](https://www.keycloakify.dev/)
--   [tsafe.dev](https://www.tsafe.dev/)
+-   https://www.sspcloud.fr
+-   https://www.onyxia.sh
+-   https://www.keycloakify.dev
+-   https://www.tss-react.dev
+-   https://www.i18nifty.dev
 
 https://user-images.githubusercontent.com/6702424/148715912-64485db0-ae26-474f-a6ce-b9a142a419e0.mp4
 
@@ -61,52 +30,30 @@ https://user-images.githubusercontent.com/6702424/148716227-4a699c07-ba17-4860-b
 
 # 🚀 Quick start
 
-Heads over to [the documentation website 📙](https://docs.gitlanding.dev/)!
-
-[![kickstart_video](https://user-images.githubusercontent.com/6702424/148655634-bcc2ef69-9720-4224-9da5-0af88eb9d906.png)](https://youtu.be/taDGhL0z7wc)
-
-# Dev
-
-> NOTE: These are the commands for **contributing**.
-> If you just want to start **using** GitLanding it's [here](https://docs.gitlanding.dev/)
+Try the demo project:
 
 ```bash
-git clone https://github.com/thieryw/gitlanding && cd gitlanding
-yarn install
+git clone https://github.com/garrone/gitlanding-demo
+cd gitlanding-demo
+yarn
+yarn dev
+```
+
+> [!TL;DR]  
+> This project is an extension of [onyxia-ui](https://github.com/InseeFrLab/onyxia-ui) the
+> gitlanding components needs be inside the `<OnyxiaUI>` provider.  
+> Besides the required dependencies of onyxia-ui you only need to install `gitlanding`.
+
+# Contributing
+
+To link your local copy of gitlanding in the demo project:
+
+```bash
+cd ~/github
+git clone https://github.com/thieryw/gitlanding
+git clone https://github.com/garronej/gitlanding-demo
+cd gitlanding
 yarn build
 # To start the test project
 yarn start_vanilla
 ```
-
-Edit the file in `src/test/vanilla/src/index.tsx` to experiments with the components.
-
-## Testing your changes in an external app (that uses yarn)
-
-You have made some changes to the code and you want to test them
-in your app before submitting a pull request?
-
-Assuming `you/my-app` have `gitlanding` as a dependency.
-
-```bash
-cd ~/github
-git clone https://github.com/you/my-app
-cd my-app
-yarn
-
-cd ~/github
-git clone https://github.com/thieryw/gitlanding
-cd #{REPO_NAME}#
-yarn
-yarn build
-yarn link-in-app my-app
-npx tsc -w
-
-# Open another terminal
-
-cd ~/github/my-app
-rm -rf node_modules/.cache
-yarn start # Or whatever my-app is using for starting the project
-```
-
-You don't have to use `~/github` as reference path. Just make sure `my-app` and `gitlanding`
-are in the same directory.
