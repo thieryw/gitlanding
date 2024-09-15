@@ -25,19 +25,20 @@ export function transformCodebase(params: {
 }) {
     const { srcDirPath, transformSourceCode } = params;
 
-    const isTargetSameAsSource = path.relative(srcDirPath, params.destDirPath) === "";
+    const isTargetSameAsSource =
+        path.relative(srcDirPath, params.destDirPath) === "";
 
     const destDirPath = isTargetSameAsSource
         ? path.join(srcDirPath, "..", "tmp_xOsPdkPsTdzPs34sOkHs")
         : params.destDirPath;
 
     fs.mkdirSync(destDirPath, {
-        "recursive": true
+        "recursive": true,
     });
 
     for (const fileRelativePath of crawl({
         "dirPath": srcDirPath,
-        "returnedPathsType": "relative to dirPath"
+        "returnedPathsType": "relative to dirPath",
     })) {
         const filePath = path.join(srcDirPath, fileRelativePath);
         const destFilePath = path.join(destDirPath, fileRelativePath);
@@ -46,7 +47,7 @@ export function transformCodebase(params: {
         // it using the lower level implementation.
         if (transformSourceCode === undefined) {
             fs.mkdirSync(path.dirname(destFilePath), {
-                "recursive": true
+                "recursive": true,
             });
 
             fs.copyFileSync(filePath, destFilePath);
@@ -57,7 +58,7 @@ export function transformCodebase(params: {
         const transformSourceCodeResult = transformSourceCode({
             "sourceCode": fs.readFileSync(filePath),
             filePath,
-            fileRelativePath
+            fileRelativePath,
         });
 
         if (transformSourceCodeResult === undefined) {
@@ -65,14 +66,17 @@ export function transformCodebase(params: {
         }
 
         fs.mkdirSync(path.dirname(destFilePath), {
-            "recursive": true
+            "recursive": true,
         });
 
         const { newFileName, modifiedSourceCode } = transformSourceCodeResult;
 
         fs.writeFileSync(
-            path.join(path.dirname(destFilePath), newFileName ?? path.basename(destFilePath)),
-            modifiedSourceCode
+            path.join(
+                path.dirname(destFilePath),
+                newFileName ?? path.basename(destFilePath),
+            ),
+            modifiedSourceCode,
         );
     }
 

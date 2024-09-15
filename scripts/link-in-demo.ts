@@ -15,7 +15,7 @@ import { crawl } from "./tools/crawl";
 
         crawl({
             dirPath,
-            returnedPathsType: "absolute"
+            returnedPathsType: "absolute",
         }).forEach(filePath => {
             try {
                 fs.rmSync(filePath, { force: true });
@@ -39,7 +39,7 @@ const starterName = "gitlanding-demo";
 
 fs.rmSync(join("..", starterName, "node_modules"), {
     recursive: true,
-    force: true
+    force: true,
 });
 
 run("yarn install", { cwd: join("..", starterName) });

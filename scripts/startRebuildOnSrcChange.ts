@@ -28,11 +28,13 @@ export function startRebuildOnSrcChange() {
 
     console.log(chalk.green("Watching for changes in src/"));
 
-    chokidar.watch(["src"], { ignoreInitial: true }).on("all", async (event, path) => {
-        console.log(chalk.bold(`${event}: ${path}`));
+    chokidar
+        .watch(["src"], { ignoreInitial: true })
+        .on("all", async (event, path) => {
+            console.log(chalk.bold(`${event}: ${path}`));
 
-        await waitForDebounce();
+            await waitForDebounce();
 
-        runYarnBuild();
-    });
+            runYarnBuild();
+        });
 }
