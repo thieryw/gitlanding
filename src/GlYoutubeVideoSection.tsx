@@ -1,7 +1,7 @@
 import { memo, useMemo, useReducer } from "react";
-import { tss } from "tss";
+import { tss } from "./tss";
 import { Text } from "onyxia-ui/Text";
-import { breakpointsValues } from "theme";
+import { breakpointsValues } from "./theme";
 import { Button } from "onyxia-ui/Button";
 import { useDomRect } from "powerhooks/useDomRect";
 import { motion } from "framer-motion";

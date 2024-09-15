@@ -4,7 +4,7 @@ import { Text } from "onyxia-ui/Text";
 import { GlImage } from "../utils/GlImage";
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { useSplashScreen } from "onyxia-ui";
 import { motion } from "framer-motion";
 import { breakpointsValues } from "../theme";
@@ -16,7 +16,7 @@ import { GlVideo } from "../utils/GlVideo";
 import type { IllustrationProps } from "../tools/IllustrationProps";
 import { useStateRef } from "powerhooks/useStateRef";
 import { useMediaAspectRatio } from "../tools/useMediaAspectRatio";
-import { useIllustrationStyles } from "utils/useIllustrationStyles";
+import { useIllustrationStyles } from "../utils/useIllustrationStyles";
 
 export type GlHeroProps = {
     className?: string;

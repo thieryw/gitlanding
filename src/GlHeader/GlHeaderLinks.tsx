@@ -1,7 +1,7 @@
 import { memo } from "react";
 import type { GlHeaderLinkProps } from "./GlHeaderLink";
 import { GlHeaderLink } from "./GlHeaderLink";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { useDomRect } from "powerhooks/useDomRect";
 
 export type GlHeaderLinksProps =

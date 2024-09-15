@@ -2,7 +2,7 @@
 import { memo } from "react";
 import type { ReactNode } from "react";
 import { Text } from "onyxia-ui/Text";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { breakpointsValues } from "../theme";
 import { useEffect, useState } from "react";
 import { useStateRef } from "powerhooks/useStateRef";

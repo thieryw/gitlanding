@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { Evt } from "evt";
 import { useEvt } from "evt/hooks";

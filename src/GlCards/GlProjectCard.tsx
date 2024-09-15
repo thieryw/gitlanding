@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, useEffect, useState } from "react";
 import { Button } from "onyxia-ui/Button";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { Text } from "onyxia-ui/Text";
 import { GlCard } from "./GlCard";
 import type { GlCardProps } from "./GlCard";

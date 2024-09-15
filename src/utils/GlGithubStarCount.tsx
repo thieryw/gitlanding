@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { useTheme } from "theme";
-import { tss } from "tss";
+import { useTheme } from "../theme";
+import { tss } from "../tss";
 import GithubBtn from "react-github-btn";
 
 export type GlGithubStarCountProps = {

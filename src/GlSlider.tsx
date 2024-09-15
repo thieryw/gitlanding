@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { tss } from "tss";
+import { tss } from "./tss";
 import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
 import { Text } from "onyxia-ui/Text";
 import { Icon } from "onyxia-ui/Icon";
@@ -9,7 +9,7 @@ import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
-import { useIntersectionObserver } from "tools/useIntersectionObserver";
+import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 
 export type GlSliderProps = {
     className?: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { tss } from "tss";
+import { tss } from "./tss";
 import { useStateRef } from "powerhooks/useStateRef";
 import type { ReactNode } from "react";
 import { useDomRect } from "powerhooks/useDomRect";

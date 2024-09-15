@@ -1,6 +1,6 @@
 import { memo, useReducer, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { tss } from "tss";
+import { tss } from "./tss";
 import { breakpointsValues } from "./theme";
 import { Button } from "onyxia-ui/Button";
 import { motion } from "framer-motion";
@@ -12,7 +12,7 @@ import { GlVideo } from "./utils/GlVideo";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { IllustrationProps } from "./tools/IllustrationProps";
 import { useMediaAspectRatio } from "./tools/useMediaAspectRatio";
-import { useIllustrationStyles } from "utils/useIllustrationStyles";
+import { useIllustrationStyles } from "./utils/useIllustrationStyles";
 
 export type GlArticleProps = {
     className?: string;

@@ -1,7 +1,7 @@
 import DownArrow from "@mui/icons-material/KeyboardArrowDown";
 
 import { memo } from "react";
-import { tss } from "tss";
+import { tss } from "../tss";
 
 export type GlArrowProps = {
     className?: string;

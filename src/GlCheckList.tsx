@@ -2,7 +2,7 @@ import { memo, useMemo, useReducer } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Text } from "onyxia-ui/Text";
 import { Markdown } from "onyxia-ui/Markdown";
-import { tss } from "tss";
+import { tss } from "./tss";
 import { breakpointsValues } from "./theme";
 import { useIntersectionObserver } from "./tools/useIntersectionObserver";
 import { motion } from "framer-motion";

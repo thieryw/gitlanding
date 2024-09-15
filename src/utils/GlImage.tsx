@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { memo, forwardRef } from "react";
 import type { ForwardedRef } from "react";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { Source } from "../tools/Source";
 
 export type GlImageProps = {

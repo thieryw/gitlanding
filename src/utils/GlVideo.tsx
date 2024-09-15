@@ -1,7 +1,7 @@
 import { memo, forwardRef, useEffect, useState, useId } from "react";
 import type { ForwardedRef } from "react";
 import { Source } from "../tools/Source";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { useIntersectionObserver } from "../tools/useIntersectionObserver";
 import { useMergeRefs } from "powerhooks/useMergeRefs";
 

@@ -1,5 +1,5 @@
 import { memo, useState } from "react";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { symToStr } from "tsafe/symToStr";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
 import { useDomRect } from "powerhooks/useDomRect";

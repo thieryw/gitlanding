@@ -1,6 +1,6 @@
 import { memo } from "react";
 import Link from "@mui/material/Link";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { Text } from "onyxia-ui/Text";
 
 export type GlFooterInfoProps = {

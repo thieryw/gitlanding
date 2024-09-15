@@ -1,6 +1,6 @@
-import { tss } from "tss";
-import type { IllustrationProps } from "tools/IllustrationProps";
-import { breakpointsValues } from "theme";
+import { tss } from "../tss";
+import type { IllustrationProps } from "../tools/IllustrationProps";
+import { breakpointsValues } from "../theme";
 
 export const useIllustrationStyles = tss
     .withParams<{

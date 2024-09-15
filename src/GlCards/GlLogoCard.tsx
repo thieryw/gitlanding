@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { Button } from "onyxia-ui/Button";
 import { Text } from "onyxia-ui/Text";
 import { ThemedImage } from "onyxia-ui/ThemedImage";

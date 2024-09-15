@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { ThemedImage } from "onyxia-ui/ThemedImage";
 import Link from "@mui/material/Link";
-import { tss } from "tss";
+import { tss } from "../tss";
 import { GlFooterInfo } from "./GlFooterInfo";
 import { Markdown } from "onyxia-ui/Markdown";
 

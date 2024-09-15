@@ -1,7 +1,7 @@
 import { memo, useState, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
-import { tss } from "tss";
-import { breakpointsValues } from "theme";
+import { tss } from "../tss";
+import { breakpointsValues } from "../theme";
 import { Text } from "onyxia-ui/Text";
 import { GlHeaderLinks } from "./GlHeaderLinks";
 import { DarkModeSwitch } from "onyxia-ui/DarkModeSwitch";

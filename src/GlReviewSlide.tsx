@@ -1,4 +1,4 @@
-import { tss } from "tss";
+import { tss } from "./tss";
 import { Text } from "onyxia-ui/Text";
 import { memo } from "react";
 import { ThemedImage } from "onyxia-ui/ThemedImage";
