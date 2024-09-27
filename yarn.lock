@@ -2165,10 +2165,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^5.3.6:
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.6.tgz#499a205fd48c6b9672cfe82f46e92b40bef3c4e4"
-  integrity sha512-eP8jMpskxjOMfSXWvtcxOM/p4fZKWyZv2ORdeBpGKsFWulVfi+UshWAl5x4Y2Fos4fvHHDdgPTDuXhT08lHwpw==
+onyxia-ui@^5.3.7:
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.7.tgz#5bf8e3ef0b8bc8c0d17dcecdbbfff0e041286cd1"
+  integrity sha512-1iutA7WeW5EuhNE2u+XIBcKQQ/imQHou5BUJLPpRBv+zDyu27BA5UpbL3UWojuUSp7lHrYS3DLPRNGTfTDzEWQ==
   dependencies:
     "@mui/icons-material" "^5.14.18"
     "@types/memoizee" "^0.4.11"
@@ -2177,11 +2177,11 @@ onyxia-ui@^5.3.6:
     make-fetch-happen "^10.2.1"
     memoizee "^0.4.17"
     minimal-polyfills "^2.2.3"
-    powerhooks "^1.0.12"
+    powerhooks "^1.0.13"
     react-markdown "^5.0.3"
     run-exclusive "^2.2.19"
     tsafe "^1.7.2"
-    tss-react "^4.9.12"
+    tss-react "^4.9.13"
     yauzl "^2.10.0"
     yazl "^2.5.1"
 
@@ -2323,7 +2323,7 @@ popmotion@9.3.6:
     style-value-types "4.1.4"
     tslib "^2.1.0"
 
-powerhooks@^1.0.12, powerhooks@^1.0.13:
+powerhooks@^1.0.13:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.13.tgz#4642d7c16bdc31d444403f18e0fac26bf7e96ad6"
   integrity sha512-nDDYfklVEWcYLkKVtVxxb0UA5pUkkmAHOxWOAveTZT6LJDZelcc8cDsuoQO1zjQkkAFO3l4COyJ/8v2tJGOOEQ==
@@ -2853,7 +2853,7 @@ tslib@^2.1.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.7.0.tgz#d9b40c5c40ab59e8738f297df3087bf1a2690c01"
   integrity sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==
 
-tss-react@^4.9.12, tss-react@^4.9.13:
+tss-react@^4.9.13:
   version "4.9.13"
   resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.13.tgz#e6ac0bfea3977e58b5ef5a261cd0b035e6bd8254"
   integrity sha512-Gu19qqPH8/SAyKVIgDE5qHygirEDnNIQcXhiEc+l4Q9T7C1sfvUnbVWs+yBpmN26/wyk4FTOupjYS2wq4vH0yA==
