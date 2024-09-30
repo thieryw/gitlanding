@@ -2165,10 +2165,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^5.3.7:
-  version "5.3.7"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.7.tgz#5bf8e3ef0b8bc8c0d17dcecdbbfff0e041286cd1"
-  integrity sha512-1iutA7WeW5EuhNE2u+XIBcKQQ/imQHou5BUJLPpRBv+zDyu27BA5UpbL3UWojuUSp7lHrYS3DLPRNGTfTDzEWQ==
+onyxia-ui@^5.3.8:
+  version "5.3.8"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.8.tgz#649c080aca4b01fb975c44557f64c9fad9dc2972"
+  integrity sha512-qY/3UKdl3nbLX2+oKuuabLatYEEi25MUzSbqv8lsEcEcwoquXy/9bEayClxBPhlUGcoKZT88/PKkChVhVYNVBQ==
   dependencies:
     "@mui/icons-material" "^5.14.18"
     "@types/memoizee" "^0.4.11"
