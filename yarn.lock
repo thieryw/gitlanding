@@ -2165,10 +2165,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^5.3.10:
-  version "5.3.10"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.10.tgz#d8be3b980c3019ef0c429aedda642f00aa05fe91"
-  integrity sha512-4eDE8m44kQupg7J5GdNnXtvWSjuGLwO23R4/fuJWuT4e8jgj+3UwwGLrvNjrPYZw2pCV9Uh9m0+6t2vSMtjCvQ==
+onyxia-ui@^5.3.12:
+  version "5.3.12"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-5.3.12.tgz#be0b5e38eb2b33cb4932d9f7a02d62c8fca57d73"
+  integrity sha512-8VszIMpXPk/++rwad8ywthYnlgzaElC4JRpQyO28B/p7UpOBj7EPU4s/n5JXQW3Gx3KRQQFnSjnFyDdsRTksQw==
   dependencies:
     "@mui/icons-material" "^5.14.18"
     "@types/memoizee" "^0.4.11"
@@ -2177,10 +2177,10 @@ onyxia-ui@^5.3.10:
     make-fetch-happen "^10.2.1"
     memoizee "^0.4.17"
     minimal-polyfills "^2.2.3"
-    powerhooks "^1.0.14"
+    powerhooks "^1.0.15"
     react-markdown "^5.0.3"
     run-exclusive "^2.2.19"
-    tsafe "^1.7.4"
+    tsafe "^1.7.5"
     tss-react "^4.9.13"
     yauzl "^2.10.0"
     yazl "^2.5.1"
@@ -2323,14 +2323,14 @@ popmotion@9.3.6:
     style-value-types "4.1.4"
     tslib "^2.1.0"
 
-powerhooks@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.14.tgz#5f8b77a65a44518f1b180cb82f0a3814a1cf2eeb"
-  integrity sha512-HB6HmTsWxfyh0uEGxqwPezRS+2sVy90I/eOpFbHamX70DnxS7K2ajiNoPjAdZTGFTwy/XFbHPmBxBKFrRkKT2Q==
+powerhooks@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.15.tgz#396ec7634ee0d61fe432956ed293ec61713fcc54"
+  integrity sha512-rTOGCA7egw/yjVaclOMrKTgTV6kAbmx8IY1t8CN8C2hnhInlAawAvLqaKxm0Qc997jnqI8SlQqdVFpLVhvvsXw==
   dependencies:
     evt "^2.5.7"
     memoizee "^0.4.15"
-    tsafe "^1.7.4"
+    tsafe "^1.7.5"
 
 prettier@^2.7.1:
   version "2.8.8"
@@ -2848,10 +2848,10 @@ tsafe@^1.6.6:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.7.2.tgz#0f63d414876287ad01b135f832722f93e22da374"
   integrity sha512-dAPfQLhCfCRre5qs+Z5Q2a7s2CV7RxffZUmvj7puGaePYjECzWREJFd3w4XSFe/T5tbxgowfItA/JSSZ6Ma3dA==
 
-tsafe@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.7.4.tgz#7dd288b1a1be8d9c25e84ab8dd8a7df6094168d7"
-  integrity sha512-4BrLklZMJ14dEtA+CkhY9OtID3al4+/GJhaeocWPtUuoZPr4SJkaqoPemyFgkLC1Y3LRNXF9zxa94SwssRGMaQ==
+tsafe@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.7.5.tgz#0d3a31202b5ef87c7ba997e66e03fd80801278ef"
+  integrity sha512-tbNyyBSbwfbilFfiuXkSOj82a6++ovgANwcoqBAcO9/REPoZMEQoE8kWPeO0dy5A2D/2Lajr8Ohue5T0ifIvLQ==
 
 tslib@^2.1.0:
   version "2.7.0"
