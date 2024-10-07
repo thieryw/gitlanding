@@ -3,7 +3,7 @@
 Play with the demo project
 
 ```bash
-git clone https://github.com/garrone/gitlanding-demo
+git clone https://github.com/garronej/gitlanding-demo
 cd gitlanding-demo
 yarn
 yarn dev
