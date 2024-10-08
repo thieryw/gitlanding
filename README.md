@@ -11,8 +11,8 @@ yarn dev
 
 Going futher: Explore the existing landigpages made with GitLanding for idea and customization example.  You can click "edit this website in the footer to see the code"
 
-* [https://www.sspcloud.fr](https://www.sspcloud.fr)
 * [https://www.onyxia.sh](https://www.onyxia.sh)
 * [https://www.keycloakify.dev](https://www.keycloakify.dev)
+* [https://www.sspcloud.fr](https://www.sspcloud.fr)
 * [https://www.tss-react.dev](https://www.tss-react.dev)
 * [https://www.i18nifty.dev](https://www.i18nifty.dev)
