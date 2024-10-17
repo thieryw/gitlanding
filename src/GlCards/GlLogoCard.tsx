@@ -34,7 +34,7 @@ export const GlLogoCard = memo((props: GlLogoCardProps) => {
     });
 
     return (
-        <GlCard link={link} className={cx(classes.root, className)}>
+        <GlCard className={cx(classes.root, className)}>
             {iconUrls && (
                 <div className={classes.iconWrapper}>
                     {iconUrls
