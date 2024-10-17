@@ -16,14 +16,16 @@ export const GlCard = memo((props: GlCardProps) => {
 
     const { classes, cx } = useStyles({ "isLink": link !== undefined });
 
+    const onClick = (() => {
+        if (link === undefined) {
+            return undefined;
+        }
+
+        return () => window.open(link.href, "_blank");
+    })();
+
     return (
-        <div
-            className={cx(classes.root, className)}
-            onClick={
-                link?.onClick ??
-                (() => (window.location.href = link?.href ?? "#"))
-            }
-        >
+        <div className={cx(classes.root, className)} onClick={onClick}>
             {children}
         </div>
     );
