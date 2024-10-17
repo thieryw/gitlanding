@@ -42,7 +42,6 @@ const useStyles = tss
             "cursor": isLink ? "pointer" : undefined,
             ":hover": {
                 "boxShadow": theme.shadows[2],
-                "cursor": "pointer",
             },
         },
     }));
