@@ -2332,14 +2332,14 @@ powerhooks@^1.0.15:
     memoizee "^0.4.15"
     tsafe "^1.7.5"
 
-powerhooks@^1.0.17:
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.17.tgz#10bda59a6d49b2087792c77121f30effb46c65ab"
-  integrity sha512-k3mW+zrMdc03Cm5KHGxNXowOEKSD10ndr6L3apf1LHmUJm0PXKNRngXI9var2mKBh0G2fySGuVtS3Sf+PF/66A==
+powerhooks@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-1.0.18.tgz#d8f487ff1ff3c7fa02e06af0321a940679031e04"
+  integrity sha512-ogtZPn8430G0/lAxY+/7DRhRP3ebWTb5iDwaC6nvwan2BmSEQMfhXpUqdcylSty8jjAn0f+UyqbZGI/4gQhL0g==
   dependencies:
     evt "^2.5.7"
     memoizee "^0.4.15"
-    tsafe "^1.8.1"
+    tsafe "^1.8.4"
 
 prettier@^2.7.1:
   version "2.8.8"
@@ -2862,10 +2862,10 @@ tsafe@^1.7.5:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.7.5.tgz#0d3a31202b5ef87c7ba997e66e03fd80801278ef"
   integrity sha512-tbNyyBSbwfbilFfiuXkSOj82a6++ovgANwcoqBAcO9/REPoZMEQoE8kWPeO0dy5A2D/2Lajr8Ohue5T0ifIvLQ==
 
-tsafe@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.8.1.tgz#69cf0c17ef8414123c08ce79e33e65fe1d6236e1"
-  integrity sha512-k2PQvnVin8FacLug5qHA57262zjp/T2zM8qlRLnYvVwgTT2VcwlG5latPiUhJn+TXL28cgVNgzoBvJYHKfj+XA==
+tsafe@^1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.8.4.tgz#ef2ecb21829eb5003d931de6a80b34303ed907ee"
+  integrity sha512-k1myNdDFEbqfq2hS7ln4qlgpvRlJq3wkOawQWieqVHu/K7dX+qQHTDkdzfvBBPNFrkIM7S/846JD6B3fm6MWHQ==
 
 tslib@^2.1.0:
   version "2.7.0"
