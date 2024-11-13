@@ -37,17 +37,14 @@
     "keywords": [],
     "homepage": "https://github.com/thieryw/gitlanding",
     "peerDependencies": {
-        "onyxia-ui": "^5.4.2",
-        "@mui/material": "^5.0.0",
-        "@emotion/react": "^11.0.0"
-    },
-    "peerDependenciesMeta": {
-        "@types/react": {
-            "optional": true
-        }
+        "onyxia-ui": "^6.0.1",
+        "@mui/material": "^6.1.7",
+        "@emotion/react": "^11.0.0",
+        "react": "^17.0.0 || ^18.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0"
     },
     "dependencies": {
-        "@mui/icons-material": "^5.5.0",
+        "@mui/icons-material": "^6.1.7",
         "embla-carousel-react": "^7.0.3",
         "framer-motion": "^4.1.17",
         "powerhooks": "^1.0.18",
@@ -59,7 +56,7 @@
     "devDependencies": {
         "@emotion/react": "^11.13.3",
         "@emotion/styled": "^11.13.0",
-        "@mui/material": "^5.10.3",
+        "@mui/material": "^6.1.7",
         "@types/node": "^22.5.5",
         "@types/react": "^18.3.5",
         "@types/react-dom": "^18.3.0",
@@ -67,7 +64,7 @@
         "evt": "^2.5.7",
         "husky": "^4.3.0",
         "lint-staged": "^10.5.4",
-        "onyxia-ui": "^5.4.2",
+        "onyxia-ui": "^6.0.1",
         "prettier": "^2.7.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

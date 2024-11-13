@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { useDomRect } from "powerhooks/useDomRect";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
-import { changeColorOpacity } from "onyxia-ui/lib/color";
+import { alpha } from "@mui/material/styles";
 import { GlLinkToTop } from "./shared/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import type { CSSObject } from "tss-react/types";
@@ -178,12 +178,10 @@ const useStyles = tss
                             out = {
                                 ...out,
                                 "width": childrenWrapperWidth,
-                                "backgroundColor": changeColorOpacity({
-                                    "color":
-                                        theme.colors.useCases.surfaces
-                                            .background,
-                                    "opacity": 0.94,
-                                }),
+                                "backgroundColor": alpha(
+                                    theme.colors.useCases.surfaces.background,
+                                    0.94,
+                                ),
                                 "top": !isHeaderRetracted ? 0 : -headerHeight,
                                 "transition": "top 350ms",
                             };
