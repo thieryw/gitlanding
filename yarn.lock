@@ -633,11 +633,6 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/memoizee@^0.4.11":
-  version "0.4.11"
-  resolved "https://registry.yarnpkg.com/@types/memoizee/-/memoizee-0.4.11.tgz#da8897f0064bff3e845b5185e2a323bbd5c8d0a3"
-  integrity sha512-2gyorIBZu8GoDr9pYjROkxWWcFtHCquF7TVbN2I+/OvgZhnIGQS0vX5KJz4lXNKb8XOSfxFOSG5OLru1ESqLUg==
-
 "@types/ms@*":
   version "0.7.34"
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.34.tgz#10964ba0dee6ac4cd462e2795b6bebd407303433"
@@ -2199,13 +2194,12 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-onyxia-ui@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-6.2.1.tgz#427397fc19ca94a23eb2b4c19bb92cb4a1228fed"
-  integrity sha512-EmF2PvLTFvPSnqXJp4BxtOOdHOGWI9JxDF56I1F7jEEg/BHy/vBaZZQvOTpvHxvjpxZeuq2Xh/yaQIXkzarvIg==
+onyxia-ui@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/onyxia-ui/-/onyxia-ui-6.2.3.tgz#5d9c4b2372298369a205de4425533bbcc9dcec2d"
+  integrity sha512-VrAJbmc7b7m8XYwbNIGhPMRDaLKJg2Q9ZHs0AjCa1nAR/wDnxMq9OoTEDRxRCZJS4/9m7lIyia2cEOyvHm0bAg==
   dependencies:
     "@mui/icons-material" "^6.1.7"
-    "@types/memoizee" "^0.4.11"
     evt "^2.5.8"
     memoizee "^0.4.17"
     minimal-polyfills "^2.2.3"
@@ -2847,6 +2841,15 @@ tss-react@^4.9.13:
   version "4.9.13"
   resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.13.tgz#e6ac0bfea3977e58b5ef5a261cd0b035e6bd8254"
   integrity sha512-Gu19qqPH8/SAyKVIgDE5qHygirEDnNIQcXhiEc+l4Q9T7C1sfvUnbVWs+yBpmN26/wyk4FTOupjYS2wq4vH0yA==
+  dependencies:
+    "@emotion/cache" "*"
+    "@emotion/serialize" "*"
+    "@emotion/utils" "*"
+
+tss-react@^4.9.14:
+  version "4.9.14"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.14.tgz#0b606b7a08fe80670c8c7d09f2c24421422a2300"
+  integrity sha512-nAj4RCQk3ADzrmtxmTcmN1B9EKxPMIxuCfJ3ll964CksndJ2/ZImF6rAMo2Kud5yE3ENXHpPIBHCyuMtgptMvw==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
