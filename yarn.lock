@@ -2957,10 +2957,10 @@ tss-react@^4.9.13:
     "@emotion/serialize" "*"
     "@emotion/utils" "*"
 
-tss-react@^4.9.18:
-  version "4.9.18"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.18.tgz#34828008381f2dd3fe79f835ecd43fde5a349505"
-  integrity sha512-Uc+VvP4RXVzfEacw735xRvne1lwt5HNhvIFptpvmK+G6F/hRA5TeEr3SEzxrqTb6ixA4vANB0iXjBB6LdexxJA==
+tss-react@^4.9.19:
+  version "4.9.19"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.19.tgz#01ab1e82110deacead0ed93788a30d8ca91b22b6"
+  integrity sha512-mmeec1wmLJKUpbaEfsQIOgk0ZtaVBt/oMbiWUFzCnxNm7vb6sDEA3ez/5/ll1eg74nrOcy9BjA+qEuF7nUV0bA==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
