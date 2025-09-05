@@ -39,6 +39,8 @@ yarn
 yarn dev
 ```
 
+> [!WARNING]: There are bugs when you use `<React.StrictMode />`...
+
 > [!NOTE]  
 > This project is an extension of [onyxia-ui](https://github.com/InseeFrLab/onyxia-ui) the
 > gitlanding components needs be inside the `<OnyxiaUI>` provider.  
