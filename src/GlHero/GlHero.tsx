@@ -60,7 +60,7 @@ export const GlHero = memo((props: GlHeroProps) => {
         title,
         subTitle,
         className,
-        hasLinkToSectionBellow,
+        hasLinkToSectionBellow = true,
         illustration,
         hasAnimation,
         illustrationZoomFactor,
@@ -251,7 +251,7 @@ export const GlHero = memo((props: GlHeroProps) => {
                     </motion.div>
                 )}
             </div>
-            {hasLinkToSectionBellow !== undefined && (
+            {hasLinkToSectionBellow && (
                 <div className={classes.linkToSectionBelowWrapper}>
                     <GlArrow
                         onClick={onClick}
