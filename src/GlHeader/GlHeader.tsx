@@ -23,9 +23,10 @@ type CustomItem = {
 
 export type GlHeaderProps = {
     links: {
-        label: string;
+        label: ReactNode;
         href: string;
         onClick?: () => void;
+        isActive?: boolean;
     }[];
     title?: ReactNode;
     titleDark?: ReactNode;

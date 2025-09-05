@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, ReactNode } from "react";
 import { tss } from "../tss";
 import { symToStr } from "tsafe/symToStr";
 import { useCallbackFactory } from "powerhooks/useCallbackFactory";
@@ -7,24 +7,25 @@ import { useDomRect } from "powerhooks/useDomRect";
 export type GlHeaderLinkProps = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
-    label: string;
+    label: ReactNode;
     href: string;
     onClick?: () => void;
+    isActive?: boolean;
 };
 
 export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
-    const { href, label, className, onClick } = props;
-    const [isUnderlined, setIsUnderlined] = useState(false);
-    const [isActive, setIsActive] = useState(false);
+    const { href, label, className, onClick, isActive = false } = props;
+    const [isHover, setIsHover] = useState(false);
+    const [isPressed, setIsPressed] = useState(false);
 
     const handleHoverFactory = useCallbackFactory(
         ([state]: ["enter" | "leave"]) => {
             switch (state) {
                 case "enter":
-                    setIsUnderlined(true);
+                    setIsHover(true);
                     return;
                 case "leave":
-                    setIsUnderlined(false);
+                    setIsHover(false);
             }
         },
     );
@@ -33,10 +34,10 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
         ([state]: ["down" | "up"]) => {
             switch (state) {
                 case "down":
-                    setIsActive(true);
+                    setIsPressed(true);
                     return;
                 case "up":
-                    setIsActive(false);
+                    setIsPressed(false);
             }
         },
     );
@@ -47,9 +48,9 @@ export const GlHeaderLink = memo((props: GlHeaderLinkProps) => {
     } = useDomRect();
 
     const { classes, cx } = useStyles({
-        isUnderlined,
+        isUnderlined: isHover || isActive,
         width,
-        isActive,
+        isAccentColor: isPressed || isActive,
         "classesOverrides": props.classes,
     });
 
@@ -75,10 +76,10 @@ const useStyles = tss
     .withName(`${symToStr({ GlHeaderLink })}`)
     .withParams<{
         isUnderlined: boolean;
-        isActive: boolean;
+        isAccentColor: boolean;
         width: number;
     }>()
-    .create(({ theme, isUnderlined, isActive, width }) => ({
+    .create(({ theme, isUnderlined, isAccentColor, width }) => ({
         "root": {
             "display": "flex",
             "flexDirection": "column",
@@ -86,7 +87,7 @@ const useStyles = tss
         },
         "link": {
             "transition": "color 200ms",
-            "color": isActive
+            "color": isAccentColor
                 ? theme.colors.useCases.buttons.actionActive
                 : theme.colors.useCases.typography.textPrimary,
             "textDecoration": "none",
@@ -97,7 +98,7 @@ const useStyles = tss
             "width": isUnderlined ? width - theme.spacing(3) : 0,
             "marginTop": theme.spacing(1),
             "height": 1,
-            "backgroundColor": isActive
+            "backgroundColor": isAccentColor
                 ? theme.colors.useCases.buttons.actionActive
                 : theme.colors.useCases.typography.textPrimary,
             "transition": "width 200ms, background-color 200ms",
