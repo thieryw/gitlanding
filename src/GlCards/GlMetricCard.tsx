@@ -84,7 +84,7 @@ const useStyles = tss.withName({ GlMetricCard }).create(({ theme }) => ({
         "flexDirection": "column",
         "padding": theme.spacing({
             "rightLeft": 3,
-            "topBottom": 4,
+            "topBottom": 6,
         }),
         "margin": (() => {
             if (theme.windowInnerWidth >= breakpointsValues.lg) {
@@ -167,6 +167,8 @@ const { Number } = (() => {
                 className={cx(classes.root, className)}
                 typo="display heading"
                 ref={ref}
+                fixedSize_enabled
+                fixedSize_content={`${number}`.split("").fill("8").join("")}
             >
                 {isNumberAnimated ? renderedNumber : number}
             </Text>
