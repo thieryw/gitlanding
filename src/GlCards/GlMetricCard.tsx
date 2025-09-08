@@ -47,7 +47,8 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                         isNumberAnimated={isNumberAnimated ?? false}
                         number={number}
                         timeIntervalBetweenNumbersMs={
-                            timeIntervalBetweenNumbersMs ?? 25
+                            timeIntervalBetweenNumbersMs ??
+                            Math.floor(2_500 / number)
                         }
                     />
                 )}
