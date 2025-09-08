@@ -63,24 +63,23 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 </Text>
             )}
 
-            {buttonLabel ||
-                (button !== undefined && (
-                    <div className={classes.buttonWrapper}>
-                        {button !== undefined ? (
-                            button
-                        ) : (
-                            <Button
-                                className={props.classes?.button}
-                                type="submit"
-                                href={link?.href}
-                                variant="secondary"
-                                onClick={link?.onClick}
-                            >
-                                {buttonLabel}
-                            </Button>
-                        )}
-                    </div>
-                ))}
+            {(buttonLabel || button !== undefined) && (
+                <div className={classes.buttonWrapper}>
+                    {button !== undefined ? (
+                        button
+                    ) : (
+                        <Button
+                            className={props.classes?.button}
+                            type="submit"
+                            href={link?.href}
+                            variant="secondary"
+                            onClick={link?.onClick}
+                        >
+                            {buttonLabel}
+                        </Button>
+                    )}
+                </div>
+            )}
         </GlCard>
     );
 });
