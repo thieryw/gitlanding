@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { memo } from "react";
+import { type ReactNode, memo } from "react";
 import { Button } from "onyxia-ui/Button";
 import { tss } from "../tss";
 import { Text } from "onyxia-ui/Text";
@@ -14,6 +14,8 @@ export type GlMetricCardProps = GlCardProps & {
     iconUrl?: string;
     subHeading?: string;
     buttonLabel?: string;
+    /** If provided buttonLabel will be ignored */
+    button?: ReactNode;
     isNumberAnimated?: boolean;
     timeIntervalBetweenNumbersMs?: number;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
@@ -21,6 +23,7 @@ export type GlMetricCardProps = GlCardProps & {
 
 export const GlMetricCard = memo((props: GlMetricCardProps) => {
     const {
+        button,
         buttonLabel,
         iconUrl,
         subHeading,
@@ -36,7 +39,7 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
     });
 
     return (
-        <GlCard link={link} className={cx(classes.root, className)}>
+        <GlCard className={cx(classes.root, className)}>
             <div className={classes.heading}>
                 {number !== undefined && (
                     <Number
@@ -60,19 +63,24 @@ export const GlMetricCard = memo((props: GlMetricCardProps) => {
                 </Text>
             )}
 
-            {buttonLabel && (
-                <div className={classes.buttonWrapper}>
-                    <Button
-                        className={props.classes?.button}
-                        type="submit"
-                        href={link?.href}
-                        variant="secondary"
-                        onClick={link?.onClick}
-                    >
-                        {buttonLabel}
-                    </Button>
-                </div>
-            )}
+            {buttonLabel ||
+                (button !== undefined && (
+                    <div className={classes.buttonWrapper}>
+                        {button !== undefined ? (
+                            button
+                        ) : (
+                            <Button
+                                className={props.classes?.button}
+                                type="submit"
+                                href={link?.href}
+                                variant="secondary"
+                                onClick={link?.onClick}
+                            >
+                                {buttonLabel}
+                            </Button>
+                        )}
+                    </div>
+                ))}
         </GlCard>
     );
 });
