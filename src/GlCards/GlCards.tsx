@@ -36,15 +36,17 @@ export const GlCards = memo((props: GlCardsProps) => {
 
     return (
         <section id={id} className={cx(classes.root, className)}>
-            <div className={classes.titleWrapper}>
-                {typeof title === "string" ? (
-                    <Text className={classes.title} typo="page heading">
-                        {title}
-                    </Text>
-                ) : (
-                    title
-                )}
-            </div>
+            {title !== undefined && (
+                <div className={classes.titleWrapper}>
+                    {typeof title === "string" ? (
+                        <Text className={classes.title} typo="page heading">
+                            {title}
+                        </Text>
+                    ) : (
+                        title
+                    )}
+                </div>
+            )}
             <div ref={ref} className={classes.cardsWrapper}>
                 {children}
             </div>
