@@ -170,10 +170,9 @@ const useStyles = tss
                               "topBottom": `${theme.spacing(3)}px`,
                           })
                         : undefined,
+                    "zIndex": 4000,
                     ...(() => {
-                        let out: CSSObject = {
-                            "zIndex": 1,
-                        };
+                        let out: CSSObject = {};
                         if (headerPosition === "sticky") {
                             out = {
                                 ...out,

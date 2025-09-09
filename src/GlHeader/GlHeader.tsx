@@ -377,6 +377,8 @@ const useStyles = tss
                     "opacity": isSmallDevice === undefined ? 0 : 1,
                     "maxWidth": "100%",
                     "overflowX": !isSmallDevice ? "hidden" : undefined,
+                    "overflowY": !isSmallDevice ? "hidden" : undefined,
+                    "backdropFilter": "blur(10px)",
                 },
                 "largeScreenContentWrapper": {
                     "display": "flex",
