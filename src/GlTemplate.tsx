@@ -5,10 +5,8 @@ import type { ReactNode } from "react";
 import { useDomRect } from "powerhooks/useDomRect";
 import { useEvt } from "evt/hooks/useEvt";
 import { Evt } from "evt";
-import { alpha } from "@mui/material/styles";
 import { GlLinkToTop } from "./shared/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
-import type { CSSObject } from "tss-react/types";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
 
 disableEmotionWarnings();
@@ -170,37 +168,25 @@ const useStyles = tss
                               "topBottom": `${theme.spacing(3)}px`,
                           })
                         : undefined,
-                    "backgroundColor": "transparent",
                     "zIndex": 4000,
                     ...(() => {
-                        let out: CSSObject = {};
-                        if (headerPosition === "sticky") {
-                            out = {
-                                ...out,
-                                "width": childrenWrapperWidth,
-                                "backgroundColor": alpha(
-                                    theme.colors.useCases.surfaces.background,
-                                    0.94,
-                                ),
-                                "top": !isHeaderRetracted ? 0 : -headerHeight,
-                                "transition": "top 350ms",
-                            };
-                        }
                         switch (headerPosition) {
                             case "sticky":
-                                out = {
-                                    ...out,
+                                return {
+                                    "width": childrenWrapperWidth,
+                                    "backgroundColor": "transparent",
+                                    "top": !isHeaderRetracted
+                                        ? 0
+                                        : -headerHeight,
+                                    "transition": "top 350ms",
                                     "position": "sticky",
                                     "pointerEvents": isHeaderRetracted
                                         ? "none"
                                         : undefined,
                                 };
-                                break;
                             case "top of page":
                                 return {};
                         }
-
-                        return out;
                     })(),
                 },
                 "footerWrapper": {
