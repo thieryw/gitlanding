@@ -170,6 +170,7 @@ const useStyles = tss
                               "topBottom": `${theme.spacing(3)}px`,
                           })
                         : undefined,
+                    "backgroundColor": "transparent",
                     "zIndex": 4000,
                     ...(() => {
                         let out: CSSObject = {};
