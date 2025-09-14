@@ -193,7 +193,6 @@ const useStyles = tss
                     "marginTop": "auto",
                 },
                 "bodyAndFooterWrapper": {
-                    "overflowX": "hidden",
                     "display": "flex",
                     "flexDirection": "column",
                     "minHeight": window.innerHeight - headerHeight,

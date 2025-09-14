@@ -310,6 +310,7 @@ const useStyles = tss
                     }
                 })(),
                 ...theme.spacing.topBottom("margin", `${theme.spacing(7)}px`),
+                "overflowX": "hidden",
             },
             "article": {
                 "display": "flex",
