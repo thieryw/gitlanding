@@ -8,7 +8,6 @@ import { Evt } from "evt";
 import { GlLinkToTop } from "./shared/GlLinkToTop";
 import { disableEmotionWarnings } from "./tools/disableEmotionWarnings";
 import { getScrollableParent } from "powerhooks/getScrollableParent";
-import { useCurrentBreakpointName } from "./shared/useCurrentBreakpointName";
 
 disableEmotionWarnings();
 
@@ -125,17 +124,8 @@ export function GlTemplate(props: GlTemplateProps) {
         "classesOverrides": props.classes,
     });
 
-    const { currentBreakpointName } = useCurrentBreakpointName();
-
     return (
-        <div
-            // NOTE: We shouldn't have to do that but some components in GitLanding
-            // do not properly re-render on window resize. To patch this, we force re-mount
-            // when breakpoint changes.
-            key={currentBreakpointName}
-            ref={rootRef}
-            className={cx(classes.root, className)}
-        >
+        <div ref={rootRef} className={cx(classes.root, className)}>
             <div ref={headerWrapperRef} className={classes.headerWrapper}>
                 {header}
             </div>
