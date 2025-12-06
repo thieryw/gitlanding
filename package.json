@@ -1,6 +1,6 @@
 {
     "name": "gitlanding",
-    "version": "2.3.15",
+    "version": "2.3.16",
     "description": "A module that generates a landing page for your projects",
     "repository": {
         "type": "git",
@@ -50,7 +50,7 @@
         "powerhooks": "^2.0.1",
         "react-github-btn": "^1.2.0",
         "tsafe": "^1.8.12",
-        "tss-react": "^4.9.19"
+        "tss-react": "^4.9.20"
     },
     "devDependencies": {
         "@emotion/react": "^11.13.3",
