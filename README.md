@@ -33,17 +33,18 @@ https://user-images.githubusercontent.com/6702424/148716227-4a699c07-ba17-4860-b
 Try the demo project:
 
 ```bash
-git clone https://github.com/garrone/gitlanding-demo
+git clone https://github.com/garronej/gitlanding-demo
 cd gitlanding-demo
 yarn
 yarn dev
 ```
 
-> [!WARNING]: There are bugs when you use `<React.StrictMode />`...
+> [!WARNING]
+> There are bugs when you use `<React.StrictMode />`...
 
 > [!NOTE]  
 > This project is an extension of [onyxia-ui](https://github.com/InseeFrLab/onyxia-ui) the
-> gitlanding components needs be inside the `<OnyxiaUI>` provider.  
+> gitlanding components need to be inside the `<OnyxiaUI>` provider.  
 > Besides the required dependencies of onyxia-ui you only need to install `gitlanding`.
 
 # Contributing
